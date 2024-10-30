@@ -2,21 +2,35 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './styles/register.css';
+import bcrypt from 'bcryptjs';
 
 const Register = () => {
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
+  const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post('https://6622071827fcd16fa6c8818c.mockapi.io/api/v1/users', formData);
-      console.log("Usuario registrado:", response.data);
 
-      localStorage.setItem('user', JSON.stringify(response.data));
+    try {
+      const response = await axios.get('https://6622071827fcd16fa6c8818c.mockapi.io/api/v1/users');
+      const users = response.data;
+      const existingUser = users.find(user => user.email === formData.email);
+
+      if (existingUser) {
+        setMessage('Este correo ya está en uso. Intenta con otro.'); 
+      }
+
+      const hashedPassword = bcrypt.hashSync(formData.password, 10);
+      const userData = { ...formData, password: hashedPassword };
+
+      const createResponse = await axios.post('https://6622071827fcd16fa6c8818c.mockapi.io/api/v1/users', userData);
+
+      localStorage.setItem('user', JSON.stringify(createResponse.data));
       navigate('/dashboard');
     } catch (error) {
       console.error("Error en el registro:", error);
+      setMessage('Hubo un error en el registro. Intenta nuevamente.');
     }
   };
 
@@ -56,6 +70,7 @@ const Register = () => {
           <button type="submit" className="register-button">Registrar</button>
           <button type="button" className="register-secondary-button" onClick={() => navigate('/login')}>Ya tengo una cuenta</button>
         </form>
+        {message && <p className="register-message">{message}</p>}
       </div>
     </div>
   );

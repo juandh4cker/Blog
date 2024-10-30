@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './styles/login.css';
+import bcrypt from 'bcryptjs';
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -13,15 +14,22 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     setMessage('');
+
     try {
       const response = await axios.get('https://6622071827fcd16fa6c8818c.mockapi.io/api/v1/users');
       const users = response.data;
-      const user = users.find(u => u.email === formData.email && u.password === formData.password);
+      const user = users.find(u => u.email === formData.email);
 
       if (user) {
-        localStorage.setItem('user', JSON.stringify(user));
-        setMessage('¡Bienvenido de nuevo! Redirigiendo al dashboard...');
-        setTimeout(() => navigate('/dashboard'), 2000);
+        const isPasswordValid = bcrypt.compareSync(formData.password, user.password);
+
+        if (isPasswordValid) {
+          localStorage.setItem('user', JSON.stringify(user));
+          setMessage('¡Bienvenido de nuevo! Redirigiendo al dashboard...');
+          setTimeout(() => navigate('/dashboard'), 2000);
+        } else {
+          setMessage('Correo o contraseña incorrectos.');
+        }
       } else {
         setMessage('Correo o contraseña incorrectos.');
       }
@@ -29,6 +37,7 @@ const Login = () => {
       console.error("Error al iniciar sesión:", error);
       setMessage('Hubo un error en el inicio de sesión. Intenta nuevamente.');
     }
+
     setLoading(false);
   };
 
