@@ -4,6 +4,7 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import './App.css';
+import Results from './components/results';
 
 const App = () => {
   const isAuthenticated = () => {
@@ -15,6 +16,7 @@ const App = () => {
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/results" element={<Results />} />
         <Route
           path="/dashboard"
           element={isAuthenticated() ? <Dashboard /> : <Navigate to="/login" />}
