@@ -1,0 +1,36 @@
+.blog-container {
+    max-width: 1200px; /* Ajusta el ancho máximo del contenedor */
+    margin: 0 auto; /* Centra el contenedor */
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo ligeramente transparente */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+}
+
+.destination-list {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos se ajusten en varias filas */
+    gap: 1rem; /* Espacio entre los elementos */
+}
+
+.destination-card {
+    flex: 1 1 calc(25% - 1rem); /* Cada tarjeta ocupa el 25% del ancho menos el espacio */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden; /* Evita que el contenido sobresalga de la tarjeta */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra de las tarjetas */
+    transition: transform 0.2s; /* Transición suave al hacer hover */
+}
+
+.destination-card:hover {
+    transform: translateY(-5px); /* Levanta la tarjeta al hacer hover */
+}
+
+.destination-image {
+    width: 100%; /* Hace que la imagen ocupe todo el ancho de la tarjeta */
+    height: auto; /* Mantiene la proporción de la imagen */
+}
+
+.error-message {
+    color: #E74C3C; /* Color rojo para los mensajes de error */
+}

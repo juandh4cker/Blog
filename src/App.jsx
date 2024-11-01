@@ -4,7 +4,7 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import './App.css';
-import Results from './components/results';
+import Blog from './components/blog';
 
 const App = () => {
   const isAuthenticated = () => {
@@ -16,7 +16,7 @@ const App = () => {
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/results" element={<Results />} />
+        <Route path="/blog" element={<Blog />} />
         <Route
           path="/dashboard"
           element={isAuthenticated() ? <Dashboard /> : <Navigate to="/login" />}
@@ -28,3 +28,5 @@ const App = () => {
 };
 
 export default App;
+
+{"Agregar google maps, ver si la imagen es válida, usuario no creado"}
