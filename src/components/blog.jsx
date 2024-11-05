@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './styles/blog.css'; // Asegúrate de tener un archivo CSS para los estilos del Blog
+import { Link } from 'react-router-dom'; // Importa Link
+import './styles/blog.css';
 
 const Blog = () => {
   const [destinations, setDestinations] = useState([]);
@@ -23,6 +24,13 @@ const Blog = () => {
   }, []);
 
   return (
+    <>
+    <div className="background-slideshow">
+          <div className="background-slide slide1"></div>
+          <div className="background-slide slide2"></div>
+          <div className="background-slide slide3"></div>
+          <div className="background-slide slide4"></div>
+    </div>
     <div className="blog-container">
       <h2>Destinos Agregados</h2>
       {loading && <p>Cargando...</p>}
@@ -30,17 +38,18 @@ const Blog = () => {
       {destinations.length === 0 && !loading && <p>No hay destinos agregados.</p>}
       <div className="destination-list">
         {destinations.map((destination) => (
-          <div key={destination.id} className="destination-card">
+          <Link to={`/destino/${destination.id}`} key={destination.id} className="destination-card"> {/* Envolver en Link */}
             <img src={destination.imageUrl} alt={destination.name} className="destination-image" />
             <h3>{destination.name}</h3>
             <p>Ubicación: {destination.location}</p>
             <p>Reseña: {destination.review}</p>
             <p>Calificación: {destination.rating}/10</p>
             <p>Agregado por: {destination.creator}</p>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
+    </>
   );
 };
 

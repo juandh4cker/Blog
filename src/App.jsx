@@ -1,10 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import Register from './components/Register';
+
 import Login from './components/Login';
+import Register from './components/Register';
+
 import Dashboard from './components/Dashboard';
-import './App.css';
 import Blog from './components/blog';
+import DestinoDetalle from './components/DestinoDetalle';
+import PrivateRoute from './components/PrivateRoute';
+
+import './App.css';
 
 const App = () => {
   const isAuthenticated = () => {
@@ -17,9 +22,21 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/blog" element={<Blog />} />
-        <Route
-          path="/dashboard"
-          element={isAuthenticated() ? <Dashboard /> : <Navigate to="/login" />}
+        <Route 
+          path="/dashboard" 
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          } 
+        />
+        <Route 
+          path="/destino/:id" 
+          element={
+            <PrivateRoute>
+              <DestinoDetalle />
+            </PrivateRoute>
+          } 
         />
         <Route path="/" element={<Navigate to="/login" />} />
       </Routes>
@@ -28,5 +45,3 @@ const App = () => {
 };
 
 export default App;
-
-{"Agregar google maps, ver si la imagen es válida, usuario no creado"}

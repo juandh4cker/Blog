@@ -41,7 +41,7 @@ const Dashboard = () => {
       ...newDestination,
       rating,
       creator: user.name,
-      userId: user.id
+      id: user.id
     };
 
     try {
@@ -64,7 +64,7 @@ const Dashboard = () => {
         <div className="background-slide slide2"></div>
         <div className="background-slide slide3"></div>
         <div className="background-slide slide4"></div>
-      </div>
+    </div>
     <div className="dashboard-container">
       <h1 className="dashboard-header">Bienvenido, {user.name}</h1>
       <button
