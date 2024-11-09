@@ -24,6 +24,7 @@ const Login = () => {
         const isPasswordValid = bcrypt.compareSync(formData.password, user.password);
 
         if (isPasswordValid) {
+          localStorage.setItem('token', 'some-auth-token');
           localStorage.setItem('user', JSON.stringify(user));
           setMessage('¡Bienvenido de nuevo! Redirigiendo al dashboard...');
           setTimeout(() => navigate('/dashboard'), 2000);
@@ -49,6 +50,7 @@ const Login = () => {
         <div className="background-slide slide3"></div>
         <div className="background-slide slide4"></div>
       </div>
+      
       <div className="login-container">
         <h2 className="login-title">Bienvenido a WorldBlog</h2>
         <p className="login-subtitle">Descubre los mejores destinos alrededor del mundo</p>

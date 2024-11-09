@@ -15,10 +15,15 @@ const Register = () => {
     try {
       const response = await axios.get('https://6622071827fcd16fa6c8818c.mockapi.io/api/v1/users');
       const users = response.data;
-      const existingUser = users.find(user => user.email === formData.email);
+      const existingName = users.find(user => user.email === formData.email);
+      const existingUser = users.find(user => user.name === formData.name);
+
+      if (existingName) {
+        setMessage('Este correo ya está en uso. Intenta con otro.'); 
+      }
 
       if (existingUser) {
-        setMessage('Este correo ya está en uso. Intenta con otro.'); 
+        setMessage('Este nombre de usuario ya está en uso. Intenta con otro.'); 
       }
 
       const hashedPassword = bcrypt.hashSync(formData.password, 10);
@@ -42,6 +47,7 @@ const Register = () => {
         <div className="background-slide slide3"></div>
         <div className="background-slide slide4"></div>
       </div>
+
       <div className="register-container">
         <h2 className="register-title">Registro para WorldBlog</h2>
         <p className="register-subtitle">Únete y descubre los mejores destinos alrededor del mundo</p>
@@ -49,7 +55,7 @@ const Register = () => {
           <input
             type="text"
             className="register-input"
-            placeholder="Nombre"
+            placeholder="Nombre de usuario"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           />
@@ -67,7 +73,7 @@ const Register = () => {
             value={formData.password}
             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
           />
-          <button type="submit" className="register-button">Registrar</button>
+          <button type="submit" className="register-button">Registrarme</button>
           <button type="button" className="register-secondary-button" onClick={() => navigate('/login')}>Ya tengo una cuenta</button>
         </form>
         {message && <p className="register-message">{message}</p>}

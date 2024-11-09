@@ -71,6 +71,7 @@ const Dashboard = () => {
         className="logout-button"
         onClick={() => {
           localStorage.removeItem('user');
+          localStorage.removeItem('token');
           navigate('/login');
         }}
       >
@@ -121,6 +122,13 @@ const Dashboard = () => {
           required
         />
         <button type="submit" className="submit-button">Agregar destino</button>
+        <button
+            type="button"
+            onClick={() => navigate('/blog')}
+            className="login-secondary-button"
+          >
+          Ver los destinos
+          </button>
       </form>
       {message && <p className="dashboard-message">{message}</p>}
     </div>

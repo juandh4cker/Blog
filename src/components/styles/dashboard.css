@@ -86,6 +86,15 @@
     background-color: #c0392b;
   }
   
+  .dashboard-secondary-button {
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+  }
+  
+  .dashboard-secondary-button:hover {
+    background-color: #e0e0e0;
+  }
+
   /* Formulario de destino */
   .dashboard-form {
     display: flex;

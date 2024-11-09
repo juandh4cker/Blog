@@ -12,16 +12,19 @@ import PrivateRoute from './components/PrivateRoute';
 import './App.css';
 
 const App = () => {
-  const isAuthenticated = () => {
-    return localStorage.getItem('token') ? true : false;
-  };
-
   return (
     <Router>
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/blog" element={<Blog />} />
+        <Route 
+          path="/blog" 
+          element={
+            <PrivateRoute>
+              <Blog />
+            </PrivateRoute>
+          } 
+        />
         <Route 
           path="/dashboard" 
           element={
