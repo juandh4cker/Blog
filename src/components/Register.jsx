@@ -9,32 +9,75 @@ const Register = () => {
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
+  const isValidUsername = (name) => {
+    const usernameRegex = /^[a-zA-Z0-9._]+$/; // Solo letras, números, . o _
+    return usernameRegex.test(name);
+  };
+
+  const isValidPassword = (password) => {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/; // Min 8 caracteres, 1 mayúscula, 1 minúscula, 1 número
+    return passwordRegex.test(password);
+  };
+
+  const formatUsername = (name) => {
+    if (isValidUsername(name)) {
+      return name.charAt(0).toUpperCase() + name.slice(1);
+    }
+    return name;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!isValidUsername(formData.name)) {
+      setMessage('El nombre de usuario solo puede contener letras, números, "." o "_".');
+      return;
+    }
+
+    if (!isValidPassword(formData.password)) {
+      setMessage(
+        'La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula y un número.'
+      );
+      return;
+    }
+
     try {
-      const response = await axios.get('https://6622071827fcd16fa6c8818c.mockapi.io/api/v1/users');
+      const response = await axios.get('https://67253fdfc39fedae05b45582.mockapi.io/api/v1/users');
       const users = response.data;
-      const existingName = users.find(user => user.email === formData.email);
-      const existingUser = users.find(user => user.name === formData.name);
 
-      if (existingName) {
-        setMessage('Este correo ya está en uso. Intenta con otro.'); 
+      const formattedName = formatUsername(formData.name);
+      const formattedEmail = formData.email.toLowerCase();
+      const hashedEmail = bcrypt.hashSync(formattedEmail, 10);
+      const existingEmail = users.find((user) => bcrypt.compareSync(formattedEmail, user.email));
+      const existingUser = users.find((user) => user.name === formData.name);
+
+      if (existingEmail) {
+        setMessage('Este correo ya está en uso. Intenta con otro.');
+      } else if (existingUser) {
+        setMessage('Este nombre de usuario ya está en uso. Intenta con otro.');
+      } else {
+        const hashedPassword = bcrypt.hashSync(formData.password, 10);
+        const userData = {
+          name: formattedName,
+          email: hashedEmail,
+          password: hashedPassword,
+        };
+
+        const userToken = {
+          name: formattedName,
+          email: formattedEmail
+        }
+
+        const createResponse = await axios.post(
+          'https://67253fdfc39fedae05b45582.mockapi.io/api/v1/users',
+          userData
+        );
+
+        localStorage.setItem('user', JSON.stringify(userToken));
+        navigate('/dashboard');
       }
-
-      if (existingUser) {
-        setMessage('Este nombre de usuario ya está en uso. Intenta con otro.'); 
-      }
-
-      const hashedPassword = bcrypt.hashSync(formData.password, 10);
-      const userData = { ...formData, password: hashedPassword };
-
-      const createResponse = await axios.post('https://6622071827fcd16fa6c8818c.mockapi.io/api/v1/users', userData);
-
-      localStorage.setItem('user', JSON.stringify(createResponse.data));
-      navigate('/dashboard');
     } catch (error) {
-      console.error("Error en el registro:", error);
+      console.error('Error en el registro:', error);
       setMessage('Hubo un error en el registro. Intenta nuevamente.');
     }
   };
@@ -74,7 +117,13 @@ const Register = () => {
             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
           />
           <button type="submit" className="register-button">Registrarme</button>
-          <button type="button" className="register-secondary-button" onClick={() => navigate('/login')}>Ya tengo una cuenta</button>
+          <button
+            type="button"
+            className="register-secondary-button"
+            onClick={() => navigate('/login')}
+          >
+            Ya tengo una cuenta
+          </button>
         </form>
         {message && <p className="register-message">{message}</p>}
       </div>

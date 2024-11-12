@@ -5,10 +5,15 @@ import './styles/login.css';
 import bcrypt from 'bcryptjs';
 
 const Login = () => {
-  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [formData, setFormData] = useState({ emailOrUsername: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
+
+  const isValidUsername = (name) => {
+    const usernameRegex = /^[a-zA-Z0-9._]+$/; // Solo letras, números, . o _
+    return usernameRegex.test(name);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,23 +21,37 @@ const Login = () => {
     setMessage('');
 
     try {
-      const response = await axios.get('https://6622071827fcd16fa6c8818c.mockapi.io/api/v1/users');
+      const response = await axios.get('https://67253fdfc39fedae05b45582.mockapi.io/api/v1/users');
       const users = response.data;
-      const user = users.find(u => u.email === formData.email);
+
+      const input = formData.emailOrUsername;
+      let user;
+
+      const formatUsername = (name) => {
+        if (isValidUsername(name)) {
+          return name.charAt(0).toUpperCase() + name.slice(1);
+        }
+        return name;
+      };
+      
+      user = users.find(
+        u =>
+          bcrypt.compareSync(input.toLowerCase(), u.email) ||
+          u.name === formatUsername(input)
+      );
 
       if (user) {
         const isPasswordValid = bcrypt.compareSync(formData.password, user.password);
 
         if (isPasswordValid) {
-          localStorage.setItem('token', 'some-auth-token');
           localStorage.setItem('user', JSON.stringify(user));
           setMessage('¡Bienvenido de nuevo! Redirigiendo al dashboard...');
           setTimeout(() => navigate('/dashboard'), 2000);
         } else {
-          setMessage('Correo o contraseña incorrectos.');
+          setMessage('Usuario, correo o contraseña incorrectos.');
         }
       } else {
-        setMessage('Correo o contraseña incorrectos.');
+        setMessage('Usuario, correo o contraseña incorrectos.');
       }
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
@@ -50,16 +69,16 @@ const Login = () => {
         <div className="background-slide slide3"></div>
         <div className="background-slide slide4"></div>
       </div>
-      
+
       <div className="login-container">
         <h2 className="login-title">Bienvenido a WorldBlog</h2>
         <p className="login-subtitle">Descubre los mejores destinos alrededor del mundo</p>
         <form onSubmit={handleSubmit} className="login-form">
           <input
-            type="email"
-            placeholder="Correo electrónico"
-            value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            type="text"
+            placeholder="Correo o Nombre de Usuario"
+            value={formData.emailOrUsername}
+            onChange={(e) => setFormData({ ...formData, emailOrUsername: e.target.value })}
             className="login-input"
           />
           <input

@@ -11,7 +11,7 @@ const Blog = () => {
   useEffect(() => {
     const fetchDestinations = async () => {
       try {
-        const response = await axios.get('https://6622071827fcd16fa6c8818c.mockapi.io/api/v1/blogs');
+        const response = await axios.get('https://67253fdfc39fedae05b45582.mockapi.io/api/v1/blogs');
         setDestinations(response.data);
       } catch (err) {
         setError('Error al cargar los destinos. Intenta de nuevo más tarde.');

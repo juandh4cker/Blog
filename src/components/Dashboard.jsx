@@ -46,7 +46,7 @@ const Dashboard = () => {
 
     try {
       await axios.post(
-        'https://6622071827fcd16fa6c8818c.mockapi.io/api/v1/blogs',
+        'https://67253fdfc39fedae05b45582.mockapi.io/api/v1/blogs',
         destinationData
       );
       setMessage('Destino agregado exitosamente!');
