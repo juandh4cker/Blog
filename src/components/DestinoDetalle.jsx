@@ -14,7 +14,7 @@ const DestinoDetalle = () => {
   useEffect(() => {
     const fetchDestino = async () => {
       try {
-        const response = await fetch(`https://6622071827fcd16fa6c8818c.mockapi.io/api/v1/blogs/${id}`);
+        const response = await fetch(`https://67253fdfc39fedae05b45582.mockapi.io/api/v1/blogs/${id}`);
         if (!response.ok) throw new Error('Error en la red');
         const data = await response.json();
         setDestino(data);

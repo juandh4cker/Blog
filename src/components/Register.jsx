@@ -56,17 +56,20 @@ const Register = () => {
         setMessage('Este correo ya está en uso. Intenta con otro.');
       } else if (existingUser) {
         setMessage('Este nombre de usuario ya está en uso. Intenta con otro.');
+      } else if (formData.name === "" || formData.email === "" || formData.password === "") {
+        setMessage('Debe rellenar todos los campos.');
       } else {
         const hashedPassword = bcrypt.hashSync(formData.password, 10);
         const userData = {
           name: formattedName,
           email: hashedEmail,
           password: hashedPassword,
+          posts: 0
         };
 
         const userToken = {
           name: formattedName,
-          email: formattedEmail
+          token: hashedPassword
         }
 
         const createResponse = await axios.post(

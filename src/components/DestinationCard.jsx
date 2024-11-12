@@ -4,7 +4,7 @@ import './styles/blog.css';
 
 const DestinationCard = ({ id, name, location, imageUrl, review, rating, creator }) => {
   return (
-    <Link to={`/destino/${namelocation+'-'+id}`} className="destination-card">
+    <Link to={`/destino/${id}`} className="destination-card">
       <img src={imageUrl} alt={name} className="destination-image" />
       <h3>{name}</h3>
       <p>Ubicación: {location}</p>

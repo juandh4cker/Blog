@@ -34,18 +34,23 @@ const Login = () => {
         }
         return name;
       };
-      
+      const formattedName = formatUsername(input);
+
       user = users.find(
         u =>
           bcrypt.compareSync(input.toLowerCase(), u.email) ||
-          u.name === formatUsername(input)
+          u.name === formattedName
       );
 
       if (user) {
         const isPasswordValid = bcrypt.compareSync(formData.password, user.password);
 
         if (isPasswordValid) {
-          localStorage.setItem('user', JSON.stringify(user));
+          const userToken = {
+            name: user.name,
+            token: bcrypt.hashSync(formData.password, 10)
+          }
+          localStorage.setItem('user', JSON.stringify(userToken));
           setMessage('¡Bienvenido de nuevo! Redirigiendo al dashboard...');
           setTimeout(() => navigate('/dashboard'), 2000);
         } else {
