@@ -1,6 +1,8 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './styles/destinoDetalle.css';
+import Fondo from './Fondo';
+
 
 const DestinoDetalle = () => {
   const { id } = useParams();
@@ -45,17 +47,12 @@ const DestinoDetalle = () => {
   };
 
   const handleBackToAll = () => {
-    navigate('/blog'); // Asegúrate de que esta ruta lleve a tu lista de destinos
+    navigate('/blog');
   };
 
   return (
     <>
-      <div className="background-slideshow">
-          <div className="background-slide slide1"></div>
-          <div className="background-slide slide2"></div>
-          <div className="background-slide slide3"></div>
-          <div className="background-slide slide4"></div>
-      </div>
+      <Fondo />
       <div className="destino-detalle">
         <img src={destino.imageUrl} alt={destino.name} className="destino-image" />
         <h2 className="destino-name">{destino.name}</h2>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import DestinationCard from './DestinationCard';
 import './styles/blog.css';
+import Fondo from './Fondo';
 
 const Blog = () => {
   const [destinations, setDestinations] = useState([]);
@@ -25,12 +26,7 @@ const Blog = () => {
 
   return (
     <>
-      <div className="background-slideshow">
-        <div className="background-slide slide1"></div>
-        <div className="background-slide slide2"></div>
-        <div className="background-slide slide3"></div>
-        <div className="background-slide slide4"></div>
-      </div>
+      <Fondo />
       <div className="blog-container">
         <h2>Destinos Agregados</h2>
         {loading && <p>Cargando...</p>}

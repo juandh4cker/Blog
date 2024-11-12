@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './styles/register.css';
+import Fondo from './Fondo';
 import bcrypt from 'bcryptjs';
 
 const Register = () => {
@@ -84,12 +85,7 @@ const Register = () => {
 
   return (
     <div className="register-page">
-      <div className="background-slideshow">
-        <div className="background-slide slide1"></div>
-        <div className="background-slide slide2"></div>
-        <div className="background-slide slide3"></div>
-        <div className="background-slide slide4"></div>
-      </div>
+      <Fondo />
 
       <div className="register-container">
         <h2 className="register-title">Registro para WorldBlog</h2>

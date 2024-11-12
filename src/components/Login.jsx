@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './styles/login.css';
 import bcrypt from 'bcryptjs';
+import Fondo from './Fondo';
 
 const Login = () => {
   const [formData, setFormData] = useState({ emailOrUsername: '', password: '' });
@@ -63,13 +64,7 @@ const Login = () => {
 
   return (
     <div className="login-page">
-      <div className="background-slideshow">
-        <div className="background-slide slide1"></div>
-        <div className="background-slide slide2"></div>
-        <div className="background-slide slide3"></div>
-        <div className="background-slide slide4"></div>
-      </div>
-
+      <Fondo />
       <div className="login-container">
         <h2 className="login-title">Bienvenido a WorldBlog</h2>
         <p className="login-subtitle">Descubre los mejores destinos alrededor del mundo</p>

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './styles/dashboard.css'; // Asegúrate de que esta ruta sea correcta
+import './styles/dashboard.css';
+import Fondo from './Fondo';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -59,19 +60,13 @@ const Dashboard = () => {
 
   return (
     <>
-    <div className="background-slideshow">
-        <div className="background-slide slide1"></div>
-        <div className="background-slide slide2"></div>
-        <div className="background-slide slide3"></div>
-        <div className="background-slide slide4"></div>
-    </div>
+    <Fondo />
     <div className="dashboard-container">
       <h1 className="dashboard-header">Bienvenido, {user.name}</h1>
       <button
         className="logout-button"
         onClick={() => {
           localStorage.removeItem('user');
-          localStorage.removeItem('token');
           navigate('/login');
         }}
       >
