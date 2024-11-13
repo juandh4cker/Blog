@@ -36,7 +36,7 @@ const Dashboard = () => {
     if (isNaN(rating) || rating < 0 || rating > 10) {
       setMessage('La calificación debe estar entre 0 y 10.');
       return;
-    }
+    } 
 
     const destinationData = {
       ...newDestination,
@@ -50,6 +50,16 @@ const Dashboard = () => {
         'https://67253fdfc39fedae05b45582.mockapi.io/api/v1/blogs',
         destinationData
       );
+
+      const updatedPosts = user.posts + 1;
+      await axios.put(
+        `https://67253fdfc39fedae05b45582.mockapi.io/api/v1/users/${user.id}`,
+        { posts: updatedPosts }
+      );
+
+      const updatedUser = { ...user, posts: updatedPosts };
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+
       setMessage('Destino agregado exitosamente!');
       setNewDestination({ name: '', location: '', imageUrl: '', review: '', rating: '' });
     } catch (error) {
@@ -60,73 +70,74 @@ const Dashboard = () => {
 
   return (
     <>
-    <Fondo />
-    <div className="dashboard-container">
-      <h1 className="dashboard-header">Bienvenido, {user.name}</h1>
-      <button
-        className="logout-button"
-        onClick={() => {
-          localStorage.removeItem('user');
-          navigate('/login');
-        }}
-      >
-        Cerrar sesión
-      </button>
-
-      <h2 className="dashboard-subheader">Agregar un nuevo destino turístico</h2>
-      <form className="dashboard-form" onSubmit={handleAddDestination}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Nombre del destino"
-          value={newDestination.name}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="text"
-          name="location"
-          placeholder="Ubicación"
-          value={newDestination.location}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="url"
-          name="imageUrl"
-          placeholder="URL de la imagen del destino"
-          value={newDestination.imageUrl}
-          onChange={handleInputChange}
-        />
-        <textarea
-          name="review"
-          placeholder="Reseña"
-          value={newDestination.review}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="number"
-          name="rating"
-          placeholder="Calificación (0-10)"
-          value={newDestination.rating}
-          onChange={handleInputChange}
-          min="0"
-          max="10"
-          step="0.1"
-          required
-        />
-        <button type="submit" className="submit-button">Agregar destino</button>
+      <Fondo />
+      <div className="dashboard-container">
+        <h1 className="dashboard-header">Bienvenido, {user.name}</h1>
         <button
+          className="logout-button"
+          onClick={() => {
+            localStorage.removeItem('user');
+            navigate('/login');
+          }}
+        >
+          Cerrar sesión
+        </button>
+
+        <h2 className="dashboard-subheader">Agregar un nuevo destino turístico</h2>
+        <form className="dashboard-form" onSubmit={handleAddDestination}>
+          <input
+            type="text"
+            name="name"
+            placeholder="Nombre del destino"
+            value={newDestination.name}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            type="text"
+            name="location"
+            placeholder="Ubicación"
+            value={newDestination.location}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            type="url"
+            name="imageUrl"
+            placeholder="URL de la imagen del destino"
+            value={newDestination.imageUrl}
+            onChange={handleInputChange}
+            required
+          />
+          <textarea
+            name="review"
+            placeholder="Reseña"
+            value={newDestination.review}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            type="number"
+            name="rating"
+            placeholder="Calificación (0-10)"
+            value={newDestination.rating}
+            onChange={handleInputChange}
+            min="0"
+            max="10"
+            step="0.1"
+            required
+          />
+          <button type="submit" className="submit-button">Agregar destino</button>
+          <button
             type="button"
             onClick={() => navigate('/blog')}
             className="login-secondary-button"
           >
-          Ver los destinos
+            Ver los destinos
           </button>
-      </form>
-      {message && <p className="dashboard-message">{message}</p>}
-    </div>
+        </form>
+        {message && <p className="dashboard-message">{message}</p>}
+      </div>
     </>
   );
 };

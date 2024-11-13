@@ -9,6 +9,8 @@ import Blog from './components/blog';
 import DestinoDetalle from './components/DestinoDetalle';
 import PrivateRoute from './components/PrivateRoute';
 
+import Perfil from './components/Perfil';
+
 import './App.css';
 
 const App = () => {
@@ -41,7 +43,16 @@ const App = () => {
             </PrivateRoute>
           } 
         />
+        <Route 
+          path="/perfil/:id" 
+          element={
+            <PrivateRoute>
+              <Perfil />
+            </PrivateRoute>
+          } 
+        />
         <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="*" element={<Navigate to="/dashboard" />} />
       </Routes>
     </Router>
   );

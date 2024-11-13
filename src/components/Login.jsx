@@ -48,7 +48,9 @@ const Login = () => {
         if (isPasswordValid) {
           const userToken = {
             name: user.name,
-            token: bcrypt.hashSync(formData.password, 10)
+            token: bcrypt.hashSync(formData.password, 10), 
+            id: user.id,
+            posts: user.posts
           }
           localStorage.setItem('user', JSON.stringify(userToken));
           setMessage('¡Bienvenido de nuevo! Redirigiendo al dashboard...');

@@ -66,16 +66,20 @@ const Register = () => {
           password: hashedPassword,
           posts: 0
         };
-
-        const userToken = {
-          name: formattedName,
-          token: hashedPassword
-        }
-
+        
         const createResponse = await axios.post(
           'https://67253fdfc39fedae05b45582.mockapi.io/api/v1/users',
           userData
         );
+
+        const newUser = createResponse.data
+
+        const userToken = {
+          name: formattedName,
+          token: hashedPassword,
+          id: newUser.id,
+          posts: 0
+        }
 
         localStorage.setItem('user', JSON.stringify(userToken));
         navigate('/dashboard');
