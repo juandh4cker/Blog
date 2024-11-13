@@ -3,6 +3,7 @@ import axios from 'axios';
 import DestinationCard from './DestinationCard';
 import './styles/blog.css';
 import Fondo from './Fondo';
+import MenuButton from './MenuButton';
 
 const Blog = () => {
   const [destinations, setDestinations] = useState([]);
@@ -47,6 +48,7 @@ const Blog = () => {
           ))}
         </div>
       </div>
+      <MenuButton />
     </>
   );
 };

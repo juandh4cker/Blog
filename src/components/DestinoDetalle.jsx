@@ -2,6 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './styles/destinoDetalle.css';
 import Fondo from './Fondo';
+import MenuButton from './MenuButton';
 
 const DestinoDetalle = () => {
   const { id } = useParams();
@@ -13,6 +14,7 @@ const DestinoDetalle = () => {
   const [newComment, setNewComment] = useState('');
   const [newRating, setNewRating] = useState(0);
   const [comments, setComments] = useState([]);
+  const [isCreator, setIsCreator] = useState(false); // Para verificar si el usuario es el creador
 
   useEffect(() => {
     const fetchDestino = async () => {
@@ -31,6 +33,10 @@ const DestinoDetalle = () => {
 
         if (creator) {
           setCreatorId(creator.id); // Guardar la ID del creador
+          const user = JSON.parse(localStorage.getItem('user'));
+          if (user && user.id === creator.id) {
+            setIsCreator(true); // Si el usuario actual es el creador, mostramos el botón de eliminar
+          }
         } else {
           console.warn('No se encontró al creador en la lista de usuarios.');
         }
@@ -79,6 +85,20 @@ const DestinoDetalle = () => {
     } catch (error) {
       alert('Error al subir el comentario.');
       console.error('Error posting comment:', error);
+    }
+  };
+
+  const handleDeletePost = async () => {
+    if (window.confirm('¿Estás seguro de que quieres eliminar este destino?')) {
+      try {
+        await fetch(`https://67253fdfc39fedae05b45582.mockapi.io/api/v1/blogs/${id}`, {
+          method: 'DELETE',
+        });
+        navigate('/blog'); // Redirigir al blog después de eliminar
+      } catch (error) {
+        alert('Error al eliminar el destino.');
+        console.error('Error deleting post:', error);
+      }
     }
   };
 
@@ -136,6 +156,12 @@ const DestinoDetalle = () => {
           <button className="button" onClick={handleBackToAll}>Regresar a Todos los Destinos</button>
         </div>
 
+        {isCreator && (
+          <div>
+            <button className="button" onClick={handleDeletePost}>Eliminar Destino</button>
+          </div>
+        )}
+
         <div className="comment-section">
           <h3>Comentarios</h3>
           {comments.map((comment, index) => (
@@ -173,8 +199,8 @@ const DestinoDetalle = () => {
             <button type="submit" className="button">Enviar Comentario</button>
           </form>
         </div>
-
       </div>
+      <MenuButton />
     </>
   );
 };

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './styles/dashboard.css';
 import Fondo from './Fondo';
+import MenuButton from './MenuButton';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -138,6 +139,7 @@ const Dashboard = () => {
         </form>
         {message && <p className="dashboard-message">{message}</p>}
       </div>
+      <MenuButton  />
     </>
   );
 };

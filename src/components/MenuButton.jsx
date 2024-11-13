@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './styles/menuButton.css';  // Importar los estilos desde el archivo CSS
 
 const MenuButton = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -12,65 +13,42 @@ const MenuButton = () => {
 
   const handleLogout = () => {
     setMenuOpen(false);
-    localStorage.removeItem('authToken'); // Eliminar el token de autenticación o lo que uses
+    localStorage.removeItem('user'); // Eliminar el token de autenticación o lo que uses
     navigate('/login'); // Redirigir al login
   };
 
+  const handleProfile = () => {
+    const user = JSON.parse(localStorage.getItem('user')); // Obtener el usuario del localStorage
+    if (user && user.id) {
+      navigate(`/perfil/${user.id}`); // Redirigir al perfil del usuario usando el id
+    } else {
+      alert('Usuario no encontrado');
+    }
+  };
+
   return (
-    <div style={{ position: 'relative', display: 'inline-block' }}>
-      <button onClick={() => setMenuOpen(!menuOpen)} style={buttonStyle}>
+    <div className="menu-container">
+      <button onClick={() => setMenuOpen(!menuOpen)} className="menu-button">
         ☰ Menú
       </button>
       {menuOpen && (
-        <div style={menuStyle}>
-          <button onClick={() => handleNavigate('/dashboard')} style={menuItemStyle}>
+        <div className="menu">
+          <button onClick={() => handleNavigate('/dashboard')} className="menu-item">
             Dashboard
           </button>
-          <button onClick={() => handleNavigate('/blog')} style={menuItemStyle}>
+          <button onClick={() => handleNavigate('/blog')} className="menu-item">
             Blog
           </button>
-          <button onClick={() => handleNavigate('/profile')} style={menuItemStyle}>
+          <button onClick={handleProfile} className="menu-item">
             Perfil
           </button>
-          <button onClick={handleLogout} style={menuItemStyle}>
+          <button onClick={handleLogout} className="menu-item">
             Cerrar sesión
           </button>
         </div>
       )}
     </div>
   );
-};
-
-// Estilos en línea para mayor simplicidad
-const buttonStyle = {
-  padding: '10px 20px',
-  background: '#007BFF',
-  color: '#fff',
-  border: 'none',
-  borderRadius: '5px',
-  cursor: 'pointer',
-};
-
-const menuStyle = {
-  position: 'absolute',
-  top: '100%',
-  right: '0',
-  background: '#fff',
-  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-  borderRadius: '5px',
-  overflow: 'hidden',
-  zIndex: '1000',
-};
-
-const menuItemStyle = {
-  display: 'block',
-  width: '100%',
-  padding: '10px 20px',
-  background: 'none',
-  border: 'none',
-  textAlign: 'left',
-  cursor: 'pointer',
-  borderBottom: '1px solid #eee',
 };
 
 export default MenuButton;

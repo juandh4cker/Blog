@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './styles/perfil.css';
 import Fondo from './Fondo';
+import MenuButton from './MenuButton';
 
 const Perfil = () => {
   const { id } = useParams(); // ID del usuario a mostrar
@@ -87,6 +88,7 @@ const Perfil = () => {
           )}
         </div>
       </div>
+      <MenuButton />
     </>
   );
 };
