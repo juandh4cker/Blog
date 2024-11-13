@@ -10,6 +10,9 @@ const DestinoDetalle = () => {
   const [creatorId, setCreatorId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [newComment, setNewComment] = useState('');
+  const [newRating, setNewRating] = useState(0);
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
     const fetchDestino = async () => {
@@ -18,6 +21,7 @@ const DestinoDetalle = () => {
         if (!response.ok) throw new Error('Error en la red');
         const data = await response.json();
         setDestino(data);
+        setComments(data.comments || []);
 
         // Buscar la ID del creador en la API de usuarios
         const usersResponse = await fetch('https://67253fdfc39fedae05b45582.mockapi.io/api/v1/users');
@@ -40,6 +44,43 @@ const DestinoDetalle = () => {
 
     fetchDestino();
   }, [id]);
+
+  const handleSubmitComment = async (e) => {
+    e.preventDefault(); // Evitar la recarga de la página
+    if (!newComment || newRating <= 0 || newRating > 10) {
+      alert('Por favor ingrese un comentario y una puntuación válida.');
+      return;
+    }
+
+    const user = JSON.parse(localStorage.getItem('user'));
+    const userId = user.id;
+    const userName = user.name;
+
+    const newEntry = {
+      userId,
+      userName,
+      comment: newComment,
+      rating: newRating,
+      createdAt: new Date().toISOString(),
+    };
+
+    try {
+      const updatedComments = [...comments, newEntry];
+
+      await fetch(`https://67253fdfc39fedae05b45582.mockapi.io/api/v1/blogs/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ comments: updatedComments }),
+      });
+
+      setComments(updatedComments);
+      setNewComment('');
+      setNewRating(0);
+    } catch (error) {
+      alert('Error al subir el comentario.');
+      console.error('Error posting comment:', error);
+    }
+  };
 
   if (loading) {
     return <p className="loading-message">Cargando...</p>;
@@ -70,6 +111,10 @@ const DestinoDetalle = () => {
     }
   };
 
+  const handleCommentUserClick = (userId) => {
+    navigate(`/perfil/${userId}`);
+  };
+
   return (
     <>
       <Fondo />
@@ -90,6 +135,45 @@ const DestinoDetalle = () => {
           <button className="button" onClick={handleGoogleMaps}>Ver en Google Maps</button>
           <button className="button" onClick={handleBackToAll}>Regresar a Todos los Destinos</button>
         </div>
+
+        <div className="comment-section">
+          <h3>Comentarios</h3>
+          {comments.map((comment, index) => (
+            <div key={index} className="comment-item">
+              <p>
+                <b 
+                  style={{ cursor: 'pointer', color: '#2980B9', textDecoration: 'underline' }}
+                  onClick={() => handleCommentUserClick(comment.userId)}
+                >
+                  {comment.userName}
+                </b>: {comment.comment}
+              </p>
+              <p><b>Calificación:</b> {comment.rating}/10</p>
+            </div>
+          ))}
+
+          <h4>Agregar un Comentario</h4>
+          <form onSubmit={handleSubmitComment}>
+            <textarea
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              placeholder="Escribe tu comentario aquí"
+              required
+            />
+            <input
+              type="number"
+              value={newRating}
+              onChange={(e) => setNewRating(Number(e.target.value))}
+              placeholder="Puntuación (1-10)"
+              min="1"
+              max="10"
+              step="0.1"
+              required
+            />
+            <button type="submit" className="button">Enviar Comentario</button>
+          </form>
+        </div>
+
       </div>
     </>
   );
