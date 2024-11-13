@@ -23,39 +23,6 @@
     gap: 1rem;
 }
 
-.destination-card {
-    flex: 1 1 calc(25% - 1rem);
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
-}
-
-.destination-card:hover {
-    transform: translateY(-5px);
-}
-
-.destination-image {
-    width: 100%;
-    height: auto;
-}
-
 .error-message {
     color: #E74C3C;
-}
-
-.destination-card {
-cursor: pointer;
-border: 1px solid #ccc;
-padding: 10px;
-margin: 10px 0;
-border-radius: 8px;
-background-color: white;
-text-decoration: none;
-color: inherit;
-}
-
-.destination-card:hover {
-background-color: #f4f4f4;
 }

@@ -56,10 +56,10 @@ const DestinoDetalle = () => {
       <div className="destino-detalle">
         <img src={destino.imageUrl} alt={destino.name} className="destino-image" />
         <h2 className="destino-name">{destino.name}</h2>
-        <p className="destino-rating">Calificación: {destino.rating}/10</p>
-        <p className="destino-location">Ubicación: {destino.location}</p>
-        <p className="destino-review">Reseña: {destino.review}</p>
-        <p className="destino-creator">Agregado por: {destino.creator}</p>
+        <p className="destino-rating"><b>Calificación: </b>{destino.rating}/10</p>
+        <p className="destino-location"><b>Ubicación: </b>{destino.location}</p>
+        <p className="destino-review"><b>Reseña: </b>{destino.review}</p>
+        <p className="destino-creator"><b>Agregado por: </b>{destino.creator}</p>
         <div>
           <button className="button" onClick={handleGoogleMaps}>Ver en Google Maps</button>
           <button className="button" onClick={handleBackToAll}>Regresar a Todos los Destinos</button>
