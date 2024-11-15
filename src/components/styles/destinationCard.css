@@ -1,4 +1,3 @@
-
 .destination-card {
     flex: 1 1 calc(25% - 1rem);
     border: 1px solid #ccc;
@@ -26,5 +25,24 @@
 .destination-image {
     width: 100%;
     height: auto;
+}
+
+.destination-image.hidden {
+display: none;
+}
+
+.destination-image.visible {
+display: block;
+}
+
+.image-placeholder {
+    width: 100%;
+    height: 200px;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    font-size: 14px;
 }
 

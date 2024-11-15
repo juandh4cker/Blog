@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './styles/menuButton.css';  // Importar los estilos desde el archivo CSS
+import './styles/menuButton.css';
 
 const MenuButton = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleNavigate = (path) => {
-    setMenuOpen(false); // Cerrar el menú al navegar
+    setMenuOpen(false);
     navigate(path);
   };
 
   const handleLogout = () => {
     setMenuOpen(false);
-    localStorage.removeItem('user'); // Eliminar el token de autenticación o lo que uses
-    navigate('/login'); // Redirigir al login
+    localStorage.removeItem('user');
+    navigate('/login');
   };
 
   const handleProfile = () => {
-    const user = JSON.parse(localStorage.getItem('user')); // Obtener el usuario del localStorage
+    const user = JSON.parse(localStorage.getItem('user'));
     if (user && user.id) {
-      navigate(`/perfil/${user.id}`); // Redirigir al perfil del usuario usando el id
+      navigate(`/perfil/${user.id}`);
     } else {
       alert('Usuario no encontrado');
     }

@@ -5,7 +5,7 @@ import Fondo from './Fondo';
 import MenuButton from './MenuButton';
 
 const Perfil = () => {
-  const { id } = useParams(); // ID del usuario a mostrar
+  const { id } = useParams();
   const navigate = useNavigate();
   const [usuario, setUsuario] = useState(null);
   const [posts, setPosts] = useState([]);
@@ -16,12 +16,10 @@ const Perfil = () => {
     const fetchUserAndPosts = async () => {
       try {
         setLoading(true);
-        // Obtener información del usuario
         const userResponse = await fetch(`https://67253fdfc39fedae05b45582.mockapi.io/api/v1/users/${id}`);
         if (!userResponse.ok) throw new Error('Error al cargar el perfil del usuario');
         const userData = await userResponse.json();
 
-        // Obtener posts del usuario
         const postsResponse = await fetch('https://67253fdfc39fedae05b45582.mockapi.io/api/v1/blogs');
         if (!postsResponse.ok) throw new Error('Error al cargar los posts');
         const postsData = await postsResponse.json();

@@ -14,7 +14,7 @@ const DestinoDetalle = () => {
   const [newComment, setNewComment] = useState('');
   const [newRating, setNewRating] = useState(0);
   const [comments, setComments] = useState([]);
-  const [isCreator, setIsCreator] = useState(false); // Para verificar si el usuario es el creador
+  const [isCreator, setIsCreator] = useState(false);
 
   useEffect(() => {
     const fetchDestino = async () => {
@@ -25,17 +25,16 @@ const DestinoDetalle = () => {
         setDestino(data);
         setComments(data.comments || []);
 
-        // Buscar la ID del creador en la API de usuarios
         const usersResponse = await fetch('https://67253fdfc39fedae05b45582.mockapi.io/api/v1/users');
         if (!usersResponse.ok) throw new Error('Error al cargar usuarios');
         const users = await usersResponse.json();
         const creator = users.find(user => user.name === data.creator);
 
         if (creator) {
-          setCreatorId(creator.id); // Guardar la ID del creador
+          setCreatorId(creator.id);
           const user = JSON.parse(localStorage.getItem('user'));
           if (user && user.id === creator.id) {
-            setIsCreator(true); // Si el usuario actual es el creador, mostramos el botón de eliminar
+            setIsCreator(true);
           }
         } else {
           console.warn('No se encontró al creador en la lista de usuarios.');
@@ -52,7 +51,7 @@ const DestinoDetalle = () => {
   }, [id]);
 
   const handleSubmitComment = async (e) => {
-    e.preventDefault(); // Evitar la recarga de la página
+    e.preventDefault();
     if (!newComment || newRating <= 0 || newRating > 10) {
       alert('Por favor ingrese un comentario y una puntuación válida.');
       return;
@@ -94,7 +93,7 @@ const DestinoDetalle = () => {
         await fetch(`https://67253fdfc39fedae05b45582.mockapi.io/api/v1/blogs/${id}`, {
           method: 'DELETE',
         });
-        navigate('/blog'); // Redirigir al blog después de eliminar
+        navigate('/blog');
       } catch (error) {
         alert('Error al eliminar el destino.');
         console.error('Error deleting post:', error);
@@ -164,6 +163,7 @@ const DestinoDetalle = () => {
 
         <div className="comment-section">
           <h3>Comentarios</h3>
+          <p>------------------------------------------------------</p>
           {comments.map((comment, index) => (
             <div key={index} className="comment-item">
               <p>
@@ -175,6 +175,7 @@ const DestinoDetalle = () => {
                 </b>: {comment.comment}
               </p>
               <p><b>Calificación:</b> {comment.rating}/10</p>
+              <p>------------------------------------------------------</p>
             </div>
           ))}
 

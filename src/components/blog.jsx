@@ -30,27 +30,28 @@ const Blog = () => {
       <Fondo />
       <div className="blog-container">
         <h2>Destinos Agregados</h2>
-        {loading && <p>Cargando...</p>}
+        {loading && <p>Cargando destinos...</p>}
         {error && <p className="error-message">{error}</p>}
-        {destinations.length === 0 && !loading && <p>No hay destinos agregados.</p>}
-        <div className="destination-list">
-          {destinations.map((destination) => (
-            <DestinationCard
-              key={destination.id}
-              id={destination.id}
-              name={destination.name}
-              location={destination.location}
-              imageUrl={destination.imageUrl}
-              review={destination.review}
-              rating={destination.rating}
-              creator={destination.creator}
-            />
-          ))}
-        </div>
+        {!loading && destinations.length === 0 && <p>No hay destinos agregados.</p>}
+        {!loading && !error && (
+          <div className="destination-list">
+            {destinations.map((destination) => (
+              <DestinationCard
+                key={destination.id}
+                id={destination.id}
+                name={destination.name}
+                location={destination.location}
+                imageUrl={destination.imageUrl}
+                review={destination.review}
+                rating={destination.rating}
+              />
+            ))}
+          </div>
+        )}
       </div>
       <MenuButton />
     </>
-  );
+  );  
 };
 
 export default Blog;
