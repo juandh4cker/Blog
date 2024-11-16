@@ -15,7 +15,7 @@ import './App.css';
 
 const App = () => {
   return (
-    <Router>
+    <Router basename="/Blog">
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
