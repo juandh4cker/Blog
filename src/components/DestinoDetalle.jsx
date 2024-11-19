@@ -158,6 +158,12 @@ const DestinoDetalle = () => {
         {isCreator && (
           <div>
             <button className="button" onClick={handleDeletePost}>Eliminar Destino</button>
+            <button
+              className="button"
+              onClick={() => navigate(`/editar-destino/${id}`)}
+            >
+              Editar Destino
+            </button>
           </div>
         )}
 

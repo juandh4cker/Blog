@@ -8,12 +8,12 @@ import Dashboard from './components/Dashboard';
 import Blog from './components/blog';
 import DestinoDetalle from './components/DestinoDetalle';
 import PrivateRoute from './components/PrivateRoute';
+import EditDestino from './components/EditDestino';
 
 import Perfil from './components/Perfil';
 
 import './App.css';
 
-// Componente para guardar la ruta actual en localStorage
 const RouteTracker = () => {
   const location = useLocation();
 
@@ -28,13 +28,12 @@ const App = () => {
   useEffect(() => {
     const lastVisitedRoute = localStorage.getItem('lastVisitedRoute');
     if (lastVisitedRoute && window.location.pathname === '/') {
-      window.location.replace(lastVisitedRoute); // Redirigir a la última ruta guardada
+      window.location.replace(lastVisitedRoute);
     }
   }, []);
 
   return (
     <Router basename="/Blog">
-      {/* Rastreador de rutas */}
       <RouteTracker />
       <Routes>
         <Route path="/register" element={<Register />} />
@@ -68,6 +67,14 @@ const App = () => {
           element={
             <PrivateRoute>
               <Perfil />
+            </PrivateRoute>
+          } 
+        />
+        <Route 
+          path="/editar-destino/:id" 
+          element={
+            <PrivateRoute>
+              <EditDestino />
             </PrivateRoute>
           } 
         />
