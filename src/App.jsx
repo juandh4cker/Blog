@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
 import Login from './components/Login';
 import Register from './components/Register';
@@ -10,31 +10,14 @@ import DestinoDetalle from './components/DestinoDetalle';
 import PrivateRoute from './components/PrivateRoute';
 import EditDestino from './components/EditDestino';
 
+
 import Perfil from './components/Perfil';
 
 import './App.css';
 
-const RouteTracker = () => {
-  const location = useLocation();
-
-  useEffect(() => {
-    localStorage.setItem('lastVisitedRoute', location.pathname);
-  }, [location]);
-
-  return null;
-};
-
 const App = () => {
-  useEffect(() => {
-    const lastVisitedRoute = localStorage.getItem('lastVisitedRoute');
-    if (lastVisitedRoute && window.location.pathname === '/') {
-      window.location.replace(lastVisitedRoute);
-    }
-  }, []);
-
   return (
     <Router basename="/Blog">
-      <RouteTracker />
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />

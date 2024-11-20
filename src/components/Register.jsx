@@ -64,7 +64,9 @@ const Register = () => {
           name: formattedName,
           email: hashedEmail,
           password: hashedPassword,
-          posts: 0
+          posts: 0,
+          followers: 0,
+          followedBy: [],
         };
         
         const createResponse = await axios.post(
