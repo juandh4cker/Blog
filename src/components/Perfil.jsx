@@ -125,7 +125,7 @@ const Perfil = () => {
           <h3>Posts del Usuario:</h3>
           {posts.length > 0 ? (
             <ul className="posts-list">
-              {posts.map((destination) => (
+              {posts.map((posts) => (
               <DestinationCard
                 key={posts.id}
                 id={posts.id}
