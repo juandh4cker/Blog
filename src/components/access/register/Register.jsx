@@ -1,0 +1,131 @@
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import bcrypt from 'bcryptjs';
+
+import { fetchUsers, apiRequest } from '../../useful/ApiService';
+
+import './Register.css';
+
+const Register = () => {
+  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      navigate('/dashboard');
+    }
+  }, [navigate]);
+
+  const isValidUsername = (name) => /^[a-zA-Z0-9._]+$/.test(name); // Letras, números, . o _
+  const isValidPassword = (password) =>
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password); // Min 8 caracteres, 1 mayúscula, 1 minúscula, 1 número
+  const formatUsername = (name) =>
+    isValidUsername(name) ? name.charAt(0).toUpperCase() + name.slice(1) : name;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!isValidUsername(formData.name)) {
+      setMessage('El nombre de usuario solo puede contener letras, números, "." o "_".');
+      return;
+    }
+
+    if (!isValidPassword(formData.password)) {
+      setMessage(
+        'La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula y un número.'
+      );
+      return;
+    }
+
+    try {
+      const users = await fetchUsers();
+      const formattedName = formatUsername(formData.name);
+      const formattedEmail = formData.email.toLowerCase();
+      const hashedEmail = bcrypt.hashSync(formattedEmail, 10);
+
+      const existingEmail = users.find((user) =>
+        bcrypt.compareSync(formattedEmail, user.email)
+      );
+      const existingUser = users.find((user) => user.name === formattedName);
+
+      if (existingEmail) {
+        setMessage('Este correo ya está en uso. Intenta con otro.');
+      } else if (existingUser) {
+        setMessage('Este nombre de usuario ya está en uso. Intenta con otro.');
+      } else if (!formData.name || !formData.email || !formData.password) {
+        setMessage('Debe rellenar todos los campos.');
+      } else {
+        const hashedPassword = bcrypt.hashSync(formData.password, 10);
+        const userData = {
+          name: formattedName,
+          email: hashedEmail,
+          password: hashedPassword,
+          posts: 0,
+          followers: 0,
+          followedBy: [],
+        };
+
+        const newUser = await apiRequest('users', 'POST', userData);
+
+        const userToken = {
+          name: formattedName,
+          token: hashedPassword,
+          id: newUser.id,
+          posts: 0,
+        };
+
+        localStorage.setItem('user', JSON.stringify(userToken));
+        navigate('/dashboard');
+      }
+    } catch (error) {
+      console.error('Error en el registro:', error);
+      setMessage('Hubo un error en el registro. Intenta nuevamente.');
+    }
+  };
+
+  return (
+    <div className="register-page">
+      <div className="register-container">
+        <h2 className="register-title">Registro para WorldBlog</h2>
+        <p className="register-subtitle">Únete y descubre los mejores destinos alrededor del mundo</p>
+        <form onSubmit={handleSubmit} className="register-form">
+          <input
+            type="text"
+            className="register-input"
+            placeholder="Nombre de usuario"
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          />
+          <input
+            type="email"
+            className="register-input"
+            placeholder="Correo electrónico"
+            value={formData.email}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          />
+          <input
+            type="password"
+            className="register-input"
+            placeholder="Contraseña"
+            value={formData.password}
+            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+          />
+          <button type="submit" className="register-button">Registrarme</button>
+          <button
+            type="button"
+            className="register-secondary-button"
+            onClick={() => navigate('/login')}
+          >
+            Ya tengo una cuenta
+          </button>
+        </form>
+        {message && <p className="register-message">{message}</p>}
+      </div>
+    </div>
+  );
+};
+
+export default Register;
