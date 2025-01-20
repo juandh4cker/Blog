@@ -1,5 +1,3 @@
-//Cambiar nombre a utilidades y poner mas utilidades como entrar a localstorage, logout y cosas asi
-
 const API_BASE_URL = 'https://67253fdfc39fedae05b45582.mockapi.io/api/v1';
 
 export const apiRequest = async (endpoint, method = 'GET', body = null) => {

@@ -8,4 +8,5 @@ createRoot(document.getElementById('root')).render(
   </StrictMode>,
 )
 
-{"Ver si la imagen es válida, votar por rating y sacar promedio, archivo routes, buenas practicas y mejoras gfenerales con vite, logo, Borrar destinos, Actualizar destinos, Ver todos mis destinos, Ver los destinos de los demás usuarios, perfil de usuario."}
+{"Ver si la imagen es válida, votar por rating y sacar promedio, archivo routes, buenas practicas y mejoras generales con vite, logo"}
+{"Cambiar nombre a utilidades y poner mas utilidades como entrar a localstorage, logout y cosas asi, que todos usen api con manejo de errpr, hacer componente de seguridad y borrar variables no usadas y css no usado"}
