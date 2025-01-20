@@ -44,7 +44,6 @@ const Register = () => {
       const users = await fetchUsers();
       const formattedName = formatUsername(formData.name);
       const formattedEmail = formData.email.toLowerCase();
-      const hashedEmail = bcrypt.hashSync(formattedEmail, 10);
 
       const existingEmail = users.find((user) =>
         bcrypt.compareSync(formattedEmail, user.email)
@@ -61,7 +60,7 @@ const Register = () => {
         const hashedPassword = bcrypt.hashSync(formData.password, 10);
         const userData = {
           name: formattedName,
-          email: hashedEmail,
+          email: formattedEmail,
           password: hashedPassword,
           posts: 0,
           followers: 0,

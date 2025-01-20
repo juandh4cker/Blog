@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
+import { apiRequest } from '../../../useful/ApiService';
+
 import DestinationCard from '../../secondary/destinationCard/DestinationCard';
 
 import './Perfil.css';
@@ -26,6 +28,7 @@ const Perfil = () => {
         const userResponse = await fetch(
           `https://67253fdfc39fedae05b45582.mockapi.io/api/v1/users/${id}`
         );
+        
         if (!userResponse.ok) throw new Error('Error al cargar el perfil del usuario');
         const userData = await userResponse.json();
 

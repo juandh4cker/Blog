@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+
+import { apiRequest } from '../../../useful/ApiService';
 
 import DestinationCard from '../../secondary/destinationCard/DestinationCard';
 
@@ -13,8 +14,8 @@ const Blog = () => {
   useEffect(() => {
     const fetchDestinations = async () => {
       try {
-        const response = await axios.get('https://67253fdfc39fedae05b45582.mockapi.io/api/v1/blogs');
-        setDestinations(response.data);
+        const response = await apiRequest('blogs');
+        setDestinations(response);
       } catch (err) {
         setError('Error al cargar los destinos. Intenta de nuevo más tarde.');
       } finally {

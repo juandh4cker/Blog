@@ -44,7 +44,7 @@ const Login = () => {
 
       user = users.find(
         (u) =>
-          bcrypt.compareSync(input.toLowerCase(), u.email) || // Comparar correos
+          input.toLowerCase() === u.email || // Comparar correos
           u.name === formattedName // Comparar nombres de usuario
       );
 

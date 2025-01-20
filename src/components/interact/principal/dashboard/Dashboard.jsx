@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import axios from 'axios';
+import { apiRequest } from '../../../useful/ApiService';
 
 import './Dashboard.css';
 
@@ -47,16 +47,11 @@ const Dashboard = () => {
     };
 
     try {
-      await axios.post(
-        'https://67253fdfc39fedae05b45582.mockapi.io/api/v1/blogs',
-        destinationData
-      );
+      await apiRequest('blogs', 'POST', destinationData);
 
       const updatedPosts = user.posts + 1;
-      await axios.put(
-        `https://67253fdfc39fedae05b45582.mockapi.io/api/v1/users/${user.id}`,
-        { posts: updatedPosts }
-      );
+
+      await apiRequest(`users/${user.id}`, 'PUT', { posts: updatedPosts });
 
       const updatedUser = { ...user, posts: updatedPosts };
       localStorage.setItem('user', JSON.stringify(updatedUser));

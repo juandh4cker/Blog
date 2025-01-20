@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import axios from 'axios';
+import { apiRequest } from '../../../useful/ApiService';
 
 import './EditDestino.css';
 
@@ -29,10 +29,8 @@ const EditDestino = () => {
   useEffect(() => {
     const fetchDestination = async () => {
       try {
-        const response = await axios.get(
-          `https://67253fdfc39fedae05b45582.mockapi.io/api/v1/blogs/${id}`
-        );
-        setDestination(response.data);
+        const response = await apiRequest(`blogs/${id}`);
+        setDestination(response);
       } catch (error) {
         console.error('Error al cargar el destino:', error);
         setMessage('No se pudo cargar el destino.');
@@ -68,11 +66,7 @@ const EditDestino = () => {
     };
 
     try {
-      await axios.put(
-        `https://67253fdfc39fedae05b45582.mockapi.io/api/v1/blogs/${id}`,
-        updatedDestination
-      );
-
+      apiRequest(`blogs/${id}`, 'PUT', updatedDestination);
       setMessage('Destino actualizado exitosamente!');
       navigate(`/destino/${id}`);
     } catch (error) {
