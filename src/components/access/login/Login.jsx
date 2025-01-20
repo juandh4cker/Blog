@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import bcrypt from 'bcryptjs';
 
-import { fetchUsers } from './../../useful/ApiService';
+import { fetchUsers, getLocalStorage, setLocalStorage } from './../../useful/ApiService';
 
 import './Login.css';
 
@@ -14,13 +14,10 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Redirigir al dashboard si el usuario ya está autenticado
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user) {
+    if (getLocalStorage('user')) {//arreglar esto
       navigate('/dashboard');
     }
   }, [navigate]);
-
   const isValidUsername = (name) => /^[a-zA-Z0-9._]+$/.test(name); // Letras, números, . o _
 
   const handleSubmit = async (e) => {
@@ -30,7 +27,6 @@ const Login = () => {
 
     try {
       const users = await fetchUsers();
-
       const input = formData.emailOrUsername;
       let user;
 
@@ -43,9 +39,7 @@ const Login = () => {
       const formattedName = formatUsername(input);
 
       user = users.find(
-        (u) =>
-          input.toLowerCase() === u.email || // Comparar correos
-          u.name === formattedName // Comparar nombres de usuario
+        (u) => input.toLowerCase() === u.email || u.name === formattedName
       );
 
       if (user) {
@@ -58,7 +52,7 @@ const Login = () => {
             id: user.id,
             posts: user.posts,
           };
-          localStorage.setItem('user', JSON.stringify(userToken));
+          setLocalStorage('user', userToken);
           setMessage('¡Bienvenido de nuevo! Redirigiendo al dashboard...');
           setTimeout(() => navigate('/dashboard'), 2000);
         } else {
@@ -71,7 +65,6 @@ const Login = () => {
       console.error('Error al iniciar sesión:', error);
       setMessage('Hubo un error en el inicio de sesión. Intenta nuevamente.');
     }
-
     setLoading(false);
   };
 

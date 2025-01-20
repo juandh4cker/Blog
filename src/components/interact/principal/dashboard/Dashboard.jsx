@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { apiRequest } from '../../../useful/ApiService';
+import { apiRequest, fetchUsers, getLocalStorage, setLocalStorage } from '../../../useful/ApiService';
 
 import './Dashboard.css';
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = getLocalStorage('user');
 
   const [newDestination, setNewDestination] = useState({
     name: '',
@@ -47,14 +47,11 @@ const Dashboard = () => {
     };
 
     try {
-      await apiRequest('blogs', 'POST', destinationData);
-
-      const updatedPosts = user.posts + 1;
-
-      await apiRequest(`users/${user.id}`, 'PUT', { posts: updatedPosts });
-
-      const updatedUser = { ...user, posts: updatedPosts };
-      localStorage.setItem('user', JSON.stringify(updatedUser));
+      const added = await apiRequest('blogs', 'POST', destinationData);
+      const userInfo = await fetchUsers(user.id);
+      const userPosts = userInfo.posts;
+      userPosts.push(parseInt(added.id));
+      await apiRequest(`users/${user.id}`, 'PUT', { posts: userPosts });
 
       setMessage('Destino agregado exitosamente!');
       setNewDestination({ name: '', location: '', imageUrl: '', review: '', rating: '' });

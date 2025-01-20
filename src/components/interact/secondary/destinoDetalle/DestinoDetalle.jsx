@@ -2,7 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import {
-  fetchDestinoById,
+  fetchDestino,
   fetchUsers,
   updateDestinoComments,
   deleteDestinoById,
@@ -25,7 +25,7 @@ const DestinoDetalle = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const data = await fetchDestinoById(id);
+        const data = await fetchDestino(id);
         setDestino(data);
         setComments(data.comments || []);
 

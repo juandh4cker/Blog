@@ -1,3 +1,6 @@
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 const API_BASE_URL = 'https://67253fdfc39fedae05b45582.mockapi.io/api/v1';
 
 export const apiRequest = async (endpoint, method = 'GET', body = null) => {
@@ -24,8 +27,38 @@ export const apiRequest = async (endpoint, method = 'GET', body = null) => {
   }
 };
 
-export const fetchDestinoById = (id) => apiRequest(`blogs/${id}`);
-export const fetchUsers = () => apiRequest('users');
-export const updateDestinoComments = (id, comments) =>
-  apiRequest(`blogs/${id}`, 'PUT', { comments });
+export const fetchDestino = (id = null) => {
+  if (id) {
+    return apiRequest(`blogs/${id}`);
+  } else {
+    return apiRequest('blogs');
+  }
+
+};
+
+export const fetchUsers = (id = null) => {
+  if (id) {
+    return apiRequest(`users/${id}`);
+  } else {
+    return apiRequest('users');
+  }
+
+};
+
+export const updateDestinoComments = (id, comments) => apiRequest(`blogs/${id}`, 'PUT', { comments });
 export const deleteDestinoById = (id) => apiRequest(`blogs/${id}`, 'DELETE');
+
+export const getLocalStorage = (item = null) => {
+  if (item) {
+    return JSON.parse(localStorage.getItem(item));
+  }
+
+  const allItems = {};
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    allItems[key] = JSON.parse(localStorage.getItem(key));
+  }
+  return allItems;
+};
+export const setLocalStorage = (key, value) => localStorage.setItem(key, JSON.stringify(value));
+

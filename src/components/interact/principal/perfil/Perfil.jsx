@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import { apiRequest } from '../../../useful/ApiService';
+import { apiRequest, fetchDestino, fetchUsers } from '../../../useful/ApiService';
 
 import DestinationCard from '../../secondary/destinationCard/DestinationCard';
 
@@ -24,26 +24,20 @@ const Perfil = () => {
     const fetchUserAndPosts = async () => {
       try {
         setLoading(true);
+;
+        const userData = await apiRequest(`users/${id}`);
 
-        const userResponse = await fetch(
-          `https://67253fdfc39fedae05b45582.mockapi.io/api/v1/users/${id}`
-        );
+        const userPosts = await fetchUsers(id);
+        const userPost = [];
         
-        if (!userResponse.ok) throw new Error('Error al cargar el perfil del usuario');
-        const userData = await userResponse.json();
-
-        const postsResponse = await fetch(
-          'https://67253fdfc39fedae05b45582.mockapi.io/api/v1/blogs'
-        );
-        if (!postsResponse.ok) throw new Error('Error al cargar los posts');
-        const postsData = await postsResponse.json();
-
-        const userPosts = postsData.filter((post) => post.creator === userData.name);
+        for (let i = 0; i < userPosts.posts.length; i++) {
+          const post = await fetchDestino(userPosts.posts[i]);
+          userPost.push(post);
+        }
 
         setUsuario(userData);
-        setPosts(userPosts);
+        setPosts(userPost);
         setFollowers(userData.followers);
-
         setIsFollowing(userData.followedBy?.includes(currentUserId) || false);
       } catch (err) {
         console.error(err);
@@ -66,18 +60,11 @@ const Perfil = () => {
         ? usuario.followedBy.filter((uid) => uid !== currentUserId)
         : [...usuario.followedBy, currentUserId];
 
-      const updatedUser = await fetch(
-        `https://67253fdfc39fedae05b45582.mockapi.io/api/v1/users/${id}`,
-        {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            ...usuario,
-            followers: updatedFollowedBy.length,
-            followedBy: updatedFollowedBy,
-          }),
-        }
-      ).then((res) => res.json());
+      const updatedUser = await apiRequest(`users/${id}`, 'PUT', {
+        ...usuario,
+        followers: updatedFollowedBy.length,
+        followedBy: updatedFollowedBy,
+      });
 
       setFollowers(updatedUser.followers);
       setIsFollowing(!isCurrentlyFollowing);

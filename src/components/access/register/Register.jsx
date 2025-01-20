@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import bcrypt from 'bcryptjs';
 
-import { fetchUsers, apiRequest } from '../../useful/ApiService';
+import { fetchUsers, apiRequest, getLocalStorage, setLocalStorage } from '../../useful/ApiService';
 
 import './Register.css';
 
@@ -13,8 +13,7 @@ const Register = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user) {
+    if (getLocalStorage('user')) {
       navigate('/dashboard');
     }
   }, [navigate]);
@@ -62,7 +61,7 @@ const Register = () => {
           name: formattedName,
           email: formattedEmail,
           password: hashedPassword,
-          posts: 0,
+          posts: [],
           followers: 0,
           followedBy: [],
         };
@@ -76,7 +75,7 @@ const Register = () => {
           posts: 0,
         };
 
-        localStorage.setItem('user', JSON.stringify(userToken));
+        setLocalStorage('user', userToken);
         navigate('/dashboard');
       }
     } catch (error) {
