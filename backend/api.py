@@ -8,7 +8,6 @@ from datetime import datetime
 app = Flask(__name__)
 CORS(app)
 
-# Configuración de logging
 LOG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'api.log')
 logging.basicConfig(
     filename=LOG_FILE,
@@ -17,8 +16,8 @@ logging.basicConfig(
 )
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-USERS_FILE = os.path.join(BASE_DIR, 'users.json')
-BLOGS_FILE = os.path.join(BASE_DIR, 'blogs.json')
+USERS_FILE = os.path.join(BASE_DIR, 'jsons/users.json')
+BLOGS_FILE = os.path.join(BASE_DIR, 'jsons/blogs.json')
 
 def load_data(file_path):
     try:

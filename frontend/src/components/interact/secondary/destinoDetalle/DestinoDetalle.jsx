@@ -192,7 +192,7 @@ const DestinoDetalle = () => {
               step="0.1"
               required
             />
-            <button type="submit" className="button">Enviar Comentario</button>
+            <button type="submit" className="button">Enviar Comentario.</button>
           </form>
         </div>
       </div>
