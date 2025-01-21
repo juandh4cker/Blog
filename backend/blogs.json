@@ -1,0 +1,140 @@
+[
+    {
+      "createdAt": "2024-11-16T07:22:29.059Z",
+      "name": "Torre Eiffel",
+      "location": "París",
+      "review": "La ciudad del amor y la luz, conocida por la Torre Eiffel, el Museo del Louvre y su ambiente romántico. Ideal para arte, cultura y gastronomía",
+      "rating": 10,
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0PjzcACuCnj45otxywWk5_TMJa-YAaAtNJw&s",
+      "creator": "M3ssi",
+      "comments": [
+        {
+          "userId": "3",
+          "userName": "Juand_kxz",
+          "comment": "Que buen lugar!!",
+          "rating": 7,
+          "createdAt": "2024-11-16T16:09:08.814Z"
+        },
+        {
+          "userId": "4",
+          "userName": "C0ldplay",
+          "comment": "Si!! La ciudad del amor.",
+          "rating": 9,
+          "createdAt": "2024-11-16T16:11:52.264Z"
+        }
+      ],
+      "id": "1"
+    },
+    {
+      "createdAt": "2024-11-16T14:37:23.451Z",
+      "name": "Pagoda Chureito",
+      "location": "Japón",
+      "review": "Situada en Arakura Sengen Park, la Pagoda Chureito ofrece una de las vistas más icónicas de Japón: una combinación perfecta de la pagoda roja, el monte Fuji y los cerezos en flor (en primavera) o las hojas otoñales.",
+      "rating": 9.5,
+      "imageUrl": "https://japonismo.com/wp-content/uploads/2022/06/pagoda-chureito-kawaguchko.jpg",
+      "creator": "M3ssi",
+      "comments": [
+        {
+          "userId": "3",
+          "userName": "Juand_kxz",
+          "comment": "Que buen lugar",
+          "rating": 8,
+          "createdAt": "2024-11-18T17:47:50.227Z"
+        }
+      ],
+      "id": "2"
+    },
+    {
+      "createdAt": "2024-11-16T02:57:21.565Z",
+      "name": "Malecón del Rio",
+      "location": "Barranquilla, Colombia",
+      "review": "A orillas del majestuoso río Magdalena, el Malecón es un punto vibrante donde se mezcla la modernidad con la tradición costeña. Con espacios recreativos, restaurantes y vistas panorámicas, es ideal para disfrutar del ambiente caribeño y relajarse al atardecer.",
+      "rating": 8.2,
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPRJQw2JILKfnZZl1fRzGQY2G9B_52RsyhcA&s",
+      "creator": "W3stcol",
+      "comments": [
+        {
+          "userId": "3",
+          "userName": "Juand_kxz",
+          "comment": "Yo estuve allí!!",
+          "rating": 9,
+          "createdAt": "2024-11-16T16:09:34.224Z"
+        }
+      ],
+      "id": "3"
+    },
+    {
+      "createdAt": "2024-11-16T15:37:11.452Z",
+      "name": "El Panteón",
+      "location": "Roma, Italia.",
+      "review": "Este antiguo templo romano, construido en honor a todos los dioses, es un ejemplo asombroso de la ingeniería clásica. Su cúpula de concreto, sin soporte central, sigue siendo la más grande de su tipo en el mundo. Un sitio imprescindible para amantes de la historia y la arquitectura.",
+      "rating": 9,
+      "imageUrl": "https://www.viajesdeprimera.com/wp-content/uploads/2020/04/Pante%C3%B3n-de-Agripa-en-Roma.jpg",
+      "creator": "W3stcol",
+      "comments": [],
+      "id": "4"
+    },
+    {
+      "createdAt": "2024-11-16T02:18:01.114Z",
+      "name": "Piramides",
+      "location": "El Cairo, Egipto.",
+      "review": "Testigos del pasado faraónico, las pirámides de Giza son una maravilla del mundo antiguo. La Gran Pirámide y la misteriosa Esfinge ofrecen una experiencia inolvidable que conecta con una de las civilizaciones más fascinantes de la historia.",
+      "rating": 9,
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsQqh987us9Q7h-phtnhFHfCeOuzr3AjPOdQ&s",
+      "creator": "Juand_kxz",
+      "comments": [],
+      "id": "5"
+    },
+    {
+      "createdAt": "2024-11-15T17:11:12.479Z",
+      "name": "Coliseo Romano.",
+      "location": "Roma, Italia.",
+      "review": "Este anfiteatro, el más grande jamás construido en la antigua Roma, es una obra maestra arquitectónica y un símbolo de la historia imperial. Sus ruinas evocan las antiguas luchas de gladiadores y su legado perdura como un ícono mundial.",
+      "rating": 9,
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt0tB2qMUZn3ZNuBEUy3MfbRDzYsbO_Zd8kQ&s",
+      "creator": "C0ldplay",
+      "comments": [
+        {
+          "userId": "3",
+          "userName": "Juand_kxz",
+          "comment": "Maravilla arquitectónica",
+          "rating": 9,
+          "createdAt": "2024-11-16T16:10:09.547Z"
+        }
+      ],
+      "id": "7"
+    },
+    {
+      "createdAt": "2024-11-16T00:57:43.630Z",
+      "name": "Ciudad Perdida",
+      "location": "Colombia",
+      "review": "Oculta en la Sierra Nevada de Santa Marta, la Ciudad Perdida es un tesoro arqueológico de la cultura tayrona. Llegar implica una caminata exigente, pero la experiencia recompensa con vistas impresionantes y una conexión íntima con la naturaleza y la historia precolombina.",
+      "rating": 9.1,
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFjf7KCY7XYCO0FBVOUB5IvFpqrHauvxMtRQ&s",
+      "creator": "C0ldplay",
+      "comments": [],
+      "id": "8"
+    },
+    {
+      "createdAt": "2024-11-16T10:33:33.543Z",
+      "name": "Sydney",
+      "location": "Australia",
+      "review": "Con su icónica Ópera de Sídney, playas como Bondi y parques nacionales cercanos, es una mezcla perfecta de naturaleza y vida urbana",
+      "rating": 8,
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBAY5I-zMVu65LUQLo4Hd3s7EWOb8w2tceOw&s",
+      "creator": "C0ldplay",
+      "comments": [],
+      "id": "9"
+    },
+    {
+      "createdAt": "2024-11-23T10:25:42.810Z",
+      "name": "Lofoten.",
+      "location": "Noruega.",
+      "review": "Las Islas Lofoten son un archipiélago y un distrito de Noruega, situado en la provincia de Nordland, por encima del círculo polar ártico.​",
+      "rating": 9,
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkyxWo_ByKktmS8LvA8ldqPwjLH1M5euWUTQ&s",
+      "creator": "Juand_kxz",
+      "comments": [],
+      "id": "10"
+    }
+  ]
