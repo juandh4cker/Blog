@@ -39,9 +39,11 @@ const Perfil = () => {
         setPosts(userPost);
         setFollowers(userData.followers);
         setIsFollowing(userData.followedBy?.includes(currentUserId) || false);
+
       } catch (err) {
         console.error(err);
         setError('Hubo un error al cargar el perfil del usuario y sus posts.');
+
       } finally {
         setLoading(false);
       }
@@ -109,7 +111,6 @@ const Perfil = () => {
             Regresar al Blog
           </button>
         </div>
-
         <div className="usuario-posts">
           <h3>Posts del Usuario:</h3>
           {posts.length > 0 ? (

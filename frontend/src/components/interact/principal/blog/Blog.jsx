@@ -16,8 +16,10 @@ const Blog = () => {
       try {
         const response = await apiRequest('blogs');
         setDestinations(response);
+
       } catch (err) {
         setError('Error al cargar los destinos. Intenta de nuevo más tarde.');
+
       } finally {
         setLoading(false);
       }

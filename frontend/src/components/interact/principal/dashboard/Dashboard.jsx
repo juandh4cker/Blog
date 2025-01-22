@@ -16,6 +16,7 @@ const Dashboard = () => {
     review: '',
     rating: ''
   });
+
   const [message, setMessage] = useState('');
 
   if (!user) {
@@ -55,6 +56,7 @@ const Dashboard = () => {
 
       setMessage('Destino agregado exitosamente!');
       setNewDestination({ name: '', location: '', imageUrl: '', review: '', rating: '' });
+
     } catch (error) {
       console.error('Error al agregar el destino:', error);
       setMessage('Hubo un error al agregar el destino. Intenta nuevamente.');
@@ -74,7 +76,6 @@ const Dashboard = () => {
         >
           Cerrar sesión
         </button>
-
         <h2 className="dashboard-subheader">Agregar un nuevo destino turístico</h2>
         <form className="dashboard-form" onSubmit={handleAddDestination}>
           <input

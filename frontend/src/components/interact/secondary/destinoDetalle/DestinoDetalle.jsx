@@ -38,11 +38,14 @@ const DestinoDetalle = () => {
           if (user && user.id === creator.id) {
             setIsCreator(true);
           }
+
         } else {
           console.warn('No se encontró al creador en la lista de usuarios.');
         }
+
       } catch (error) {
         setError('Error al cargar los detalles del destino.');
+
       } finally {
         setLoading(false);
       }
@@ -73,6 +76,7 @@ const DestinoDetalle = () => {
       setComments(updatedComments);
       setNewComment('');
       setNewRating(0);
+
     } catch (error) {
       alert('Error al subir el comentario.');
     }
@@ -83,6 +87,7 @@ const DestinoDetalle = () => {
       try {
         await deleteDestinoById(id);
         navigate('/blog');
+
       } catch (error) {
         alert('Error al eliminar el destino.');
       }

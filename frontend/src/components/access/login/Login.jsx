@@ -14,10 +14,11 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (getLocalStorage('user')) {//arreglar esto
+    if (getLocalStorage('user')) {
       navigate('/dashboard');
     }
   }, [navigate]);
+
   const isValidUsername = (name) => /^[a-zA-Z0-9._]+$/.test(name); // Letras, números, . o _
 
   const handleSubmit = async (e) => {
@@ -36,6 +37,7 @@ const Login = () => {
         }
         return name;
       };
+
       const formattedName = formatUsername(input);
 
       user = users.find(
@@ -52,19 +54,24 @@ const Login = () => {
             id: user.id,
             posts: user.posts,
           };
+
           setLocalStorage('user', userToken);
           setMessage('¡Bienvenido de nuevo! Redirigiendo al dashboard...');
           setTimeout(() => navigate('/dashboard'), 2000);
+
         } else {
           setMessage('Usuario, correo o contraseña incorrectos.');
         }
+        
       } else {
         setMessage('Usuario, correo o contraseña incorrectos.');
       }
+
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
       setMessage('Hubo un error en el inicio de sesión. Intenta nuevamente.');
     }
+
     setLoading(false);
   };
 

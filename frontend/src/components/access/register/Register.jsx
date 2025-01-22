@@ -47,14 +47,18 @@ const Register = () => {
       const existingEmail = users.find((user) =>
         bcrypt.compareSync(formattedEmail, user.email)
       );
+
       const existingUser = users.find((user) => user.name === formattedName);
 
       if (existingEmail) {
         setMessage('Este correo ya está en uso. Intenta con otro.');
+
       } else if (existingUser) {
         setMessage('Este nombre de usuario ya está en uso. Intenta con otro.');
+
       } else if (!formData.name || !formData.email || !formData.password) {
         setMessage('Debe rellenar todos los campos.');
+        
       } else {
         const hashedPassword = bcrypt.hashSync(formData.password, 10);
         const userData = {
