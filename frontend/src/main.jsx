@@ -9,4 +9,5 @@ createRoot(document.getElementById('root')).render(
 )
 
 {"Ver si la imagen es válida, votar por rating y sacar promedio, archivo routes, buenas practicas y mejoras generales con vite, logo"}
-{"Cambiar nombre a utilidades y poner mas utilidades como entrar a localstorage, logout y cosas asi, que todos usen api con manejo de errpr, hacer componente de seguridad y borrar variables no usadas y css no usado"}
+{"Hacer componente de seguridad y borrar variables no usadas y css no usado"}
+{"Mejorar el diseño general, menu cerrarse al tocar otra parte y hacer animaciones"}

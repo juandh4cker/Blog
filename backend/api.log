@@ -20,3 +20,85 @@
 2025-01-21 14:14:39,938 - INFO - 127.0.0.1 - - [21/Jan/2025 14:14:39] "GET /api/blogs HTTP/1.1" 200 -
 2025-01-21 14:14:42,161 - INFO - Fetched all users
 2025-01-21 14:14:42,162 - INFO - 127.0.0.1 - - [21/Jan/2025 14:14:42] "GET /api/users HTTP/1.1" 200 -
+2025-01-22 12:54:56,645 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-22 12:54:56,646 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-22 12:54:56,652 - INFO -  * Restarting with stat
+2025-01-22 12:54:57,572 - WARNING -  * Debugger is active!
+2025-01-22 12:54:57,579 - INFO -  * Debugger PIN: 106-094-933
+2025-01-22 12:55:53,997 - INFO - 127.0.0.1 - - [22/Jan/2025 12:55:53] "OPTIONS /api/users HTTP/1.1" 200 -
+2025-01-22 12:55:54,028 - INFO - Fetched all users
+2025-01-22 12:55:54,029 - INFO - 127.0.0.1 - - [22/Jan/2025 12:55:54] "GET /api/users HTTP/1.1" 200 -
+2025-01-24 09:53:20,151 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-24 09:53:20,157 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-24 09:53:20,163 - INFO -  * Restarting with stat
+2025-01-24 09:53:21,379 - WARNING -  * Debugger is active!
+2025-01-24 09:53:21,388 - INFO -  * Debugger PIN: 106-094-933
+2025-01-24 09:54:23,035 - INFO - 127.0.0.1 - - [24/Jan/2025 09:54:23] "[33mGET /api HTTP/1.1[0m" 404 -
+2025-01-24 09:54:23,453 - INFO - 127.0.0.1 - - [24/Jan/2025 09:54:23] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-01-24 09:54:27,065 - INFO - Fetched all users
+2025-01-24 09:54:27,067 - INFO - 127.0.0.1 - - [24/Jan/2025 09:54:27] "GET /api/users HTTP/1.1" 200 -
+2025-01-24 09:54:35,023 - INFO - Fetched all users
+2025-01-24 09:54:35,026 - INFO - 127.0.0.1 - - [24/Jan/2025 09:54:35] "GET /api/users HTTP/1.1" 200 -
+2025-01-24 09:54:35,496 - INFO - 127.0.0.1 - - [24/Jan/2025 09:54:35] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-01-24 15:35:19,417 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.18.0.3:5000
+2025-01-24 15:35:19,418 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-24 15:35:19,421 - INFO -  * Restarting with stat
+2025-01-24 15:35:20,209 - WARNING -  * Debugger is active!
+2025-01-24 15:35:20,222 - INFO -  * Debugger PIN: 134-302-967
+2025-01-24 15:42:25,322 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.18.0.3:5000
+2025-01-24 15:42:25,323 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-24 15:42:25,327 - INFO -  * Restarting with stat
+2025-01-24 15:42:25,895 - WARNING -  * Debugger is active!
+2025-01-24 15:42:25,897 - INFO -  * Debugger PIN: 134-302-967
+2025-01-24 15:42:31,162 - INFO - Fetched all users
+2025-01-24 15:42:31,164 - INFO - 172.18.0.1 - - [24/Jan/2025 15:42:31] "GET /api/users HTTP/1.1" 200 -
+2025-01-24 15:43:06,236 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.18.0.3:5000
+2025-01-24 15:43:06,237 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-24 15:43:06,239 - INFO -  * Restarting with stat
+2025-01-24 15:43:06,735 - WARNING -  * Debugger is active!
+2025-01-24 15:43:06,737 - INFO -  * Debugger PIN: 738-846-770
+2025-01-24 16:29:29,071 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.18.0.3:5000
+2025-01-24 16:29:29,072 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-24 16:29:29,075 - INFO -  * Restarting with stat
+2025-01-24 16:29:29,513 - WARNING -  * Debugger is active!
+2025-01-24 16:29:29,515 - INFO -  * Debugger PIN: 324-045-820
+2025-01-24 16:31:12,512 - INFO - Fetched all users
+2025-01-24 16:31:12,514 - INFO - 172.18.0.1 - - [24/Jan/2025 16:31:12] "GET /api/users HTTP/1.1" 200 -
+2025-01-24 16:31:13,319 - INFO - Fetched all users
+2025-01-24 16:31:13,321 - INFO - 172.18.0.1 - - [24/Jan/2025 16:31:13] "GET /api/users HTTP/1.1" 200 -
+2025-01-24 16:35:52,795 - INFO - Fetched all users
+2025-01-24 16:35:52,796 - INFO - 172.18.0.1 - - [24/Jan/2025 16:35:52] "GET /api/users HTTP/1.1" 200 -
+2025-01-24 16:37:02,782 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.18.0.2:5000
+2025-01-24 16:37:02,784 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-24 16:37:02,789 - INFO -  * Restarting with stat
+2025-01-24 16:37:03,707 - WARNING -  * Debugger is active!
+2025-01-24 16:37:03,712 - INFO -  * Debugger PIN: 234-347-035
+2025-01-24 16:51:26,179 - INFO - 172.18.0.1 - - [24/Jan/2025 16:51:26] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-01-24 16:51:26,183 - INFO - 172.18.0.1 - - [24/Jan/2025 16:51:26] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-01-24 16:51:26,272 - INFO - Fetched all blogs
+2025-01-24 16:51:26,275 - INFO - 172.18.0.1 - - [24/Jan/2025 16:51:26] "GET /api/blogs HTTP/1.1" 200 -
+2025-01-24 16:51:26,295 - INFO - Fetched all blogs
+2025-01-24 16:51:26,298 - INFO - 172.18.0.1 - - [24/Jan/2025 16:51:26] "GET /api/blogs HTTP/1.1" 200 -
+2025-01-24 16:52:24,638 - INFO - 172.18.0.1 - - [24/Jan/2025 16:52:24] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-01-24 16:52:24,641 - INFO - 172.18.0.1 - - [24/Jan/2025 16:52:24] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-01-24 16:52:24,678 - INFO - Fetched all blogs
+2025-01-24 16:52:24,681 - INFO - 172.18.0.1 - - [24/Jan/2025 16:52:24] "GET /api/blogs HTTP/1.1" 200 -
+2025-01-24 16:52:24,731 - INFO - Fetched all blogs
+2025-01-24 16:52:24,733 - INFO - 172.18.0.1 - - [24/Jan/2025 16:52:24] "GET /api/blogs HTTP/1.1" 200 -
