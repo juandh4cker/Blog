@@ -102,3 +102,14 @@
 2025-01-24 16:52:24,681 - INFO - 172.18.0.1 - - [24/Jan/2025 16:52:24] "GET /api/blogs HTTP/1.1" 200 -
 2025-01-24 16:52:24,731 - INFO - Fetched all blogs
 2025-01-24 16:52:24,733 - INFO - 172.18.0.1 - - [24/Jan/2025 16:52:24] "GET /api/blogs HTTP/1.1" 200 -
+2025-01-25 17:17:52,976 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.18.0.2:5000
+2025-01-25 17:17:52,978 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-25 17:17:53,033 - INFO -  * Restarting with watchdog (inotify)
+2025-01-25 17:17:53,883 - WARNING -  * Debugger is active!
+2025-01-25 17:17:53,891 - INFO -  * Debugger PIN: 159-353-655
+2025-01-25 17:18:25,709 - INFO - 172.18.0.1 - - [25/Jan/2025 17:18:25] "OPTIONS /api/users HTTP/1.1" 200 -
+2025-01-25 17:18:25,825 - INFO - Fetched all users
+2025-01-25 17:18:25,830 - INFO - 172.18.0.1 - - [25/Jan/2025 17:18:25] "GET /api/users HTTP/1.1" 200 -

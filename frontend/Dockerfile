@@ -1,22 +1,16 @@
-# Usa una imagen Node estable
+# frontend/Dockerfile
 FROM node:18
 
-# Establece el directorio de trabajo
 WORKDIR /app
 
-# Copia los archivos necesarios
 COPY package.json package-lock.json ./
 
-RUN rm -rf node_modules
-
-# Instala las dependencias
 RUN npm install
 
-# Copia el resto del código
 COPY . .
 
-# Expone el puerto donde se ejecutará Vite
+RUN npm install -g nodemon
+
 EXPOSE 5173
 
-# Comando para iniciar Vite en modo desarrollo
-CMD ["npm", "run", "dev", "--", "--host"]
+CMD ["nodemon", "--watch", ".", "--ext", "js,jsx,ts,tsx,css,json", "--exec", "npm run dev -- --host"]
