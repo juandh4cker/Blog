@@ -88,5 +88,42 @@ def create_blog():
     logging.info(f"Blog {new_blog['id']} created successfully")
     return jsonify(new_blog), 201
 
+@app.route('/api/blogs/<int:blog_id>', methods=['PUT'])
+def new_comment(blog_id):
+    blogs = load_data(BLOGS_FILE)
+    blog = next((blog for blog in blogs if blog['id'] == str(blog_id)), None)
+    if blog:
+        comment = request.get_json()
+        comment['id'] = f"{blog_id}{comment['userId']}{len(blog['comments']) + 1}"
+        blog['comments'].append(comment)
+        blog['rating'] = sum(comment['rating'] for comment in blog['comments']) / len(blog['comments'])
+        save_data(BLOGS_FILE, blogs)
+        logging.info(f"Comment added to blog {blog_id}")
+        return jsonify(blog), 200
+    else:
+        logging.warning(f"Blog {blog_id} not found")
+        return jsonify({"message": "Blog not found"}), 404
+
+@app.route('/api/blogs/<int:blog_id>/comments/<int:comment_id>', methods=['DELETE'])
+def delete_comment(blog_id, comment_id):
+    blogs = load_data(BLOGS_FILE)
+    blog = next((blog for blog in blogs if blog['id'] == str(blog_id)), None)
+    if blog:
+        comment = next((comment for comment in blog['comments'] if comment['id'] == str(comment_id)), None)
+        if comment:
+            blog['comments'].remove(comment)
+            blog['rating'] = sum(comment['rating'] for comment in blog['comments']) / len(blog['comments'])
+            save_data(BLOGS_FILE, blogs)
+            logging.info(f"Comment {comment_id} deleted from blog {blog_id}")
+            return jsonify(blog), 200
+        else:
+            logging.warning(f"Comment {comment_id} not found in blog {blog_id}")
+            return jsonify({"message": "Comment not found"}), 404
+        return jsonify(blog['comments']), 200
+    else:
+        logging.warning(f"Blog {blog_id} not found")
+        return jsonify({"message": "Blog not found"}), 404
+
+
 if __name__ == '__main__':
     app.run(debug=True)

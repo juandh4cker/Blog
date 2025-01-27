@@ -8,6 +8,6 @@ createRoot(document.getElementById('root')).render(
   </StrictMode>,
 )
 
-{"Ver si la imagen es válida, votar por rating y sacar promedio, archivo routes, buenas practicas y mejoras generales con vite, logo"}
+{"Ver si la imagen es válida, archivo routes, buenas practicas y mejoras generales con vite, logo"}
 {"Hacer componente de seguridad y borrar variables no usadas y css no usado"}
 {"Mejorar el diseño general, menu cerrarse al tocar otra parte y hacer animaciones"}

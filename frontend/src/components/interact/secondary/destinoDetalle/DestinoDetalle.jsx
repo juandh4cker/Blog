@@ -4,8 +4,11 @@ import { useEffect, useState } from 'react';
 import {
   fetchDestino,
   fetchUsers,
-  updateDestinoComments,
+  addComment,
   deleteDestinoById,
+  getComments,
+  deleteComment, 
+  getLocalStorage
 } from '../../../useful/ApiService';
 
 import './DestinoDetalle.css';
@@ -18,7 +21,7 @@ const DestinoDetalle = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [newComment, setNewComment] = useState('');
-  const [newRating, setNewRating] = useState(0);
+  const [newRating, setNewRating] = useState('');
   const [comments, setComments] = useState([]);
   const [isCreator, setIsCreator] = useState(false);
 
@@ -27,7 +30,7 @@ const DestinoDetalle = () => {
       try {
         const data = await fetchDestino(id);
         setDestino(data);
-        setComments(data.comments || []);
+        setComments(await getComments(id));
 
         const users = await fetchUsers();
         const creator = users.find((user) => user.name === data.creator);
@@ -71,14 +74,30 @@ const DestinoDetalle = () => {
     };
 
     try {
-      const updatedComments = [...comments, newEntry];
-      await updateDestinoComments(id, updatedComments);
-      setComments(updatedComments);
+      await addComment(id, newEntry);
+      setComments(await getComments(id));
+      const data = await fetchDestino(id);
+      setDestino(data);
       setNewComment('');
-      setNewRating(0);
+      setNewRating('');
 
     } catch (error) {
       alert('Error al subir el comentario.');
+      console.log(error);
+    }
+  };
+
+  const handleDeleteComment = async (commentId) => {
+    if (window.confirm('¿Estás seguro de que quieres eliminar este comentario?')) {
+      try {
+        await deleteComment(id, commentId);
+        setComments(await getComments(id));
+        const data = await fetchDestino(id);
+        setDestino(data);
+
+      } catch (error) {
+        alert('Error al eliminar el comentario.');
+      }
     }
   };
 
@@ -175,6 +194,10 @@ const DestinoDetalle = () => {
                 </b>: {comment.comment}
               </p>
               <p><b>Calificación:</b> {comment.rating}/10</p>
+              {comment.userName === getLocalStorage('user').name && (
+                <button className="button" onClick={() => handleDeleteComment(comment.id)}>Borrar</button>
+              )
+}
               <p>------------------------------------------------------</p>
             </div>
           ))}

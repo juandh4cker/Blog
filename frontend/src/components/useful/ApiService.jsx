@@ -1,6 +1,3 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-
 const API_BASE_URL = 'http://localhost:5000/api';
 
 export const apiRequest = async (endpoint, method = 'GET', body = null) => {
@@ -45,7 +42,20 @@ export const fetchUsers = (id = null) => {
 
 };
 
-export const updateDestinoComments = (id, comments) => apiRequest(`blogs/${id}`, 'PUT', { comments });
+export const getComments = async (id) => {
+  try {
+    const blog = await fetchDestino(id);
+    return blog.comments || [];
+    
+  } catch (error) {
+    console.error(`Error fetching comments: ${error.message}`);
+    return [];
+  }
+};
+
+
+export const addComment = (id, comment) => apiRequest(`blogs/${id}`, 'PUT', comment);
+export const deleteComment = (id, commentId) => apiRequest(`blogs/${id}/comments/${commentId}`, 'DELETE');
 export const deleteDestinoById = (id) => apiRequest(`blogs/${id}`, 'DELETE');
 
 export const getLocalStorage = (item = null) => {
