@@ -1232,3 +1232,1123 @@
 2025-01-27 18:13:23,256 - INFO - 172.18.0.1 - - [27/Jan/2025 18:13:23] "GET /api/users HTTP/1.1" 200 -
 2025-01-27 18:13:23,302 - INFO - Fetched all users
 2025-01-27 18:13:23,306 - INFO - 172.18.0.1 - - [27/Jan/2025 18:13:23] "GET /api/users HTTP/1.1" 200 -
+2025-01-27 18:19:07,147 - INFO - 172.18.0.1 - - [27/Jan/2025 18:19:07] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-01-27 18:19:07,168 - INFO - Blog 2 fetched successfully
+2025-01-27 18:19:07,172 - INFO - 172.18.0.1 - - [27/Jan/2025 18:19:07] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-01-27 18:19:07,197 - INFO - Blog 2 fetched successfully
+2025-01-27 18:19:07,199 - INFO - 172.18.0.1 - - [27/Jan/2025 18:19:07] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-01-27 18:19:07,415 - INFO - Blog 2 fetched successfully
+2025-01-27 18:19:07,419 - INFO - 172.18.0.1 - - [27/Jan/2025 18:19:07] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-01-27 18:19:07,457 - INFO - Blog 2 fetched successfully
+2025-01-27 18:19:07,463 - INFO - 172.18.0.1 - - [27/Jan/2025 18:19:07] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-01-27 18:19:07,592 - INFO - 172.18.0.1 - - [27/Jan/2025 18:19:07] "OPTIONS /api/users HTTP/1.1" 200 -
+2025-01-27 18:19:07,623 - INFO - Fetched all users
+2025-01-27 18:19:07,625 - INFO - 172.18.0.1 - - [27/Jan/2025 18:19:07] "GET /api/users HTTP/1.1" 200 -
+2025-01-27 18:19:08,587 - INFO - Fetched all users
+2025-01-27 18:19:08,591 - INFO - 172.18.0.1 - - [27/Jan/2025 18:19:08] "GET /api/users HTTP/1.1" 200 -
+2025-01-27 18:20:22,909 - INFO - 172.18.0.1 - - [27/Jan/2025 18:20:22] "OPTIONS /api/users/2 HTTP/1.1" 200 -
+2025-01-27 18:20:22,912 - INFO - 172.18.0.1 - - [27/Jan/2025 18:20:22] "OPTIONS /api/users/2 HTTP/1.1" 200 -
+2025-01-27 18:20:22,938 - INFO - User 2 fetched successfully
+2025-01-27 18:20:22,940 - INFO - 172.18.0.1 - - [27/Jan/2025 18:20:22] "GET /api/users/2 HTTP/1.1" 200 -
+2025-01-27 18:20:22,967 - INFO - User 2 fetched successfully
+2025-01-27 18:20:22,968 - INFO - 172.18.0.1 - - [27/Jan/2025 18:20:22] "GET /api/users/2 HTTP/1.1" 200 -
+2025-01-27 18:20:22,997 - INFO - User 2 fetched successfully
+2025-01-27 18:20:22,998 - INFO - 172.18.0.1 - - [27/Jan/2025 18:20:22] "GET /api/users/2 HTTP/1.1" 200 -
+2025-01-27 18:20:23,022 - INFO - 172.18.0.1 - - [27/Jan/2025 18:20:23] "OPTIONS /api/blogs/1 HTTP/1.1" 200 -
+2025-01-27 18:20:23,040 - INFO - User 2 fetched successfully
+2025-01-27 18:20:23,044 - INFO - 172.18.0.1 - - [27/Jan/2025 18:20:23] "GET /api/users/2 HTTP/1.1" 200 -
+2025-01-27 18:20:23,059 - INFO - Blog 1 fetched successfully
+2025-01-27 18:20:23,062 - INFO - 172.18.0.1 - - [27/Jan/2025 18:20:23] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-01-27 18:20:23,085 - INFO - 172.18.0.1 - - [27/Jan/2025 18:20:23] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-01-27 18:20:23,097 - INFO - Blog 1 fetched successfully
+2025-01-27 18:20:23,100 - INFO - 172.18.0.1 - - [27/Jan/2025 18:20:23] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-01-27 18:20:23,121 - INFO - Blog 2 fetched successfully
+2025-01-27 18:20:23,123 - INFO - 172.18.0.1 - - [27/Jan/2025 18:20:23] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-01-27 18:20:23,156 - INFO - Blog 2 fetched successfully
+2025-01-27 18:20:23,160 - INFO - 172.18.0.1 - - [27/Jan/2025 18:20:23] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-01-29 19:52:24,012 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.18.0.2:5000
+2025-01-29 19:52:24,025 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-29 19:52:24,033 - INFO -  * Restarting with stat
+2025-01-29 19:52:28,810 - WARNING -  * Debugger is active!
+2025-01-29 19:52:28,829 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 19:52:39,285 - INFO - 172.18.0.1 - - [29/Jan/2025 19:52:39] "OPTIONS /api/users HTTP/1.1" 200 -
+2025-01-29 19:52:39,348 - INFO - Fetched all users
+2025-01-29 19:52:39,351 - INFO - 172.18.0.1 - - [29/Jan/2025 19:52:39] "GET /api/users HTTP/1.1" 200 -
+2025-01-29 19:52:49,041 - INFO - 172.18.0.1 - - [29/Jan/2025 19:52:49] "[33mGET / HTTP/1.1[0m" 404 -
+2025-01-29 19:52:53,862 - INFO - Fetched all blogs
+2025-01-29 19:52:53,864 - INFO - 172.18.0.1 - - [29/Jan/2025 19:52:53] "GET /api/blogs HTTP/1.1" 200 -
+2025-01-29 19:52:57,838 - INFO - 172.18.0.1 - - [29/Jan/2025 19:52:57] "OPTIONS /api/users/4 HTTP/1.1" 200 -
+2025-01-29 19:52:57,842 - INFO - 172.18.0.1 - - [29/Jan/2025 19:52:57] "OPTIONS /api/users/4 HTTP/1.1" 200 -
+2025-01-29 19:52:57,865 - INFO - User 4 fetched successfully
+2025-01-29 19:52:57,869 - INFO - 172.18.0.1 - - [29/Jan/2025 19:52:57] "GET /api/users/4 HTTP/1.1" 200 -
+2025-01-29 19:52:57,888 - INFO - User 4 fetched successfully
+2025-01-29 19:52:57,889 - INFO - 172.18.0.1 - - [29/Jan/2025 19:52:57] "GET /api/users/4 HTTP/1.1" 200 -
+2025-01-29 19:52:57,919 - INFO - User 4 fetched successfully
+2025-01-29 19:52:57,922 - INFO - 172.18.0.1 - - [29/Jan/2025 19:52:57] "GET /api/users/4 HTTP/1.1" 200 -
+2025-01-29 19:52:57,961 - INFO - 172.18.0.1 - - [29/Jan/2025 19:52:57] "OPTIONS /api/blogs/5 HTTP/1.1" 200 -
+2025-01-29 19:52:57,976 - INFO - User 4 fetched successfully
+2025-01-29 19:52:57,977 - INFO - 172.18.0.1 - - [29/Jan/2025 19:52:57] "GET /api/users/4 HTTP/1.1" 200 -
+2025-01-29 19:52:57,990 - INFO - Blog 5 fetched successfully
+2025-01-29 19:52:57,991 - INFO - 172.18.0.1 - - [29/Jan/2025 19:52:57] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-01-29 19:52:58,021 - INFO - 172.18.0.1 - - [29/Jan/2025 19:52:58] "OPTIONS /api/blogs/10 HTTP/1.1" 200 -
+2025-01-29 19:52:58,029 - INFO - Blog 5 fetched successfully
+2025-01-29 19:52:58,031 - INFO - 172.18.0.1 - - [29/Jan/2025 19:52:58] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-01-29 19:52:58,048 - INFO - Blog 10 fetched successfully
+2025-01-29 19:52:58,051 - INFO - 172.18.0.1 - - [29/Jan/2025 19:52:58] "GET /api/blogs/10 HTTP/1.1" 200 -
+2025-01-29 19:52:58,078 - INFO - Blog 10 fetched successfully
+2025-01-29 19:52:58,079 - INFO - 172.18.0.1 - - [29/Jan/2025 19:52:58] "GET /api/blogs/10 HTTP/1.1" 200 -
+2025-01-29 19:53:16,342 - INFO - 172.18.0.1 - - [29/Jan/2025 19:53:16] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-01-29 19:53:16,348 - INFO - 172.18.0.1 - - [29/Jan/2025 19:53:16] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-01-29 19:53:16,374 - INFO - Fetched all blogs
+2025-01-29 19:53:16,377 - INFO - 172.18.0.1 - - [29/Jan/2025 19:53:16] "GET /api/blogs HTTP/1.1" 200 -
+2025-01-29 19:53:16,409 - INFO - Fetched all blogs
+2025-01-29 19:53:16,411 - INFO - 172.18.0.1 - - [29/Jan/2025 19:53:16] "GET /api/blogs HTTP/1.1" 200 -
+2025-01-29 19:55:02,375 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:02] "OPTIONS /api/blogs/5 HTTP/1.1" 200 -
+2025-01-29 19:55:02,376 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:02] "OPTIONS /api/blogs/5 HTTP/1.1" 200 -
+2025-01-29 19:55:02,430 - INFO - Blog 5 fetched successfully
+2025-01-29 19:55:02,432 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:02] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-01-29 19:55:02,477 - INFO - Blog 5 fetched successfully
+2025-01-29 19:55:02,479 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:02] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-01-29 19:55:02,554 - INFO - Blog 5 fetched successfully
+2025-01-29 19:55:02,556 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:02] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-01-29 19:55:02,595 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:02] "OPTIONS /api/users HTTP/1.1" 200 -
+2025-01-29 19:55:02,606 - INFO - Blog 5 fetched successfully
+2025-01-29 19:55:02,609 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:02] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-01-29 19:55:02,632 - INFO - Fetched all users
+2025-01-29 19:55:02,634 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:02] "GET /api/users HTTP/1.1" 200 -
+2025-01-29 19:55:02,680 - INFO - Fetched all users
+2025-01-29 19:55:02,684 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:02] "GET /api/users HTTP/1.1" 200 -
+2025-01-29 19:55:13,372 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:13] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-01-29 19:55:13,376 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:13] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-01-29 19:55:13,431 - INFO - Fetched all blogs
+2025-01-29 19:55:13,434 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:13] "GET /api/blogs HTTP/1.1" 200 -
+2025-01-29 19:55:13,465 - INFO - Fetched all blogs
+2025-01-29 19:55:13,468 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:13] "GET /api/blogs HTTP/1.1" 200 -
+2025-01-29 19:55:16,159 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:16] "OPTIONS /api/blogs/4 HTTP/1.1" 200 -
+2025-01-29 19:55:16,162 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:16] "OPTIONS /api/blogs/4 HTTP/1.1" 200 -
+2025-01-29 19:55:16,206 - INFO - Blog 4 fetched successfully
+2025-01-29 19:55:16,209 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:16] "GET /api/blogs/4 HTTP/1.1" 200 -
+2025-01-29 19:55:16,257 - INFO - Blog 4 fetched successfully
+2025-01-29 19:55:16,259 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:16] "GET /api/blogs/4 HTTP/1.1" 200 -
+2025-01-29 19:55:16,384 - INFO - Blog 4 fetched successfully
+2025-01-29 19:55:16,389 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:16] "GET /api/blogs/4 HTTP/1.1" 200 -
+2025-01-29 19:55:16,436 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:16] "OPTIONS /api/users HTTP/1.1" 200 -
+2025-01-29 19:55:16,478 - INFO - Fetched all users
+2025-01-29 19:55:16,480 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:16] "GET /api/users HTTP/1.1" 200 -
+2025-01-29 19:55:16,481 - INFO - Blog 4 fetched successfully
+2025-01-29 19:55:16,491 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:16] "GET /api/blogs/4 HTTP/1.1" 200 -
+2025-01-29 19:55:16,591 - INFO - Fetched all users
+2025-01-29 19:55:16,593 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:16] "GET /api/users HTTP/1.1" 200 -
+2025-01-29 19:55:26,583 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:26] "OPTIONS /api/users/4 HTTP/1.1" 200 -
+2025-01-29 19:55:26,599 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:26] "OPTIONS /api/users/4 HTTP/1.1" 200 -
+2025-01-29 19:55:26,625 - INFO - User 4 fetched successfully
+2025-01-29 19:55:26,629 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:26] "GET /api/users/4 HTTP/1.1" 200 -
+2025-01-29 19:55:26,679 - INFO - User 4 fetched successfully
+2025-01-29 19:55:26,681 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:26] "GET /api/users/4 HTTP/1.1" 200 -
+2025-01-29 19:55:26,778 - INFO - User 4 fetched successfully
+2025-01-29 19:55:26,787 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:26] "GET /api/users/4 HTTP/1.1" 200 -
+2025-01-29 19:55:26,838 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:26] "OPTIONS /api/blogs/5 HTTP/1.1" 200 -
+2025-01-29 19:55:26,847 - INFO - User 4 fetched successfully
+2025-01-29 19:55:26,851 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:26] "GET /api/users/4 HTTP/1.1" 200 -
+2025-01-29 19:55:26,980 - INFO - Blog 5 fetched successfully
+2025-01-29 19:55:26,982 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:26] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-01-29 19:55:27,012 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:27] "OPTIONS /api/blogs/10 HTTP/1.1" 200 -
+2025-01-29 19:55:27,024 - INFO - Blog 5 fetched successfully
+2025-01-29 19:55:27,026 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:27] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-01-29 19:55:27,051 - INFO - Blog 10 fetched successfully
+2025-01-29 19:55:27,054 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:27] "GET /api/blogs/10 HTTP/1.1" 200 -
+2025-01-29 19:55:27,112 - INFO - Blog 10 fetched successfully
+2025-01-29 19:55:27,114 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:27] "GET /api/blogs/10 HTTP/1.1" 200 -
+2025-01-29 19:55:33,224 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:33] "OPTIONS /api/users/4 HTTP/1.1" 200 -
+2025-01-29 19:55:33,243 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:33] "OPTIONS /api/users/4 HTTP/1.1" 200 -
+2025-01-29 19:55:33,304 - INFO - User 4 fetched successfully
+2025-01-29 19:55:33,306 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:33] "GET /api/users/4 HTTP/1.1" 200 -
+2025-01-29 19:55:33,371 - INFO - User 4 fetched successfully
+2025-01-29 19:55:33,374 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:33] "GET /api/users/4 HTTP/1.1" 200 -
+2025-01-29 19:55:33,474 - INFO - User 4 fetched successfully
+2025-01-29 19:55:33,476 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:33] "GET /api/users/4 HTTP/1.1" 200 -
+2025-01-29 19:55:33,604 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:33] "OPTIONS /api/blogs/5 HTTP/1.1" 200 -
+2025-01-29 19:55:33,606 - INFO - User 4 fetched successfully
+2025-01-29 19:55:33,608 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:33] "GET /api/users/4 HTTP/1.1" 200 -
+2025-01-29 19:55:33,675 - INFO - Blog 5 fetched successfully
+2025-01-29 19:55:33,678 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:33] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-01-29 19:55:33,765 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:33] "OPTIONS /api/blogs/10 HTTP/1.1" 200 -
+2025-01-29 19:55:33,782 - INFO - Blog 5 fetched successfully
+2025-01-29 19:55:33,785 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:33] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-01-29 19:55:33,812 - INFO - Blog 10 fetched successfully
+2025-01-29 19:55:33,813 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:33] "GET /api/blogs/10 HTTP/1.1" 200 -
+2025-01-29 19:55:33,905 - INFO - Blog 10 fetched successfully
+2025-01-29 19:55:33,907 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:33] "GET /api/blogs/10 HTTP/1.1" 200 -
+2025-01-29 19:55:42,620 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:42] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-01-29 19:55:42,623 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:42] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-01-29 19:55:42,722 - INFO - Fetched all blogs
+2025-01-29 19:55:42,724 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:42] "GET /api/blogs HTTP/1.1" 200 -
+2025-01-29 19:55:42,780 - INFO - Fetched all blogs
+2025-01-29 19:55:42,786 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:42] "GET /api/blogs HTTP/1.1" 200 -
+2025-01-29 19:55:48,741 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:48] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-01-29 19:55:48,741 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:48] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-01-29 19:55:48,775 - INFO - Blog 9 fetched successfully
+2025-01-29 19:55:48,777 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:48] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-01-29 19:55:48,814 - INFO - Blog 9 fetched successfully
+2025-01-29 19:55:48,816 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:48] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-01-29 19:55:48,866 - INFO - Blog 9 fetched successfully
+2025-01-29 19:55:48,869 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:48] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-01-29 19:55:48,923 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:48] "OPTIONS /api/users HTTP/1.1" 200 -
+2025-01-29 19:55:48,944 - INFO - Blog 9 fetched successfully
+2025-01-29 19:55:48,946 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:48] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-01-29 19:55:48,961 - INFO - Fetched all users
+2025-01-29 19:55:48,964 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:48] "GET /api/users HTTP/1.1" 200 -
+2025-01-29 19:55:49,010 - INFO - Fetched all users
+2025-01-29 19:55:49,023 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:49] "GET /api/users HTTP/1.1" 200 -
+2025-01-29 19:55:54,417 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:54] "OPTIONS /api/users/3 HTTP/1.1" 200 -
+2025-01-29 19:55:54,420 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:54] "OPTIONS /api/users/3 HTTP/1.1" 200 -
+2025-01-29 19:55:54,455 - INFO - User 3 fetched successfully
+2025-01-29 19:55:54,458 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:54] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-29 19:55:54,489 - INFO - User 3 fetched successfully
+2025-01-29 19:55:54,491 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:54] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-29 19:55:54,532 - INFO - User 3 fetched successfully
+2025-01-29 19:55:54,534 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:54] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-29 19:55:54,559 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:54] "OPTIONS /api/blogs/7 HTTP/1.1" 200 -
+2025-01-29 19:55:54,573 - INFO - User 3 fetched successfully
+2025-01-29 19:55:54,577 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:54] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-29 19:55:54,591 - INFO - Blog 7 fetched successfully
+2025-01-29 19:55:54,593 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:54] "GET /api/blogs/7 HTTP/1.1" 200 -
+2025-01-29 19:55:54,618 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:54] "OPTIONS /api/blogs/8 HTTP/1.1" 200 -
+2025-01-29 19:55:54,635 - INFO - Blog 7 fetched successfully
+2025-01-29 19:55:54,640 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:54] "GET /api/blogs/7 HTTP/1.1" 200 -
+2025-01-29 19:55:54,654 - INFO - Blog 8 fetched successfully
+2025-01-29 19:55:54,657 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:54] "GET /api/blogs/8 HTTP/1.1" 200 -
+2025-01-29 19:55:54,693 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:54] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-01-29 19:55:54,704 - INFO - Blog 8 fetched successfully
+2025-01-29 19:55:54,706 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:54] "GET /api/blogs/8 HTTP/1.1" 200 -
+2025-01-29 19:55:54,743 - INFO - Blog 9 fetched successfully
+2025-01-29 19:55:54,748 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:54] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-01-29 19:55:54,808 - INFO - Blog 9 fetched successfully
+2025-01-29 19:55:54,813 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:54] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-01-29 19:55:59,172 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:59] "OPTIONS /api/users/4 HTTP/1.1" 200 -
+2025-01-29 19:55:59,243 - INFO - User 4 fetched successfully
+2025-01-29 19:55:59,245 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:59] "GET /api/users/4 HTTP/1.1" 200 -
+2025-01-29 19:55:59,287 - INFO - User 4 fetched successfully
+2025-01-29 19:55:59,289 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:59] "GET /api/users/4 HTTP/1.1" 200 -
+2025-01-29 19:55:59,323 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:59] "OPTIONS /api/blogs/5 HTTP/1.1" 200 -
+2025-01-29 19:55:59,372 - INFO - Blog 5 fetched successfully
+2025-01-29 19:55:59,374 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:59] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-01-29 19:55:59,436 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:59] "OPTIONS /api/blogs/10 HTTP/1.1" 200 -
+2025-01-29 19:55:59,535 - INFO - Blog 10 fetched successfully
+2025-01-29 19:55:59,537 - INFO - 172.18.0.1 - - [29/Jan/2025 19:55:59] "GET /api/blogs/10 HTTP/1.1" 200 -
+2025-01-29 19:56:07,520 - INFO - 172.18.0.1 - - [29/Jan/2025 19:56:07] "OPTIONS /api/users/3 HTTP/1.1" 200 -
+2025-01-29 19:56:07,554 - INFO - User 3 fetched successfully
+2025-01-29 19:56:07,560 - INFO - 172.18.0.1 - - [29/Jan/2025 19:56:07] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-29 19:56:07,718 - INFO - User 3 fetched successfully
+2025-01-29 19:56:07,720 - INFO - 172.18.0.1 - - [29/Jan/2025 19:56:07] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-29 19:56:07,742 - INFO - 172.18.0.1 - - [29/Jan/2025 19:56:07] "OPTIONS /api/blogs/7 HTTP/1.1" 200 -
+2025-01-29 19:56:07,773 - INFO - Blog 7 fetched successfully
+2025-01-29 19:56:07,775 - INFO - 172.18.0.1 - - [29/Jan/2025 19:56:07] "GET /api/blogs/7 HTTP/1.1" 200 -
+2025-01-29 19:56:07,807 - INFO - 172.18.0.1 - - [29/Jan/2025 19:56:07] "OPTIONS /api/blogs/8 HTTP/1.1" 200 -
+2025-01-29 19:56:07,837 - INFO - Blog 8 fetched successfully
+2025-01-29 19:56:07,841 - INFO - 172.18.0.1 - - [29/Jan/2025 19:56:07] "GET /api/blogs/8 HTTP/1.1" 200 -
+2025-01-29 19:56:07,868 - INFO - 172.18.0.1 - - [29/Jan/2025 19:56:07] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-01-29 19:56:07,902 - INFO - Blog 9 fetched successfully
+2025-01-29 19:56:07,904 - INFO - 172.18.0.1 - - [29/Jan/2025 19:56:07] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-01-29 19:56:19,287 - INFO - 172.18.0.1 - - [29/Jan/2025 19:56:19] "OPTIONS /api/users/3 HTTP/1.1" 200 -
+2025-01-29 19:56:19,293 - INFO - 172.18.0.1 - - [29/Jan/2025 19:56:19] "OPTIONS /api/users/3 HTTP/1.1" 200 -
+2025-01-29 19:56:19,342 - INFO - User 3 fetched successfully
+2025-01-29 19:56:19,344 - INFO - 172.18.0.1 - - [29/Jan/2025 19:56:19] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-29 19:56:19,597 - INFO - User 3 fetched successfully
+2025-01-29 19:56:19,598 - INFO - 172.18.0.1 - - [29/Jan/2025 19:56:19] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-29 19:56:19,678 - INFO - User 3 fetched successfully
+2025-01-29 19:56:19,682 - INFO - 172.18.0.1 - - [29/Jan/2025 19:56:19] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-29 19:56:19,838 - INFO - 172.18.0.1 - - [29/Jan/2025 19:56:19] "OPTIONS /api/blogs/7 HTTP/1.1" 200 -
+2025-01-29 19:56:19,871 - INFO - User 3 fetched successfully
+2025-01-29 19:56:19,873 - INFO - 172.18.0.1 - - [29/Jan/2025 19:56:19] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-29 19:56:19,888 - INFO - Blog 7 fetched successfully
+2025-01-29 19:56:19,889 - INFO - 172.18.0.1 - - [29/Jan/2025 19:56:19] "GET /api/blogs/7 HTTP/1.1" 200 -
+2025-01-29 19:56:19,920 - INFO - 172.18.0.1 - - [29/Jan/2025 19:56:19] "OPTIONS /api/blogs/8 HTTP/1.1" 200 -
+2025-01-29 19:56:19,937 - INFO - Blog 7 fetched successfully
+2025-01-29 19:56:19,939 - INFO - 172.18.0.1 - - [29/Jan/2025 19:56:19] "GET /api/blogs/7 HTTP/1.1" 200 -
+2025-01-29 19:56:20,040 - INFO - Blog 8 fetched successfully
+2025-01-29 19:56:20,044 - INFO - 172.18.0.1 - - [29/Jan/2025 19:56:20] "GET /api/blogs/8 HTTP/1.1" 200 -
+2025-01-29 19:56:20,082 - INFO - 172.18.0.1 - - [29/Jan/2025 19:56:20] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-01-29 19:56:20,091 - INFO - Blog 8 fetched successfully
+2025-01-29 19:56:20,093 - INFO - 172.18.0.1 - - [29/Jan/2025 19:56:20] "GET /api/blogs/8 HTTP/1.1" 200 -
+2025-01-29 19:56:20,129 - INFO - Blog 9 fetched successfully
+2025-01-29 19:56:20,131 - INFO - 172.18.0.1 - - [29/Jan/2025 19:56:20] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-01-29 19:56:20,176 - INFO - Blog 9 fetched successfully
+2025-01-29 19:56:20,178 - INFO - 172.18.0.1 - - [29/Jan/2025 19:56:20] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-01-29 20:18:18,871 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 20:18:19,126 - INFO -  * Restarting with stat
+2025-01-29 20:18:20,676 - WARNING -  * Debugger is active!
+2025-01-29 20:18:20,680 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 20:21:46,659 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 20:21:46,832 - INFO -  * Restarting with stat
+2025-01-29 20:21:47,538 - WARNING -  * Debugger is active!
+2025-01-29 20:21:47,539 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 20:21:59,292 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 20:21:59,382 - INFO -  * Restarting with stat
+2025-01-29 20:22:00,007 - WARNING -  * Debugger is active!
+2025-01-29 20:22:00,018 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 20:23:38,419 - INFO - 172.18.0.1 - - [29/Jan/2025 20:23:38] "OPTIONS /api/users/3 HTTP/1.1" 200 -
+2025-01-29 20:23:38,459 - INFO - User 3 fetched successfully
+2025-01-29 20:23:38,461 - INFO - 172.18.0.1 - - [29/Jan/2025 20:23:38] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-29 20:23:38,506 - INFO - User 3 fetched successfully
+2025-01-29 20:23:38,508 - INFO - 172.18.0.1 - - [29/Jan/2025 20:23:38] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-29 20:23:38,546 - INFO - 172.18.0.1 - - [29/Jan/2025 20:23:38] "OPTIONS /api/blogs/7 HTTP/1.1" 200 -
+2025-01-29 20:23:38,589 - INFO - Blog 7 fetched successfully
+2025-01-29 20:23:38,590 - INFO - 172.18.0.1 - - [29/Jan/2025 20:23:38] "GET /api/blogs/7 HTTP/1.1" 200 -
+2025-01-29 20:23:38,612 - INFO - 172.18.0.1 - - [29/Jan/2025 20:23:38] "OPTIONS /api/blogs/8 HTTP/1.1" 200 -
+2025-01-29 20:23:38,639 - INFO - Blog 8 fetched successfully
+2025-01-29 20:23:38,641 - INFO - 172.18.0.1 - - [29/Jan/2025 20:23:38] "GET /api/blogs/8 HTTP/1.1" 200 -
+2025-01-29 20:23:38,661 - INFO - 172.18.0.1 - - [29/Jan/2025 20:23:38] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-01-29 20:23:38,684 - INFO - Blog 9 fetched successfully
+2025-01-29 20:23:38,685 - INFO - 172.18.0.1 - - [29/Jan/2025 20:23:38] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-01-29 20:25:30,201 - INFO - 172.18.0.1 - - [29/Jan/2025 20:25:30] "OPTIONS /api/users/3 HTTP/1.1" 200 -
+2025-01-29 20:25:30,215 - INFO - User 3 fetched successfully
+2025-01-29 20:25:30,216 - INFO - 172.18.0.1 - - [29/Jan/2025 20:25:30] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-29 20:25:30,245 - INFO - User 3 fetched successfully
+2025-01-29 20:25:30,247 - INFO - 172.18.0.1 - - [29/Jan/2025 20:25:30] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-29 20:25:30,287 - INFO - 172.18.0.1 - - [29/Jan/2025 20:25:30] "OPTIONS /api/blogs/7 HTTP/1.1" 200 -
+2025-01-29 20:25:30,300 - INFO - Blog 7 fetched successfully
+2025-01-29 20:25:30,301 - INFO - 172.18.0.1 - - [29/Jan/2025 20:25:30] "GET /api/blogs/7 HTTP/1.1" 200 -
+2025-01-29 20:25:30,313 - INFO - 172.18.0.1 - - [29/Jan/2025 20:25:30] "OPTIONS /api/blogs/8 HTTP/1.1" 200 -
+2025-01-29 20:25:30,328 - INFO - Blog 8 fetched successfully
+2025-01-29 20:25:30,330 - INFO - 172.18.0.1 - - [29/Jan/2025 20:25:30] "GET /api/blogs/8 HTTP/1.1" 200 -
+2025-01-29 20:25:30,347 - INFO - 172.18.0.1 - - [29/Jan/2025 20:25:30] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-01-29 20:25:30,367 - INFO - Blog 9 fetched successfully
+2025-01-29 20:25:30,372 - INFO - 172.18.0.1 - - [29/Jan/2025 20:25:30] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-01-29 20:26:28,680 - INFO - 172.18.0.1 - - [29/Jan/2025 20:26:28] "[35m[1mGET /api/login HTTP/1.1[0m" 500 -
+2025-01-29 20:26:28,833 - INFO - 172.18.0.1 - - [29/Jan/2025 20:26:28] "GET /api/login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-01-29 20:26:28,858 - INFO - 172.18.0.1 - - [29/Jan/2025 20:26:28] "GET /api/login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-01-29 20:26:29,099 - INFO - 172.18.0.1 - - [29/Jan/2025 20:26:29] "GET /api/login?__debugger__=yes&cmd=resource&f=console.png&s=FVEvPnyfaxpmfWbnLVj9 HTTP/1.1" 200 -
+2025-01-29 20:26:29,139 - INFO - 172.18.0.1 - - [29/Jan/2025 20:26:29] "GET /api/login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-01-29 20:27:32,903 - INFO - 172.18.0.1 - - [29/Jan/2025 20:27:32] "[35m[1mGET /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1[0m" 500 -
+2025-01-29 20:27:33,061 - INFO - 172.18.0.1 - - [29/Jan/2025 20:27:33] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-01-29 20:27:33,064 - INFO - 172.18.0.1 - - [29/Jan/2025 20:27:33] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-01-29 20:27:33,143 - INFO - 172.18.0.1 - - [29/Jan/2025 20:27:33] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=console.png&s=FVEvPnyfaxpmfWbnLVj9 HTTP/1.1[0m" 304 -
+2025-01-29 20:27:56,983 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 20:27:57,169 - INFO -  * Restarting with stat
+2025-01-29 20:27:58,466 - WARNING -  * Debugger is active!
+2025-01-29 20:27:58,468 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 20:27:58,583 - WARNING - Invalid credentials
+2025-01-29 20:27:58,590 - INFO - 172.18.0.1 - - [29/Jan/2025 20:27:58] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1[0m" 401 -
+2025-01-29 20:28:25,900 - WARNING - Invalid credentials
+2025-01-29 20:28:25,904 - INFO - 172.18.0.1 - - [29/Jan/2025 20:28:25] "[31m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1[0m" 401 -
+2025-01-29 20:29:01,206 - WARNING - Invalid credentials
+2025-01-29 20:29:01,209 - INFO - 172.18.0.1 - - [29/Jan/2025 20:29:01] "[31m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1[0m" 401 -
+2025-01-29 20:29:17,244 - WARNING - Invalid credentials
+2025-01-29 20:29:17,246 - INFO - 172.18.0.1 - - [29/Jan/2025 20:29:17] "[31m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1[0m" 401 -
+2025-01-29 20:29:46,340 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 20:29:46,513 - INFO -  * Restarting with stat
+2025-01-29 20:29:47,205 - WARNING -  * Debugger is active!
+2025-01-29 20:29:47,210 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 20:29:47,300 - WARNING - Invalid credentials
+2025-01-29 20:29:47,306 - INFO - 172.18.0.1 - - [29/Jan/2025 20:29:47] "[31m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1[0m" 401 -
+2025-01-29 20:32:05,150 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 20:32:05,342 - INFO -  * Restarting with stat
+2025-01-29 20:32:06,432 - WARNING -  * Debugger is active!
+2025-01-29 20:32:06,435 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 20:32:08,379 - INFO - User 4 logged in successfully
+2025-01-29 20:32:08,382 - INFO - 172.18.0.1 - - [29/Jan/2025 20:32:08] "GET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-29 21:58:05,077 - INFO - User 4 logged in successfully
+2025-01-29 21:58:05,079 - INFO - 172.18.0.1 - - [29/Jan/2025 21:58:05] "GET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-29 21:58:09,111 - INFO - User 4 logged in successfully
+2025-01-29 21:58:09,112 - INFO - 172.18.0.1 - - [29/Jan/2025 21:58:09] "GET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-29 21:58:18,007 - INFO - User 4 logged in successfully
+2025-01-29 21:58:18,010 - INFO - 172.18.0.1 - - [29/Jan/2025 21:58:18] "GET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-29 21:58:49,491 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 21:58:49,669 - INFO -  * Restarting with stat
+2025-01-29 22:04:08,988 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.18.0.2:5000
+2025-01-29 22:04:08,989 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-29 22:04:08,993 - INFO -  * Restarting with stat
+2025-01-29 22:04:09,631 - WARNING -  * Debugger is active!
+2025-01-29 22:04:09,633 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 22:04:17,856 - INFO - User 4 logged in successfully
+2025-01-29 22:04:17,859 - INFO - 172.18.0.1 - - [29/Jan/2025 22:04:17] "GET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-29 22:04:52,925 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 22:04:53,173 - INFO -  * Restarting with stat
+2025-01-29 22:04:54,118 - WARNING -  * Debugger is active!
+2025-01-29 22:04:54,121 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 22:04:54,260 - INFO - User 4 logged in successfully
+2025-01-29 22:04:54,263 - INFO - 172.18.0.1 - - [29/Jan/2025 22:04:54] "GET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-29 22:07:19,090 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 22:07:19,287 - INFO -  * Restarting with stat
+2025-01-29 22:07:20,015 - WARNING -  * Debugger is active!
+2025-01-29 22:07:20,018 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 22:07:25,345 - INFO - 172.18.0.1 - - [29/Jan/2025 22:07:25] "[35m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1[0m" 500 -
+2025-01-29 22:07:25,464 - INFO - 172.18.0.1 - - [29/Jan/2025 22:07:25] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-01-29 22:07:25,476 - INFO - 172.18.0.1 - - [29/Jan/2025 22:07:25] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-01-29 22:07:26,326 - INFO - 172.18.0.1 - - [29/Jan/2025 22:07:26] "GET /api/login?__debugger__=yes&cmd=resource&f=console.png&s=BvFGn9MARVXCFkuUP5sH HTTP/1.1" 200 -
+2025-01-29 22:07:26,395 - INFO - 172.18.0.1 - - [29/Jan/2025 22:07:26] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-01-29 22:08:26,132 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 22:08:26,473 - INFO -  * Restarting with stat
+2025-01-29 22:08:27,690 - WARNING -  * Debugger is active!
+2025-01-29 22:08:27,700 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 22:08:28,516 - INFO - 172.18.0.1 - - [29/Jan/2025 22:08:28] "[35m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1[0m" 500 -
+2025-01-29 22:08:28,699 - INFO - 172.18.0.1 - - [29/Jan/2025 22:08:28] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-01-29 22:08:28,713 - INFO - 172.18.0.1 - - [29/Jan/2025 22:08:28] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-01-29 22:08:29,519 - INFO - 172.18.0.1 - - [29/Jan/2025 22:08:29] "GET /api/login?__debugger__=yes&cmd=resource&f=console.png&s=6FOKBQ2YTWlz3uUtyNrK HTTP/1.1" 200 -
+2025-01-29 22:08:29,638 - INFO - 172.18.0.1 - - [29/Jan/2025 22:08:29] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-01-29 22:08:58,506 - INFO - 172.18.0.1 - - [29/Jan/2025 22:08:58] "OPTIONS /api/users/3 HTTP/1.1" 200 -
+2025-01-29 22:08:58,514 - INFO - 172.18.0.1 - - [29/Jan/2025 22:08:58] "OPTIONS /api/users/3 HTTP/1.1" 200 -
+2025-01-29 22:08:58,545 - INFO - User 3 fetched successfully
+2025-01-29 22:08:58,547 - INFO - 172.18.0.1 - - [29/Jan/2025 22:08:58] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-29 22:08:58,579 - INFO - User 3 fetched successfully
+2025-01-29 22:08:58,582 - INFO - 172.18.0.1 - - [29/Jan/2025 22:08:58] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-29 22:08:58,698 - INFO - User 3 fetched successfully
+2025-01-29 22:08:58,700 - INFO - 172.18.0.1 - - [29/Jan/2025 22:08:58] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-29 22:08:58,742 - INFO - 172.18.0.1 - - [29/Jan/2025 22:08:58] "OPTIONS /api/blogs/7 HTTP/1.1" 200 -
+2025-01-29 22:08:58,768 - INFO - User 3 fetched successfully
+2025-01-29 22:08:58,770 - INFO - 172.18.0.1 - - [29/Jan/2025 22:08:58] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-29 22:08:58,782 - INFO - Blog 7 fetched successfully
+2025-01-29 22:08:58,784 - INFO - 172.18.0.1 - - [29/Jan/2025 22:08:58] "GET /api/blogs/7 HTTP/1.1" 200 -
+2025-01-29 22:08:58,821 - INFO - 172.18.0.1 - - [29/Jan/2025 22:08:58] "OPTIONS /api/blogs/8 HTTP/1.1" 200 -
+2025-01-29 22:08:58,828 - INFO - Blog 7 fetched successfully
+2025-01-29 22:08:58,830 - INFO - 172.18.0.1 - - [29/Jan/2025 22:08:58] "GET /api/blogs/7 HTTP/1.1" 200 -
+2025-01-29 22:08:58,863 - INFO - Blog 8 fetched successfully
+2025-01-29 22:08:58,865 - INFO - 172.18.0.1 - - [29/Jan/2025 22:08:58] "GET /api/blogs/8 HTTP/1.1" 200 -
+2025-01-29 22:08:58,899 - INFO - 172.18.0.1 - - [29/Jan/2025 22:08:58] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-01-29 22:08:58,907 - INFO - Blog 8 fetched successfully
+2025-01-29 22:08:58,918 - INFO - 172.18.0.1 - - [29/Jan/2025 22:08:58] "GET /api/blogs/8 HTTP/1.1" 200 -
+2025-01-29 22:08:58,940 - INFO - Blog 9 fetched successfully
+2025-01-29 22:08:58,953 - INFO - 172.18.0.1 - - [29/Jan/2025 22:08:58] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-01-29 22:08:59,019 - INFO - Blog 9 fetched successfully
+2025-01-29 22:08:59,021 - INFO - 172.18.0.1 - - [29/Jan/2025 22:08:59] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-01-29 22:09:10,349 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 22:09:10,600 - INFO -  * Restarting with stat
+2025-01-29 22:09:11,587 - WARNING -  * Debugger is active!
+2025-01-29 22:09:11,588 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 22:09:12,404 - INFO - 172.18.0.1 - - [29/Jan/2025 22:09:12] "[35m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1[0m" 500 -
+2025-01-29 22:09:12,503 - INFO - 172.18.0.1 - - [29/Jan/2025 22:09:12] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-01-29 22:09:12,545 - INFO - 172.18.0.1 - - [29/Jan/2025 22:09:12] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-01-29 22:09:13,322 - INFO - 172.18.0.1 - - [29/Jan/2025 22:09:13] "GET /api/login?__debugger__=yes&cmd=resource&f=console.png&s=6r1JpU2xegFj3lpoSQJ8 HTTP/1.1" 200 -
+2025-01-29 22:09:13,444 - INFO - 172.18.0.1 - - [29/Jan/2025 22:09:13] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-01-29 22:10:01,614 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 22:10:01,847 - INFO -  * Restarting with stat
+2025-01-29 22:10:03,321 - WARNING -  * Debugger is active!
+2025-01-29 22:10:03,352 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 22:10:04,188 - INFO - 172.18.0.1 - - [29/Jan/2025 22:10:04] "[35m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1[0m" 500 -
+2025-01-29 22:10:04,281 - INFO - 172.18.0.1 - - [29/Jan/2025 22:10:04] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-01-29 22:10:04,283 - INFO - 172.18.0.1 - - [29/Jan/2025 22:10:04] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-01-29 22:10:05,050 - INFO - 172.18.0.1 - - [29/Jan/2025 22:10:05] "GET /api/login?__debugger__=yes&cmd=resource&f=console.png&s=UOfylmAJ1AAGIz6eqwvp HTTP/1.1" 200 -
+2025-01-29 22:10:05,103 - INFO - 172.18.0.1 - - [29/Jan/2025 22:10:05] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-01-29 22:10:25,333 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 22:10:25,481 - INFO -  * Restarting with stat
+2025-01-29 22:10:26,812 - WARNING -  * Debugger is active!
+2025-01-29 22:10:26,817 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 22:10:35,557 - INFO - 172.18.0.1 - - [29/Jan/2025 22:10:35] "[35m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1[0m" 500 -
+2025-01-29 22:10:35,644 - INFO - 172.18.0.1 - - [29/Jan/2025 22:10:35] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-01-29 22:10:35,647 - INFO - 172.18.0.1 - - [29/Jan/2025 22:10:35] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-01-29 22:10:36,292 - INFO - 172.18.0.1 - - [29/Jan/2025 22:10:36] "GET /api/login?__debugger__=yes&cmd=resource&f=console.png&s=InGW0GJN5tmA0HpkVwLW HTTP/1.1" 200 -
+2025-01-29 22:10:36,388 - INFO - 172.18.0.1 - - [29/Jan/2025 22:10:36] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-01-29 22:10:48,563 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 22:10:48,727 - INFO -  * Restarting with stat
+2025-01-29 22:10:50,059 - WARNING -  * Debugger is active!
+2025-01-29 22:10:50,062 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 22:10:50,886 - INFO - 172.18.0.1 - - [29/Jan/2025 22:10:50] "[35m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1[0m" 500 -
+2025-01-29 22:10:50,976 - INFO - 172.18.0.1 - - [29/Jan/2025 22:10:50] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-01-29 22:10:50,977 - INFO - 172.18.0.1 - - [29/Jan/2025 22:10:50] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-01-29 22:10:51,728 - INFO - 172.18.0.1 - - [29/Jan/2025 22:10:51] "GET /api/login?__debugger__=yes&cmd=resource&f=console.png&s=32ncJHP2DejoO4BsFvuz HTTP/1.1" 200 -
+2025-01-29 22:10:51,862 - INFO - 172.18.0.1 - - [29/Jan/2025 22:10:51] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-01-29 22:11:39,465 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 22:11:39,701 - INFO -  * Restarting with stat
+2025-01-29 22:11:40,656 - WARNING -  * Debugger is active!
+2025-01-29 22:11:40,660 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 22:11:41,292 - INFO - User 4 logged in successfully
+2025-01-29 22:11:41,295 - INFO - 172.18.0.1 - - [29/Jan/2025 22:11:41] "GET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-29 22:12:11,915 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 22:12:12,025 - INFO -  * Restarting with stat
+2025-01-29 22:12:12,607 - WARNING -  * Debugger is active!
+2025-01-29 22:12:12,609 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 22:12:38,591 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 22:12:38,713 - INFO -  * Restarting with stat
+2025-01-29 22:12:39,564 - WARNING -  * Debugger is active!
+2025-01-29 22:12:39,567 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 22:12:41,536 - INFO - User 4 logged in successfully
+2025-01-29 22:12:41,544 - INFO - 172.18.0.1 - - [29/Jan/2025 22:12:41] "GET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-29 22:12:53,165 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 22:12:53,357 - INFO -  * Restarting with stat
+2025-01-29 22:12:54,095 - WARNING -  * Debugger is active!
+2025-01-29 22:12:54,096 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 22:12:54,310 - INFO - User 4 logged in successfully
+2025-01-29 22:12:54,318 - INFO - 172.18.0.1 - - [29/Jan/2025 22:12:54] "[35m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1[0m" 500 -
+2025-01-29 22:12:54,442 - INFO - 172.18.0.1 - - [29/Jan/2025 22:12:54] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-01-29 22:12:54,461 - INFO - 172.18.0.1 - - [29/Jan/2025 22:12:54] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-01-29 22:12:54,892 - INFO - 172.18.0.1 - - [29/Jan/2025 22:12:54] "GET /api/login?__debugger__=yes&cmd=resource&f=console.png&s=FhhKb23UKIqWhtKSIl82 HTTP/1.1" 200 -
+2025-01-29 22:12:54,929 - INFO - 172.18.0.1 - - [29/Jan/2025 22:12:54] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-01-29 22:13:02,989 - INFO - User 4 logged in successfully
+2025-01-29 22:13:02,996 - INFO - 172.18.0.1 - - [29/Jan/2025 22:13:02] "[35m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1[0m" 500 -
+2025-01-29 22:13:03,098 - INFO - 172.18.0.1 - - [29/Jan/2025 22:13:03] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-01-29 22:13:03,104 - INFO - 172.18.0.1 - - [29/Jan/2025 22:13:03] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-01-29 22:13:03,192 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 22:13:03,452 - INFO -  * Restarting with stat
+2025-01-29 22:13:04,665 - WARNING -  * Debugger is active!
+2025-01-29 22:13:04,667 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 22:13:04,739 - INFO - 172.18.0.1 - - [29/Jan/2025 22:13:04] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=console.png&s=FhhKb23UKIqWhtKSIl82 HTTP/1.1[0m" 304 -
+2025-01-29 22:13:04,770 - INFO - 172.18.0.1 - - [29/Jan/2025 22:13:04] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-01-29 22:13:05,981 - INFO - User 4 logged in successfully
+2025-01-29 22:13:05,984 - INFO - 172.18.0.1 - - [29/Jan/2025 22:13:05] "GET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-29 22:13:21,442 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 22:13:21,688 - INFO -  * Restarting with stat
+2025-01-29 22:13:22,607 - WARNING -  * Debugger is active!
+2025-01-29 22:13:22,608 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 22:13:22,903 - INFO - User 4 logged in successfully
+2025-01-29 22:13:22,905 - INFO - 172.18.0.1 - - [29/Jan/2025 22:13:22] "GET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-29 22:13:40,238 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 22:13:40,396 - INFO -  * Restarting with stat
+2025-01-29 22:13:41,613 - WARNING -  * Debugger is active!
+2025-01-29 22:13:41,615 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 22:16:43,143 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 22:16:43,399 - INFO -  * Restarting with stat
+2025-01-29 22:16:57,459 - INFO -  * Restarting with stat
+2025-01-29 22:16:58,467 - WARNING -  * Debugger is active!
+2025-01-29 22:16:58,475 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 22:17:01,161 - INFO - User 4 logged in successfully
+2025-01-29 22:17:01,226 - INFO - 172.18.0.1 - - [29/Jan/2025 22:17:01] "[35m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1[0m" 500 -
+2025-01-29 22:17:01,429 - INFO - 172.18.0.1 - - [29/Jan/2025 22:17:01] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-01-29 22:17:01,434 - INFO - 172.18.0.1 - - [29/Jan/2025 22:17:01] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-01-29 22:17:02,150 - INFO - 172.18.0.1 - - [29/Jan/2025 22:17:02] "GET /api/login?__debugger__=yes&cmd=resource&f=console.png&s=2CostHiOCshB6fqsxVge HTTP/1.1" 200 -
+2025-01-29 22:17:02,263 - INFO - 172.18.0.1 - - [29/Jan/2025 22:17:02] "[36mGET /api/login?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-01-29 22:17:15,401 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 22:17:15,557 - INFO -  * Restarting with stat
+2025-01-29 22:17:16,670 - WARNING -  * Debugger is active!
+2025-01-29 22:17:16,672 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 22:17:16,937 - INFO - User 4 logged in successfully
+2025-01-29 22:17:16,939 - INFO - 172.18.0.1 - - [29/Jan/2025 22:17:16] "GET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-29 22:21:50,112 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 22:21:50,655 - INFO -  * Restarting with stat
+2025-01-29 22:21:52,401 - WARNING -  * Debugger is active!
+2025-01-29 22:21:52,403 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 22:29:30,586 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 22:29:30,900 - INFO -  * Restarting with stat
+2025-01-29 22:29:32,114 - WARNING -  * Debugger is active!
+2025-01-29 22:29:32,118 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 22:29:32,431 - INFO - User 4 logged in successfully
+2025-01-29 22:29:32,438 - INFO - 172.18.0.1 - - [29/Jan/2025 22:29:32] "GET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-29 22:32:33,947 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 22:32:34,094 - INFO -  * Restarting with stat
+2025-01-29 22:32:34,723 - WARNING -  * Debugger is active!
+2025-01-29 22:32:34,724 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 22:32:39,052 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 22:32:39,275 - INFO -  * Restarting with stat
+2025-01-29 22:32:40,223 - WARNING -  * Debugger is active!
+2025-01-29 22:32:40,225 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 22:37:51,200 - INFO - 172.18.0.1 - - [29/Jan/2025 22:37:51] "OPTIONS /api/users HTTP/1.1" 200 -
+2025-01-29 22:37:51,213 - INFO - 172.18.0.1 - - [29/Jan/2025 22:37:51] "GET /api/users HTTP/1.1" 200 -
+2025-01-29 22:38:01,000 - INFO - 172.18.0.1 - - [29/Jan/2025 22:38:01] "OPTIONS /api/users HTTP/1.1" 200 -
+2025-01-29 22:38:01,028 - INFO - 172.18.0.1 - - [29/Jan/2025 22:38:01] "GET /api/users HTTP/1.1" 200 -
+2025-01-29 22:38:10,557 - INFO - 172.18.0.1 - - [29/Jan/2025 22:38:10] "OPTIONS /api/users HTTP/1.1" 200 -
+2025-01-29 22:38:10,585 - INFO - 172.18.0.1 - - [29/Jan/2025 22:38:10] "GET /api/users HTTP/1.1" 200 -
+2025-01-29 22:39:09,282 - INFO - 172.18.0.1 - - [29/Jan/2025 22:39:09] "OPTIONS /api/users HTTP/1.1" 200 -
+2025-01-29 22:39:09,316 - INFO - 172.18.0.1 - - [29/Jan/2025 22:39:09] "GET /api/users HTTP/1.1" 200 -
+2025-01-29 22:39:35,819 - WARNING - Contraseña no válida para la cuenta Juand_kxz
+2025-01-29 22:39:35,822 - INFO - 172.18.0.1 - - [29/Jan/2025 22:39:35] "[31m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1[0m" 401 -
+2025-01-29 22:40:06,960 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 22:40:07,783 - INFO -  * Restarting with stat
+2025-01-29 22:40:09,980 - WARNING -  * Debugger is active!
+2025-01-29 22:40:09,990 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 22:40:12,992 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 22:40:13,180 - INFO -  * Restarting with stat
+2025-01-29 22:40:15,515 - WARNING -  * Debugger is active!
+2025-01-29 22:40:15,527 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 22:40:21,963 - WARNING - Contraseña no válida para la cuenta Juand_kxz
+2025-01-29 22:40:21,966 - INFO - 172.18.0.1 - - [29/Jan/2025 22:40:21] "[31m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1[0m" 401 -
+2025-01-29 22:40:23,884 - WARNING - Contraseña no válida para la cuenta Juand_kxz
+2025-01-29 22:40:23,886 - INFO - 172.18.0.1 - - [29/Jan/2025 22:40:23] "[31m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1[0m" 401 -
+2025-01-29 22:40:34,788 - WARNING - Contraseña no válida para la cuenta Juand_kxz
+2025-01-29 22:40:34,790 - INFO - 172.18.0.1 - - [29/Jan/2025 22:40:34] "[31m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1[0m" 401 -
+2025-01-29 23:14:03,202 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 23:14:03,498 - INFO -  * Restarting with stat
+2025-01-29 23:14:05,297 - WARNING -  * Debugger is active!
+2025-01-29 23:14:05,308 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 23:14:26,979 - INFO - 172.18.0.1 - - [29/Jan/2025 23:14:26] "OPTIONS /api/users HTTP/1.1" 200 -
+2025-01-29 23:14:27,065 - INFO - 172.18.0.1 - - [29/Jan/2025 23:14:27] "GET /api/users HTTP/1.1" 200 -
+2025-01-29 23:14:27,157 - INFO - 172.18.0.1 - - [29/Jan/2025 23:14:27] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-01-29 23:14:27,173 - WARNING - Usuario o contraseña no proporcionados
+2025-01-29 23:14:27,175 - INFO - 172.18.0.1 - - [29/Jan/2025 23:14:27] "[31m[1mPOST /api/login HTTP/1.1[0m" 401 -
+2025-01-29 23:14:37,732 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 23:14:37,851 - INFO -  * Restarting with stat
+2025-01-29 23:14:38,429 - WARNING -  * Debugger is active!
+2025-01-29 23:14:38,432 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 23:15:01,550 - INFO - 172.18.0.1 - - [29/Jan/2025 23:15:01] "[31m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1[0m" 405 -
+2025-01-29 23:15:10,811 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 23:15:10,952 - INFO -  * Restarting with stat
+2025-01-29 23:15:11,924 - WARNING -  * Debugger is active!
+2025-01-29 23:15:11,925 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 23:15:30,321 - WARNING - Contraseña no válida para la cuenta Juand_kxz
+2025-01-29 23:15:30,323 - INFO - 172.18.0.1 - - [29/Jan/2025 23:15:30] "[31m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1[0m" 401 -
+2025-01-29 23:16:31,255 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 23:16:31,527 - INFO -  * Restarting with stat
+2025-01-29 23:16:32,333 - WARNING -  * Debugger is active!
+2025-01-29 23:16:32,336 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 23:16:32,422 - WARNING - Contraseña no válida para la cuenta Juand_kxz
+2025-01-29 23:16:32,423 - INFO - 172.18.0.1 - - [29/Jan/2025 23:16:32] "[31m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1[0m" 401 -
+2025-01-29 23:17:08,625 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 23:17:08,722 - INFO -  * Restarting with stat
+2025-01-29 23:17:09,283 - WARNING -  * Debugger is active!
+2025-01-29 23:17:09,286 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 23:17:19,657 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 23:17:19,914 - INFO -  * Restarting with stat
+2025-01-29 23:17:20,915 - WARNING -  * Debugger is active!
+2025-01-29 23:17:20,916 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 23:17:20,999 - WARNING - Contraseña no válida para la cuenta Juand_kxz
+2025-01-29 23:17:21,002 - INFO - 172.18.0.1 - - [29/Jan/2025 23:17:21] "[31m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1[0m" 401 -
+2025-01-29 23:17:29,701 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 23:17:29,896 - INFO -  * Restarting with stat
+2025-01-29 23:17:30,821 - WARNING -  * Debugger is active!
+2025-01-29 23:17:30,828 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 23:18:06,202 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 23:18:06,420 - INFO -  * Restarting with stat
+2025-01-29 23:18:08,028 - WARNING -  * Debugger is active!
+2025-01-29 23:18:08,029 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 23:18:08,121 - WARNING - Contraseña no válida para la cuenta Juand_kxz
+2025-01-29 23:18:08,123 - INFO - 172.18.0.1 - - [29/Jan/2025 23:18:08] "[31m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1[0m" 401 -
+2025-01-29 23:18:14,024 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 23:18:14,200 - INFO -  * Restarting with stat
+2025-01-29 23:18:14,983 - WARNING -  * Debugger is active!
+2025-01-29 23:18:14,989 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 23:21:40,727 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 23:21:40,937 - INFO -  * Restarting with stat
+2025-01-29 23:21:43,558 - WARNING -  * Debugger is active!
+2025-01-29 23:21:43,567 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 23:21:44,484 - INFO - User 4 logged in successfully
+2025-01-29 23:21:44,495 - INFO - 172.18.0.1 - - [29/Jan/2025 23:21:44] "GET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-29 23:21:51,775 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-29 23:21:52,037 - INFO -  * Restarting with stat
+2025-01-29 23:21:53,864 - WARNING -  * Debugger is active!
+2025-01-29 23:21:53,869 - INFO -  * Debugger PIN: 398-207-335
+2025-01-29 23:22:00,214 - INFO - 172.18.0.1 - - [29/Jan/2025 23:22:00] "OPTIONS /api/users HTTP/1.1" 200 -
+2025-01-29 23:22:00,236 - INFO - 172.18.0.1 - - [29/Jan/2025 23:22:00] "GET /api/users HTTP/1.1" 200 -
+2025-01-29 23:53:58,695 - INFO - User 4 logged in successfully
+2025-01-29 23:53:58,701 - INFO - 172.18.0.1 - - [29/Jan/2025 23:53:58] "GET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-29 23:54:20,830 - INFO - 172.18.0.1 - - [29/Jan/2025 23:54:20] "OPTIONS /api/users/3 HTTP/1.1" 200 -
+2025-01-29 23:54:20,911 - INFO - User 3 fetched successfully
+2025-01-29 23:54:20,913 - INFO - 172.18.0.1 - - [29/Jan/2025 23:54:20] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-29 23:54:21,218 - INFO - User 3 fetched successfully
+2025-01-29 23:54:21,221 - INFO - 172.18.0.1 - - [29/Jan/2025 23:54:21] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-29 23:54:21,309 - INFO - 172.18.0.1 - - [29/Jan/2025 23:54:21] "OPTIONS /api/blogs/7 HTTP/1.1" 200 -
+2025-01-29 23:54:21,366 - INFO - Blog 7 fetched successfully
+2025-01-29 23:54:21,368 - INFO - 172.18.0.1 - - [29/Jan/2025 23:54:21] "GET /api/blogs/7 HTTP/1.1" 200 -
+2025-01-29 23:54:21,396 - INFO - 172.18.0.1 - - [29/Jan/2025 23:54:21] "OPTIONS /api/blogs/8 HTTP/1.1" 200 -
+2025-01-29 23:54:21,412 - INFO - Blog 8 fetched successfully
+2025-01-29 23:54:21,414 - INFO - 172.18.0.1 - - [29/Jan/2025 23:54:21] "GET /api/blogs/8 HTTP/1.1" 200 -
+2025-01-29 23:54:21,459 - INFO - 172.18.0.1 - - [29/Jan/2025 23:54:21] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-01-29 23:54:21,484 - INFO - Blog 9 fetched successfully
+2025-01-29 23:54:21,485 - INFO - 172.18.0.1 - - [29/Jan/2025 23:54:21] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-01-29 23:54:23,167 - INFO - 172.18.0.1 - - [29/Jan/2025 23:54:23] "OPTIONS /api/users HTTP/1.1" 200 -
+2025-01-29 23:54:23,210 - INFO - 172.18.0.1 - - [29/Jan/2025 23:54:23] "GET /api/users HTTP/1.1" 200 -
+2025-01-29 23:54:23,247 - INFO - 172.18.0.1 - - [29/Jan/2025 23:54:23] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-01-29 23:54:23,271 - WARNING - Usuario o contraseña no proporcionados
+2025-01-29 23:54:23,274 - INFO - 172.18.0.1 - - [29/Jan/2025 23:54:23] "[31m[1mGET /api/login HTTP/1.1[0m" 401 -
+2025-01-29 23:54:35,172 - INFO - 172.18.0.1 - - [29/Jan/2025 23:54:35] "OPTIONS /api/users HTTP/1.1" 200 -
+2025-01-29 23:54:35,204 - INFO - 172.18.0.1 - - [29/Jan/2025 23:54:35] "GET /api/users HTTP/1.1" 200 -
+2025-01-29 23:54:35,244 - INFO - 172.18.0.1 - - [29/Jan/2025 23:54:35] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-01-29 23:54:35,281 - WARNING - Usuario o contraseña no proporcionados
+2025-01-29 23:54:35,286 - INFO - 172.18.0.1 - - [29/Jan/2025 23:54:35] "[31m[1mGET /api/login HTTP/1.1[0m" 401 -
+2025-01-29 23:57:14,658 - INFO - 172.18.0.1 - - [29/Jan/2025 23:57:14] "OPTIONS /api/users/3 HTTP/1.1" 200 -
+2025-01-29 23:57:14,748 - INFO - User 3 fetched successfully
+2025-01-29 23:57:14,785 - INFO - 172.18.0.1 - - [29/Jan/2025 23:57:14] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-29 23:57:15,074 - INFO - User 3 fetched successfully
+2025-01-29 23:57:15,076 - INFO - 172.18.0.1 - - [29/Jan/2025 23:57:15] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-29 23:57:15,199 - INFO - 172.18.0.1 - - [29/Jan/2025 23:57:15] "OPTIONS /api/blogs/7 HTTP/1.1" 200 -
+2025-01-29 23:57:15,231 - INFO - Blog 7 fetched successfully
+2025-01-29 23:57:15,233 - INFO - 172.18.0.1 - - [29/Jan/2025 23:57:15] "GET /api/blogs/7 HTTP/1.1" 200 -
+2025-01-29 23:57:15,316 - INFO - 172.18.0.1 - - [29/Jan/2025 23:57:15] "OPTIONS /api/blogs/8 HTTP/1.1" 200 -
+2025-01-29 23:57:15,355 - INFO - Blog 8 fetched successfully
+2025-01-29 23:57:15,357 - INFO - 172.18.0.1 - - [29/Jan/2025 23:57:15] "GET /api/blogs/8 HTTP/1.1" 200 -
+2025-01-29 23:57:15,415 - INFO - 172.18.0.1 - - [29/Jan/2025 23:57:15] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-01-29 23:57:15,438 - INFO - Blog 9 fetched successfully
+2025-01-29 23:57:15,440 - INFO - 172.18.0.1 - - [29/Jan/2025 23:57:15] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-01-29 23:57:17,619 - INFO - 172.18.0.1 - - [29/Jan/2025 23:57:17] "OPTIONS /api/users HTTP/1.1" 200 -
+2025-01-29 23:57:17,648 - INFO - 172.18.0.1 - - [29/Jan/2025 23:57:17] "GET /api/users HTTP/1.1" 200 -
+2025-01-30 00:01:40,206 - INFO - 172.18.0.1 - - [30/Jan/2025 00:01:40] "OPTIONS /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 00:01:40,377 - INFO - User 4 logged in successfully
+2025-01-30 00:01:40,379 - INFO - 172.18.0.1 - - [30/Jan/2025 00:01:40] "GET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 00:01:46,272 - INFO - 172.18.0.1 - - [30/Jan/2025 00:01:46] "OPTIONS /api/login?email_or_username=Juand_kxz&password=Holahola1 HTTP/1.1" 200 -
+2025-01-30 00:01:46,417 - WARNING - Invalid credentials
+2025-01-30 00:01:46,420 - INFO - 172.18.0.1 - - [30/Jan/2025 00:01:46] "[31m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola1 HTTP/1.1[0m" 401 -
+2025-01-30 00:02:36,036 - INFO - 172.18.0.1 - - [30/Jan/2025 00:02:36] "OPTIONS /api/login?email_or_username=Juand_kxz&password=Holahola1 HTTP/1.1" 200 -
+2025-01-30 00:02:36,354 - WARNING - Invalid credentials
+2025-01-30 00:02:36,356 - INFO - 172.18.0.1 - - [30/Jan/2025 00:02:36] "[31m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola1 HTTP/1.1[0m" 401 -
+2025-01-30 00:02:46,165 - INFO - 172.18.0.1 - - [30/Jan/2025 00:02:46] "OPTIONS /api/login?email_or_username=Juand_kxz&password=Holahola1 HTTP/1.1" 200 -
+2025-01-30 00:02:46,320 - WARNING - Invalid credentials
+2025-01-30 00:02:46,321 - INFO - 172.18.0.1 - - [30/Jan/2025 00:02:46] "[31m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola1 HTTP/1.1[0m" 401 -
+2025-01-30 00:03:32,606 - INFO - 172.18.0.1 - - [30/Jan/2025 00:03:32] "OPTIONS /api/login?email_or_username=Juand_kxz&password=Holahola1 HTTP/1.1" 200 -
+2025-01-30 00:03:32,861 - WARNING - Invalid credentials
+2025-01-30 00:03:32,862 - INFO - 172.18.0.1 - - [30/Jan/2025 00:03:32] "[31m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola1 HTTP/1.1[0m" 401 -
+2025-01-30 00:07:46,987 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 00:07:47,156 - INFO -  * Restarting with stat
+2025-01-30 00:07:48,024 - WARNING -  * Debugger is active!
+2025-01-30 00:07:48,028 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 00:08:51,853 - INFO - 172.18.0.1 - - [30/Jan/2025 00:08:51] "OPTIONS /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 00:08:52,111 - INFO - User 4 logged in successfully
+2025-01-30 00:08:52,114 - INFO - 172.18.0.1 - - [30/Jan/2025 00:08:52] "GET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 00:17:31,161 - WARNING - Invalid credentials
+2025-01-30 00:17:31,162 - INFO - 172.18.0.1 - - [30/Jan/2025 00:17:31] "[31m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola12 HTTP/1.1[0m" 401 -
+2025-01-30 00:18:06,526 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 00:18:06,695 - INFO -  * Restarting with stat
+2025-01-30 00:18:07,317 - WARNING -  * Debugger is active!
+2025-01-30 00:18:07,319 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 00:21:27,158 - INFO - 172.18.0.1 - - [30/Jan/2025 00:21:27] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 00:21:27,441 - INFO - User 4 logged in successfully
+2025-01-30 00:21:27,453 - INFO - 172.18.0.1 - - [30/Jan/2025 00:21:27] "GET /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 00:21:55,462 - INFO - 172.18.0.1 - - [30/Jan/2025 00:21:55] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 00:21:55,669 - INFO - User 4 logged in successfully
+2025-01-30 00:21:55,671 - INFO - 172.18.0.1 - - [30/Jan/2025 00:21:55] "GET /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 00:22:08,557 - INFO - 172.18.0.1 - - [30/Jan/2025 00:22:08] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 00:22:08,769 - INFO - User 4 logged in successfully
+2025-01-30 00:22:08,774 - INFO - 172.18.0.1 - - [30/Jan/2025 00:22:08] "GET /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 00:24:02,914 - INFO - 172.18.0.1 - - [30/Jan/2025 00:24:02] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 00:24:03,132 - INFO - User 4 logged in successfully
+2025-01-30 00:24:03,134 - INFO - 172.18.0.1 - - [30/Jan/2025 00:24:03] "GET /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 00:27:18,758 - INFO - 172.18.0.1 - - [30/Jan/2025 00:27:18] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 00:27:18,930 - INFO - User 4 logged in successfully
+2025-01-30 00:27:18,932 - INFO - 172.18.0.1 - - [30/Jan/2025 00:27:18] "GET /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 00:28:07,292 - INFO - 172.18.0.1 - - [30/Jan/2025 00:28:07] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 00:28:07,471 - INFO - User 4 logged in successfully
+2025-01-30 00:28:07,472 - INFO - 172.18.0.1 - - [30/Jan/2025 00:28:07] "GET /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 00:29:11,396 - INFO - 172.18.0.1 - - [30/Jan/2025 00:29:11] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 00:29:11,557 - INFO - User 4 logged in successfully
+2025-01-30 00:29:11,559 - INFO - 172.18.0.1 - - [30/Jan/2025 00:29:11] "GET /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 00:29:18,118 - INFO - 172.18.0.1 - - [30/Jan/2025 00:29:18] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola HTTP/1.1" 200 -
+2025-01-30 00:29:18,133 - WARNING - Contraseña no válida para la cuenta juand_kxz
+2025-01-30 00:29:18,137 - INFO - 172.18.0.1 - - [30/Jan/2025 00:29:18] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=Holahola HTTP/1.1[0m" 401 -
+2025-01-30 00:31:38,688 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 00:31:39,365 - INFO -  * Restarting with stat
+2025-01-30 00:31:40,998 - WARNING -  * Debugger is active!
+2025-01-30 00:31:41,000 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 00:31:43,250 - INFO - User 4 logged in successfully
+2025-01-30 00:31:43,261 - INFO - 172.18.0.1 - - [30/Jan/2025 00:31:43] "GET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 00:31:59,450 - INFO - 172.18.0.1 - - [30/Jan/2025 00:31:59] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 00:31:59,780 - INFO - User 4 logged in successfully
+2025-01-30 00:31:59,782 - INFO - 172.18.0.1 - - [30/Jan/2025 00:31:59] "GET /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 00:32:11,152 - INFO - 172.18.0.1 - - [30/Jan/2025 00:32:11] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola HTTP/1.1" 200 -
+2025-01-30 00:32:11,168 - WARNING - Contraseña no válida para la cuenta juand_kxz
+2025-01-30 00:32:11,171 - INFO - 172.18.0.1 - - [30/Jan/2025 00:32:11] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=Holahola HTTP/1.1[0m" 401 -
+2025-01-30 00:32:28,202 - WARNING - Contraseña no válida para la cuenta Juand_kxz
+2025-01-30 00:32:28,205 - INFO - 172.18.0.1 - - [30/Jan/2025 00:32:28] "[31m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola HTTP/1.1[0m" 401 -
+2025-01-30 01:26:28,710 - INFO - User 4 logged in successfully
+2025-01-30 01:26:28,712 - INFO - 172.18.0.1 - - [30/Jan/2025 01:26:28] "GET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 01:26:43,656 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 01:26:43,788 - INFO -  * Restarting with stat
+2025-01-30 01:26:45,946 - WARNING -  * Debugger is active!
+2025-01-30 01:26:45,959 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 01:26:47,151 - INFO - User 4 logged in successfully
+2025-01-30 01:26:47,154 - INFO - 172.18.0.1 - - [30/Jan/2025 01:26:47] "GET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 01:29:46,902 - INFO - 172.18.0.1 - - [30/Jan/2025 01:29:46] "OPTIONS /api/users/3 HTTP/1.1" 200 -
+2025-01-30 01:29:47,253 - INFO - User 3 fetched successfully
+2025-01-30 01:29:47,255 - INFO - 172.18.0.1 - - [30/Jan/2025 01:29:47] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-30 01:29:47,628 - INFO - User 3 fetched successfully
+2025-01-30 01:29:47,630 - INFO - 172.18.0.1 - - [30/Jan/2025 01:29:47] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-30 01:29:47,776 - INFO - 172.18.0.1 - - [30/Jan/2025 01:29:47] "OPTIONS /api/blogs/7 HTTP/1.1" 200 -
+2025-01-30 01:29:48,038 - INFO - Blog 7 fetched successfully
+2025-01-30 01:29:48,043 - INFO - 172.18.0.1 - - [30/Jan/2025 01:29:48] "GET /api/blogs/7 HTTP/1.1" 200 -
+2025-01-30 01:29:48,169 - INFO - 172.18.0.1 - - [30/Jan/2025 01:29:48] "OPTIONS /api/blogs/8 HTTP/1.1" 200 -
+2025-01-30 01:29:48,613 - INFO - Blog 8 fetched successfully
+2025-01-30 01:29:48,617 - INFO - 172.18.0.1 - - [30/Jan/2025 01:29:48] "GET /api/blogs/8 HTTP/1.1" 200 -
+2025-01-30 01:29:48,866 - INFO - 172.18.0.1 - - [30/Jan/2025 01:29:48] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-01-30 01:29:49,079 - INFO - Blog 9 fetched successfully
+2025-01-30 01:29:49,153 - INFO - 172.18.0.1 - - [30/Jan/2025 01:29:49] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-01-30 01:30:08,786 - INFO - 172.18.0.1 - - [30/Jan/2025 01:30:08] "OPTIONS /api/users/3 HTTP/1.1" 200 -
+2025-01-30 01:30:09,092 - INFO - User 3 fetched successfully
+2025-01-30 01:30:09,094 - INFO - 172.18.0.1 - - [30/Jan/2025 01:30:09] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-30 01:30:09,482 - INFO - User 3 fetched successfully
+2025-01-30 01:30:09,484 - INFO - 172.18.0.1 - - [30/Jan/2025 01:30:09] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-30 01:30:09,548 - INFO - 172.18.0.1 - - [30/Jan/2025 01:30:09] "OPTIONS /api/blogs/7 HTTP/1.1" 200 -
+2025-01-30 01:30:09,646 - INFO - Blog 7 fetched successfully
+2025-01-30 01:30:09,650 - INFO - 172.18.0.1 - - [30/Jan/2025 01:30:09] "GET /api/blogs/7 HTTP/1.1" 200 -
+2025-01-30 01:30:09,748 - INFO - 172.18.0.1 - - [30/Jan/2025 01:30:09] "OPTIONS /api/blogs/8 HTTP/1.1" 200 -
+2025-01-30 01:30:09,784 - INFO - Blog 8 fetched successfully
+2025-01-30 01:30:09,786 - INFO - 172.18.0.1 - - [30/Jan/2025 01:30:09] "GET /api/blogs/8 HTTP/1.1" 200 -
+2025-01-30 01:30:09,936 - INFO - 172.18.0.1 - - [30/Jan/2025 01:30:09] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-01-30 01:30:10,017 - INFO - Blog 9 fetched successfully
+2025-01-30 01:30:10,019 - INFO - 172.18.0.1 - - [30/Jan/2025 01:30:10] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-01-30 01:31:49,672 - INFO - 172.18.0.1 - - [30/Jan/2025 01:31:49] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 01:31:49,847 - INFO - User 4 logged in successfully
+2025-01-30 01:31:49,849 - INFO - 172.18.0.1 - - [30/Jan/2025 01:31:49] "GET /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 01:31:58,187 - INFO - 172.18.0.1 - - [30/Jan/2025 01:31:58] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 01:31:58,368 - INFO - User 4 logged in successfully
+2025-01-30 01:31:58,369 - INFO - 172.18.0.1 - - [30/Jan/2025 01:31:58] "GET /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 01:32:06,154 - INFO - 172.18.0.1 - - [30/Jan/2025 01:32:06] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola1 HTTP/1.1" 200 -
+2025-01-30 01:32:06,319 - WARNING - Invalid credentials
+2025-01-30 01:32:06,321 - INFO - 172.18.0.1 - - [30/Jan/2025 01:32:06] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=Holahola1 HTTP/1.1[0m" 401 -
+2025-01-30 01:32:54,660 - INFO - 172.18.0.1 - - [30/Jan/2025 01:32:54] "OPTIONS /api/users/3 HTTP/1.1" 200 -
+2025-01-30 01:32:54,729 - INFO - User 3 fetched successfully
+2025-01-30 01:32:54,741 - INFO - 172.18.0.1 - - [30/Jan/2025 01:32:54] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-30 01:32:55,362 - INFO - User 3 fetched successfully
+2025-01-30 01:32:55,363 - INFO - 172.18.0.1 - - [30/Jan/2025 01:32:55] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-30 01:32:55,413 - INFO - 172.18.0.1 - - [30/Jan/2025 01:32:55] "OPTIONS /api/blogs/7 HTTP/1.1" 200 -
+2025-01-30 01:32:55,463 - INFO - Blog 7 fetched successfully
+2025-01-30 01:32:55,465 - INFO - 172.18.0.1 - - [30/Jan/2025 01:32:55] "GET /api/blogs/7 HTTP/1.1" 200 -
+2025-01-30 01:32:55,543 - INFO - 172.18.0.1 - - [30/Jan/2025 01:32:55] "OPTIONS /api/blogs/8 HTTP/1.1" 200 -
+2025-01-30 01:32:55,584 - INFO - Blog 8 fetched successfully
+2025-01-30 01:32:55,587 - INFO - 172.18.0.1 - - [30/Jan/2025 01:32:55] "GET /api/blogs/8 HTTP/1.1" 200 -
+2025-01-30 01:32:55,618 - INFO - 172.18.0.1 - - [30/Jan/2025 01:32:55] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-01-30 01:32:55,659 - INFO - Blog 9 fetched successfully
+2025-01-30 01:32:55,661 - INFO - 172.18.0.1 - - [30/Jan/2025 01:32:55] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-01-30 01:33:21,729 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:21] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola1 HTTP/1.1" 200 -
+2025-01-30 01:33:22,026 - WARNING - Invalid credentials
+2025-01-30 01:33:22,027 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:22] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=Holahola1 HTTP/1.1[0m" 401 -
+2025-01-30 01:33:26,175 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:26] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 01:33:26,333 - INFO - User 4 logged in successfully
+2025-01-30 01:33:26,335 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:26] "GET /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 01:33:50,597 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:50] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-01-30 01:33:50,601 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:50] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-01-30 01:33:50,657 - INFO - Fetched all blogs
+2025-01-30 01:33:50,663 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:50] "GET /api/blogs HTTP/1.1" 200 -
+2025-01-30 01:33:50,698 - INFO - Fetched all blogs
+2025-01-30 01:33:50,701 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:50] "GET /api/blogs HTTP/1.1" 200 -
+2025-01-30 01:33:54,148 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:54] "OPTIONS /api/blogs/3 HTTP/1.1" 200 -
+2025-01-30 01:33:54,151 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:54] "OPTIONS /api/blogs/3 HTTP/1.1" 200 -
+2025-01-30 01:33:54,186 - INFO - Blog 3 fetched successfully
+2025-01-30 01:33:54,192 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:54] "GET /api/blogs/3 HTTP/1.1" 200 -
+2025-01-30 01:33:54,230 - INFO - Blog 3 fetched successfully
+2025-01-30 01:33:54,231 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:54] "GET /api/blogs/3 HTTP/1.1" 200 -
+2025-01-30 01:33:54,253 - INFO - Blog 3 fetched successfully
+2025-01-30 01:33:54,254 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:54] "GET /api/blogs/3 HTTP/1.1" 200 -
+2025-01-30 01:33:54,276 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:54] "OPTIONS /api/users HTTP/1.1" 200 -
+2025-01-30 01:33:54,297 - INFO - Blog 3 fetched successfully
+2025-01-30 01:33:54,301 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:54] "GET /api/blogs/3 HTTP/1.1" 200 -
+2025-01-30 01:33:54,318 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:54] "GET /api/users HTTP/1.1" 200 -
+2025-01-30 01:33:54,360 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:54] "GET /api/users HTTP/1.1" 200 -
+2025-01-30 01:33:56,192 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:56] "OPTIONS /api/users/1 HTTP/1.1" 200 -
+2025-01-30 01:33:56,197 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:56] "OPTIONS /api/users/1 HTTP/1.1" 200 -
+2025-01-30 01:33:56,234 - INFO - User 1 fetched successfully
+2025-01-30 01:33:56,236 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:56] "GET /api/users/1 HTTP/1.1" 200 -
+2025-01-30 01:33:56,270 - INFO - User 1 fetched successfully
+2025-01-30 01:33:56,271 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:56] "GET /api/users/1 HTTP/1.1" 200 -
+2025-01-30 01:33:56,297 - INFO - User 1 fetched successfully
+2025-01-30 01:33:56,299 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:56] "GET /api/users/1 HTTP/1.1" 200 -
+2025-01-30 01:33:56,328 - INFO - User 1 fetched successfully
+2025-01-30 01:33:56,332 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:56] "GET /api/users/1 HTTP/1.1" 200 -
+2025-01-30 01:33:56,346 - INFO - Blog 3 fetched successfully
+2025-01-30 01:33:56,350 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:56] "GET /api/blogs/3 HTTP/1.1" 200 -
+2025-01-30 01:33:56,378 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:56] "OPTIONS /api/blogs/4 HTTP/1.1" 200 -
+2025-01-30 01:33:56,398 - INFO - Blog 3 fetched successfully
+2025-01-30 01:33:56,400 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:56] "GET /api/blogs/3 HTTP/1.1" 200 -
+2025-01-30 01:33:56,415 - INFO - Blog 4 fetched successfully
+2025-01-30 01:33:56,417 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:56] "GET /api/blogs/4 HTTP/1.1" 200 -
+2025-01-30 01:33:56,443 - INFO - Blog 4 fetched successfully
+2025-01-30 01:33:56,445 - INFO - 172.18.0.1 - - [30/Jan/2025 01:33:56] "GET /api/blogs/4 HTTP/1.1" 200 -
+2025-01-30 01:34:03,020 - INFO - 172.18.0.1 - - [30/Jan/2025 01:34:03] "OPTIONS /api/users/1 HTTP/1.1" 200 -
+2025-01-30 01:34:03,036 - INFO - 172.18.0.1 - - [30/Jan/2025 01:34:03] "[31m[1mPUT /api/users/1 HTTP/1.1[0m" 405 -
+2025-01-30 01:34:22,028 - WARNING - Invalid credentials
+2025-01-30 01:34:22,032 - INFO - 172.18.0.1 - - [30/Jan/2025 01:34:22] "[31m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola12 HTTP/1.1[0m" 401 -
+2025-01-30 01:35:26,029 - INFO - 172.18.0.1 - - [30/Jan/2025 01:35:26] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola12 HTTP/1.1" 200 -
+2025-01-30 01:35:26,182 - WARNING - Invalid credentials
+2025-01-30 01:35:26,185 - INFO - 172.18.0.1 - - [30/Jan/2025 01:35:26] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=Holahola12 HTTP/1.1[0m" 401 -
+2025-01-30 01:35:47,022 - INFO - 172.18.0.1 - - [30/Jan/2025 01:35:47] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola12 HTTP/1.1" 200 -
+2025-01-30 01:35:47,168 - WARNING - Invalid credentials
+2025-01-30 01:35:47,170 - INFO - 172.18.0.1 - - [30/Jan/2025 01:35:47] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=Holahola12 HTTP/1.1[0m" 401 -
+2025-01-30 01:45:38,415 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 01:45:38,730 - INFO -  * Restarting with stat
+2025-01-30 01:45:41,071 - WARNING -  * Debugger is active!
+2025-01-30 01:45:41,076 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 01:45:41,451 - WARNING - Invalid credentials
+2025-01-30 01:45:41,453 - INFO - 172.18.0.1 - - [30/Jan/2025 01:45:41] "[31m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola12 HTTP/1.1[0m" 401 -
+2025-01-30 01:45:44,921 - INFO - User 4 logged in successfully
+2025-01-30 01:45:44,922 - INFO - 172.18.0.1 - - [30/Jan/2025 01:45:44] "GET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 01:46:19,904 - INFO - 172.18.0.1 - - [30/Jan/2025 01:46:19] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola12 HTTP/1.1" 200 -
+2025-01-30 01:46:20,059 - WARNING - Invalid credentials
+2025-01-30 01:46:20,064 - INFO - 172.18.0.1 - - [30/Jan/2025 01:46:20] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=Holahola12 HTTP/1.1[0m" 401 -
+2025-01-30 01:47:56,232 - INFO - 172.18.0.1 - - [30/Jan/2025 01:47:56] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola1 HTTP/1.1" 200 -
+2025-01-30 01:47:56,500 - WARNING - Invalid credentials
+2025-01-30 01:47:56,503 - INFO - 172.18.0.1 - - [30/Jan/2025 01:47:56] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=Holahola1 HTTP/1.1[0m" 401 -
+2025-01-30 01:48:21,354 - INFO - 172.18.0.1 - - [30/Jan/2025 01:48:21] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 01:48:21,646 - INFO - User 4 logged in successfully
+2025-01-30 01:48:21,649 - INFO - 172.18.0.1 - - [30/Jan/2025 01:48:21] "GET /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 01:48:29,099 - INFO - 172.18.0.1 - - [30/Jan/2025 01:48:29] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola1 HTTP/1.1" 200 -
+2025-01-30 01:48:29,253 - WARNING - Invalid credentials
+2025-01-30 01:48:29,254 - INFO - 172.18.0.1 - - [30/Jan/2025 01:48:29] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=Holahola1 HTTP/1.1[0m" 401 -
+2025-01-30 01:48:52,080 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 01:48:52,183 - INFO -  * Restarting with stat
+2025-01-30 01:48:54,255 - WARNING -  * Debugger is active!
+2025-01-30 01:48:54,270 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 01:49:00,618 - INFO - 172.18.0.1 - - [30/Jan/2025 01:49:00] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola1 HTTP/1.1" 200 -
+2025-01-30 01:49:00,817 - WARNING - Invalid credentials
+2025-01-30 01:49:00,819 - INFO - 172.18.0.1 - - [30/Jan/2025 01:49:00] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=Holahola1 HTTP/1.1[0m" 401 -
+2025-01-30 01:49:08,137 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 01:49:08,246 - INFO -  * Restarting with stat
+2025-01-30 01:49:09,607 - WARNING -  * Debugger is active!
+2025-01-30 01:49:09,611 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 01:49:26,741 - INFO - 172.18.0.1 - - [30/Jan/2025 01:49:26] "OPTIONS /api/users/3 HTTP/1.1" 200 -
+2025-01-30 01:49:26,804 - INFO - User 3 fetched successfully
+2025-01-30 01:49:26,806 - INFO - 172.18.0.1 - - [30/Jan/2025 01:49:26] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-30 01:49:26,847 - INFO - User 3 fetched successfully
+2025-01-30 01:49:26,849 - INFO - 172.18.0.1 - - [30/Jan/2025 01:49:26] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-30 01:49:26,920 - INFO - 172.18.0.1 - - [30/Jan/2025 01:49:26] "OPTIONS /api/blogs/7 HTTP/1.1" 200 -
+2025-01-30 01:49:26,960 - INFO - Blog 7 fetched successfully
+2025-01-30 01:49:26,964 - INFO - 172.18.0.1 - - [30/Jan/2025 01:49:26] "GET /api/blogs/7 HTTP/1.1" 200 -
+2025-01-30 01:49:27,003 - INFO - 172.18.0.1 - - [30/Jan/2025 01:49:27] "OPTIONS /api/blogs/8 HTTP/1.1" 200 -
+2025-01-30 01:49:27,035 - INFO - Blog 8 fetched successfully
+2025-01-30 01:49:27,039 - INFO - 172.18.0.1 - - [30/Jan/2025 01:49:27] "GET /api/blogs/8 HTTP/1.1" 200 -
+2025-01-30 01:49:27,067 - INFO - 172.18.0.1 - - [30/Jan/2025 01:49:27] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-01-30 01:49:27,099 - INFO - Blog 9 fetched successfully
+2025-01-30 01:49:27,101 - INFO - 172.18.0.1 - - [30/Jan/2025 01:49:27] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-01-30 16:55:49,116 - INFO - 172.18.0.1 - - [30/Jan/2025 16:55:49] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 16:55:49,664 - INFO - User 4 logged in successfully
+2025-01-30 16:55:49,697 - INFO - 172.18.0.1 - - [30/Jan/2025 16:55:49] "GET /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 16:56:58,710 - INFO - 172.18.0.1 - - [30/Jan/2025 16:56:58] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 16:56:58,915 - INFO - User 4 logged in successfully
+2025-01-30 16:56:58,919 - INFO - 172.18.0.1 - - [30/Jan/2025 16:56:58] "GET /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 16:57:08,089 - INFO - 172.18.0.1 - - [30/Jan/2025 16:57:08] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola1 HTTP/1.1" 200 -
+2025-01-30 16:57:08,265 - WARNING - Invalid credentials
+2025-01-30 16:57:08,266 - INFO - 172.18.0.1 - - [30/Jan/2025 16:57:08] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=Holahola1 HTTP/1.1[0m" 401 -
+2025-01-30 16:57:20,670 - INFO - 172.18.0.1 - - [30/Jan/2025 16:57:20] "GET /api/users HTTP/1.1" 200 -
+2025-01-30 16:57:23,150 - WARNING - Invalid credentials
+2025-01-30 16:57:23,153 - INFO - 172.18.0.1 - - [30/Jan/2025 16:57:23] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=Holahola1 HTTP/1.1[0m" 401 -
+2025-01-30 16:57:28,544 - WARNING - Invalid credentials
+2025-01-30 16:57:28,549 - INFO - 172.18.0.1 - - [30/Jan/2025 16:57:28] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=Holahola1 HTTP/1.1[0m" 401 -
+2025-01-30 16:57:32,075 - WARNING - Invalid credentials
+2025-01-30 16:57:32,077 - INFO - 172.18.0.1 - - [30/Jan/2025 16:57:32] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=Holahola1 HTTP/1.1[0m" 401 -
+2025-01-30 16:57:35,378 - INFO - User 4 logged in successfully
+2025-01-30 16:57:35,380 - INFO - 172.18.0.1 - - [30/Jan/2025 16:57:35] "GET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 17:00:12,504 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 17:00:13,580 - INFO -  * Restarting with stat
+2025-01-30 17:00:16,446 - WARNING -  * Debugger is active!
+2025-01-30 17:00:16,452 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 17:00:18,831 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 17:00:19,059 - INFO -  * Restarting with stat
+2025-01-30 17:00:20,594 - WARNING -  * Debugger is active!
+2025-01-30 17:00:20,612 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 17:01:08,360 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 17:01:08,546 - INFO -  * Restarting with stat
+2025-01-30 17:01:09,977 - WARNING -  * Debugger is active!
+2025-01-30 17:01:09,981 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 17:01:15,565 - WARNING - Invalid credentials
+2025-01-30 17:01:15,568 - INFO - 172.18.0.1 - - [30/Jan/2025 17:01:15] "[31m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1[0m" 401 -
+2025-01-30 17:01:18,274 - WARNING - Invalid credentials
+2025-01-30 17:01:18,275 - INFO - 172.18.0.1 - - [30/Jan/2025 17:01:18] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=Holahola1 HTTP/1.1[0m" 401 -
+2025-01-30 17:01:23,786 - INFO - 172.18.0.1 - - [30/Jan/2025 17:01:23] "OPTIONS /api/login?email_or_username=juand_kxz&password=$2a$10$bajYu19oXTbGg4wBiACnOezTU868LrnekZdld26q1Acb4P.Eb9LVu HTTP/1.1" 200 -
+2025-01-30 17:01:23,841 - WARNING - Invalid credentials
+2025-01-30 17:01:23,843 - INFO - 172.18.0.1 - - [30/Jan/2025 17:01:23] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=$2a$10$bajYu19oXTbGg4wBiACnOezTU868LrnekZdld26q1Acb4P.Eb9LVu HTTP/1.1[0m" 401 -
+2025-01-30 17:01:30,935 - INFO - 172.18.0.1 - - [30/Jan/2025 17:01:30] "OPTIONS /api/login?email_or_username=juand_kxz&password=$2a$10$6nUtaQnalS4bOgAd.MAhdejzD0dkpcmfatTlRo9vTtG.4c9wFMYxy HTTP/1.1" 200 -
+2025-01-30 17:01:30,966 - WARNING - Invalid credentials
+2025-01-30 17:01:30,969 - INFO - 172.18.0.1 - - [30/Jan/2025 17:01:30] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=$2a$10$6nUtaQnalS4bOgAd.MAhdejzD0dkpcmfatTlRo9vTtG.4c9wFMYxy HTTP/1.1[0m" 401 -
+2025-01-30 17:01:41,735 - INFO - 172.18.0.1 - - [30/Jan/2025 17:01:41] "OPTIONS /api/login?email_or_username=juand_kxz&password=$2a$10$vVlui1geVmBRnSt8qqylEum3KWA/HpskIeMdBYWjdqELTAlsJmVL6 HTTP/1.1" 200 -
+2025-01-30 17:01:41,777 - WARNING - Invalid credentials
+2025-01-30 17:01:41,782 - INFO - 172.18.0.1 - - [30/Jan/2025 17:01:41] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=$2a$10$vVlui1geVmBRnSt8qqylEum3KWA/HpskIeMdBYWjdqELTAlsJmVL6 HTTP/1.1[0m" 401 -
+2025-01-30 17:02:07,922 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 17:02:08,109 - INFO -  * Restarting with stat
+2025-01-30 17:02:09,492 - WARNING -  * Debugger is active!
+2025-01-30 17:02:09,514 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 17:02:11,588 - WARNING - Invalid credentials
+2025-01-30 17:02:11,591 - INFO - 172.18.0.1 - - [30/Jan/2025 17:02:11] "[31m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1[0m" 401 -
+2025-01-30 17:02:17,769 - INFO - 172.18.0.1 - - [30/Jan/2025 17:02:17] "OPTIONS /api/login?email_or_username=juand_kxz&password=$2a$10$FA0MIDDUQmg0ol1i8dsDAOlqzBE.v1a1ttlp0FIgALegNrz84LyAK HTTP/1.1" 200 -
+2025-01-30 17:02:17,797 - WARNING - Invalid credentials
+2025-01-30 17:02:17,799 - INFO - 172.18.0.1 - - [30/Jan/2025 17:02:17] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=$2a$10$FA0MIDDUQmg0ol1i8dsDAOlqzBE.v1a1ttlp0FIgALegNrz84LyAK HTTP/1.1[0m" 401 -
+2025-01-30 17:02:25,398 - INFO - 172.18.0.1 - - [30/Jan/2025 17:02:25] "OPTIONS /api/login?email_or_username=juand_kxz&password=$2a$10$/2IegET9K6ENYMhD4JOi1OlQxJoOixlw1kgk82DdNDnDO6FIB77YS HTTP/1.1" 200 -
+2025-01-30 17:02:25,426 - WARNING - Invalid credentials
+2025-01-30 17:02:25,427 - INFO - 172.18.0.1 - - [30/Jan/2025 17:02:25] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=$2a$10$/2IegET9K6ENYMhD4JOi1OlQxJoOixlw1kgk82DdNDnDO6FIB77YS HTTP/1.1[0m" 401 -
+2025-01-30 17:02:46,202 - WARNING - Invalid credentials
+2025-01-30 17:02:46,204 - INFO - 172.18.0.1 - - [30/Jan/2025 17:02:46] "[31m[1mGET /api/login?email_or_username=Juand_kxz&password=Holahola123 HTTP/1.1[0m" 401 -
+2025-01-30 17:02:49,641 - INFO - 172.18.0.1 - - [30/Jan/2025 17:02:49] "OPTIONS /api/login?email_or_username=juand_kxz&password=$2a$10$njeLLtJrAi3fiKhskWADieU2orr.hzRVSTEXa0v1.WUiqCmcQujge HTTP/1.1" 200 -
+2025-01-30 17:02:49,694 - WARNING - Invalid credentials
+2025-01-30 17:02:49,695 - INFO - 172.18.0.1 - - [30/Jan/2025 17:02:49] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=$2a$10$njeLLtJrAi3fiKhskWADieU2orr.hzRVSTEXa0v1.WUiqCmcQujge HTTP/1.1[0m" 401 -
+2025-01-30 17:02:55,823 - INFO - 172.18.0.1 - - [30/Jan/2025 17:02:55] "OPTIONS /api/login?email_or_username=juand_kxz&password=$2a$10$Bxr2sZpP6l6TxelD7k3U1e9cCsGaDZLKfBSvVWnkAbfHUD6n1HmrK HTTP/1.1" 200 -
+2025-01-30 17:02:55,842 - WARNING - Invalid credentials
+2025-01-30 17:02:55,844 - INFO - 172.18.0.1 - - [30/Jan/2025 17:02:55] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=$2a$10$Bxr2sZpP6l6TxelD7k3U1e9cCsGaDZLKfBSvVWnkAbfHUD6n1HmrK HTTP/1.1[0m" 401 -
+2025-01-30 17:03:01,342 - INFO - 172.18.0.1 - - [30/Jan/2025 17:03:01] "OPTIONS /api/login?email_or_username=juand_kxz&password=$2a$10$THvaoV3/fK6Y0fX0PK3SzuysbPSN/Hfso.aUKs1xKZxu8SOImrzU6 HTTP/1.1" 200 -
+2025-01-30 17:03:01,379 - WARNING - Invalid credentials
+2025-01-30 17:03:01,382 - INFO - 172.18.0.1 - - [30/Jan/2025 17:03:01] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=$2a$10$THvaoV3/fK6Y0fX0PK3SzuysbPSN/Hfso.aUKs1xKZxu8SOImrzU6 HTTP/1.1[0m" 401 -
+2025-01-30 17:03:13,532 - INFO - 172.18.0.1 - - [30/Jan/2025 17:03:13] "OPTIONS /api/login?email_or_username=juand_kxz&password=$2a$10$s/M7fcTqwHbWqUG5HUpbI.ClI/EsF2iAqnlTvJk.2EgGXjTSgOjWa HTTP/1.1" 200 -
+2025-01-30 17:03:13,576 - WARNING - Invalid credentials
+2025-01-30 17:03:13,580 - INFO - 172.18.0.1 - - [30/Jan/2025 17:03:13] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=$2a$10$s/M7fcTqwHbWqUG5HUpbI.ClI/EsF2iAqnlTvJk.2EgGXjTSgOjWa HTTP/1.1[0m" 401 -
+2025-01-30 17:03:16,082 - INFO - 172.18.0.1 - - [30/Jan/2025 17:03:16] "OPTIONS /api/login?email_or_username=juand_kxz&password=$2a$10$sxZCnCVGvHybeoFpgA7En.jWDt1ug.mXgImQD6mqGHML8JBZ.wwwS HTTP/1.1" 200 -
+2025-01-30 17:03:16,120 - WARNING - Invalid credentials
+2025-01-30 17:03:16,125 - INFO - 172.18.0.1 - - [30/Jan/2025 17:03:16] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=$2a$10$sxZCnCVGvHybeoFpgA7En.jWDt1ug.mXgImQD6mqGHML8JBZ.wwwS HTTP/1.1[0m" 401 -
+2025-01-30 17:09:49,373 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 17:09:49,519 - INFO -  * Restarting with stat
+2025-01-30 17:09:51,047 - WARNING -  * Debugger is active!
+2025-01-30 17:09:51,051 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 17:09:56,241 - INFO - 172.18.0.1 - - [30/Jan/2025 17:09:56] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 17:09:56,437 - INFO - User 4 logged in successfully
+2025-01-30 17:09:56,439 - INFO - 172.18.0.1 - - [30/Jan/2025 17:09:56] "GET /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 17:10:06,891 - INFO - 172.18.0.1 - - [30/Jan/2025 17:10:06] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola1 HTTP/1.1" 200 -
+2025-01-30 17:10:07,045 - WARNING - Invalid credentials
+2025-01-30 17:10:07,046 - INFO - 172.18.0.1 - - [30/Jan/2025 17:10:07] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=Holahola1 HTTP/1.1[0m" 401 -
+2025-01-30 17:11:54,486 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 17:11:54,661 - INFO -  * Restarting with stat
+2025-01-30 17:11:56,593 - WARNING -  * Debugger is active!
+2025-01-30 17:11:56,608 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 17:12:00,231 - INFO - 172.18.0.1 - - [30/Jan/2025 17:12:00] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 17:12:00,565 - INFO - User 4 logged in successfully
+2025-01-30 17:12:00,568 - INFO - 172.18.0.1 - - [30/Jan/2025 17:12:00] "GET /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 17:12:08,981 - INFO - 172.18.0.1 - - [30/Jan/2025 17:12:08] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola1 HTTP/1.1" 200 -
+2025-01-30 17:12:09,140 - WARNING - Invalid credentials
+2025-01-30 17:12:09,143 - INFO - 172.18.0.1 - - [30/Jan/2025 17:12:09] "[31m[1mGET /api/login?email_or_username=juand_kxz&password=Holahola1 HTTP/1.1[0m" 400 -
+2025-01-30 17:12:58,109 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 17:12:58,585 - INFO -  * Restarting with stat
+2025-01-30 17:12:59,243 - WARNING -  * Debugger is active!
+2025-01-30 17:12:59,247 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 17:12:59,306 - INFO - 172.18.0.1 - - [30/Jan/2025 17:12:59] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola1 HTTP/1.1" 200 -
+2025-01-30 17:12:59,469 - WARNING - Invalid credentials
+2025-01-30 17:12:59,471 - INFO - 172.18.0.1 - - [30/Jan/2025 17:12:59] "GET /api/login?email_or_username=juand_kxz&password=Holahola1 HTTP/1.1" 200 -
+2025-01-30 17:13:21,665 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:21] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 17:13:21,804 - INFO - User 4 logged in successfully
+2025-01-30 17:13:21,806 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:21] "GET /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 17:13:31,348 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:31] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-01-30 17:13:31,358 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:31] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-01-30 17:13:31,396 - INFO - Fetched all blogs
+2025-01-30 17:13:31,399 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:31] "GET /api/blogs HTTP/1.1" 200 -
+2025-01-30 17:13:31,456 - INFO - Fetched all blogs
+2025-01-30 17:13:31,458 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:31] "GET /api/blogs HTTP/1.1" 200 -
+2025-01-30 17:13:33,683 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:33] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-01-30 17:13:33,692 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:33] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-01-30 17:13:33,748 - INFO - Blog 9 fetched successfully
+2025-01-30 17:13:33,749 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:33] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-01-30 17:13:33,781 - INFO - Blog 9 fetched successfully
+2025-01-30 17:13:33,783 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:33] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-01-30 17:13:33,811 - INFO - Blog 9 fetched successfully
+2025-01-30 17:13:33,813 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:33] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-01-30 17:13:33,853 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:33] "OPTIONS /api/users HTTP/1.1" 200 -
+2025-01-30 17:13:33,870 - INFO - Blog 9 fetched successfully
+2025-01-30 17:13:33,871 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:33] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-01-30 17:13:33,898 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:33] "GET /api/users HTTP/1.1" 200 -
+2025-01-30 17:13:33,931 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:33] "GET /api/users HTTP/1.1" 200 -
+2025-01-30 17:13:35,138 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:35] "OPTIONS /api/users/3 HTTP/1.1" 200 -
+2025-01-30 17:13:35,142 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:35] "OPTIONS /api/users/3 HTTP/1.1" 200 -
+2025-01-30 17:13:35,202 - INFO - User 3 fetched successfully
+2025-01-30 17:13:35,204 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:35] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-30 17:13:35,271 - INFO - User 3 fetched successfully
+2025-01-30 17:13:35,275 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:35] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-30 17:13:35,316 - INFO - User 3 fetched successfully
+2025-01-30 17:13:35,322 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:35] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-30 17:13:35,376 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:35] "OPTIONS /api/blogs/7 HTTP/1.1" 200 -
+2025-01-30 17:13:35,376 - INFO - User 3 fetched successfully
+2025-01-30 17:13:35,380 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:35] "GET /api/users/3 HTTP/1.1" 200 -
+2025-01-30 17:13:35,415 - INFO - Blog 7 fetched successfully
+2025-01-30 17:13:35,417 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:35] "GET /api/blogs/7 HTTP/1.1" 200 -
+2025-01-30 17:13:35,444 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:35] "OPTIONS /api/blogs/8 HTTP/1.1" 200 -
+2025-01-30 17:13:35,474 - INFO - Blog 7 fetched successfully
+2025-01-30 17:13:35,477 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:35] "GET /api/blogs/7 HTTP/1.1" 200 -
+2025-01-30 17:13:35,479 - INFO - Blog 8 fetched successfully
+2025-01-30 17:13:35,492 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:35] "GET /api/blogs/8 HTTP/1.1" 200 -
+2025-01-30 17:13:35,522 - INFO - Blog 9 fetched successfully
+2025-01-30 17:13:35,524 - INFO - Blog 8 fetched successfully
+2025-01-30 17:13:35,526 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:35] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-01-30 17:13:35,530 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:35] "GET /api/blogs/8 HTTP/1.1" 200 -
+2025-01-30 17:13:35,601 - INFO - Blog 9 fetched successfully
+2025-01-30 17:13:35,604 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:35] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-01-30 17:13:38,667 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:38] "OPTIONS /api/users/4 HTTP/1.1" 200 -
+2025-01-30 17:13:38,709 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:38] "OPTIONS /api/users/4 HTTP/1.1" 200 -
+2025-01-30 17:13:38,764 - INFO - User 4 fetched successfully
+2025-01-30 17:13:38,766 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:38] "GET /api/users/4 HTTP/1.1" 200 -
+2025-01-30 17:13:38,951 - INFO - User 4 fetched successfully
+2025-01-30 17:13:38,954 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:38] "GET /api/users/4 HTTP/1.1" 200 -
+2025-01-30 17:13:39,068 - INFO - User 4 fetched successfully
+2025-01-30 17:13:39,074 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:39] "GET /api/users/4 HTTP/1.1" 200 -
+2025-01-30 17:13:39,114 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:39] "OPTIONS /api/blogs/5 HTTP/1.1" 200 -
+2025-01-30 17:13:39,136 - INFO - User 4 fetched successfully
+2025-01-30 17:13:39,143 - INFO - Blog 5 fetched successfully
+2025-01-30 17:13:39,154 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:39] "GET /api/users/4 HTTP/1.1" 200 -
+2025-01-30 17:13:39,158 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:39] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-01-30 17:13:39,223 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:39] "OPTIONS /api/blogs/10 HTTP/1.1" 200 -
+2025-01-30 17:13:39,265 - INFO - Blog 5 fetched successfully
+2025-01-30 17:13:39,267 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:39] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-01-30 17:13:39,289 - INFO - Blog 10 fetched successfully
+2025-01-30 17:13:39,291 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:39] "GET /api/blogs/10 HTTP/1.1" 200 -
+2025-01-30 17:13:39,340 - INFO - Blog 10 fetched successfully
+2025-01-30 17:13:39,341 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:39] "GET /api/blogs/10 HTTP/1.1" 200 -
+2025-01-30 17:13:41,000 - INFO - 172.18.0.1 - - [30/Jan/2025 17:13:41] "[31m[1mPUT /api/users/4 HTTP/1.1[0m" 405 -
+2025-01-30 17:19:39,151 - INFO - 172.18.0.1 - - [30/Jan/2025 17:19:39] "OPTIONS /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 17:19:39,311 - INFO - User 4 logged in successfully
+2025-01-30 17:19:39,312 - INFO - 172.18.0.1 - - [30/Jan/2025 17:19:39] "GET /api/login?email_or_username=juand_kxz&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 17:26:26,962 - INFO - 172.18.0.1 - - [30/Jan/2025 17:26:26] "OPTIONS /api/login?email_or_username=Juand.kxz@gmail.com&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 17:26:27,157 - INFO - User 4 logged in successfully
+2025-01-30 17:26:27,159 - INFO - 172.18.0.1 - - [30/Jan/2025 17:26:27] "GET /api/login?email_or_username=Juand.kxz@gmail.com&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 17:28:35,019 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 17:28:35,232 - INFO -  * Restarting with stat
+2025-01-30 17:28:35,988 - WARNING -  * Debugger is active!
+2025-01-30 17:28:35,992 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 17:29:58,805 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 17:29:59,002 - INFO -  * Restarting with stat
+2025-01-30 17:29:59,611 - WARNING -  * Debugger is active!
+2025-01-30 17:29:59,612 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 17:30:07,321 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 17:30:07,548 - INFO -  * Restarting with stat
+2025-01-30 17:30:09,072 - WARNING -  * Debugger is active!
+2025-01-30 17:30:09,074 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 17:32:47,797 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 17:32:47,905 - INFO -  * Restarting with stat
+2025-01-30 17:32:48,475 - WARNING -  * Debugger is active!
+2025-01-30 17:32:48,477 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 17:33:32,094 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 17:33:32,234 - INFO -  * Restarting with stat
+2025-01-30 17:33:33,008 - WARNING -  * Debugger is active!
+2025-01-30 17:33:33,010 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 17:34:18,981 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 17:34:19,234 - INFO -  * Restarting with stat
+2025-01-30 17:34:21,320 - WARNING -  * Debugger is active!
+2025-01-30 17:34:21,323 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 17:40:21,708 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 17:40:21,970 - INFO -  * Restarting with stat
+2025-01-30 17:40:23,772 - WARNING -  * Debugger is active!
+2025-01-30 17:40:23,783 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 17:41:36,316 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 17:41:36,471 - INFO -  * Restarting with stat
+2025-01-30 17:41:37,171 - WARNING -  * Debugger is active!
+2025-01-30 17:41:37,176 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 17:41:47,904 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 17:41:48,001 - INFO -  * Restarting with stat
+2025-01-30 17:41:48,507 - WARNING -  * Debugger is active!
+2025-01-30 17:41:48,508 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 17:51:13,621 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 17:51:13,769 - INFO -  * Restarting with stat
+2025-01-30 17:51:14,382 - WARNING -  * Debugger is active!
+2025-01-30 17:51:14,384 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 17:52:35,306 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 17:52:35,399 - INFO -  * Restarting with stat
+2025-01-30 17:52:35,887 - WARNING -  * Debugger is active!
+2025-01-30 17:52:35,888 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 18:10:08,575 - INFO - 172.18.0.1 - - [30/Jan/2025 18:10:08] "OPTIONS /api/login?username=jajaja&email=jajaja@gmail.com&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 18:10:08,597 - WARNING - Usuario o contraseña no proporcionados
+2025-01-30 18:10:08,602 - INFO - 172.18.0.1 - - [30/Jan/2025 18:10:08] "GET /api/login?username=jajaja&email=jajaja@gmail.com&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 18:10:37,594 - INFO - 172.18.0.1 - - [30/Jan/2025 18:10:37] "OPTIONS /api/login?username=jajaja&email=jajaja@gmail.com&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 18:10:37,609 - WARNING - Usuario o contraseña no proporcionados
+2025-01-30 18:10:37,611 - INFO - 172.18.0.1 - - [30/Jan/2025 18:10:37] "GET /api/login?username=jajaja&email=jajaja@gmail.com&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 18:10:50,798 - INFO - 172.18.0.1 - - [30/Jan/2025 18:10:50] "OPTIONS /api/login?username=juand_kxz&email=juan@gmial.com&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 18:10:50,810 - WARNING - Usuario o contraseña no proporcionados
+2025-01-30 18:10:50,812 - INFO - 172.18.0.1 - - [30/Jan/2025 18:10:50] "GET /api/login?username=juand_kxz&email=juan@gmial.com&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 18:11:38,043 - INFO - 172.18.0.1 - - [30/Jan/2025 18:11:38] "OPTIONS /api/register?username=jajaja&email=jajaja@gmail.com&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 18:11:38,303 - INFO - 172.18.0.1 - - [30/Jan/2025 18:11:38] "[35m[1mGET /api/register?username=jajaja&email=jajaja@gmail.com&password=Holahola123 HTTP/1.1[0m" 500 -
+2025-01-30 18:12:00,351 - INFO - 172.18.0.1 - - [30/Jan/2025 18:12:00] "[35m[1mGET /api/register?username=jajaja&email=jajaja@gmail.com&password=Holahola123 HTTP/1.1[0m" 500 -
+2025-01-30 18:12:00,463 - INFO - 172.18.0.1 - - [30/Jan/2025 18:12:00] "GET /api/register?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-01-30 18:12:00,464 - INFO - 172.18.0.1 - - [30/Jan/2025 18:12:00] "GET /api/register?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-01-30 18:12:01,425 - INFO - 172.18.0.1 - - [30/Jan/2025 18:12:01] "GET /api/register?__debugger__=yes&cmd=resource&f=console.png&s=ok86fLg7YiX0jhWJ1sMO HTTP/1.1" 200 -
+2025-01-30 18:12:01,503 - INFO - 172.18.0.1 - - [30/Jan/2025 18:12:01] "GET /api/register?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-01-30 18:12:48,720 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 18:12:49,227 - INFO -  * Restarting with stat
+2025-01-30 18:12:50,368 - WARNING -  * Debugger is active!
+2025-01-30 18:12:50,456 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 18:12:52,059 - INFO - 172.18.0.1 - - [30/Jan/2025 18:12:52] "OPTIONS /api/register?username=jajaja&email=jajaja@gmail.com&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 18:12:52,412 - INFO - 172.18.0.1 - - [30/Jan/2025 18:12:52] "[35m[1mGET /api/register?username=jajaja&email=jajaja@gmail.com&password=Holahola123 HTTP/1.1[0m" 500 -
+2025-01-30 18:12:55,567 - INFO - 172.18.0.1 - - [30/Jan/2025 18:12:55] "[35m[1mGET /api/register?username=jajaja&email=jajaja@gmail.com&password=Holahola123 HTTP/1.1[0m" 500 -
+2025-01-30 18:13:01,493 - INFO - 172.18.0.1 - - [30/Jan/2025 18:13:01] "[35m[1mGET /api/register?username=jajaja&email=jajaja@gmail.com&password=Holahola123 HTTP/1.1[0m" 500 -
+2025-01-30 18:13:01,598 - INFO - 172.18.0.1 - - [30/Jan/2025 18:13:01] "[36mGET /api/register?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-01-30 18:13:01,615 - INFO - 172.18.0.1 - - [30/Jan/2025 18:13:01] "[36mGET /api/register?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-01-30 18:13:02,507 - INFO - 172.18.0.1 - - [30/Jan/2025 18:13:02] "GET /api/register?__debugger__=yes&cmd=resource&f=console.png&s=TdQv8tkKDjaeDJXyQx2F HTTP/1.1" 200 -
+2025-01-30 18:13:02,652 - INFO - 172.18.0.1 - - [30/Jan/2025 18:13:02] "[36mGET /api/register?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-01-30 18:14:19,753 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 18:14:19,932 - INFO -  * Restarting with stat
+2025-01-30 18:14:21,570 - WARNING -  * Debugger is active!
+2025-01-30 18:14:21,573 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 18:18:00,413 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 18:18:00,695 - INFO -  * Restarting with stat
+2025-01-30 18:18:02,471 - WARNING -  * Debugger is active!
+2025-01-30 18:18:02,497 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 18:19:46,363 - INFO -  * Detected change in '/app/api.py', reloading
+2025-01-30 18:19:46,577 - INFO -  * Restarting with stat
+2025-01-30 18:19:48,330 - WARNING -  * Debugger is active!
+2025-01-30 18:19:48,340 - INFO -  * Debugger PIN: 398-207-335
+2025-01-30 18:19:54,927 - INFO - User 8 created successfully
+2025-01-30 18:19:54,929 - INFO - User 8 logged in successfully
+2025-01-30 18:19:54,932 - INFO - 172.18.0.1 - - [30/Jan/2025 18:19:54] "GET /api/register?username=jajaja&email=jajaja@gmail.com&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 18:20:14,678 - INFO - 172.18.0.1 - - [30/Jan/2025 18:20:14] "OPTIONS /api/register?username=jajaja&email=jajaja@gmail.com&password=Holahola123 HTTP/1.1" 200 -
+2025-01-30 18:20:14,901 - INFO - User 8 created successfully
+2025-01-30 18:20:14,903 - INFO - User 8 logged in successfully
+2025-01-30 18:20:14,909 - INFO - 172.18.0.1 - - [30/Jan/2025 18:20:14] "GET /api/register?username=jajaja&email=jajaja@gmail.com&password=Holahola123 HTTP/1.1" 200 -

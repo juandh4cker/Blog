@@ -42,6 +42,11 @@ export const fetchUsers = (id = null) => {
 
 };
 
+export const loginTry = async (emailOrUsername, password) => {
+  apiRequest('login', 'POST', { 'email_or_username': emailOrUsername, 'password': password });
+
+}
+
 export const getComments = async (id) => {
   try {
     const blog = await fetchDestino(id);

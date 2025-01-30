@@ -2,7 +2,7 @@
     {
         "createdAt": "2024-11-20T18:34:45.575Z",
         "name": "W3stcol",
-        "email": "w3stcol@gmail.com",
+        "email": "W3stcol@gmail.com",
         "password": "$2a$10$Aewj/C7Q0Rkc6vBpCuN7EebbAPb9GT2JATKpvG2iLWIHWrjPn.LWm",
         "posts": [
             3,
@@ -17,7 +17,7 @@
     {
         "createdAt": "2024-11-20T08:44:42.109Z",
         "name": "M3ssi",
-        "email": "m3ssi@gmail.com",
+        "email": "M3ssi@gmail.com",
         "password": "$2a$10$Aewj/C7Q0Rkc6vBpCuN7EebbAPb9GT2JATKpvG2iLWIHWrjPn.LWm",
         "posts": [
             1,
@@ -32,7 +32,7 @@
     {
         "createdAt": "2024-11-20T11:06:18.789Z",
         "name": "C0ldplay",
-        "email": "c0ldplay@gmail.com",
+        "email": "C0ldplay@gmail.com",
         "password": "$2a$10$Aewj/C7Q0Rkc6vBpCuN7EebbAPb9GT2JATKpvG2iLWIHWrjPn.LWm",
         "posts": [
             7,
@@ -46,7 +46,7 @@
     {
         "createdAt": "2024-11-20T10:42:42.584Z",
         "name": "Juand_kxz",
-        "email": "juand.kxz@gmail.com",
+        "email": "Juand.kxz@gmail.com",
         "password": "$2a$10$Aewj/C7Q0Rkc6vBpCuN7EebbAPb9GT2JATKpvG2iLWIHWrjPn.LWm",
         "posts": [
             5,
@@ -61,7 +61,7 @@
     {
         "createdAt": "2024-11-20T07:01:55.342Z",
         "name": "Arc4ngel",
-        "email": "arc4ngel@gmail.com",
+        "email": "Arc4ngel@gmail.com",
         "password": "$2a$10$Aewj/C7Q0Rkc6vBpCuN7EebbAPb9GT2JATKpvG2iLWIHWrjPn.LWm",
         "posts": 0,
         "followers": 0,
@@ -71,7 +71,7 @@
     {
         "createdAt": "2025-01-12T18:26:50.823Z",
         "name": "Mario",
-        "email": "mario@gmail.com",
+        "email": "Mario@gmail.com",
         "password": "$2a$10$9e2Sx2DmduqKXcCiS4DaqeWnf3FPhYejWUz45/LQ2gaiVF0pGqx3S",
         "posts": 0,
         "followers": 0,
@@ -81,12 +81,21 @@
     },
     {
         "name": "Cheese",
-        "email": "cheese@gnail.com",
+        "email": "Cheese@gnail.com",
         "password": "$2a$10$QPXE2JN5kmPU3dlfUFS5xOQDrL1NSt/4UhxEDrJ5cwOAI7HeZnvSq",
         "posts": [],
         "followers": 0,
-        "followedBy": [],
         "id": "7",
-        "createdAt": "2025-01-21T18:59:37.553Z"
+        "followedBy": []
+    },
+    {
+        "createdAt": "2025-01-30T18:20:14.748Z",
+        "name": "jajaja",
+        "email": "jajaja@gmail.com",
+        "password": "$2b$10$krsqoMEPvah1xDhAi/UrUuW/c2kmcyx2s9GPn5qAdxwj.jjX7Yeue",
+        "posts": [],
+        "followers": 0,
+        "followedBy": [],
+        "id": "8"
     }
 ]

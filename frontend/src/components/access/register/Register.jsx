@@ -8,7 +8,7 @@ import { fetchUsers, apiRequest, getLocalStorage, setLocalStorage } from '../../
 import './Register.css';
 
 const Register = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
+  const [formData, setFormData] = useState({ username: '', email: '', password: '' });
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
@@ -21,13 +21,11 @@ const Register = () => {
   const isValidUsername = (name) => /^[a-zA-Z0-9._]+$/.test(name); // Letras, números, . o _
   const isValidPassword = (password) =>
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password); // Min 8 caracteres, 1 mayúscula, 1 minúscula, 1 número
-  const formatUsername = (name) =>
-    isValidUsername(name) ? name.charAt(0).toUpperCase() + name.slice(1) : name;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!isValidUsername(formData.name)) {
+    if (!isValidUsername(formData.username)) {
       setMessage('El nombre de usuario solo puede contener letras, números, "." o "_".');
       return;
     }
@@ -40,48 +38,18 @@ const Register = () => {
     }
 
     try {
-      const users = await fetchUsers();
-      const formattedName = formatUsername(formData.name);
-      const formattedEmail = formData.email.toLowerCase();
+      const user = await apiRequest(`register?username=${encodeURIComponent(formData.username)}&email=${encodeURIComponent(formData.email)}&password=${encodeURIComponent(formData.password)}`);
 
-      const existingEmail = users.find((user) =>
-        bcrypt.compareSync(formattedEmail, user.email)
-      );
+      if (!user.hasOwnProperty('warning')) {
+        setLocalStorage('user', user);
+        setMessage('¡Bienvenido! Redirigiendo al dashboard...');
+        setTimeout(() => navigate('/dashboard'), 2000);
 
-      const existingUser = users.find((user) => user.name === formattedName);
-
-      if (existingEmail) {
-        setMessage('Este correo ya está en uso. Intenta con otro.');
-
-      } else if (existingUser) {
-        setMessage('Este nombre de usuario ya está en uso. Intenta con otro.');
-
-      } else if (!formData.name || !formData.email || !formData.password) {
-        setMessage('Debe rellenar todos los campos.');
-        
       } else {
-        const hashedPassword = bcrypt.hashSync(formData.password, 10);
-        const userData = {
-          name: formattedName,
-          email: formattedEmail,
-          password: hashedPassword,
-          posts: [],
-          followers: 0,
-          followedBy: [],
-        };
+        setMessage("Error", user.warning);
 
-        const newUser = await apiRequest('users', 'POST', userData);
-
-        const userToken = {
-          name: formattedName,
-          token: hashedPassword,
-          id: newUser.id,
-          posts: 0,
-        };
-
-        setLocalStorage('user', userToken);
-        navigate('/dashboard');
       }
+      
     } catch (error) {
       console.error('Error en el registro:', error);
       setMessage('Hubo un error en el registro. Intenta nuevamente.');
@@ -99,7 +67,7 @@ const Register = () => {
             className="register-input"
             placeholder="Nombre de usuario"
             value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            onChange={(e) => setFormData({ ...formData, username: e.target.value })}
           />
           <input
             type="email"

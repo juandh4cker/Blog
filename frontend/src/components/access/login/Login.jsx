@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import bcrypt from 'bcryptjs';
 
-import { fetchUsers, getLocalStorage, setLocalStorage } from './../../useful/ApiService';
+import { apiRequest, getLocalStorage, setLocalStorage } from './../../useful/ApiService';
 
 import './Login.css';
 
@@ -19,7 +19,7 @@ const Login = () => {
     }
   }, [navigate]);
 
-  const isValidUsername = (name) => /^[a-zA-Z0-9._]+$/.test(name); // Letras, números, . o _
+  const isValidUsername = (name) => /^[a-zA-Z0-9._]+[a-zA-Z0-9_]$/.test(name); // Letras, números, . o _
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,49 +27,22 @@ const Login = () => {
     setMessage('');
 
     try {
-      const users = await fetchUsers();
-      const input = formData.emailOrUsername;
-      let user;
+      const user = await apiRequest(`login?email_or_username=${encodeURIComponent(formData.emailOrUsername)}&password=${encodeURIComponent(formData.password)}`);
 
-      const formatUsername = (name) => {
-        if (isValidUsername(name)) {
-          return name.charAt(0).toUpperCase() + name.slice(1);
-        }
-        return name;
-      };
+      if (!user.hasOwnProperty('warning')) {
+        setLocalStorage('user', user);
+        setMessage('¡Bienvenido de nuevo! Redirigiendo al dashboard...');
+        setTimeout(() => navigate('/dashboard'), 2000);
 
-      const formattedName = formatUsername(input);
-
-      user = users.find(
-        (u) => input.toLowerCase() === u.email || u.name === formattedName
-      );
-
-      if (user) {
-        const isPasswordValid = bcrypt.compareSync(formData.password, user.password);
-
-        if (isPasswordValid) {
-          const userToken = {
-            name: user.name,
-            token: bcrypt.hashSync(formData.password, 10),
-            id: user.id,
-            posts: user.posts,
-          };
-
-          setLocalStorage('user', userToken);
-          setMessage('¡Bienvenido de nuevo! Redirigiendo al dashboard...');
-          setTimeout(() => navigate('/dashboard'), 2000);
-
-        } else {
-          setMessage('Usuario, correo o contraseña incorrectos.');
-        }
-        
       } else {
-        setMessage('Usuario, correo o contraseña incorrectos.');
+        setMessage(user.warning);
+
       }
 
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
       setMessage('Hubo un error en el inicio de sesión. Intenta nuevamente.');
+
     }
 
     setLoading(false);
