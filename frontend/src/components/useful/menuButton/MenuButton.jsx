@@ -7,7 +7,7 @@ const MenuButton = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
-  const user = JSON.parse(localStorage.getItem('user')); // Verifica si el usuario está en localStorage
+  const user = JSON.parse(localStorage.getItem('user'));
 
   const handleNavigate = (path) => {
     setMenuOpen(false);
@@ -16,19 +16,19 @@ const MenuButton = () => {
 
   const handleLogout = () => {
     setMenuOpen(false);
-    localStorage.removeItem('user'); // Elimina el usuario del localStorage
-    navigate('/login'); // Redirige al login
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    navigate('/login');
   };
 
   const handleProfile = () => {
-    if (user && user.id) {
-      navigate(`/perfil/${user.id}`);
+    if (user) {
+      navigate(`/perfil/${user.username}`);
     } else {
       alert('Usuario no encontrado');
     }
   };
 
-  // Si el usuario no está logueado, no renderiza el menú
   if (!user) {
     return null;
   }

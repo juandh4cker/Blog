@@ -8,11 +8,15 @@ pnpm-debug.log*
 lerna-debug.log*
 backend/api.log
 
+#Frontend
 frontend/node_modules
 frontend/dist
 frontend/dist-ssr
-*.local
 
+# Backend
+backend/jsons/
+backend/__pycache__/
+backend/venv/lib/
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -23,7 +27,3 @@ frontend/dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-#Datos
-backend/jsons/blogs.json
-backend/jsons/users.json

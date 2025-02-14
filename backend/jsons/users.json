@@ -1,37 +1,35 @@
 [
     {
         "createdAt": "2024-11-20T18:34:45.575Z",
-        "name": "W3stcol",
+        "username": "W3stcol",
         "email": "W3stcol@gmail.com",
         "password": "$2a$10$Aewj/C7Q0Rkc6vBpCuN7EebbAPb9GT2JATKpvG2iLWIHWrjPn.LWm",
         "posts": [
             3,
             4
         ],
-        "followers": 1,
-        "followedBy": [
-            "4"
-        ],
+        "followers": [],
+        "followedBy": [],
+        "following": [],
         "id": "1"
     },
     {
         "createdAt": "2024-11-20T08:44:42.109Z",
-        "name": "M3ssi",
+        "username": "M3ssi",
         "email": "M3ssi@gmail.com",
         "password": "$2a$10$Aewj/C7Q0Rkc6vBpCuN7EebbAPb9GT2JATKpvG2iLWIHWrjPn.LWm",
         "posts": [
             1,
             2
         ],
-        "followers": 1,
-        "followedBy": [
-            "4"
-        ],
+        "followers": [],
+        "followedBy": [],
+        "following": [],
         "id": "2"
     },
     {
         "createdAt": "2024-11-20T11:06:18.789Z",
-        "name": "C0ldplay",
+        "username": "C0ldplay",
         "email": "C0ldplay@gmail.com",
         "password": "$2a$10$Aewj/C7Q0Rkc6vBpCuN7EebbAPb9GT2JATKpvG2iLWIHWrjPn.LWm",
         "posts": [
@@ -39,63 +37,99 @@
             8,
             9
         ],
-        "followers": 0,
+        "followers": [],
         "followedBy": [],
+        "following": [],
         "id": "3"
     },
     {
         "createdAt": "2024-11-20T10:42:42.584Z",
-        "name": "Juand_kxz",
+        "username": "Juand_kxz",
         "email": "Juand.kxz@gmail.com",
         "password": "$2a$10$Aewj/C7Q0Rkc6vBpCuN7EebbAPb9GT2JATKpvG2iLWIHWrjPn.LWm",
         "posts": [
             5,
             10
         ],
-        "followers": 1,
-        "followedBy": [
-            "3"
-        ],
+        "followers": [],
+        "followedBy": [],
+        "following": [],
         "id": "4"
     },
     {
         "createdAt": "2024-11-20T07:01:55.342Z",
-        "name": "Arc4ngel",
+        "username": "Arc4ngel",
         "email": "Arc4ngel@gmail.com",
         "password": "$2a$10$Aewj/C7Q0Rkc6vBpCuN7EebbAPb9GT2JATKpvG2iLWIHWrjPn.LWm",
-        "posts": 0,
-        "followers": 0,
+        "posts": [],
+        "followers": [],
         "followedBy": [],
+        "following": [],
         "id": "5"
     },
     {
         "createdAt": "2025-01-12T18:26:50.823Z",
-        "name": "Mario",
+        "username": "Mario",
         "email": "Mario@gmail.com",
         "password": "$2a$10$9e2Sx2DmduqKXcCiS4DaqeWnf3FPhYejWUz45/LQ2gaiVF0pGqx3S",
-        "posts": 0,
-        "followers": 0,
-        "followeBy": [],
-        "id": "6",
-        "followedBy": []
+        "posts": [],
+        "followers": [],
+        "followedBy": [],
+        "following": [],
+        "id": "6"
     },
     {
-        "name": "Cheese",
+        "username": "Cheese",
         "email": "Cheese@gnail.com",
         "password": "$2a$10$QPXE2JN5kmPU3dlfUFS5xOQDrL1NSt/4UhxEDrJ5cwOAI7HeZnvSq",
         "posts": [],
-        "followers": 0,
-        "id": "7",
-        "followedBy": []
+        "followers": [],
+        "followedBy": [],
+        "following": [],
+        "id": "7"
     },
     {
         "createdAt": "2025-01-30T18:20:14.748Z",
-        "name": "jajaja",
+        "username": "jajaja",
         "email": "jajaja@gmail.com",
         "password": "$2b$10$krsqoMEPvah1xDhAi/UrUuW/c2kmcyx2s9GPn5qAdxwj.jjX7Yeue",
         "posts": [],
-        "followers": 0,
+        "followers": [],
         "followedBy": [],
+        "following": [],
         "id": "8"
+    },
+    {
+        "createdAt": "2025-02-06T18:07:45.676Z",
+        "username": "Marc0",
+        "email": "marco@gmail.com",
+        "password": "$2b$10$Pv8RNz/OAN3BZUkZud92G.I.FSYkAzjppUndBRAOq6yI5HtNug26u",
+        "posts": [],
+        "followers": [],
+        "followedBy": [],
+        "following": [],
+        "id": "9"
+    },
+    {
+        "createdAt": "2025-02-14T16:16:49.951Z",
+        "username": "Jesus9",
+        "email": "jesus@gmail.com",
+        "password": "$2b$10$.pgFdC29nMO0f96mJu2ukeSeH/p.7mM2mGyHy8f9/ZzI2UocM38WS",
+        "posts": [],
+        "followers": [],
+        "followedBy": [],
+        "following": [],
+        "id": "10"
+    },
+    {
+        "createdAt": "2025-02-14T16:36:37.527Z",
+        "username": "Jijijia",
+        "email": "jijijia@gmail.com",
+        "password": "$2b$10$Y57TDJxgVVQsHbyjR3.2rOyHfGscF6zOoMwgYSnUGozqrjath5ZFC",
+        "posts": [],
+        "followers": [],
+        "followedBy": [],
+        "following": [],
+        "id": "11"
     }
 ]

@@ -47,6 +47,16 @@ const AppRoutes = () => {
           </PrivateRoute>
         } 
       />
+
+      {/* Ruta de prueba */}
+      <Route 
+        path="/xd"
+        element={
+          <PrivateRoute>
+            <h1>xd</h1>
+          </PrivateRoute>
+        } />
+
       <Route 
         path="/editar-destino/:id" 
         element={
