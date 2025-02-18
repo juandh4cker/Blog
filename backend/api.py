@@ -47,7 +47,12 @@ def create_jwt_token(id, username):
     }
     return jwt.encode(payload, app.config["JWT_SECRET_KEY"], algorithm="HS256")
 
+import jwt
+import functools
+from flask import request, jsonify
+
 def verify_token(f):
+    @functools.wraps(f)
     def wrapper(*args, **kwargs):
         token = request.headers.get("Authorization")
         if not token:
@@ -55,7 +60,7 @@ def verify_token(f):
 
         try:
             decoded_token = jwt.decode(token, app.config["JWT_SECRET_KEY"], algorithms=["HS256"])
-            #request.user_id = decoded_token["user_id"]
+            request.user = decoded_token
         except jwt.ExpiredSignatureError:
             return jsonify({"error": "Token expirado"}), 200
         except jwt.InvalidTokenError:
@@ -63,6 +68,7 @@ def verify_token(f):
 
         return f(*args, **kwargs)
     return wrapper
+
 
 @app.route('/api/user/verify', methods=['GET'])
 def verify_token_request():
@@ -220,13 +226,23 @@ def get_blog_by_id(blog_id):
         logging.warning(f"Blog {blog_id} not found")
         return jsonify({"message": "Blog not found"}), 404
 
+
+#Hacer que el token dé el que creó el blog
 @app.route('/api/blogs', methods=['POST'])
+@verify_token
 def create_blog():
     new_blog = request.get_json()
     blogs = load_data(BLOGS_FILE)
     new_blog['id'] = str(len(blogs) + 1)
     new_blog['createdAt'] = datetime.utcnow().isoformat(timespec='milliseconds') + "Z"
     blogs.append(new_blog)
+
+    users = load_data(USERS_FILE)
+    user = next((user for user in users if user['id'] == str(request.user['id']).capitalize()), None)
+    user['posts'].append(int(new_blog['id']))
+    save_data(USERS_FILE, users)
+
+    new_blog['creator'] = user['username']
 
     save_data(BLOGS_FILE, blogs)
     logging.info(f"Blog {new_blog['id']} created successfully")

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { apiRequest, fetchUsers, getLocalStorage, setLocalStorage } from '../../../useful/ApiService';
+import { addDestino, fetchUsers, getLocalStorage, setLocalStorage } from '../../../useful/ApiService';
 
 import './Dashboard.css';
 
@@ -42,20 +42,15 @@ const Dashboard = () => {
 
     const destinationData = {
       ...newDestination,
-      rating,
-      creator: user.name,
-      id: user.id
+      rating
     };
 
     try {
-      const added = await apiRequest('blogs', 'POST', destinationData);
-      const userInfo = await fetchUsers(user.id);
-      const userPosts = userInfo.posts;
-      userPosts.push(parseInt(added.id));
-      await apiRequest(`users/${user.id}`, 'PUT', { posts: userPosts });
+      const added = await addDestino(destinationData);
 
       setMessage('Destino agregado exitosamente!');
-      setNewDestination({ name: '', location: '', imageUrl: '', review: '', rating: '' });
+      console.log(`destino/${added.id}`);
+      navigate(`destino/${added.id}`);
 
     } catch (error) {
       console.error('Error al agregar el destino:', error);

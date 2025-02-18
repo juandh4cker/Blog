@@ -70,7 +70,7 @@ export const fetchDestino = (id = null) => {
   }
 
 };
-//export const addDestino = (destino) => apiRequest('blogs', 'POST', destino);
+export const addDestino = (destino) => apiRequest('blogs', 'POST', destino);
 export const deleteDestinoById = (id) => apiRequest(`blogs/${id}`, 'DELETE');
 
 //Comments
