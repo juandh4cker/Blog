@@ -78,7 +78,7 @@ def verify_token_request():
 
     try:
         decoded_token = jwt.decode(token, app.config["JWT_SECRET_KEY"], algorithms=["HS256"])
-        return jsonify({"verify": True, "message": "Token válido"}), 200
+        return jsonify({"verify": True, "message": "Token válido", "user": decoded_token}), 200
     except jwt.ExpiredSignatureError:
         return jsonify({"verify": False, "error": "Token expirado"}), 200
     except jwt.InvalidTokenError:
@@ -217,9 +217,24 @@ def get_blogs():
 
 @app.route('/api/blogs/<int:blog_id>', methods=['GET'])
 def get_blog_by_id(blog_id):
+    try:
+        token = request.headers.get("Authorization")
+        decoded_token = jwt.decode(token, app.config["JWT_SECRET_KEY"], algorithms=["HS256"])
+    except:
+        decoded_token = None
+
+
     blogs = load_data(BLOGS_FILE)
-    blog = next((blog for blog in blogs if blog['id'] == str(blog_id)), None)
+    blog = next((blog for blog in blogs if blog['id'] == int(blog_id)), None)
     if blog:
+        if decoded_token:
+            if (decoded_token['username'] == blog['creator']):
+                blog['editable'] = True
+            else:
+                blog['editable'] = False
+        else:
+            blog['editable'] = False
+                
         logging.info(f"Blog {blog_id} fetched successfully")
         return jsonify(blog), 200
     else:
@@ -227,7 +242,6 @@ def get_blog_by_id(blog_id):
         return jsonify({"message": "Blog not found"}), 404
 
 
-#Hacer que el token dé el que creó el blog
 @app.route('/api/blogs', methods=['POST'])
 @verify_token
 def create_blog():
@@ -235,6 +249,7 @@ def create_blog():
     blogs = load_data(BLOGS_FILE)
     new_blog['id'] = str(len(blogs) + 1)
     new_blog['createdAt'] = datetime.utcnow().isoformat(timespec='milliseconds') + "Z"
+    new_blog['comments'] = []
     blogs.append(new_blog)
 
     users = load_data(USERS_FILE)
@@ -249,16 +264,19 @@ def create_blog():
     return jsonify(new_blog), 201
 
 #Comments
-
 @app.route('/api/blogs/<int:blog_id>', methods=['PUT'])
+@verify_token
 def new_comment(blog_id):
     blogs = load_data(BLOGS_FILE)
-    blog = next((blog for blog in blogs if blog['id'] == str(blog_id)), None)
+    blog = next((blog for blog in blogs if blog['id'] == int(blog_id)), None)
     if blog:
         comment = request.get_json()
-        comment['id'] = f"{blog_id}{comment['userId']}{len(blog['comments']) + 1}"
+        comment['id'] = f"{blog_id}{request.user['id']}{len(blog['comments']) + 1}"
+        comment['createdAt'] = datetime.utcnow().isoformat(timespec='milliseconds') + "Z"
+        comment['userName'] = request.user['username']
+        comment['userId'] = request.user['id']
         blog['comments'].append(comment)
-        blog['rating'] = sum(comment['rating'] for comment in blog['comments']) / len(blog['comments'])
+        blog['rating'] = round(sum(comment['rating'] for comment in blog['comments']) / len(blog['comments']), 2)
         save_data(BLOGS_FILE, blogs)
         logging.info(f"Comment added to blog {blog_id}")
         return jsonify(blog), 200

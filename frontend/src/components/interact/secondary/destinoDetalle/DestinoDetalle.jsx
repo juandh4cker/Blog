@@ -8,7 +8,8 @@ import {
   deleteDestinoById,
   getComments,
   deleteComment, 
-  getLocalStorage
+  getLocalStorage,
+  verifyToken
 } from '../../../useful/ApiService';
 
 import './DestinoDetalle.css';
@@ -32,18 +33,13 @@ const DestinoDetalle = () => {
         setDestino(data);
         setComments(await getComments(id));
 
-        const users = await fetchUsers();
-        const creator = users.find((user) => user.name === data.creator);
+        const request = await verifyToken();
+        const creator = data.editable;
 
         if (creator) {
-          setCreatorId(creator.id);
-          const user = JSON.parse(localStorage.getItem('user'));
-          if (user && user.id === creator.id) {
-            setIsCreator(true);
-          }
+          setCreatorId(request.user.id);
+          setIsCreator(true);
 
-        } else {
-          console.warn('No se encontró al creador en la lista de usuarios.');
         }
 
       } catch (error) {

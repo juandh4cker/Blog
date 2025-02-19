@@ -23,14 +23,14 @@
                 "createdAt": "2024-11-16T16:11:52.264Z"
             }
         ],
-        "id": "1"
+        "id": 1
     },
     {
         "createdAt": "2024-11-16T14:37:23.451Z",
         "name": "Pagoda Chureito",
         "location": "Jap\u00f3n",
         "review": "Situada en Arakura Sengen Park, la Pagoda Chureito ofrece una de las vistas m\u00e1s ic\u00f3nicas de Jap\u00f3n: una combinaci\u00f3n perfecta de la pagoda roja, el monte Fuji y los cerezos en flor (en primavera) o las hojas oto\u00f1ales.",
-        "rating": 5.0,
+        "rating": 4.12,
         "imageUrl": "https://japonismo.com/wp-content/uploads/2022/06/pagoda-chureito-kawaguchko.jpg",
         "creator": "M3ssi",
         "comments": [
@@ -49,9 +49,53 @@
                 "rating": 2,
                 "createdAt": "2025-01-27T18:12:45.547Z",
                 "id": "242"
+            },
+            {
+                "comment": "hola",
+                "rating": 3,
+                "createdAt": "2025-02-19T17:09:58.001Z",
+                "id": "243"
+            },
+            {
+                "comment": "hola",
+                "rating": 3,
+                "createdAt": "2025-02-19T17:36:55.472Z",
+                "id": "244"
+            },
+            {
+                "comment": "jajaj",
+                "rating": 4,
+                "createdAt": "2025-02-19T17:38:36.860Z",
+                "id": "245",
+                "user": "Juand_kxz",
+                "userID": "4"
+            },
+            {
+                "comment": "hola",
+                "rating": 3,
+                "createdAt": "2025-02-19T17:39:15.400Z",
+                "id": "246",
+                "username": "Juand_kxz",
+                "userID": "4"
+            },
+            {
+                "comment": "jijijija",
+                "rating": 7,
+                "createdAt": "2025-02-19T19:06:31.317Z",
+                "id": "247",
+                "userName": "Juand_kxz",
+                "userID": "4"
+            },
+            {
+                "comment": ":)",
+                "rating": 3,
+                "createdAt": "2025-02-19T19:08:12.938Z",
+                "id": "248",
+                "userName": "Juand_kxz",
+                "userId": "4"
             }
         ],
-        "id": "2"
+        "id": 2
     },
     {
         "createdAt": "2024-11-16T02:57:21.565Z",
@@ -70,7 +114,7 @@
                 "createdAt": "2024-11-16T16:09:34.224Z"
             }
         ],
-        "id": "3"
+        "id": 3
     },
     {
         "createdAt": "2024-11-16T15:37:11.452Z",
@@ -81,7 +125,7 @@
         "imageUrl": "https://www.viajesdeprimera.com/wp-content/uploads/2020/04/Pante%C3%B3n-de-Agripa-en-Roma.jpg",
         "creator": "W3stcol",
         "comments": [],
-        "id": "4"
+        "id": 4
     },
     {
         "createdAt": "2024-11-16T02:18:01.114Z",
@@ -92,7 +136,7 @@
         "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsQqh987us9Q7h-phtnhFHfCeOuzr3AjPOdQ&s",
         "creator": "Juand_kxz",
         "comments": [],
-        "id": "5"
+        "id": 5
     },
     {
         "createdAt": "2024-11-15T17:11:12.479Z",
@@ -111,7 +155,7 @@
                 "createdAt": "2024-11-16T16:10:09.547Z"
             }
         ],
-        "id": "7"
+        "id": 6
     },
     {
         "createdAt": "2024-11-16T00:57:43.630Z",
@@ -122,7 +166,7 @@
         "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFjf7KCY7XYCO0FBVOUB5IvFpqrHauvxMtRQ&s",
         "creator": "C0ldplay",
         "comments": [],
-        "id": "8"
+        "id": 7
     },
     {
         "createdAt": "2024-11-16T10:33:33.543Z",
@@ -133,7 +177,7 @@
         "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBAY5I-zMVu65LUQLo4Hd3s7EWOb8w2tceOw&s",
         "creator": "C0ldplay",
         "comments": [],
-        "id": "9"
+        "id": 8
     },
     {
         "createdAt": "2024-11-23T10:25:42.810Z",
@@ -144,7 +188,7 @@
         "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkyxWo_ByKktmS8LvA8ldqPwjLH1M5euWUTQ&s",
         "creator": "Juand_kxz",
         "comments": [],
-        "id": "10"
+        "id": 9
     },
     {
         "name": "cheese",
@@ -152,7 +196,7 @@
         "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQorycNguYdj-wEb0VZBDltdGMJdBIXyUH7NQ&s",
         "review": "buenisimo",
         "rating": 10,
-        "id": "10",
+        "id": 10,
         "createdAt": "2025-02-18T15:49:50.723Z"
     },
     {
@@ -161,7 +205,7 @@
         "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSmosIfvE5ViR9OVLlzm-zETZEn2tIzk1EHA&s",
         "review": "gg",
         "rating": 2,
-        "id": "11",
+        "id": 11,
         "createdAt": "2025-02-18T16:27:56.455Z"
     },
     {
@@ -170,7 +214,7 @@
         "imageUrl": "https://japonismo.com/wp-content/uploads/2022/06/pagoda-chureito-kawaguchko.jpg",
         "review": "yy",
         "rating": 6,
-        "id": "12",
+        "id": 12,
         "createdAt": "2025-02-18T17:22:24.356Z",
         "creator": "Juand_kxz"
     },
@@ -180,7 +224,7 @@
         "imageUrl": "https://japonismo.com/wp-content/uploads/2022/06/pagoda-chureito-kawaguchko.jpg",
         "review": "yy",
         "rating": 6,
-        "id": "13",
+        "id": 13,
         "createdAt": "2025-02-18T17:22:37.326Z",
         "creator": "Juand_kxz"
     },
@@ -190,7 +234,7 @@
         "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPRJQw2JILKfnZZl1fRzGQY2G9B_52RsyhcA&s",
         "review": "dd",
         "rating": 3,
-        "id": "14",
+        "id": 14,
         "createdAt": "2025-02-18T17:23:15.383Z",
         "creator": "Juand_kxz"
     },
@@ -200,7 +244,7 @@
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Eiffelturm.JPG/280px-Eiffelturm.JPG",
         "review": "234",
         "rating": 7,
-        "id": "15",
+        "id": 15,
         "createdAt": "2025-02-18T17:28:12.643Z",
         "creator": "Juand_kxz"
     },
@@ -210,7 +254,7 @@
         "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Eiffelturm.JPG/280px-Eiffelturm.JPG",
         "review": "y",
         "rating": 5,
-        "id": "16",
+        "id": 16,
         "createdAt": "2025-02-18T17:28:59.238Z",
         "creator": "Juand_kxz"
     },
@@ -220,7 +264,7 @@
         "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPRJQw2JILKfnZZl1fRzGQY2G9B_52RsyhcA&s",
         "review": "345",
         "rating": 5,
-        "id": "17",
+        "id": 17,
         "createdAt": "2025-02-18T17:39:27.981Z",
         "creator": "Juand_kxz"
     }

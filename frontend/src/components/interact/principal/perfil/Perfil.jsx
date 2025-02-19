@@ -24,9 +24,7 @@ const Perfil = () => {
     const fetchUserAndPosts = async () => {
       try {
         setLoading(true);
-;
         const userData = await apiRequest(`users/${id}`);
-
         const userPosts = await fetchUsers(id);
         const userPost = [];
         

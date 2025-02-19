@@ -72,7 +72,9 @@ export const fetchDestino = (id = null) => {
 };
 export const addDestino = (destino) => apiRequest('blogs', 'POST', destino);
 export const deleteDestinoById = (id) => apiRequest(`blogs/${id}`, 'DELETE');
-
+export const creatorDestino = (destino) => {
+  apiRequest(`blogs/${id}`, 'PUT', destino);
+}
 //Comments
 export const getComments = async (id) => {
   try {

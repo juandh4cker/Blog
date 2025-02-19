@@ -12081,3 +12081,962 @@
 2025-02-18 20:18:07,478 - INFO - 172.18.0.1 - - [18/Feb/2025 20:18:07] "GET /api/blogs/7 HTTP/1.1" 200 -
 2025-02-18 20:18:07,593 - INFO - 172.18.0.1 - - [18/Feb/2025 20:18:07] "[33mOPTIONS /api/users HTTP/1.1[0m" 404 -
 2025-02-18 20:18:23,355 - INFO - 172.18.0.1 - - [18/Feb/2025 20:18:23] "[33mGET /api/users HTTP/1.1[0m" 404 -
+2025-02-18 20:19:44,343 - INFO - Fetched all blogs
+2025-02-18 20:19:44,348 - INFO - 172.18.0.1 - - [18/Feb/2025 20:19:44] "GET /api/blogs HTTP/1.1" 200 -
+2025-02-19 02:29:38,268 - INFO - 172.18.0.1 - - [19/Feb/2025 02:29:38] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 02:29:38,267 - INFO - 172.18.0.1 - - [19/Feb/2025 02:29:38] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 02:29:38,341 - INFO - 172.18.0.1 - - [19/Feb/2025 02:29:38] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 02:29:38,372 - INFO - 172.18.0.1 - - [19/Feb/2025 02:29:38] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 02:29:38,434 - INFO - 172.18.0.1 - - [19/Feb/2025 02:29:38] "OPTIONS /api/blogs/168 HTTP/1.1" 200 -
+2025-02-19 02:29:38,442 - INFO - 172.18.0.1 - - [19/Feb/2025 02:29:38] "OPTIONS /api/blogs/168 HTTP/1.1" 200 -
+2025-02-19 02:29:38,532 - WARNING - Blog 168 not found
+2025-02-19 02:29:38,536 - INFO - 172.18.0.1 - - [19/Feb/2025 02:29:38] "[33mGET /api/blogs/168 HTTP/1.1[0m" 404 -
+2025-02-19 02:29:38,582 - WARNING - Blog 168 not found
+2025-02-19 02:29:38,584 - INFO - 172.18.0.1 - - [19/Feb/2025 02:29:38] "[33mGET /api/blogs/168 HTTP/1.1[0m" 404 -
+2025-02-19 02:29:39,412 - INFO - 172.18.0.1 - - [19/Feb/2025 02:29:39] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 02:29:39,431 - INFO - 172.18.0.1 - - [19/Feb/2025 02:29:39] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 02:29:39,942 - INFO - 172.18.0.1 - - [19/Feb/2025 02:29:39] "OPTIONS /api/blogs/7 HTTP/1.1" 200 -
+2025-02-19 02:29:39,956 - INFO - 172.18.0.1 - - [19/Feb/2025 02:29:39] "OPTIONS /api/blogs/7 HTTP/1.1" 200 -
+2025-02-19 02:29:39,977 - INFO - Blog 7 fetched successfully
+2025-02-19 02:29:39,981 - INFO - 172.18.0.1 - - [19/Feb/2025 02:29:39] "GET /api/blogs/7 HTTP/1.1" 200 -
+2025-02-19 02:29:40,036 - INFO - Blog 7 fetched successfully
+2025-02-19 02:29:40,039 - INFO - 172.18.0.1 - - [19/Feb/2025 02:29:40] "GET /api/blogs/7 HTTP/1.1" 200 -
+2025-02-19 02:29:40,090 - INFO - Blog 7 fetched successfully
+2025-02-19 02:29:40,092 - INFO - 172.18.0.1 - - [19/Feb/2025 02:29:40] "GET /api/blogs/7 HTTP/1.1" 200 -
+2025-02-19 02:29:40,144 - INFO - 172.18.0.1 - - [19/Feb/2025 02:29:40] "[33mOPTIONS /api/users HTTP/1.1[0m" 404 -
+2025-02-19 02:29:40,159 - INFO - Blog 7 fetched successfully
+2025-02-19 02:29:40,161 - INFO - 172.18.0.1 - - [19/Feb/2025 02:29:40] "GET /api/blogs/7 HTTP/1.1" 200 -
+2025-02-19 02:29:40,224 - INFO - 172.18.0.1 - - [19/Feb/2025 02:29:40] "[33mOPTIONS /api/users HTTP/1.1[0m" 404 -
+2025-02-19 16:13:57,215 - INFO - 172.18.0.1 - - [19/Feb/2025 16:13:57] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:13:57,211 - INFO - 172.18.0.1 - - [19/Feb/2025 16:13:57] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:13:57,314 - INFO - 172.18.0.1 - - [19/Feb/2025 16:13:57] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:13:57,360 - INFO - 172.18.0.1 - - [19/Feb/2025 16:13:57] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:13:57,382 - INFO - 172.18.0.1 - - [19/Feb/2025 16:13:57] "OPTIONS /api/blogs/7 HTTP/1.1" 200 -
+2025-02-19 16:13:57,377 - INFO - 172.18.0.1 - - [19/Feb/2025 16:13:57] "OPTIONS /api/blogs/7 HTTP/1.1" 200 -
+2025-02-19 16:13:57,579 - INFO - Blog 7 fetched successfully
+2025-02-19 16:13:57,598 - INFO - 172.18.0.1 - - [19/Feb/2025 16:13:57] "GET /api/blogs/7 HTTP/1.1" 200 -
+2025-02-19 16:13:57,665 - INFO - Blog 7 fetched successfully
+2025-02-19 16:13:57,668 - INFO - 172.18.0.1 - - [19/Feb/2025 16:13:57] "GET /api/blogs/7 HTTP/1.1" 200 -
+2025-02-19 16:13:57,723 - INFO - Blog 7 fetched successfully
+2025-02-19 16:13:57,727 - INFO - 172.18.0.1 - - [19/Feb/2025 16:13:57] "GET /api/blogs/7 HTTP/1.1" 200 -
+2025-02-19 16:13:57,815 - INFO - 172.18.0.1 - - [19/Feb/2025 16:13:57] "[33mOPTIONS /api/users HTTP/1.1[0m" 404 -
+2025-02-19 16:13:57,885 - INFO - Blog 7 fetched successfully
+2025-02-19 16:13:57,891 - INFO - 172.18.0.1 - - [19/Feb/2025 16:13:57] "GET /api/blogs/7 HTTP/1.1" 200 -
+2025-02-19 16:13:57,934 - INFO - 172.18.0.1 - - [19/Feb/2025 16:13:57] "[33mOPTIONS /api/users HTTP/1.1[0m" 404 -
+2025-02-19 16:14:03,186 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:03] "OPTIONS /api/user/login HTTP/1.1" 200 -
+2025-02-19 16:14:03,606 - INFO - User 4 logged in successfully
+2025-02-19 16:14:03,642 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:03] "POST /api/user/login HTTP/1.1" 200 -
+2025-02-19 16:14:05,777 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:05] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:14:05,809 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:05] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:14:05,888 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:05] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:14:05,930 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:05] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:14:08,840 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:08] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-02-19 16:14:08,843 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:08] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-02-19 16:14:08,956 - INFO - Fetched all blogs
+2025-02-19 16:14:08,960 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:08] "GET /api/blogs HTTP/1.1" 200 -
+2025-02-19 16:14:09,004 - INFO - Fetched all blogs
+2025-02-19 16:14:09,007 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:09] "GET /api/blogs HTTP/1.1" 200 -
+2025-02-19 16:14:10,469 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:10] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 16:14:10,484 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:10] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 16:14:10,559 - INFO - Blog 2 fetched successfully
+2025-02-19 16:14:10,561 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:10] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 16:14:10,622 - INFO - Blog 2 fetched successfully
+2025-02-19 16:14:10,625 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:10] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 16:14:10,688 - INFO - Blog 2 fetched successfully
+2025-02-19 16:14:10,692 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:10] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 16:14:10,766 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:10] "[33mOPTIONS /api/users HTTP/1.1[0m" 404 -
+2025-02-19 16:14:10,793 - INFO - Blog 2 fetched successfully
+2025-02-19 16:14:10,801 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:10] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 16:14:10,857 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:10] "[33mOPTIONS /api/users HTTP/1.1[0m" 404 -
+2025-02-19 16:14:24,224 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:24] "OPTIONS /api/user/login HTTP/1.1" 200 -
+2025-02-19 16:14:24,465 - INFO - User 4 logged in successfully
+2025-02-19 16:14:24,469 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:24] "POST /api/user/login HTTP/1.1" 200 -
+2025-02-19 16:14:26,570 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:26] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:14:26,575 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:26] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:14:26,601 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:26] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:14:26,625 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:26] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:14:30,507 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:30] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-02-19 16:14:30,510 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:30] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-02-19 16:14:30,598 - INFO - Fetched all blogs
+2025-02-19 16:14:30,602 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:30] "GET /api/blogs HTTP/1.1" 200 -
+2025-02-19 16:14:30,826 - INFO - Fetched all blogs
+2025-02-19 16:14:30,831 - INFO - 172.18.0.1 - - [19/Feb/2025 16:14:30] "GET /api/blogs HTTP/1.1" 200 -
+2025-02-19 16:16:42,476 - INFO - 172.18.0.1 - - [19/Feb/2025 16:16:42] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:16:42,510 - INFO - 172.18.0.1 - - [19/Feb/2025 16:16:42] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:16:42,529 - INFO - 172.18.0.1 - - [19/Feb/2025 16:16:42] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:16:42,574 - INFO - 172.18.0.1 - - [19/Feb/2025 16:16:42] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:16:42,587 - INFO - 172.18.0.1 - - [19/Feb/2025 16:16:42] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-02-19 16:16:42,594 - INFO - 172.18.0.1 - - [19/Feb/2025 16:16:42] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-02-19 16:16:42,694 - INFO - Fetched all blogs
+2025-02-19 16:16:42,698 - INFO - 172.18.0.1 - - [19/Feb/2025 16:16:42] "GET /api/blogs HTTP/1.1" 200 -
+2025-02-19 16:16:42,774 - INFO - Fetched all blogs
+2025-02-19 16:16:42,778 - INFO - 172.18.0.1 - - [19/Feb/2025 16:16:42] "GET /api/blogs HTTP/1.1" 200 -
+2025-02-19 16:16:50,277 - INFO - 172.18.0.1 - - [19/Feb/2025 16:16:50] "OPTIONS /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:16:50,282 - INFO - 172.18.0.1 - - [19/Feb/2025 16:16:50] "OPTIONS /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:16:50,360 - WARNING - Blog 1 not found
+2025-02-19 16:16:50,365 - INFO - 172.18.0.1 - - [19/Feb/2025 16:16:50] "[33mGET /api/blogs/1 HTTP/1.1[0m" 404 -
+2025-02-19 16:16:50,464 - WARNING - Blog 1 not found
+2025-02-19 16:16:50,471 - INFO - 172.18.0.1 - - [19/Feb/2025 16:16:50] "[33mGET /api/blogs/1 HTTP/1.1[0m" 404 -
+2025-02-19 16:16:59,047 - WARNING - Blog 1 not found
+2025-02-19 16:16:59,050 - INFO - 172.18.0.1 - - [19/Feb/2025 16:16:59] "[33mGET /api/blogs/1 HTTP/1.1[0m" 404 -
+2025-02-19 16:17:28,579 - INFO -  * Detected change in '/app/api.py', reloading
+2025-02-19 16:17:30,198 - INFO -  * Restarting with stat
+2025-02-19 16:17:32,715 - WARNING -  * Debugger is active!
+2025-02-19 16:17:32,722 - INFO -  * Debugger PIN: 390-252-988
+2025-02-19 16:17:32,832 - INFO - Blog 1 fetched successfully
+2025-02-19 16:17:32,839 - INFO - 172.18.0.1 - - [19/Feb/2025 16:17:32] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:17:37,786 - INFO - 172.18.0.1 - - [19/Feb/2025 16:17:37] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:17:37,856 - INFO - 172.18.0.1 - - [19/Feb/2025 16:17:37] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:17:37,961 - INFO - 172.18.0.1 - - [19/Feb/2025 16:17:37] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:17:38,096 - INFO - 172.18.0.1 - - [19/Feb/2025 16:17:38] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:17:38,103 - INFO - 172.18.0.1 - - [19/Feb/2025 16:17:38] "OPTIONS /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:17:38,107 - INFO - 172.18.0.1 - - [19/Feb/2025 16:17:38] "OPTIONS /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:17:38,261 - INFO - Blog 1 fetched successfully
+2025-02-19 16:17:38,285 - INFO - 172.18.0.1 - - [19/Feb/2025 16:17:38] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:17:38,336 - INFO - Blog 1 fetched successfully
+2025-02-19 16:17:38,338 - INFO - 172.18.0.1 - - [19/Feb/2025 16:17:38] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:17:38,413 - INFO - Blog 1 fetched successfully
+2025-02-19 16:17:38,416 - INFO - 172.18.0.1 - - [19/Feb/2025 16:17:38] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:17:38,463 - INFO - 172.18.0.1 - - [19/Feb/2025 16:17:38] "[33mOPTIONS /api/users HTTP/1.1[0m" 404 -
+2025-02-19 16:17:38,514 - INFO - Blog 1 fetched successfully
+2025-02-19 16:17:38,518 - INFO - 172.18.0.1 - - [19/Feb/2025 16:17:38] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:17:38,555 - INFO - 172.18.0.1 - - [19/Feb/2025 16:17:38] "[33mOPTIONS /api/users HTTP/1.1[0m" 404 -
+2025-02-19 16:17:56,401 - INFO - 172.18.0.1 - - [19/Feb/2025 16:17:56] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:17:56,410 - INFO - 172.18.0.1 - - [19/Feb/2025 16:17:56] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:17:56,444 - INFO - 172.18.0.1 - - [19/Feb/2025 16:17:56] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:17:56,468 - INFO - 172.18.0.1 - - [19/Feb/2025 16:17:56] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:17:56,490 - INFO - 172.18.0.1 - - [19/Feb/2025 16:17:56] "OPTIONS /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:17:56,501 - INFO - 172.18.0.1 - - [19/Feb/2025 16:17:56] "OPTIONS /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:17:56,555 - INFO - Blog 1 fetched successfully
+2025-02-19 16:17:56,557 - INFO - 172.18.0.1 - - [19/Feb/2025 16:17:56] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:17:56,627 - INFO - Blog 1 fetched successfully
+2025-02-19 16:17:56,629 - INFO - 172.18.0.1 - - [19/Feb/2025 16:17:56] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:17:56,721 - INFO - Blog 1 fetched successfully
+2025-02-19 16:17:56,724 - INFO - 172.18.0.1 - - [19/Feb/2025 16:17:56] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:17:56,754 - INFO - 172.18.0.1 - - [19/Feb/2025 16:17:56] "[33mOPTIONS /api/users HTTP/1.1[0m" 404 -
+2025-02-19 16:17:56,779 - INFO - Blog 1 fetched successfully
+2025-02-19 16:17:56,782 - INFO - 172.18.0.1 - - [19/Feb/2025 16:17:56] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:17:56,813 - INFO - 172.18.0.1 - - [19/Feb/2025 16:17:56] "[33mOPTIONS /api/users HTTP/1.1[0m" 404 -
+2025-02-19 16:20:27,959 - INFO -  * Detected change in '/app/api.py', reloading
+2025-02-19 16:20:28,236 - INFO -  * Restarting with stat
+2025-02-19 16:20:30,306 - WARNING -  * Debugger is active!
+2025-02-19 16:20:30,318 - INFO -  * Debugger PIN: 390-252-988
+2025-02-19 16:20:31,728 - INFO - 172.18.0.1 - - [19/Feb/2025 16:20:31] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:20:31,781 - INFO - 172.18.0.1 - - [19/Feb/2025 16:20:31] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:20:31,965 - INFO - 172.18.0.1 - - [19/Feb/2025 16:20:31] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:20:32,056 - INFO - 172.18.0.1 - - [19/Feb/2025 16:20:32] "OPTIONS /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:20:32,063 - INFO - 172.18.0.1 - - [19/Feb/2025 16:20:32] "OPTIONS /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:20:32,086 - INFO - 172.18.0.1 - - [19/Feb/2025 16:20:32] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:20:32,150 - INFO - Blog 1 fetched successfully
+2025-02-19 16:20:32,154 - INFO - 172.18.0.1 - - [19/Feb/2025 16:20:32] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:20:32,278 - INFO - Blog 1 fetched successfully
+2025-02-19 16:20:32,289 - INFO - 172.18.0.1 - - [19/Feb/2025 16:20:32] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:20:32,368 - INFO - Blog 1 fetched successfully
+2025-02-19 16:20:32,372 - INFO - 172.18.0.1 - - [19/Feb/2025 16:20:32] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:20:32,405 - INFO - 172.18.0.1 - - [19/Feb/2025 16:20:32] "[33mOPTIONS /api/users HTTP/1.1[0m" 404 -
+2025-02-19 16:20:32,439 - INFO - Blog 1 fetched successfully
+2025-02-19 16:20:32,448 - INFO - 172.18.0.1 - - [19/Feb/2025 16:20:32] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:20:32,627 - INFO - 172.18.0.1 - - [19/Feb/2025 16:20:32] "[33mOPTIONS /api/users HTTP/1.1[0m" 404 -
+2025-02-19 16:20:56,917 - INFO - Blog 1 fetched successfully
+2025-02-19 16:20:56,929 - INFO - 172.18.0.1 - - [19/Feb/2025 16:20:56] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:21:05,859 - INFO - 172.18.0.1 - - [19/Feb/2025 16:21:05] "[33mGET /api/blogs/comments/1 HTTP/1.1[0m" 404 -
+2025-02-19 16:25:06,647 - INFO - 172.18.0.1 - - [19/Feb/2025 16:25:06] "[33mPOST /user/verify HTTP/1.1[0m" 404 -
+2025-02-19 16:25:23,794 - INFO - 172.18.0.1 - - [19/Feb/2025 16:25:23] "[31m[1mPOST /api/user/verify HTTP/1.1[0m" 405 -
+2025-02-19 16:25:43,783 - INFO - 172.18.0.1 - - [19/Feb/2025 16:25:43] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:25:54,399 - INFO - 172.18.0.1 - - [19/Feb/2025 16:25:54] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:29:29,336 - INFO - 172.18.0.1 - - [19/Feb/2025 16:29:29] "OPTIONS /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:29:29,351 - INFO - 172.18.0.1 - - [19/Feb/2025 16:29:29] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:29:29,379 - INFO - 172.18.0.1 - - [19/Feb/2025 16:29:29] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:29:29,417 - INFO - Blog 1 fetched successfully
+2025-02-19 16:29:29,420 - INFO - 172.18.0.1 - - [19/Feb/2025 16:29:29] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:29:29,462 - INFO - Blog 1 fetched successfully
+2025-02-19 16:29:29,465 - INFO - 172.18.0.1 - - [19/Feb/2025 16:29:29] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:29:29,486 - INFO - 172.18.0.1 - - [19/Feb/2025 16:29:29] "[33mOPTIONS /api/users HTTP/1.1[0m" 404 -
+2025-02-19 16:31:05,103 - INFO -  * Detected change in '/app/api.py', reloading
+2025-02-19 16:31:05,459 - INFO -  * Restarting with stat
+2025-02-19 16:31:07,065 - WARNING -  * Debugger is active!
+2025-02-19 16:31:07,088 - INFO -  * Debugger PIN: 390-252-988
+2025-02-19 16:31:10,854 - INFO - 172.18.0.1 - - [19/Feb/2025 16:31:10] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:33:39,523 - INFO - 172.18.0.1 - - [19/Feb/2025 16:33:39] "OPTIONS /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:33:39,594 - INFO - Blog 1 fetched successfully
+2025-02-19 16:33:39,596 - INFO - 172.18.0.1 - - [19/Feb/2025 16:33:39] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:33:39,636 - INFO - Blog 1 fetched successfully
+2025-02-19 16:33:39,639 - INFO - 172.18.0.1 - - [19/Feb/2025 16:33:39] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:33:39,695 - INFO - 172.18.0.1 - - [19/Feb/2025 16:33:39] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:33:39,860 - INFO - 172.18.0.1 - - [19/Feb/2025 16:33:39] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:33:43,972 - INFO - 172.18.0.1 - - [19/Feb/2025 16:33:43] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:33:44,015 - INFO - 172.18.0.1 - - [19/Feb/2025 16:33:44] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:33:44,059 - INFO - Blog 1 fetched successfully
+2025-02-19 16:33:44,061 - INFO - 172.18.0.1 - - [19/Feb/2025 16:33:44] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:33:44,127 - INFO - Blog 1 fetched successfully
+2025-02-19 16:33:44,129 - INFO - 172.18.0.1 - - [19/Feb/2025 16:33:44] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:33:44,189 - INFO - Blog 1 fetched successfully
+2025-02-19 16:33:44,191 - INFO - 172.18.0.1 - - [19/Feb/2025 16:33:44] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:33:44,378 - INFO - 172.18.0.1 - - [19/Feb/2025 16:33:44] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:33:44,421 - INFO - Blog 1 fetched successfully
+2025-02-19 16:33:44,423 - INFO - 172.18.0.1 - - [19/Feb/2025 16:33:44] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:33:44,461 - INFO - 172.18.0.1 - - [19/Feb/2025 16:33:44] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:33:54,281 - INFO - 172.18.0.1 - - [19/Feb/2025 16:33:54] "OPTIONS /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:33:54,377 - INFO - Blog 1 fetched successfully
+2025-02-19 16:33:54,381 - INFO - 172.18.0.1 - - [19/Feb/2025 16:33:54] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:33:54,457 - INFO - Blog 1 fetched successfully
+2025-02-19 16:33:54,459 - INFO - 172.18.0.1 - - [19/Feb/2025 16:33:54] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:33:54,545 - INFO - 172.18.0.1 - - [19/Feb/2025 16:33:54] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:33:54,560 - INFO - 172.18.0.1 - - [19/Feb/2025 16:33:54] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:34:09,921 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:09] "OPTIONS /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:34:09,975 - INFO - Blog 1 fetched successfully
+2025-02-19 16:34:09,977 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:09] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:34:10,063 - INFO - Blog 1 fetched successfully
+2025-02-19 16:34:10,066 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:10] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:34:15,355 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:15] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:34:15,361 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:15] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:34:15,529 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:15] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:34:15,773 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:15] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:34:15,798 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:15] "OPTIONS /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:34:15,812 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:15] "OPTIONS /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:34:16,010 - INFO - Blog 1 fetched successfully
+2025-02-19 16:34:16,014 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:16] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:34:16,107 - INFO - Blog 1 fetched successfully
+2025-02-19 16:34:16,116 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:16] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:34:16,246 - INFO - Blog 1 fetched successfully
+2025-02-19 16:34:16,248 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:16] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:34:16,484 - INFO - Blog 1 fetched successfully
+2025-02-19 16:34:16,489 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:16] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:34:31,127 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:31] "OPTIONS /api/user/login HTTP/1.1" 200 -
+2025-02-19 16:34:31,430 - INFO - User 4 logged in successfully
+2025-02-19 16:34:31,431 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:31] "POST /api/user/login HTTP/1.1" 200 -
+2025-02-19 16:34:33,563 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:33] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:34:33,574 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:33] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:34:33,605 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:33] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:34:33,642 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:33] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:34:36,723 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:36] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-02-19 16:34:36,731 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:36] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-02-19 16:34:36,783 - INFO - Fetched all blogs
+2025-02-19 16:34:36,787 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:36] "GET /api/blogs HTTP/1.1" 200 -
+2025-02-19 16:34:36,839 - INFO - Fetched all blogs
+2025-02-19 16:34:36,843 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:36] "GET /api/blogs HTTP/1.1" 200 -
+2025-02-19 16:34:39,460 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:39] "OPTIONS /api/blogs/10 HTTP/1.1" 200 -
+2025-02-19 16:34:39,470 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:39] "OPTIONS /api/blogs/10 HTTP/1.1" 200 -
+2025-02-19 16:34:39,508 - INFO - Blog 10 fetched successfully
+2025-02-19 16:34:39,511 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:39] "GET /api/blogs/10 HTTP/1.1" 200 -
+2025-02-19 16:34:39,561 - INFO - Blog 10 fetched successfully
+2025-02-19 16:34:39,566 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:39] "GET /api/blogs/10 HTTP/1.1" 200 -
+2025-02-19 16:34:39,605 - INFO - Blog 10 fetched successfully
+2025-02-19 16:34:39,608 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:39] "GET /api/blogs/10 HTTP/1.1" 200 -
+2025-02-19 16:34:39,677 - INFO - Blog 10 fetched successfully
+2025-02-19 16:34:39,687 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:39] "GET /api/blogs/10 HTTP/1.1" 200 -
+2025-02-19 16:34:45,724 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:45] "OPTIONS /api/user/login HTTP/1.1" 200 -
+2025-02-19 16:34:45,914 - INFO - User 4 logged in successfully
+2025-02-19 16:34:45,916 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:45] "POST /api/user/login HTTP/1.1" 200 -
+2025-02-19 16:34:48,027 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:48] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:34:48,039 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:48] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:34:48,078 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:48] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:34:48,107 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:48] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:34:50,751 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:50] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-02-19 16:34:50,755 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:50] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-02-19 16:34:50,805 - INFO - Fetched all blogs
+2025-02-19 16:34:50,809 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:50] "GET /api/blogs HTTP/1.1" 200 -
+2025-02-19 16:34:50,868 - INFO - Fetched all blogs
+2025-02-19 16:34:50,872 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:50] "GET /api/blogs HTTP/1.1" 200 -
+2025-02-19 16:34:52,256 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:52] "OPTIONS /api/blogs/4 HTTP/1.1" 200 -
+2025-02-19 16:34:52,264 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:52] "OPTIONS /api/blogs/4 HTTP/1.1" 200 -
+2025-02-19 16:34:52,310 - INFO - Blog 4 fetched successfully
+2025-02-19 16:34:52,311 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:52] "GET /api/blogs/4 HTTP/1.1" 200 -
+2025-02-19 16:34:52,360 - INFO - Blog 4 fetched successfully
+2025-02-19 16:34:52,361 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:52] "GET /api/blogs/4 HTTP/1.1" 200 -
+2025-02-19 16:34:52,399 - INFO - Blog 4 fetched successfully
+2025-02-19 16:34:52,402 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:52] "GET /api/blogs/4 HTTP/1.1" 200 -
+2025-02-19 16:34:52,502 - INFO - Blog 4 fetched successfully
+2025-02-19 16:34:52,507 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:52] "GET /api/blogs/4 HTTP/1.1" 200 -
+2025-02-19 16:34:54,883 - INFO - Fetched all blogs
+2025-02-19 16:34:54,887 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:54] "GET /api/blogs HTTP/1.1" 200 -
+2025-02-19 16:34:54,934 - INFO - Fetched all blogs
+2025-02-19 16:34:54,939 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:54] "GET /api/blogs HTTP/1.1" 200 -
+2025-02-19 16:34:56,956 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:56] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:34:56,959 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:56] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:34:57,004 - INFO - Blog 9 fetched successfully
+2025-02-19 16:34:57,007 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:57] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:34:57,056 - INFO - Blog 9 fetched successfully
+2025-02-19 16:34:57,058 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:57] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:34:57,118 - INFO - Blog 9 fetched successfully
+2025-02-19 16:34:57,120 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:57] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:34:57,205 - INFO - Blog 9 fetched successfully
+2025-02-19 16:34:57,208 - INFO - 172.18.0.1 - - [19/Feb/2025 16:34:57] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:35:11,504 - INFO - 172.18.0.1 - - [19/Feb/2025 16:35:11] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:35:11,645 - INFO - Blog 9 fetched successfully
+2025-02-19 16:35:11,649 - INFO - 172.18.0.1 - - [19/Feb/2025 16:35:11] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:35:11,859 - INFO - Blog 9 fetched successfully
+2025-02-19 16:35:11,861 - INFO - 172.18.0.1 - - [19/Feb/2025 16:35:11] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:35:11,927 - INFO - 172.18.0.1 - - [19/Feb/2025 16:35:11] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:35:11,971 - INFO - 172.18.0.1 - - [19/Feb/2025 16:35:11] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:36:21,666 - INFO - 172.18.0.1 - - [19/Feb/2025 16:36:21] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:36:21,798 - INFO - Blog 9 fetched successfully
+2025-02-19 16:36:21,801 - INFO - 172.18.0.1 - - [19/Feb/2025 16:36:21] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:36:21,850 - INFO - Blog 9 fetched successfully
+2025-02-19 16:36:21,854 - INFO - 172.18.0.1 - - [19/Feb/2025 16:36:21] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:36:21,913 - INFO - 172.18.0.1 - - [19/Feb/2025 16:36:21] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:36:21,950 - INFO - 172.18.0.1 - - [19/Feb/2025 16:36:21] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:37:03,806 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:03] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:37:03,830 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:03] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:37:03,842 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:03] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:37:03,864 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:03] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:37:04,245 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:04] "OPTIONS /api/blogs/168 HTTP/1.1" 200 -
+2025-02-19 16:37:04,260 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:04] "OPTIONS /api/blogs/168 HTTP/1.1" 200 -
+2025-02-19 16:37:04,313 - WARNING - Blog 168 not found
+2025-02-19 16:37:04,316 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:04] "[33mGET /api/blogs/168 HTTP/1.1[0m" 404 -
+2025-02-19 16:37:04,361 - WARNING - Blog 168 not found
+2025-02-19 16:37:04,366 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:04] "[33mGET /api/blogs/168 HTTP/1.1[0m" 404 -
+2025-02-19 16:37:18,159 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:18] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:37:18,284 - INFO - Blog 9 fetched successfully
+2025-02-19 16:37:18,314 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:18] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:37:18,325 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:18] "OPTIONS /api/blogs/168 HTTP/1.1" 200 -
+2025-02-19 16:37:18,419 - WARNING - Blog 168 not found
+2025-02-19 16:37:18,423 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:18] "[33mGET /api/blogs/168 HTTP/1.1[0m" 404 -
+2025-02-19 16:37:18,423 - INFO - Blog 9 fetched successfully
+2025-02-19 16:37:18,427 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:18] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:37:18,474 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:18] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:37:18,502 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:18] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:37:25,968 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:25] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:37:26,030 - INFO - Blog 9 fetched successfully
+2025-02-19 16:37:26,035 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:26] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:37:26,132 - INFO - Blog 9 fetched successfully
+2025-02-19 16:37:26,136 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:26] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:37:26,183 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:26] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:37:26,202 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:26] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:37:26,352 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:26] "OPTIONS /api/blogs/168 HTTP/1.1" 200 -
+2025-02-19 16:37:26,457 - WARNING - Blog 168 not found
+2025-02-19 16:37:26,464 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:26] "[33mGET /api/blogs/168 HTTP/1.1[0m" 404 -
+2025-02-19 16:37:33,961 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:33] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:37:34,179 - INFO - Blog 9 fetched successfully
+2025-02-19 16:37:34,183 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:34] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:37:34,223 - INFO - Blog 9 fetched successfully
+2025-02-19 16:37:34,225 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:34] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:37:34,264 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:34] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:37:34,298 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:34] "OPTIONS /api/blogs/168 HTTP/1.1" 200 -
+2025-02-19 16:37:34,301 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:34] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:37:34,340 - WARNING - Blog 168 not found
+2025-02-19 16:37:34,342 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:34] "[33mGET /api/blogs/168 HTTP/1.1[0m" 404 -
+2025-02-19 16:37:41,414 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:41] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:37:41,481 - INFO - Blog 9 fetched successfully
+2025-02-19 16:37:41,484 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:41] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:37:41,544 - INFO - Blog 9 fetched successfully
+2025-02-19 16:37:41,546 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:41] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:37:41,571 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:41] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:37:41,650 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:41] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:37:42,297 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:42] "OPTIONS /api/blogs/168 HTTP/1.1" 200 -
+2025-02-19 16:37:42,354 - WARNING - Blog 168 not found
+2025-02-19 16:37:42,356 - INFO - 172.18.0.1 - - [19/Feb/2025 16:37:42] "[33mGET /api/blogs/168 HTTP/1.1[0m" 404 -
+2025-02-19 16:38:00,719 - INFO - 172.18.0.1 - - [19/Feb/2025 16:38:00] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:38:00,769 - INFO - Blog 9 fetched successfully
+2025-02-19 16:38:00,771 - INFO - 172.18.0.1 - - [19/Feb/2025 16:38:00] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:38:00,817 - INFO - Blog 9 fetched successfully
+2025-02-19 16:38:00,819 - INFO - 172.18.0.1 - - [19/Feb/2025 16:38:00] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:38:00,852 - INFO - 172.18.0.1 - - [19/Feb/2025 16:38:00] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:38:00,867 - INFO - 172.18.0.1 - - [19/Feb/2025 16:38:00] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:38:01,318 - INFO - 172.18.0.1 - - [19/Feb/2025 16:38:01] "OPTIONS /api/blogs/168 HTTP/1.1" 200 -
+2025-02-19 16:38:01,371 - WARNING - Blog 168 not found
+2025-02-19 16:38:01,375 - INFO - 172.18.0.1 - - [19/Feb/2025 16:38:01] "[33mGET /api/blogs/168 HTTP/1.1[0m" 404 -
+2025-02-19 16:38:41,310 - INFO - 172.18.0.1 - - [19/Feb/2025 16:38:41] "OPTIONS /api/blogs/168 HTTP/1.1" 200 -
+2025-02-19 16:38:41,338 - WARNING - Blog 168 not found
+2025-02-19 16:38:41,339 - INFO - 172.18.0.1 - - [19/Feb/2025 16:38:41] "[33mGET /api/blogs/168 HTTP/1.1[0m" 404 -
+2025-02-19 16:38:41,372 - INFO - 172.18.0.1 - - [19/Feb/2025 16:38:41] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:38:41,416 - INFO - Blog 9 fetched successfully
+2025-02-19 16:38:41,430 - INFO - 172.18.0.1 - - [19/Feb/2025 16:38:41] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:38:41,984 - INFO - Blog 9 fetched successfully
+2025-02-19 16:38:41,987 - INFO - 172.18.0.1 - - [19/Feb/2025 16:38:41] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:38:42,160 - INFO - 172.18.0.1 - - [19/Feb/2025 16:38:42] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:38:42,176 - INFO - 172.18.0.1 - - [19/Feb/2025 16:38:42] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:41:58,348 - INFO - 172.18.0.1 - - [19/Feb/2025 16:41:58] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:41:58,385 - INFO - Blog 9 fetched successfully
+2025-02-19 16:41:58,388 - INFO - 172.18.0.1 - - [19/Feb/2025 16:41:58] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:41:58,486 - INFO - 172.18.0.1 - - [19/Feb/2025 16:41:58] "OPTIONS /api/blogs/168 HTTP/1.1" 200 -
+2025-02-19 16:41:58,514 - WARNING - Blog 168 not found
+2025-02-19 16:41:58,516 - INFO - 172.18.0.1 - - [19/Feb/2025 16:41:58] "[33mGET /api/blogs/168 HTTP/1.1[0m" 404 -
+2025-02-19 16:41:58,545 - INFO - Blog 9 fetched successfully
+2025-02-19 16:41:58,549 - INFO - 172.18.0.1 - - [19/Feb/2025 16:41:58] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:41:58,593 - INFO - 172.18.0.1 - - [19/Feb/2025 16:41:58] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:41:58,611 - INFO - 172.18.0.1 - - [19/Feb/2025 16:41:58] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:47:58,798 - INFO -  * Detected change in '/app/api.py', reloading
+2025-02-19 16:47:59,203 - INFO -  * Restarting with stat
+2025-02-19 16:48:01,113 - WARNING -  * Debugger is active!
+2025-02-19 16:48:01,126 - INFO -  * Debugger PIN: 390-252-988
+2025-02-19 16:48:04,027 - INFO - 172.18.0.1 - - [19/Feb/2025 16:48:04] "[35m[1mGET /api/blogs/1 HTTP/1.1[0m" 500 -
+2025-02-19 16:48:04,128 - INFO - 172.18.0.1 - - [19/Feb/2025 16:48:04] "GET /api/blogs/1?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-02-19 16:48:04,130 - INFO - 172.18.0.1 - - [19/Feb/2025 16:48:04] "GET /api/blogs/1?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-02-19 16:48:04,541 - INFO - 172.18.0.1 - - [19/Feb/2025 16:48:04] "GET /api/blogs/1?__debugger__=yes&cmd=resource&f=console.png&s=4RsKnSzvKOTpOzw5toL9 HTTP/1.1" 200 -
+2025-02-19 16:48:04,606 - INFO - 172.18.0.1 - - [19/Feb/2025 16:48:04] "GET /api/blogs/1?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-02-19 16:48:30,789 - INFO -  * Detected change in '/app/api.py', reloading
+2025-02-19 16:48:30,986 - INFO -  * Restarting with stat
+2025-02-19 16:48:32,334 - WARNING -  * Debugger is active!
+2025-02-19 16:48:32,342 - INFO -  * Debugger PIN: 390-252-988
+2025-02-19 16:48:32,631 - INFO - Blog 1 fetched successfully
+2025-02-19 16:48:32,637 - INFO - 172.18.0.1 - - [19/Feb/2025 16:48:32] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:48:56,052 - INFO - Blog 1 fetched successfully
+2025-02-19 16:48:56,054 - INFO - 172.18.0.1 - - [19/Feb/2025 16:48:56] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:49:40,321 - INFO -  * Detected change in '/app/api.py', reloading
+2025-02-19 16:49:40,547 - INFO -  * Restarting with stat
+2025-02-19 16:49:42,113 - WARNING -  * Debugger is active!
+2025-02-19 16:49:42,124 - INFO -  * Debugger PIN: 390-252-988
+2025-02-19 16:49:44,724 - INFO - Blog 1 fetched successfully
+2025-02-19 16:49:44,728 - INFO - 172.18.0.1 - - [19/Feb/2025 16:49:44] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:50:00,246 - INFO -  * Detected change in '/app/api.py', reloading
+2025-02-19 16:50:00,475 - INFO -  * Restarting with stat
+2025-02-19 16:50:02,090 - WARNING -  * Debugger is active!
+2025-02-19 16:50:02,092 - INFO -  * Debugger PIN: 390-252-988
+2025-02-19 16:50:03,097 - INFO - Blog 1 fetched successfully
+2025-02-19 16:50:03,100 - INFO - 172.18.0.1 - - [19/Feb/2025 16:50:03] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:50:43,798 - INFO -  * Detected change in '/app/api.py', reloading
+2025-02-19 16:50:44,065 - INFO -  * Restarting with stat
+2025-02-19 16:50:45,174 - WARNING -  * Debugger is active!
+2025-02-19 16:50:45,186 - INFO -  * Debugger PIN: 390-252-988
+2025-02-19 16:50:46,531 - INFO - Blog 1 fetched successfully
+2025-02-19 16:50:46,532 - INFO - 172.18.0.1 - - [19/Feb/2025 16:50:46] "GET /api/blogs/1 HTTP/1.1" 200 -
+2025-02-19 16:51:03,090 - INFO - Blog 9 fetched successfully
+2025-02-19 16:51:03,095 - INFO - 172.18.0.1 - - [19/Feb/2025 16:51:03] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:51:12,497 - INFO -  * Detected change in '/app/api.py', reloading
+2025-02-19 16:51:12,726 - INFO -  * Restarting with stat
+2025-02-19 16:51:14,240 - WARNING -  * Debugger is active!
+2025-02-19 16:51:14,242 - INFO -  * Debugger PIN: 390-252-988
+2025-02-19 16:51:59,494 - INFO - 172.18.0.1 - - [19/Feb/2025 16:51:59] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:51:59,575 - INFO - Blog 9 fetched successfully
+2025-02-19 16:51:59,578 - INFO - 172.18.0.1 - - [19/Feb/2025 16:51:59] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:51:59,736 - INFO - Blog 9 fetched successfully
+2025-02-19 16:51:59,740 - INFO - 172.18.0.1 - - [19/Feb/2025 16:51:59] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:52:01,273 - INFO - 172.18.0.1 - - [19/Feb/2025 16:52:01] "OPTIONS /api/blogs/168 HTTP/1.1" 200 -
+2025-02-19 16:52:01,659 - WARNING - Blog 168 not found
+2025-02-19 16:52:01,673 - INFO - 172.18.0.1 - - [19/Feb/2025 16:52:01] "[33mGET /api/blogs/168 HTTP/1.1[0m" 404 -
+2025-02-19 16:52:01,895 - INFO - 172.18.0.1 - - [19/Feb/2025 16:52:01] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:52:02,290 - INFO - 172.18.0.1 - - [19/Feb/2025 16:52:02] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:52:02,352 - INFO - 172.18.0.1 - - [19/Feb/2025 16:52:02] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:52:02,456 - INFO - 172.18.0.1 - - [19/Feb/2025 16:52:02] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:52:02,540 - INFO - Blog 9 fetched successfully
+2025-02-19 16:52:02,548 - INFO - 172.18.0.1 - - [19/Feb/2025 16:52:02] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:52:02,686 - INFO - Blog 9 fetched successfully
+2025-02-19 16:52:02,692 - INFO - 172.18.0.1 - - [19/Feb/2025 16:52:02] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:52:02,803 - INFO - Blog 9 fetched successfully
+2025-02-19 16:52:02,808 - INFO - 172.18.0.1 - - [19/Feb/2025 16:52:02] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:52:02,908 - INFO - Blog 9 fetched successfully
+2025-02-19 16:52:02,911 - INFO - 172.18.0.1 - - [19/Feb/2025 16:52:02] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:54:11,590 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:11] "OPTIONS /api/blogs/168 HTTP/1.1" 200 -
+2025-02-19 16:54:11,594 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:11] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:54:11,656 - WARNING - Blog 168 not found
+2025-02-19 16:54:11,664 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:11] "[33mGET /api/blogs/168 HTTP/1.1[0m" 404 -
+2025-02-19 16:54:11,670 - INFO - Blog 9 fetched successfully
+2025-02-19 16:54:11,677 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:11] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:54:11,725 - INFO - Blog 9 fetched successfully
+2025-02-19 16:54:11,728 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:11] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:54:11,777 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:11] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:54:11,796 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:11] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:54:34,343 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:34] "OPTIONS /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:54:34,383 - INFO - Blog 9 fetched successfully
+2025-02-19 16:54:34,386 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:34] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:54:34,444 - INFO - Blog 9 fetched successfully
+2025-02-19 16:54:34,449 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:34] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:54:34,511 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:34] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:54:34,560 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:34] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:54:35,867 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:35] "OPTIONS /api/blogs/168 HTTP/1.1" 200 -
+2025-02-19 16:54:36,382 - WARNING - Blog 168 not found
+2025-02-19 16:54:36,413 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:36] "[33mGET /api/blogs/168 HTTP/1.1[0m" 404 -
+2025-02-19 16:54:36,699 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:36] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:54:36,918 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:36] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:54:37,066 - INFO - Blog 9 fetched successfully
+2025-02-19 16:54:37,077 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:37] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:54:37,175 - INFO - Blog 9 fetched successfully
+2025-02-19 16:54:37,213 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:37] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:54:37,295 - INFO - Blog 9 fetched successfully
+2025-02-19 16:54:37,299 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:37] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:54:37,375 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:37] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:54:37,403 - INFO - Blog 9 fetched successfully
+2025-02-19 16:54:37,406 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:37] "GET /api/blogs/9 HTTP/1.1" 200 -
+2025-02-19 16:54:37,455 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:37] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:54:44,566 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:44] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-02-19 16:54:44,571 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:44] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-02-19 16:54:44,648 - INFO - Fetched all blogs
+2025-02-19 16:54:44,654 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:44] "GET /api/blogs HTTP/1.1" 200 -
+2025-02-19 16:54:44,848 - INFO - Fetched all blogs
+2025-02-19 16:54:44,864 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:44] "GET /api/blogs HTTP/1.1" 200 -
+2025-02-19 16:54:45,700 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:45] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 16:54:45,720 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:45] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 16:54:45,753 - INFO - Blog 2 fetched successfully
+2025-02-19 16:54:45,757 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:45] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 16:54:45,829 - INFO - Blog 2 fetched successfully
+2025-02-19 16:54:45,832 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:45] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 16:54:45,872 - INFO - Blog 2 fetched successfully
+2025-02-19 16:54:45,874 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:45] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 16:54:45,909 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:45] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:54:45,957 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:45] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:54:45,993 - INFO - Blog 2 fetched successfully
+2025-02-19 16:54:45,996 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:45] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 16:54:46,081 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:46] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:54:59,569 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:59] "OPTIONS /api/blogs/168 HTTP/1.1" 200 -
+2025-02-19 16:54:59,596 - WARNING - Blog 168 not found
+2025-02-19 16:54:59,599 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:59] "[33mGET /api/blogs/168 HTTP/1.1[0m" 404 -
+2025-02-19 16:54:59,674 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:59] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 16:54:59,714 - INFO - Blog 2 fetched successfully
+2025-02-19 16:54:59,716 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:59] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 16:54:59,788 - INFO - Blog 2 fetched successfully
+2025-02-19 16:54:59,792 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:59] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 16:54:59,839 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:59] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:54:59,861 - INFO - 172.18.0.1 - - [19/Feb/2025 16:54:59] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 16:59:59,612 - INFO - 172.18.0.1 - - [19/Feb/2025 16:59:59] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 16:59:59,628 - INFO - 172.18.0.1 - - [19/Feb/2025 16:59:59] "OPTIONS /api/blogs/168 HTTP/1.1" 200 -
+2025-02-19 16:59:59,661 - INFO - Blog 2 fetched successfully
+2025-02-19 16:59:59,670 - INFO - 172.18.0.1 - - [19/Feb/2025 16:59:59] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 16:59:59,677 - WARNING - Blog 168 not found
+2025-02-19 16:59:59,679 - INFO - 172.18.0.1 - - [19/Feb/2025 16:59:59] "[33mGET /api/blogs/168 HTTP/1.1[0m" 404 -
+2025-02-19 17:00:00,230 - INFO - Blog 2 fetched successfully
+2025-02-19 17:00:00,237 - INFO - 172.18.0.1 - - [19/Feb/2025 17:00:00] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:00:00,289 - INFO - 172.18.0.1 - - [19/Feb/2025 17:00:00] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 17:00:00,316 - INFO - 172.18.0.1 - - [19/Feb/2025 17:00:00] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 17:06:55,702 - INFO - 172.18.0.1 - - [19/Feb/2025 17:06:55] "OPTIONS /api/users/3 HTTP/1.1" 200 -
+2025-02-19 17:06:55,705 - INFO - 172.18.0.1 - - [19/Feb/2025 17:06:55] "OPTIONS /api/users/3 HTTP/1.1" 200 -
+2025-02-19 17:06:55,792 - WARNING - User 3 not found
+2025-02-19 17:06:55,795 - INFO - 172.18.0.1 - - [19/Feb/2025 17:06:55] "[33mGET /api/users/3 HTTP/1.1[0m" 404 -
+2025-02-19 17:06:55,885 - WARNING - User 3 not found
+2025-02-19 17:06:55,887 - INFO - 172.18.0.1 - - [19/Feb/2025 17:06:55] "[33mGET /api/users/3 HTTP/1.1[0m" 404 -
+2025-02-19 17:06:57,207 - INFO - 172.18.0.1 - - [19/Feb/2025 17:06:57] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:06:57,214 - INFO - 172.18.0.1 - - [19/Feb/2025 17:06:57] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:06:57,249 - INFO - Blog 2 fetched successfully
+2025-02-19 17:06:57,252 - INFO - 172.18.0.1 - - [19/Feb/2025 17:06:57] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:06:57,290 - INFO - Blog 2 fetched successfully
+2025-02-19 17:06:57,292 - INFO - 172.18.0.1 - - [19/Feb/2025 17:06:57] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:06:57,334 - INFO - Blog 2 fetched successfully
+2025-02-19 17:06:57,336 - INFO - 172.18.0.1 - - [19/Feb/2025 17:06:57] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:06:57,386 - INFO - 172.18.0.1 - - [19/Feb/2025 17:06:57] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 17:06:57,395 - INFO - Blog 2 fetched successfully
+2025-02-19 17:06:57,397 - INFO - 172.18.0.1 - - [19/Feb/2025 17:06:57] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:06:57,414 - INFO - 172.18.0.1 - - [19/Feb/2025 17:06:57] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 17:06:57,443 - INFO - 172.18.0.1 - - [19/Feb/2025 17:06:57] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 17:07:03,965 - INFO - 172.18.0.1 - - [19/Feb/2025 17:07:03] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:07:04,089 - INFO - 172.18.0.1 - - [19/Feb/2025 17:07:04] "[35m[1mPUT /api/blogs/2 HTTP/1.1[0m" 500 -
+2025-02-19 17:07:37,944 - INFO - 172.18.0.1 - - [19/Feb/2025 17:07:37] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 17:07:37,966 - INFO - 172.18.0.1 - - [19/Feb/2025 17:07:37] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 17:07:38,031 - INFO - 172.18.0.1 - - [19/Feb/2025 17:07:38] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 17:07:38,129 - INFO - 172.18.0.1 - - [19/Feb/2025 17:07:38] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 17:07:38,160 - INFO - 172.18.0.1 - - [19/Feb/2025 17:07:38] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:07:38,191 - INFO - 172.18.0.1 - - [19/Feb/2025 17:07:38] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:07:38,312 - INFO - Blog 2 fetched successfully
+2025-02-19 17:07:38,314 - INFO - 172.18.0.1 - - [19/Feb/2025 17:07:38] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:07:38,454 - INFO - Blog 2 fetched successfully
+2025-02-19 17:07:38,466 - INFO - 172.18.0.1 - - [19/Feb/2025 17:07:38] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:07:38,516 - INFO - Blog 2 fetched successfully
+2025-02-19 17:07:38,518 - INFO - 172.18.0.1 - - [19/Feb/2025 17:07:38] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:07:38,567 - INFO - 172.18.0.1 - - [19/Feb/2025 17:07:38] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 17:07:38,591 - INFO - Blog 2 fetched successfully
+2025-02-19 17:07:38,595 - INFO - 172.18.0.1 - - [19/Feb/2025 17:07:38] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:07:38,703 - INFO - 172.18.0.1 - - [19/Feb/2025 17:07:38] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 17:09:05,735 - INFO - 172.18.0.1 - - [19/Feb/2025 17:09:05] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:09:05,799 - INFO - 172.18.0.1 - - [19/Feb/2025 17:09:05] "[35m[1mPUT /api/blogs/2 HTTP/1.1[0m" 500 -
+2025-02-19 17:09:42,687 - INFO - 172.18.0.1 - - [19/Feb/2025 17:09:42] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 17:09:42,718 - INFO - 172.18.0.1 - - [19/Feb/2025 17:09:42] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 17:09:42,740 - INFO - 172.18.0.1 - - [19/Feb/2025 17:09:42] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 17:09:42,776 - INFO - 172.18.0.1 - - [19/Feb/2025 17:09:42] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 17:09:42,780 - INFO - 172.18.0.1 - - [19/Feb/2025 17:09:42] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:09:42,803 - INFO - 172.18.0.1 - - [19/Feb/2025 17:09:42] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:09:42,840 - INFO - Blog 2 fetched successfully
+2025-02-19 17:09:42,842 - INFO - 172.18.0.1 - - [19/Feb/2025 17:09:42] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:09:42,893 - INFO - Blog 2 fetched successfully
+2025-02-19 17:09:42,896 - INFO - 172.18.0.1 - - [19/Feb/2025 17:09:42] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:09:42,931 - INFO - Blog 2 fetched successfully
+2025-02-19 17:09:42,944 - INFO - 172.18.0.1 - - [19/Feb/2025 17:09:42] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:09:42,976 - INFO - Blog 2 fetched successfully
+2025-02-19 17:09:42,979 - INFO - 172.18.0.1 - - [19/Feb/2025 17:09:42] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:09:43,003 - INFO - 172.18.0.1 - - [19/Feb/2025 17:09:43] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 17:09:43,020 - INFO - 172.18.0.1 - - [19/Feb/2025 17:09:43] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 17:09:58,025 - INFO - 172.18.0.1 - - [19/Feb/2025 17:09:58] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:09:58,101 - INFO - 172.18.0.1 - - [19/Feb/2025 17:09:58] "[35m[1mPUT /api/blogs/2 HTTP/1.1[0m" 500 -
+2025-02-19 17:21:50,257 - INFO - Blog 2 fetched successfully
+2025-02-19 17:21:50,261 - INFO - 172.18.0.1 - - [19/Feb/2025 17:21:50] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:29:38,972 - INFO - 172.18.0.1 - - [19/Feb/2025 17:29:38] "[31m[1mGET /api/blogs/2/comments/1 HTTP/1.1[0m" 405 -
+2025-02-19 17:30:28,380 - INFO -  * Detected change in '/app/api.py', reloading
+2025-02-19 17:30:28,976 - INFO -  * Restarting with stat
+2025-02-19 17:30:30,992 - WARNING -  * Debugger is active!
+2025-02-19 17:30:30,997 - INFO -  * Debugger PIN: 390-252-988
+2025-02-19 17:31:58,952 - INFO - 172.18.0.1 - - [19/Feb/2025 17:31:58] "[35m[1mPUT /api/blogs/2 HTTP/1.1[0m" 500 -
+2025-02-19 17:33:10,791 - INFO -  * Detected change in '/app/api.py', reloading
+2025-02-19 17:33:10,987 - INFO -  * Restarting with stat
+2025-02-19 17:33:12,247 - WARNING -  * Debugger is active!
+2025-02-19 17:33:12,260 - INFO -  * Debugger PIN: 390-252-988
+2025-02-19 17:33:39,041 - INFO -  * Detected change in '/app/api.py', reloading
+2025-02-19 17:33:39,231 - INFO -  * Restarting with stat
+2025-02-19 17:33:41,360 - WARNING -  * Debugger is active!
+2025-02-19 17:33:41,370 - INFO -  * Debugger PIN: 390-252-988
+2025-02-19 17:33:44,610 - INFO - 172.18.0.1 - - [19/Feb/2025 17:33:44] "[35m[1mPUT /api/blogs/2 HTTP/1.1[0m" 500 -
+2025-02-19 17:34:00,496 - INFO -  * Detected change in '/app/api.py', reloading
+2025-02-19 17:34:00,610 - INFO -  * Restarting with stat
+2025-02-19 17:34:01,466 - WARNING -  * Debugger is active!
+2025-02-19 17:34:01,468 - INFO -  * Debugger PIN: 390-252-988
+2025-02-19 17:34:02,487 - INFO - 172.18.0.1 - - [19/Feb/2025 17:34:02] "[35m[1mPUT /api/blogs/2 HTTP/1.1[0m" 500 -
+2025-02-19 17:34:20,158 - INFO -  * Detected change in '/app/api.py', reloading
+2025-02-19 17:34:20,459 - INFO -  * Restarting with stat
+2025-02-19 17:34:21,782 - WARNING -  * Debugger is active!
+2025-02-19 17:34:21,785 - INFO -  * Debugger PIN: 390-252-988
+2025-02-19 17:34:21,998 - INFO - 172.18.0.1 - - [19/Feb/2025 17:34:21] "[35m[1mPUT /api/blogs/2 HTTP/1.1[0m" 500 -
+2025-02-19 17:34:33,971 - INFO - 172.18.0.1 - - [19/Feb/2025 17:34:33] "[35m[1mPUT /api/blogs/2 HTTP/1.1[0m" 500 -
+2025-02-19 17:34:34,121 - INFO -  * Detected change in '/app/api.py', reloading
+2025-02-19 17:34:34,421 - INFO -  * Restarting with stat
+2025-02-19 17:34:36,240 - WARNING -  * Debugger is active!
+2025-02-19 17:34:36,242 - INFO -  * Debugger PIN: 390-252-988
+2025-02-19 17:34:55,096 - INFO -  * Detected change in '/app/api.py', reloading
+2025-02-19 17:34:55,393 - INFO -  * Restarting with stat
+2025-02-19 17:34:57,233 - WARNING -  * Debugger is active!
+2025-02-19 17:34:57,236 - INFO -  * Debugger PIN: 390-252-988
+2025-02-19 17:34:57,474 - INFO - Comment added to blog 2
+2025-02-19 17:34:57,481 - INFO - 172.18.0.1 - - [19/Feb/2025 17:34:57] "PUT /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:36:55,492 - INFO - 172.18.0.1 - - [19/Feb/2025 17:36:55] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:36:55,612 - INFO - Comment added to blog 2
+2025-02-19 17:36:55,616 - INFO - 172.18.0.1 - - [19/Feb/2025 17:36:55] "PUT /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:36:55,714 - INFO - Blog 2 fetched successfully
+2025-02-19 17:36:55,716 - INFO - 172.18.0.1 - - [19/Feb/2025 17:36:55] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:36:55,892 - INFO - Blog 2 fetched successfully
+2025-02-19 17:36:55,897 - INFO - 172.18.0.1 - - [19/Feb/2025 17:36:55] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:38:29,814 - INFO -  * Detected change in '/app/api.py', reloading
+2025-02-19 17:38:30,320 - INFO -  * Restarting with stat
+2025-02-19 17:38:32,752 - WARNING -  * Debugger is active!
+2025-02-19 17:38:32,755 - INFO -  * Debugger PIN: 390-252-988
+2025-02-19 17:38:36,749 - INFO - 172.18.0.1 - - [19/Feb/2025 17:38:36] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:38:36,891 - INFO - Comment added to blog 2
+2025-02-19 17:38:36,894 - INFO - 172.18.0.1 - - [19/Feb/2025 17:38:36] "PUT /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:38:36,995 - INFO - Blog 2 fetched successfully
+2025-02-19 17:38:37,004 - INFO - 172.18.0.1 - - [19/Feb/2025 17:38:37] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:38:37,079 - INFO - Blog 2 fetched successfully
+2025-02-19 17:38:37,086 - INFO - 172.18.0.1 - - [19/Feb/2025 17:38:37] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:39:11,035 - INFO -  * Detected change in '/app/api.py', reloading
+2025-02-19 17:39:11,344 - INFO -  * Restarting with stat
+2025-02-19 17:39:12,810 - WARNING -  * Debugger is active!
+2025-02-19 17:39:12,811 - INFO -  * Debugger PIN: 390-252-988
+2025-02-19 17:39:15,421 - INFO - Comment added to blog 2
+2025-02-19 17:39:15,425 - INFO - 172.18.0.1 - - [19/Feb/2025 17:39:15] "PUT /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:39:19,234 - INFO - 172.18.0.1 - - [19/Feb/2025 17:39:19] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 17:39:19,351 - INFO - 172.18.0.1 - - [19/Feb/2025 17:39:19] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 17:39:19,384 - INFO - 172.18.0.1 - - [19/Feb/2025 17:39:19] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 17:39:19,444 - INFO - 172.18.0.1 - - [19/Feb/2025 17:39:19] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:39:19,447 - INFO - 172.18.0.1 - - [19/Feb/2025 17:39:19] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 17:39:19,485 - INFO - 172.18.0.1 - - [19/Feb/2025 17:39:19] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:39:19,628 - INFO - Blog 2 fetched successfully
+2025-02-19 17:39:19,631 - INFO - 172.18.0.1 - - [19/Feb/2025 17:39:19] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:39:19,692 - INFO - Blog 2 fetched successfully
+2025-02-19 17:39:19,696 - INFO - 172.18.0.1 - - [19/Feb/2025 17:39:19] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:39:19,760 - INFO - Blog 2 fetched successfully
+2025-02-19 17:39:19,764 - INFO - 172.18.0.1 - - [19/Feb/2025 17:39:19] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:39:19,820 - INFO - 172.18.0.1 - - [19/Feb/2025 17:39:19] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 17:39:19,869 - INFO - Blog 2 fetched successfully
+2025-02-19 17:39:19,874 - INFO - 172.18.0.1 - - [19/Feb/2025 17:39:19] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 17:39:20,031 - INFO - 172.18.0.1 - - [19/Feb/2025 17:39:20] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:04:58,713 - INFO - 172.18.0.1 - - [19/Feb/2025 19:04:58] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:04:58,714 - INFO - 172.18.0.1 - - [19/Feb/2025 19:04:58] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:04:58,837 - INFO - 172.18.0.1 - - [19/Feb/2025 19:04:58] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:04:58,910 - INFO - 172.18.0.1 - - [19/Feb/2025 19:04:58] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:04:58,919 - INFO - 172.18.0.1 - - [19/Feb/2025 19:04:58] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 19:04:58,931 - INFO - 172.18.0.1 - - [19/Feb/2025 19:04:58] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 19:04:59,095 - INFO - Blog 2 fetched successfully
+2025-02-19 19:04:59,101 - INFO - 172.18.0.1 - - [19/Feb/2025 19:04:59] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 19:04:59,155 - INFO - Blog 2 fetched successfully
+2025-02-19 19:04:59,158 - INFO - 172.18.0.1 - - [19/Feb/2025 19:04:59] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 19:04:59,302 - INFO - Blog 2 fetched successfully
+2025-02-19 19:04:59,304 - INFO - 172.18.0.1 - - [19/Feb/2025 19:04:59] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 19:04:59,418 - INFO - 172.18.0.1 - - [19/Feb/2025 19:04:59] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:04:59,440 - INFO - Blog 2 fetched successfully
+2025-02-19 19:04:59,447 - INFO - 172.18.0.1 - - [19/Feb/2025 19:04:59] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 19:04:59,516 - INFO - 172.18.0.1 - - [19/Feb/2025 19:04:59] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:06:23,877 - INFO -  * Detected change in '/app/api.py', reloading
+2025-02-19 19:06:24,702 - INFO -  * Restarting with stat
+2025-02-19 19:06:26,501 - WARNING -  * Debugger is active!
+2025-02-19 19:06:26,519 - INFO -  * Debugger PIN: 390-252-988
+2025-02-19 19:06:31,252 - INFO - 172.18.0.1 - - [19/Feb/2025 19:06:31] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 19:06:31,336 - INFO - Comment added to blog 2
+2025-02-19 19:06:31,344 - INFO - 172.18.0.1 - - [19/Feb/2025 19:06:31] "PUT /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 19:06:31,545 - INFO - Blog 2 fetched successfully
+2025-02-19 19:06:31,550 - INFO - 172.18.0.1 - - [19/Feb/2025 19:06:31] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 19:06:31,597 - INFO - Blog 2 fetched successfully
+2025-02-19 19:06:31,599 - INFO - 172.18.0.1 - - [19/Feb/2025 19:06:31] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 19:06:35,314 - INFO - 172.18.0.1 - - [19/Feb/2025 19:06:35] "OPTIONS /api/users/undefined HTTP/1.1" 200 -
+2025-02-19 19:06:35,317 - INFO - 172.18.0.1 - - [19/Feb/2025 19:06:35] "OPTIONS /api/users/undefined HTTP/1.1" 200 -
+2025-02-19 19:06:35,377 - WARNING - User undefined not found
+2025-02-19 19:06:35,379 - INFO - 172.18.0.1 - - [19/Feb/2025 19:06:35] "[33mGET /api/users/undefined HTTP/1.1[0m" 404 -
+2025-02-19 19:06:35,438 - WARNING - User undefined not found
+2025-02-19 19:06:35,443 - INFO - 172.18.0.1 - - [19/Feb/2025 19:06:35] "[33mGET /api/users/undefined HTTP/1.1[0m" 404 -
+2025-02-19 19:06:36,689 - INFO - 172.18.0.1 - - [19/Feb/2025 19:06:36] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 19:06:36,694 - INFO - 172.18.0.1 - - [19/Feb/2025 19:06:36] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 19:06:36,755 - INFO - Blog 2 fetched successfully
+2025-02-19 19:06:36,758 - INFO - 172.18.0.1 - - [19/Feb/2025 19:06:36] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 19:06:36,798 - INFO - Blog 2 fetched successfully
+2025-02-19 19:06:36,800 - INFO - 172.18.0.1 - - [19/Feb/2025 19:06:36] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 19:06:36,854 - INFO - Blog 2 fetched successfully
+2025-02-19 19:06:36,856 - INFO - 172.18.0.1 - - [19/Feb/2025 19:06:36] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 19:06:36,903 - INFO - 172.18.0.1 - - [19/Feb/2025 19:06:36] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:06:36,916 - INFO - Blog 2 fetched successfully
+2025-02-19 19:06:36,918 - INFO - 172.18.0.1 - - [19/Feb/2025 19:06:36] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 19:06:36,960 - INFO - 172.18.0.1 - - [19/Feb/2025 19:06:36] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:06:37,007 - INFO - 172.18.0.1 - - [19/Feb/2025 19:06:37] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:07:32,387 - INFO -  * Detected change in '/app/api.py', reloading
+2025-02-19 19:07:32,519 - INFO -  * Restarting with stat
+2025-02-19 19:07:33,272 - WARNING -  * Debugger is active!
+2025-02-19 19:07:33,274 - INFO -  * Debugger PIN: 390-252-988
+2025-02-19 19:08:07,297 - INFO -  * Detected change in '/app/api.py', reloading
+2025-02-19 19:08:07,629 - INFO -  * Restarting with stat
+2025-02-19 19:08:09,432 - WARNING -  * Debugger is active!
+2025-02-19 19:08:09,443 - INFO -  * Debugger PIN: 390-252-988
+2025-02-19 19:08:12,765 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:12] "OPTIONS /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 19:08:12,962 - INFO - Comment added to blog 2
+2025-02-19 19:08:12,965 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:12] "PUT /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 19:08:13,051 - INFO - Blog 2 fetched successfully
+2025-02-19 19:08:13,076 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:13] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 19:08:13,167 - INFO - Blog 2 fetched successfully
+2025-02-19 19:08:13,170 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:13] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 19:08:14,465 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:14] "OPTIONS /api/users/4 HTTP/1.1" 200 -
+2025-02-19 19:08:14,476 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:14] "OPTIONS /api/users/4 HTTP/1.1" 200 -
+2025-02-19 19:08:14,517 - WARNING - User 4 not found
+2025-02-19 19:08:14,520 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:14] "[33mGET /api/users/4 HTTP/1.1[0m" 404 -
+2025-02-19 19:08:14,635 - WARNING - User 4 not found
+2025-02-19 19:08:14,638 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:14] "[33mGET /api/users/4 HTTP/1.1[0m" 404 -
+2025-02-19 19:08:16,001 - INFO - Blog 2 fetched successfully
+2025-02-19 19:08:16,003 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:16] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 19:08:16,046 - INFO - Blog 2 fetched successfully
+2025-02-19 19:08:16,049 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:16] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 19:08:16,116 - INFO - Blog 2 fetched successfully
+2025-02-19 19:08:16,118 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:16] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 19:08:16,180 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:16] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:08:16,207 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:16] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:08:16,229 - INFO - Blog 2 fetched successfully
+2025-02-19 19:08:16,250 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:16] "GET /api/blogs/2 HTTP/1.1" 200 -
+2025-02-19 19:08:16,286 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:16] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:08:18,814 - WARNING - User 4 not found
+2025-02-19 19:08:18,816 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:18] "[33mGET /api/users/4 HTTP/1.1[0m" 404 -
+2025-02-19 19:08:18,965 - WARNING - User 4 not found
+2025-02-19 19:08:18,969 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:18] "[33mGET /api/users/4 HTTP/1.1[0m" 404 -
+2025-02-19 19:08:23,320 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:23] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-02-19 19:08:23,325 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:23] "OPTIONS /api/blogs HTTP/1.1" 200 -
+2025-02-19 19:08:23,379 - INFO - Fetched all blogs
+2025-02-19 19:08:23,382 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:23] "GET /api/blogs HTTP/1.1" 200 -
+2025-02-19 19:08:23,518 - INFO - Fetched all blogs
+2025-02-19 19:08:23,537 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:23] "GET /api/blogs HTTP/1.1" 200 -
+2025-02-19 19:08:27,528 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:27] "OPTIONS /api/blogs/15 HTTP/1.1" 200 -
+2025-02-19 19:08:27,531 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:27] "OPTIONS /api/blogs/15 HTTP/1.1" 200 -
+2025-02-19 19:08:27,584 - INFO - Blog 15 fetched successfully
+2025-02-19 19:08:27,590 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:27] "GET /api/blogs/15 HTTP/1.1" 200 -
+2025-02-19 19:08:27,670 - INFO - Blog 15 fetched successfully
+2025-02-19 19:08:27,676 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:27] "GET /api/blogs/15 HTTP/1.1" 200 -
+2025-02-19 19:08:27,712 - INFO - Blog 15 fetched successfully
+2025-02-19 19:08:27,715 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:27] "GET /api/blogs/15 HTTP/1.1" 200 -
+2025-02-19 19:08:27,761 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:27] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:08:27,841 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:27] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:08:27,849 - INFO - Blog 15 fetched successfully
+2025-02-19 19:08:27,855 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:27] "GET /api/blogs/15 HTTP/1.1" 200 -
+2025-02-19 19:08:27,915 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:27] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:08:56,323 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:56] "OPTIONS /api/user/login HTTP/1.1" 200 -
+2025-02-19 19:08:56,521 - INFO - User 4 logged in successfully
+2025-02-19 19:08:56,528 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:56] "POST /api/user/login HTTP/1.1" 200 -
+2025-02-19 19:08:58,661 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:58] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:08:58,664 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:58] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:08:58,696 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:58] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:08:58,722 - INFO - 172.18.0.1 - - [19/Feb/2025 19:08:58] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:09:02,687 - INFO - 172.18.0.1 - - [19/Feb/2025 19:09:02] "OPTIONS /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 19:09:02,692 - INFO - 172.18.0.1 - - [19/Feb/2025 19:09:02] "OPTIONS /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 19:09:02,833 - INFO - User Juand_kxz fetched successfully
+2025-02-19 19:09:02,835 - INFO - 172.18.0.1 - - [19/Feb/2025 19:09:02] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 19:09:02,877 - INFO - User Juand_kxz fetched successfully
+2025-02-19 19:09:02,879 - INFO - 172.18.0.1 - - [19/Feb/2025 19:09:02] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 19:09:02,920 - INFO - User Juand_kxz fetched successfully
+2025-02-19 19:09:02,924 - INFO - 172.18.0.1 - - [19/Feb/2025 19:09:02] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 19:09:02,966 - INFO - 172.18.0.1 - - [19/Feb/2025 19:09:02] "OPTIONS /api/blogs/5 HTTP/1.1" 200 -
+2025-02-19 19:09:02,980 - INFO - User Juand_kxz fetched successfully
+2025-02-19 19:09:02,982 - INFO - 172.18.0.1 - - [19/Feb/2025 19:09:02] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 19:09:03,009 - INFO - Blog 5 fetched successfully
+2025-02-19 19:09:03,011 - INFO - 172.18.0.1 - - [19/Feb/2025 19:09:03] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-02-19 19:09:03,063 - INFO - 172.18.0.1 - - [19/Feb/2025 19:09:03] "OPTIONS /api/blogs/10 HTTP/1.1" 200 -
+2025-02-19 19:09:03,103 - INFO - Blog 5 fetched successfully
+2025-02-19 19:09:03,109 - INFO - 172.18.0.1 - - [19/Feb/2025 19:09:03] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-02-19 19:09:03,199 - INFO - 172.18.0.1 - - [19/Feb/2025 19:09:03] "[35m[1mGET /api/blogs/10 HTTP/1.1[0m" 500 -
+2025-02-19 19:09:03,247 - INFO - 172.18.0.1 - - [19/Feb/2025 19:09:03] "[35m[1mGET /api/blogs/10 HTTP/1.1[0m" 500 -
+2025-02-19 19:09:03,304 - INFO - 172.18.0.1 - - [19/Feb/2025 19:09:03] "[35m[1mGET /api/blogs/10 HTTP/1.1[0m" 500 -
+2025-02-19 19:50:45,301 - INFO - 172.18.0.1 - - [19/Feb/2025 19:50:45] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:50:45,297 - INFO - 172.18.0.1 - - [19/Feb/2025 19:50:45] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:50:45,403 - INFO - 172.18.0.1 - - [19/Feb/2025 19:50:45] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:50:45,464 - INFO - 172.18.0.1 - - [19/Feb/2025 19:50:45] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:50:45,493 - INFO - 172.18.0.1 - - [19/Feb/2025 19:50:45] "OPTIONS /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 19:50:45,537 - INFO - 172.18.0.1 - - [19/Feb/2025 19:50:45] "OPTIONS /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 19:50:45,639 - INFO - User Juand_kxz fetched successfully
+2025-02-19 19:50:45,643 - INFO - 172.18.0.1 - - [19/Feb/2025 19:50:45] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 19:50:45,681 - INFO - User Juand_kxz fetched successfully
+2025-02-19 19:50:45,683 - INFO - 172.18.0.1 - - [19/Feb/2025 19:50:45] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 19:50:45,812 - INFO - User Juand_kxz fetched successfully
+2025-02-19 19:50:45,816 - INFO - 172.18.0.1 - - [19/Feb/2025 19:50:45] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 19:50:45,866 - INFO - 172.18.0.1 - - [19/Feb/2025 19:50:45] "OPTIONS /api/blogs/5 HTTP/1.1" 200 -
+2025-02-19 19:50:45,917 - INFO - User Juand_kxz fetched successfully
+2025-02-19 19:50:45,919 - INFO - 172.18.0.1 - - [19/Feb/2025 19:50:45] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 19:50:45,946 - INFO - Blog 5 fetched successfully
+2025-02-19 19:50:45,949 - INFO - 172.18.0.1 - - [19/Feb/2025 19:50:45] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-02-19 19:50:46,000 - INFO - 172.18.0.1 - - [19/Feb/2025 19:50:46] "OPTIONS /api/blogs/10 HTTP/1.1" 200 -
+2025-02-19 19:50:46,055 - INFO - Blog 5 fetched successfully
+2025-02-19 19:50:46,058 - INFO - 172.18.0.1 - - [19/Feb/2025 19:50:46] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-02-19 19:50:46,197 - INFO - 172.18.0.1 - - [19/Feb/2025 19:50:46] "[35m[1mGET /api/blogs/10 HTTP/1.1[0m" 500 -
+2025-02-19 19:50:46,287 - INFO - 172.18.0.1 - - [19/Feb/2025 19:50:46] "[35m[1mGET /api/blogs/10 HTTP/1.1[0m" 500 -
+2025-02-19 19:51:03,598 - INFO - Blog 10 fetched successfully
+2025-02-19 19:51:03,601 - INFO - 172.18.0.1 - - [19/Feb/2025 19:51:03] "GET /api/blogs/10 HTTP/1.1" 200 -
+2025-02-19 19:51:37,342 - INFO - 172.18.0.1 - - [19/Feb/2025 19:51:37] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:51:37,353 - INFO - 172.18.0.1 - - [19/Feb/2025 19:51:37] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:51:37,383 - INFO - 172.18.0.1 - - [19/Feb/2025 19:51:37] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:51:37,429 - INFO - 172.18.0.1 - - [19/Feb/2025 19:51:37] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:51:37,458 - INFO - 172.18.0.1 - - [19/Feb/2025 19:51:37] "OPTIONS /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 19:51:37,464 - INFO - 172.18.0.1 - - [19/Feb/2025 19:51:37] "OPTIONS /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 19:51:37,527 - INFO - User Juand_kxz fetched successfully
+2025-02-19 19:51:37,529 - INFO - 172.18.0.1 - - [19/Feb/2025 19:51:37] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 19:51:37,584 - INFO - User Juand_kxz fetched successfully
+2025-02-19 19:51:37,587 - INFO - 172.18.0.1 - - [19/Feb/2025 19:51:37] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 19:51:37,630 - INFO - User Juand_kxz fetched successfully
+2025-02-19 19:51:37,634 - INFO - 172.18.0.1 - - [19/Feb/2025 19:51:37] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 19:51:37,687 - INFO - 172.18.0.1 - - [19/Feb/2025 19:51:37] "OPTIONS /api/blogs/5 HTTP/1.1" 200 -
+2025-02-19 19:51:37,692 - INFO - User Juand_kxz fetched successfully
+2025-02-19 19:51:37,695 - INFO - 172.18.0.1 - - [19/Feb/2025 19:51:37] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 19:51:37,738 - INFO - Blog 5 fetched successfully
+2025-02-19 19:51:37,741 - INFO - 172.18.0.1 - - [19/Feb/2025 19:51:37] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-02-19 19:51:37,806 - INFO - 172.18.0.1 - - [19/Feb/2025 19:51:37] "OPTIONS /api/blogs/10 HTTP/1.1" 200 -
+2025-02-19 19:51:37,826 - INFO - Blog 5 fetched successfully
+2025-02-19 19:51:37,835 - INFO - 172.18.0.1 - - [19/Feb/2025 19:51:37] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-02-19 19:51:37,969 - INFO - 172.18.0.1 - - [19/Feb/2025 19:51:37] "[35m[1mGET /api/blogs/10 HTTP/1.1[0m" 500 -
+2025-02-19 19:51:38,087 - INFO - 172.18.0.1 - - [19/Feb/2025 19:51:38] "[35m[1mGET /api/blogs/10 HTTP/1.1[0m" 500 -
+2025-02-19 19:51:40,366 - INFO - Blog 10 fetched successfully
+2025-02-19 19:51:40,368 - INFO - 172.18.0.1 - - [19/Feb/2025 19:51:40] "GET /api/blogs/10 HTTP/1.1" 200 -
+2025-02-19 19:52:07,605 - INFO - Blog 10 fetched successfully
+2025-02-19 19:52:07,620 - INFO - 172.18.0.1 - - [19/Feb/2025 19:52:07] "GET /api/blogs/10 HTTP/1.1" 200 -
+2025-02-19 19:54:29,587 - INFO - 172.18.0.1 - - [19/Feb/2025 19:54:29] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:54:29,592 - INFO - 172.18.0.1 - - [19/Feb/2025 19:54:29] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:54:29,667 - INFO - 172.18.0.1 - - [19/Feb/2025 19:54:29] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:54:29,716 - INFO - 172.18.0.1 - - [19/Feb/2025 19:54:29] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 19:54:29,724 - INFO - 172.18.0.1 - - [19/Feb/2025 19:54:29] "OPTIONS /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 19:54:29,728 - INFO - 172.18.0.1 - - [19/Feb/2025 19:54:29] "OPTIONS /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 19:54:29,801 - INFO - User Juand_kxz fetched successfully
+2025-02-19 19:54:29,803 - INFO - 172.18.0.1 - - [19/Feb/2025 19:54:29] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 19:54:29,880 - INFO - User Juand_kxz fetched successfully
+2025-02-19 19:54:29,882 - INFO - 172.18.0.1 - - [19/Feb/2025 19:54:29] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 19:54:29,988 - INFO - User Juand_kxz fetched successfully
+2025-02-19 19:54:29,991 - INFO - 172.18.0.1 - - [19/Feb/2025 19:54:29] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 19:54:30,045 - INFO - 172.18.0.1 - - [19/Feb/2025 19:54:30] "OPTIONS /api/blogs/5 HTTP/1.1" 200 -
+2025-02-19 19:54:30,077 - INFO - User Juand_kxz fetched successfully
+2025-02-19 19:54:30,081 - INFO - 172.18.0.1 - - [19/Feb/2025 19:54:30] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 19:54:30,111 - INFO - Blog 5 fetched successfully
+2025-02-19 19:54:30,114 - INFO - 172.18.0.1 - - [19/Feb/2025 19:54:30] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-02-19 19:54:30,161 - INFO - 172.18.0.1 - - [19/Feb/2025 19:54:30] "OPTIONS /api/blogs/10 HTTP/1.1" 200 -
+2025-02-19 19:54:30,202 - INFO - Blog 5 fetched successfully
+2025-02-19 19:54:30,207 - INFO - 172.18.0.1 - - [19/Feb/2025 19:54:30] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-02-19 19:54:30,333 - INFO - 172.18.0.1 - - [19/Feb/2025 19:54:30] "[35m[1mGET /api/blogs/10 HTTP/1.1[0m" 500 -
+2025-02-19 19:54:30,434 - INFO - 172.18.0.1 - - [19/Feb/2025 19:54:30] "[35m[1mGET /api/blogs/10 HTTP/1.1[0m" 500 -
+2025-02-19 19:56:16,211 - INFO - 172.18.0.1 - - [19/Feb/2025 19:56:16] "GET /api/users/4 HTTP/1.1" 200 -
+2025-02-19 20:10:06,531 - INFO - 172.18.0.1 - - [19/Feb/2025 20:10:06] "OPTIONS /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 20:10:06,658 - INFO - User Juand_kxz fetched successfully
+2025-02-19 20:10:06,663 - INFO - 172.18.0.1 - - [19/Feb/2025 20:10:06] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 20:10:06,733 - INFO - User Juand_kxz fetched successfully
+2025-02-19 20:10:06,742 - INFO - 172.18.0.1 - - [19/Feb/2025 20:10:06] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 20:10:06,773 - INFO - 172.18.0.1 - - [19/Feb/2025 20:10:06] "OPTIONS /api/blogs/5 HTTP/1.1" 200 -
+2025-02-19 20:10:06,875 - INFO - Blog 5 fetched successfully
+2025-02-19 20:10:06,877 - INFO - 172.18.0.1 - - [19/Feb/2025 20:10:06] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-02-19 20:10:07,002 - INFO - 172.18.0.1 - - [19/Feb/2025 20:10:07] "OPTIONS /api/blogs/10 HTTP/1.1" 200 -
+2025-02-19 20:10:07,086 - INFO - 172.18.0.1 - - [19/Feb/2025 20:10:07] "[35m[1mGET /api/blogs/10 HTTP/1.1[0m" 500 -
+2025-02-19 20:18:25,448 - INFO - Blog 10 fetched successfully
+2025-02-19 20:18:25,469 - INFO - 172.18.0.1 - - [19/Feb/2025 20:18:25] "GET /api/blogs/10 HTTP/1.1" 200 -
+2025-02-19 20:18:45,580 - INFO - Blog 10 fetched successfully
+2025-02-19 20:18:45,584 - INFO - 172.18.0.1 - - [19/Feb/2025 20:18:45] "GET /api/blogs/10 HTTP/1.1" 200 -
+2025-02-19 20:19:21,624 - INFO - Blog 5 fetched successfully
+2025-02-19 20:19:21,628 - INFO - 172.18.0.1 - - [19/Feb/2025 20:19:21] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-02-19 20:19:26,285 - INFO - Blog 10 fetched successfully
+2025-02-19 20:19:26,287 - INFO - 172.18.0.1 - - [19/Feb/2025 20:19:26] "GET /api/blogs/10 HTTP/1.1" 200 -
+2025-02-19 20:21:48,727 - INFO - 172.18.0.1 - - [19/Feb/2025 20:21:48] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 20:21:48,741 - INFO - 172.18.0.1 - - [19/Feb/2025 20:21:48] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 20:21:48,814 - INFO - 172.18.0.1 - - [19/Feb/2025 20:21:48] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 20:21:48,878 - INFO - 172.18.0.1 - - [19/Feb/2025 20:21:48] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 20:21:48,889 - INFO - 172.18.0.1 - - [19/Feb/2025 20:21:48] "OPTIONS /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 20:21:48,928 - INFO - 172.18.0.1 - - [19/Feb/2025 20:21:48] "OPTIONS /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 20:21:48,983 - INFO - User Juand_kxz fetched successfully
+2025-02-19 20:21:48,987 - INFO - 172.18.0.1 - - [19/Feb/2025 20:21:48] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 20:21:49,058 - INFO - User Juand_kxz fetched successfully
+2025-02-19 20:21:49,088 - INFO - 172.18.0.1 - - [19/Feb/2025 20:21:49] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 20:21:49,185 - INFO - User Juand_kxz fetched successfully
+2025-02-19 20:21:49,188 - INFO - 172.18.0.1 - - [19/Feb/2025 20:21:49] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 20:21:49,239 - INFO - 172.18.0.1 - - [19/Feb/2025 20:21:49] "OPTIONS /api/blogs/5 HTTP/1.1" 200 -
+2025-02-19 20:21:49,395 - INFO - User Juand_kxz fetched successfully
+2025-02-19 20:21:49,411 - INFO - 172.18.0.1 - - [19/Feb/2025 20:21:49] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 20:21:49,609 - INFO - Blog 5 fetched successfully
+2025-02-19 20:21:49,615 - INFO - 172.18.0.1 - - [19/Feb/2025 20:21:49] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-02-19 20:21:49,669 - INFO - 172.18.0.1 - - [19/Feb/2025 20:21:49] "OPTIONS /api/blogs/10 HTTP/1.1" 200 -
+2025-02-19 20:21:49,720 - INFO - Blog 5 fetched successfully
+2025-02-19 20:21:49,729 - INFO - 172.18.0.1 - - [19/Feb/2025 20:21:49] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-02-19 20:21:49,740 - WARNING - Blog 10 not found
+2025-02-19 20:21:49,750 - INFO - 172.18.0.1 - - [19/Feb/2025 20:21:49] "[33mGET /api/blogs/10 HTTP/1.1[0m" 404 -
+2025-02-19 20:21:49,855 - WARNING - Blog 10 not found
+2025-02-19 20:21:49,859 - INFO - 172.18.0.1 - - [19/Feb/2025 20:21:49] "[33mGET /api/blogs/10 HTTP/1.1[0m" 404 -
+2025-02-19 20:22:37,568 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:37] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 20:22:37,634 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:37] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 20:22:37,695 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:37] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 20:22:37,763 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:37] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 20:22:37,777 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:37] "OPTIONS /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 20:22:37,792 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:37] "OPTIONS /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 20:22:37,896 - INFO - User Juand_kxz fetched successfully
+2025-02-19 20:22:37,899 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:37] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 20:22:37,944 - INFO - User Juand_kxz fetched successfully
+2025-02-19 20:22:37,947 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:37] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 20:22:38,002 - INFO - User Juand_kxz fetched successfully
+2025-02-19 20:22:38,004 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:38] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 20:22:38,104 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:38] "OPTIONS /api/blogs/5 HTTP/1.1" 200 -
+2025-02-19 20:22:38,134 - INFO - User Juand_kxz fetched successfully
+2025-02-19 20:22:38,140 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:38] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 20:22:38,318 - INFO - Blog 5 fetched successfully
+2025-02-19 20:22:38,335 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:38] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-02-19 20:22:38,385 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:38] "OPTIONS /api/blogs/11 HTTP/1.1" 200 -
+2025-02-19 20:22:38,452 - INFO - Blog 5 fetched successfully
+2025-02-19 20:22:38,467 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:38] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-02-19 20:22:38,530 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:38] "[35m[1mGET /api/blogs/11 HTTP/1.1[0m" 500 -
+2025-02-19 20:22:38,699 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:38] "[35m[1mGET /api/blogs/11 HTTP/1.1[0m" 500 -
+2025-02-19 20:22:49,285 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:49] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 20:22:49,317 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:49] "OPTIONS /api/user/verify HTTP/1.1" 200 -
+2025-02-19 20:22:49,413 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:49] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 20:22:49,510 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:49] "OPTIONS /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 20:22:49,516 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:49] "GET /api/user/verify HTTP/1.1" 200 -
+2025-02-19 20:22:49,522 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:49] "OPTIONS /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 20:22:49,675 - INFO - User Juand_kxz fetched successfully
+2025-02-19 20:22:49,681 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:49] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 20:22:49,804 - INFO - User Juand_kxz fetched successfully
+2025-02-19 20:22:49,806 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:49] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 20:22:49,874 - INFO - User Juand_kxz fetched successfully
+2025-02-19 20:22:49,876 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:49] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 20:22:49,958 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:49] "OPTIONS /api/blogs/5 HTTP/1.1" 200 -
+2025-02-19 20:22:49,997 - INFO - User Juand_kxz fetched successfully
+2025-02-19 20:22:50,000 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:50] "GET /api/users/Juand_kxz HTTP/1.1" 200 -
+2025-02-19 20:22:50,026 - INFO - Blog 5 fetched successfully
+2025-02-19 20:22:50,028 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:50] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-02-19 20:22:50,068 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:50] "OPTIONS /api/blogs/12 HTTP/1.1" 200 -
+2025-02-19 20:22:50,130 - INFO - Blog 12 fetched successfully
+2025-02-19 20:22:50,133 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:50] "GET /api/blogs/12 HTTP/1.1" 200 -
+2025-02-19 20:22:50,161 - INFO - Blog 5 fetched successfully
+2025-02-19 20:22:50,167 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:50] "OPTIONS /api/blogs/13 HTTP/1.1" 200 -
+2025-02-19 20:22:50,172 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:50] "GET /api/blogs/5 HTTP/1.1" 200 -
+2025-02-19 20:22:50,240 - INFO - Blog 12 fetched successfully
+2025-02-19 20:22:50,242 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:50] "GET /api/blogs/12 HTTP/1.1" 200 -
+2025-02-19 20:22:50,242 - INFO - Blog 13 fetched successfully
+2025-02-19 20:22:50,246 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:50] "GET /api/blogs/13 HTTP/1.1" 200 -
+2025-02-19 20:22:50,299 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:50] "OPTIONS /api/blogs/14 HTTP/1.1" 200 -
+2025-02-19 20:22:50,348 - INFO - Blog 13 fetched successfully
+2025-02-19 20:22:50,353 - INFO - Blog 14 fetched successfully
+2025-02-19 20:22:50,356 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:50] "GET /api/blogs/13 HTTP/1.1" 200 -
+2025-02-19 20:22:50,362 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:50] "GET /api/blogs/14 HTTP/1.1" 200 -
+2025-02-19 20:22:50,425 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:50] "OPTIONS /api/blogs/15 HTTP/1.1" 200 -
+2025-02-19 20:22:50,453 - INFO - Blog 14 fetched successfully
+2025-02-19 20:22:50,456 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:50] "GET /api/blogs/14 HTTP/1.1" 200 -
+2025-02-19 20:22:50,496 - INFO - Blog 15 fetched successfully
+2025-02-19 20:22:50,504 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:50] "GET /api/blogs/15 HTTP/1.1" 200 -
+2025-02-19 20:22:50,544 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:50] "OPTIONS /api/blogs/16 HTTP/1.1" 200 -
+2025-02-19 20:22:50,608 - INFO - Blog 15 fetched successfully
+2025-02-19 20:22:50,611 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:50] "GET /api/blogs/15 HTTP/1.1" 200 -
+2025-02-19 20:22:50,632 - INFO - Blog 16 fetched successfully
+2025-02-19 20:22:50,639 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:50] "GET /api/blogs/16 HTTP/1.1" 200 -
+2025-02-19 20:22:50,689 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:50] "OPTIONS /api/blogs/17 HTTP/1.1" 200 -
+2025-02-19 20:22:50,743 - INFO - Blog 16 fetched successfully
+2025-02-19 20:22:50,750 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:50] "GET /api/blogs/16 HTTP/1.1" 200 -
+2025-02-19 20:22:50,771 - INFO - Blog 17 fetched successfully
+2025-02-19 20:22:50,781 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:50] "GET /api/blogs/17 HTTP/1.1" 200 -
+2025-02-19 20:22:51,140 - INFO - Blog 17 fetched successfully
+2025-02-19 20:22:51,146 - INFO - 172.18.0.1 - - [19/Feb/2025 20:22:51] "GET /api/blogs/17 HTTP/1.1" 200 -
+2025-02-19 20:45:48,930 - INFO -  * Detected change in '/app/api.py', reloading
+2025-02-19 20:45:49,813 - INFO -  * Restarting with stat
+2025-02-19 20:45:51,948 - WARNING -  * Debugger is active!
+2025-02-19 20:45:51,956 - INFO -  * Debugger PIN: 390-252-988
