@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import { apiRequest, fetchDestino, fetchUsers } from '../../../useful/ApiService';
+import { apiRequest, fetchDestino, fetchUsers, followUser } from '../../../useful/ApiService';
 
 import DestinationCard from '../../secondary/destinationCard/DestinationCard';
 
@@ -36,7 +36,7 @@ const Perfil = () => {
         setUsuario(userData);
         setPosts(userPost);
         setFollowers(userData.followers);
-        setIsFollowing(userData.followedBy?.includes(currentUserId) || false);
+        setIsFollowing(userData.isFollowing);
 
       } catch (err) {
         console.error(err);
@@ -51,24 +51,12 @@ const Perfil = () => {
   }, [id, currentUserId]);
 
   const handleFollowToggle = async () => {
-    if (currentUserId === id) return;
 
     try {
-      const isCurrentlyFollowing = usuario.followedBy.includes(currentUserId);
+      setIsFollowing(await followUser(usuario.username));
+      const newFollowers = await apiRequest(`users/${id}`)
+      setFollowers(newFollowers.followers);
 
-      const updatedFollowedBy = isCurrentlyFollowing
-        ? usuario.followedBy.filter((uid) => uid !== currentUserId)
-        : [...usuario.followedBy, currentUserId];
-
-      const updatedUser = await apiRequest(`users/${id}`, 'PUT', {
-        ...usuario,
-        followers: updatedFollowedBy.length,
-        followedBy: updatedFollowedBy,
-      });
-
-      setFollowers(updatedUser.followers);
-      setIsFollowing(!isCurrentlyFollowing);
-      setUsuario((prev) => ({ ...prev, followedBy: updatedFollowedBy }));
     } catch (err) {
       console.error('Error al actualizar seguidores:', err);
     }
@@ -90,19 +78,19 @@ const Perfil = () => {
     <>
       <div className="perfil-usuario">
         <div className="usuario-info">
-          <h2 className="usuario-name">{usuario.name}</h2>
+          <h2 className="usuario-name">{usuario.username}</h2>
           <p>
             <b>Seguidores:</b> {followers}
           </p>
           <p>
             <b>Posts publicados:</b> {posts.length}
           </p>
-          {currentUserId !== id && (
+          {usuario.isFollowing !== "yourself" && (
             <button
               className={`button follow-button ${isFollowing ? 'following' : ''}`}
               onClick={handleFollowToggle}
             >
-              {isFollowing ? 'Siguiendo' : 'Seguir'}
+              {isFollowing ? 'Dejar de seguir' : 'Seguir'}
             </button>
           )}
           <button className="button" onClick={() => navigate('/blog')}>

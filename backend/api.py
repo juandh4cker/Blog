@@ -198,11 +198,36 @@ def get_user(username):
         user_filtered = {
             "username": user["username"],
             "posts": user["posts"],
-            "followers": len(user.get("followers", [])),
-            "following": len(user.get("following", []))
+            "followers": len(user["followers"]),
+            "isFollowing": "yourself" if request.user['username'] == user["username"] else request.user['id'] in user.get("followers", [])
         }
         logging.info(f"User {username} fetched successfully")
         return jsonify(user_filtered), 200
+    else:
+        logging.warning(f"User {username} not found")
+        return jsonify({"message": "User not found"}), 404
+
+@app.route('/api/users/<string:username>/follow', methods=['PUT'])
+@verify_token
+def follow_user(username):
+    if request.user['username'] == username:
+        return jsonify({"message": "You can't follow yourself"}), 400
+    users = load_data(USERS_FILE)
+    user = next((user for user in users if user['username'] == str(username).capitalize()), None)
+
+    if user:
+        if request.user['id'] in user.get("followers", []):
+            user["followers"].remove(request.user['id'])
+            users[users.index(user)] = user
+            save_data(USERS_FILE, users)
+            logging.info(f"User {username} unfollowed successfully by {request.user['id']}")
+            return jsonify(False), 200
+        else:
+            user["followers"].append(request.user['id'])
+            users[users.index(user)] = user
+            save_data(USERS_FILE, users)
+            logging.info(f"User {username} followed successfully by {request.user['id']}")
+            return jsonify(True), 200
     else:
         logging.warning(f"User {username} not found")
         return jsonify({"message": "User not found"}), 404
@@ -241,7 +266,6 @@ def get_blog_by_id(blog_id):
         logging.warning(f"Blog {blog_id} not found")
         return jsonify({"message": "Blog not found"}), 404
 
-
 @app.route('/api/blogs', methods=['POST'])
 @verify_token
 def create_blog():
@@ -262,6 +286,48 @@ def create_blog():
     save_data(BLOGS_FILE, blogs)
     logging.info(f"Blog {new_blog['id']} created successfully")
     return jsonify(new_blog), 201
+
+@app.route('/api/blogs/<int:blog_id>', methods=['DELETE'])
+@verify_token
+def delete_blog(blog_id):
+    blogs = load_data(BLOGS_FILE)
+    blog = next((blog for blog in blogs if blog['id'] == int(blog_id)), None)
+    if blog:
+        if blog['creator'] == request.user['username']:
+            blogs.remove(blog)
+            save_data(BLOGS_FILE, blogs)
+            logging.info(f"Blog {blog_id} deleted successfully")
+            return jsonify({"message": "Blog deleted"}), 200
+        else:
+            logging.warning(f"User {request.user['id']} not authorized to delete blog {blog_id}")
+            return jsonify({"message": "Unauthorized"}), 401
+    else:
+        logging.warning(f"Blog {blog_id} not found")
+        return jsonify({"message": "Blog not found"}), 404
+    
+@app.route('/api/blogs/<int:blog_id>', methods=['PUT'])
+@verify_token
+def edit_blog(blog_id):
+    blogs = load_data(BLOGS_FILE)
+    blog = next((blog for blog in blogs if blog['id'] == int(blog_id)), None)
+    
+    if blog:
+        if blog['creator'] == request.user['username']:
+            new_blog = request.get_json()
+            campos_permitidos = ["imageUrl", "rating", "review", "location", "name"]
+            for campo in campos_permitidos:
+                if campo in new_blog:
+                    blog[campo] = new_blog[campo]
+            blog['createdAt'] = datetime.utcnow().isoformat(timespec='milliseconds') + "Z"
+            save_data(BLOGS_FILE, blogs)
+            logging.info(f"Blog {blog_id} edited successfully")
+            return jsonify(blog), 200
+        else:
+            logging.warning(f"User {request.user['id']} not authorized to edit blog {blog_id}")
+            return jsonify({"message": "Unauthorized"}), 401
+    else:
+        logging.warning(f"Blog {blog_id} not found")
+        return jsonify({"message": "Blog not found"}), 404
 
 #Comments
 @app.route('/api/blogs/<int:blog_id>', methods=['PUT'])

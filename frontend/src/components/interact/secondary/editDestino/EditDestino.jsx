@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { apiRequest } from '../../../useful/ApiService';
+import { apiRequest, editDestino } from '../../../useful/ApiService';
 
 import './EditDestino.css';
 
@@ -66,7 +66,7 @@ const EditDestino = () => {
     };
 
     try {
-      apiRequest(`blogs/${id}`, 'PUT', updatedDestination);
+      editDestino(id, updatedDestination);
       setMessage('Destino actualizado exitosamente!');
       navigate(`/destino/${id}`);
     } catch (error) {
@@ -81,16 +81,6 @@ const EditDestino = () => {
     <>
       <div className="dashboard-container">
         <h1 className="dashboard-header">Editar Destino</h1>
-        <button
-          className="logout-button"
-          onClick={() => {
-            localStorage.removeItem('user');
-            navigate('/login');
-          }}
-        >
-          Cerrar sesión
-        </button>
-
         <h2 className="dashboard-subheader">Edita los detalles del destino</h2>
         <form className="dashboard-form" onSubmit={handleUpdateDestination}>
           <input

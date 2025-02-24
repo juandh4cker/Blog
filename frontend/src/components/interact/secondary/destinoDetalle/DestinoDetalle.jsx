@@ -18,7 +18,7 @@ const DestinoDetalle = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [destino, setDestino] = useState(null);
-  const [creatorId, setCreatorId] = useState(null);
+  const [creator, setCreator] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [newComment, setNewComment] = useState('');
@@ -34,13 +34,8 @@ const DestinoDetalle = () => {
         setComments(await getComments(id));
 
         const request = await verifyToken();
-        const creator = data.editable;
-
-        if (creator) {
-          setCreatorId(request.user.id);
-          setIsCreator(true);
-
-        }
+        setCreator(request.creator);
+        setIsCreator(data.editable);
 
       } catch (error) {
         setError('Error al cargar los detalles del destino.');
@@ -133,10 +128,10 @@ const DestinoDetalle = () => {
   };
 
   const handleCreatorClick = () => {
-    if (creatorId) {
-      navigate(`/perfil/${creatorId}`);
+    if (destino.creator) {
+      navigate(`/perfil/${destino.creator}`);
     } else {
-      alert('No se pudo encontrar el perfil del creador.');
+      console.log('No se pudo encontrar el perfil del creador.');
     }
   };
 
@@ -184,7 +179,7 @@ const DestinoDetalle = () => {
               <p>
                 <b 
                   style={{ cursor: 'pointer', color: '#2980B9', textDecoration: 'underline' }}
-                  onClick={() => handleCommentUserClick(comment.userId)}
+                  onClick={() => handleCommentUserClick(comment.userName)}
                 >
                   {comment.userName}
                 </b>: {comment.comment}

@@ -30,7 +30,7 @@
         "name": "Pagoda Chureito",
         "location": "Jap\u00f3n",
         "review": "Situada en Arakura Sengen Park, la Pagoda Chureito ofrece una de las vistas m\u00e1s ic\u00f3nicas de Jap\u00f3n: una combinaci\u00f3n perfecta de la pagoda roja, el monte Fuji y los cerezos en flor (en primavera) o las hojas oto\u00f1ales.",
-        "rating": 4.12,
+        "rating": 4.6,
         "imageUrl": "https://japonismo.com/wp-content/uploads/2022/06/pagoda-chureito-kawaguchko.jpg",
         "creator": "M3ssi",
         "comments": [
@@ -93,6 +93,22 @@
                 "id": "248",
                 "userName": "Juand_kxz",
                 "userId": "4"
+            },
+            {
+                "comment": "sisas",
+                "rating": 3,
+                "createdAt": "2025-02-23T17:35:43.877Z",
+                "id": "249",
+                "userName": "Juand_kxz",
+                "userId": "4"
+            },
+            {
+                "comment": "no",
+                "rating": 10,
+                "createdAt": "2025-02-23T17:35:51.913Z",
+                "id": "2410",
+                "userName": "Juand_kxz",
+                "userId": "4"
             }
         ],
         "id": 2
@@ -128,14 +144,109 @@
         "id": 4
     },
     {
-        "createdAt": "2024-11-16T02:18:01.114Z",
+        "createdAt": "2025-02-24T16:40:30.899Z",
         "name": "Piramides",
         "location": "El Cairo, Egipto.",
         "review": "Testigos del pasado fara\u00f3nico, las pir\u00e1mides de Giza son una maravilla del mundo antiguo. La Gran Pir\u00e1mide y la misteriosa Esfinge ofrecen una experiencia inolvidable que conecta con una de las civilizaciones m\u00e1s fascinantes de la historia.",
         "rating": 9,
         "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsQqh987us9Q7h-phtnhFHfCeOuzr3AjPOdQ&s",
         "creator": "Juand_kxz",
-        "comments": [],
+        "comments": [
+            {
+                "comments": [],
+                "createdAt": "2025-02-24T16:26:52.535Z",
+                "editable": true,
+                "id": "541",
+                "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsQqh987us9Q7h-phtnhFHfCeOuzr3AjPOdQ&s",
+                "location": "El Cairo, Egipto.",
+                "name": "Piramides",
+                "rating": 9,
+                "review": "Testigos del pasado fara\u00f3nico, las pir\u00e1mides de Giza son una maravilla del mundo antiguo. La Gran Pir\u00e1mide y la misteriosa Esfinge ofrecen una experiencia inolvidable que conecta con una de las civilizaciones m\u00e1s fascinantes de la historia.",
+                "userName": "Juand_kxz",
+                "userId": "4"
+            },
+            {
+                "comments": [
+                    {
+                        "comments": [],
+                        "createdAt": "2025-02-24T16:26:52.535Z",
+                        "editable": true,
+                        "id": "541",
+                        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsQqh987us9Q7h-phtnhFHfCeOuzr3AjPOdQ&s",
+                        "location": "El Cairo, Egipto.",
+                        "name": "Piramides",
+                        "rating": 9,
+                        "review": "Testigos del pasado fara\u00f3nico, las pir\u00e1mides de Giza son una maravilla del mundo antiguo. La Gran Pir\u00e1mide y la misteriosa Esfinge ofrecen una experiencia inolvidable que conecta con una de las civilizaciones m\u00e1s fascinantes de la historia.",
+                        "userId": "4",
+                        "userName": "Juand_kxz"
+                    }
+                ],
+                "createdAt": "2025-02-24T16:26:58.703Z",
+                "editable": true,
+                "id": "542",
+                "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsQqh987us9Q7h-phtnhFHfCeOuzr3AjPOdQ&s",
+                "location": "El Cairo, Egipto.",
+                "name": "Pirmides",
+                "rating": 9,
+                "review": "Testigos del pasado fara\u00f3nico, las pir\u00e1mides de Giza son una maravilla del mundo antiguo. La Gran Pir\u00e1mide y la misteriosa Esfinge ofrecen una experiencia inolvidable que conecta con una de las civilizaciones m\u00e1s fascinantes de la historia.",
+                "userName": "Juand_kxz",
+                "userId": "4"
+            },
+            {
+                "comments": [
+                    {
+                        "comments": [],
+                        "createdAt": "2025-02-24T16:26:52.535Z",
+                        "editable": true,
+                        "id": "541",
+                        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsQqh987us9Q7h-phtnhFHfCeOuzr3AjPOdQ&s",
+                        "location": "El Cairo, Egipto.",
+                        "name": "Piramides",
+                        "rating": 9,
+                        "review": "Testigos del pasado fara\u00f3nico, las pir\u00e1mides de Giza son una maravilla del mundo antiguo. La Gran Pir\u00e1mide y la misteriosa Esfinge ofrecen una experiencia inolvidable que conecta con una de las civilizaciones m\u00e1s fascinantes de la historia.",
+                        "userId": "4",
+                        "userName": "Juand_kxz"
+                    },
+                    {
+                        "comments": [
+                            {
+                                "comments": [],
+                                "createdAt": "2025-02-24T16:26:52.535Z",
+                                "editable": true,
+                                "id": "541",
+                                "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsQqh987us9Q7h-phtnhFHfCeOuzr3AjPOdQ&s",
+                                "location": "El Cairo, Egipto.",
+                                "name": "Piramides",
+                                "rating": 9,
+                                "review": "Testigos del pasado fara\u00f3nico, las pir\u00e1mides de Giza son una maravilla del mundo antiguo. La Gran Pir\u00e1mide y la misteriosa Esfinge ofrecen una experiencia inolvidable que conecta con una de las civilizaciones m\u00e1s fascinantes de la historia.",
+                                "userId": "4",
+                                "userName": "Juand_kxz"
+                            }
+                        ],
+                        "createdAt": "2025-02-24T16:26:58.703Z",
+                        "editable": true,
+                        "id": "542",
+                        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsQqh987us9Q7h-phtnhFHfCeOuzr3AjPOdQ&s",
+                        "location": "El Cairo, Egipto.",
+                        "name": "Pirmides",
+                        "rating": 9,
+                        "review": "Testigos del pasado fara\u00f3nico, las pir\u00e1mides de Giza son una maravilla del mundo antiguo. La Gran Pir\u00e1mide y la misteriosa Esfinge ofrecen una experiencia inolvidable que conecta con una de las civilizaciones m\u00e1s fascinantes de la historia.",
+                        "userId": "4",
+                        "userName": "Juand_kxz"
+                    }
+                ],
+                "createdAt": "2025-02-24T16:28:06.396Z",
+                "editable": true,
+                "id": "543",
+                "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsQqh987us9Q7h-phtnhFHfCeOuzr3AjPOdQ&s",
+                "location": "El Cairo, Egipto.",
+                "name": "Piramids",
+                "rating": 9,
+                "review": "Testigos del pasado fara\u00f3nico, las pir\u00e1mides de Giza son una maravilla del mundo antiguo. La Gran Pir\u00e1mide y la misteriosa Esfinge ofrecen una experiencia inolvidable que conecta con una de las civilizaciones m\u00e1s fascinantes de la historia.",
+                "userName": "Juand_kxz",
+                "userId": "4"
+            }
+        ],
         "id": 5
     },
     {
@@ -162,10 +273,19 @@
         "name": "Ciudad Perdida",
         "location": "Colombia",
         "review": "Oculta en la Sierra Nevada de Santa Marta, la Ciudad Perdida es un tesoro arqueol\u00f3gico de la cultura tayrona. Llegar implica una caminata exigente, pero la experiencia recompensa con vistas impresionantes y una conexi\u00f3n \u00edntima con la naturaleza y la historia precolombina.",
-        "rating": 9.1,
+        "rating": 3.0,
         "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFjf7KCY7XYCO0FBVOUB5IvFpqrHauvxMtRQ&s",
         "creator": "C0ldplay",
-        "comments": [],
+        "comments": [
+            {
+                "comment": "sisas",
+                "rating": 3,
+                "createdAt": "2025-02-24T15:25:35.991Z",
+                "id": "741",
+                "userName": "Juand_kxz",
+                "userId": "4"
+            }
+        ],
         "id": 7
     },
     {
@@ -195,6 +315,7 @@
         "location": "minecraft",
         "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQorycNguYdj-wEb0VZBDltdGMJdBIXyUH7NQ&s",
         "review": "buenisimo",
+        "creator": "Juand_kxz",
         "rating": 10,
         "id": 10,
         "createdAt": "2025-02-18T15:49:50.723Z"
@@ -206,6 +327,7 @@
         "review": "gg",
         "rating": 2,
         "id": 11,
+        "creator": "Juand_kxz",
         "createdAt": "2025-02-18T16:27:56.455Z"
     },
     {
