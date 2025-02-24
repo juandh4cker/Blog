@@ -5,11 +5,9 @@ WORKDIR /app
 
 COPY package.json package-lock.json ./
 
-RUN npm install
+RUN npm ci && npm install -g nodemon
 
 COPY . .
-
-RUN npm install -g nodemon
 
 EXPOSE 5173
 
