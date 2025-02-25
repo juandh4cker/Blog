@@ -9,7 +9,6 @@ lerna-debug.log*
 api.log
 
 # Backend
-jsons/
 __pycache__/
 
 # Editor directories and files

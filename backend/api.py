@@ -1,15 +1,10 @@
-import json
-import os
-import logging
-import bcrypt
-import re
-import jwt
+import bcrypt, functools, json, jwt, logging, os, re
 from datetime import datetime, timedelta
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 app = Flask(__name__)
-app.config["JWT_SECRET_KEY"] = "mi_clave_secreta_super_duper_segura"  # ¡Cámbiala por algo seguro!
+app.config["JWT_SECRET_KEY"] = "mi_clave_secreta_super_duper_segura"
 CORS(app)
 
 LOG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'api.log')
@@ -47,10 +42,6 @@ def create_jwt_token(id, username):
     }
     return jwt.encode(payload, app.config["JWT_SECRET_KEY"], algorithm="HS256")
 
-import jwt
-import functools
-from flask import request, jsonify
-
 def verify_token(f):
     @functools.wraps(f)
     def wrapper(*args, **kwargs):
@@ -68,7 +59,6 @@ def verify_token(f):
 
         return f(*args, **kwargs)
     return wrapper
-
 
 @app.route('/api/user/verify', methods=['GET'])
 def verify_token_request():
@@ -259,7 +249,10 @@ def get_blog_by_id(blog_id):
                 blog['editable'] = False
         else:
             blog['editable'] = False
-                
+        
+        blog_filtered = blog
+        blog_filtered['creator'] = blog_filtered['creator']['username']
+
         logging.info(f"Blog {blog_id} fetched successfully")
         return jsonify(blog), 200
     else:
@@ -351,17 +344,23 @@ def new_comment(blog_id):
         return jsonify({"message": "Blog not found"}), 404
 
 @app.route('/api/blogs/<int:blog_id>/comments/<int:comment_id>', methods=['DELETE'])
+@verify_token
 def delete_comment(blog_id, comment_id):
     blogs = load_data(BLOGS_FILE)
-    blog = next((blog for blog in blogs if blog['id'] == str(blog_id)), None)
+    blog = next((blog for blog in blogs if blog['id'] == int(blog_id)), None)
     if blog:
         comment = next((comment for comment in blog['comments'] if comment['id'] == str(comment_id)), None)
         if comment:
-            blog['comments'].remove(comment)
-            blog['rating'] = sum(comment['rating'] for comment in blog['comments']) / len(blog['comments'])
-            save_data(BLOGS_FILE, blogs)
-            logging.info(f"Comment {comment_id} deleted from blog {blog_id}")
-            return jsonify(blog), 200
+            if request.user['id'] == blog['creator']['userID'] or request.user['id'] == comment['userId']:
+                blog['comments'].remove(comment)
+                blog['rating'] = sum(comment['rating'] for comment in blog['comments']) / len(blog['comments'])
+                save_data(BLOGS_FILE, blogs)
+                logging.info(f"Comment {comment_id} deleted from blog {blog_id}")
+                return jsonify(blog), 200
+            
+            else:
+                logging.warning(f"User {request.user['id']} not authorized to delete comment {comment_id}")
+                return jsonify({"message": "Unauthorized"}), 401
         else:
             logging.warning(f"Comment {comment_id} not found in blog {blog_id}")
             return jsonify({"message": "Comment not found"}), 404

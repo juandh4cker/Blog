@@ -185,7 +185,7 @@ const DestinoDetalle = () => {
                 </b>: {comment.comment}
               </p>
               <p><b>Calificación:</b> {comment.rating}/10</p>
-              {comment.userName === getLocalStorage('user').name && (
+              {comment.userName === getLocalStorage('user').username && (
                 <button className="button" onClick={() => handleDeleteComment(comment.id)}>Borrar</button>
               )
 }
