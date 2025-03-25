@@ -179,10 +179,10 @@ const DestinoDetalle = () => {
               <p>
                 <b 
                   style={{ cursor: 'pointer', color: '#2980B9', textDecoration: 'underline' }}
-                  onClick={() => handleCommentUserClick(comment.userName)}
+                  onClick={() => handleCommentUserClick(comment.creator.username)}
                 >
-                  {comment.userName}
-                </b>: {comment.comment}
+                  {comment.creator.username}
+                </b>: {comment.data}
               </p>
               <p><b>Calificación:</b> {comment.rating}/10</p>
               {comment.userName === getLocalStorage('user').username && (

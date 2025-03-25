@@ -1,373 +1,211 @@
-import bcrypt, functools, json, jwt, logging, os, re
-from datetime import datetime, timedelta
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, make_response
 from flask_cors import CORS
+from functools import wraps
+from app import app
 
-app = Flask(__name__)
-app.config["JWT_SECRET_KEY"] = "mi_clave_secreta_super_duper_segura"
-CORS(app)
+#Organizar rutas y hacer archivo para claves/rutas/configuraciones
+#Lenguaje para haces peticiones (graphql)
 
-LOG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'api.log')
-logging.basicConfig(
-    filename=LOG_FILE,
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
+api = Flask(__name__)
+CORS(api)
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-USERS_FILE = os.path.join(BASE_DIR, 'jsons/users.json')
-BLOGS_FILE = os.path.join(BASE_DIR, 'jsons/blogs.json')
+#Methods
 
-# Data
+def returny(to_return):
+    returned = to_return
+    code = 500
 
-def load_data(file_path):
-    try:
-        with open(file_path, 'r') as file:
-            return json.load(file)
-    except (FileNotFoundError, json.JSONDecodeError):
-        return []
+    if type(to_return) != dict:
+        return to_return
 
-def save_data(file_path, data):
-    with open(file_path, 'w') as file:
-        json.dump(data, file, indent=4)
+    if to_return.get("info"):
+        code = 200
+    
+    elif to_return.get("created"):
+        code = 201
+    
+    else: 
+        error = to_return.get("error", "error")
+        match error:
+            case "Credenciales inválidas":
+                code = 400
+            
+            case "Datos inválidos":
+                code = 400
+            
+            case "No autorizado":
+                code = 401
+            
+            case "No encontrado":
+                code = 404
+            
+            case "Ya en uso":
+                code = 409
+            
+            case _:
+                code = 500
+            
+    return jsonify(returned), code
 
 # JWT
 
-def create_jwt_token(id, username):
-    expiration_time = timedelta(days=1)
-    payload = {
-        "id": id,
-        "username": username,
-        "exp": datetime.utcnow() + expiration_time
-    }
-    return jwt.encode(payload, app.config["JWT_SECRET_KEY"], algorithm="HS256")
+def set_token(username, token, code):
+    response = make_response(returny({code: username}))
+    response.set_cookie(
+        "token", token,
+        httponly=True,
+        secure=True,
+        samesite="Strict",
+        max_age=86400    # Expira en 1 dia
+    )
+    return response
 
 def verify_token(f):
-    @functools.wraps(f)
+    @wraps(f)
     def wrapper(*args, **kwargs):
-        token = request.headers.get("Authorization")
+        token = request.cookies.get("token", None)
         if not token:
-            return jsonify({"error": "Token requerido"}), 200
+            return returny({"error": "No autorizado"})
 
-        try:
-            decoded_token = jwt.decode(token, app.config["JWT_SECRET_KEY"], algorithms=["HS256"])
-            request.user = decoded_token
-        except jwt.ExpiredSignatureError:
-            return jsonify({"error": "Token expirado"}), 200
-        except jwt.InvalidTokenError:
-            return jsonify({"error": "Token inválido"}), 200
+        result = app.verify_token(token)
+        
+        if result["verify"] is False:
+            return returny({"error": "No autorizado"})
 
+        request.user = result["user"]
         return f(*args, **kwargs)
+
     return wrapper
 
-@app.route('/api/user/verify', methods=['GET'])
+@api.route("/api/app/verify", methods=["GET"])
 def verify_token_request():
-    token = request.headers.get("Authorization")
-    if not token:
-        return jsonify({"verify": False, "error": "Token requerido"}), 200
+    token = request.cookies.get("token", None)
 
-    try:
-        decoded_token = jwt.decode(token, app.config["JWT_SECRET_KEY"], algorithms=["HS256"])
-        return jsonify({"verify": True, "message": "Token válido", "user": decoded_token}), 200
-    except jwt.ExpiredSignatureError:
-        return jsonify({"verify": False, "error": "Token expirado"}), 200
-    except jwt.InvalidTokenError:
-        return jsonify({"verify": False, "error": "Token inválido"}), 200
+    if token:
+        result = app.verify_token(token)
+        verify = result["verify"]
+        
+        if verify:
+            return returny({"info": verify})
+    return returny({"error": "No autorizado"})
 
 #Access
 
-@app.route('/api/user/login', methods=['POST'])
+@api.route("/api/app/login", methods=["POST"])
 def login():
-    def is_valid_username(name):
-        pattern = r'^[a-zA-Z0-9._]+[a-zA-Z0-9_]$'
-        return bool(re.match(pattern, name))
-
-    def is_valid_email(email):
-        pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-        return bool(re.match(pattern, email))
-
     data = request.get_json()
-    email_or_username = data.get('email_or_username')
-    password = data.get('password')
+    email_or_username = data.get("email_or_username")
+    password = data.get("password")
 
     if not email_or_username or not password:
-        logging.warning("Usuario o contraseña no proporcionados")  # IP
-        return jsonify({"error": "Credenciales inválidas"}), 200
+        return returny({"error": "Credenciales inválidas"})
+    
+    result = app.login(email_or_username, password)
+    if result.get("info"):
+        result = result.get("info")
+        return set_token(result["username"], result["token"], "info")
+    
+    return returny(result)
 
-    if not (is_valid_email(email_or_username) or is_valid_username(email_or_username)):
-        logging.warning("Usuario o email no válidos")  # IP
-        return jsonify({"error": "Credenciales inválidas"}), 200
-
-    users = get_users()
-    user = next((user for user in users if user['email'] == email_or_username or user['username'] == email_or_username.capitalize()), None)
-
-    if user:
-        if bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
-            logging.info(f"User {user['id']} logged in successfully")
-            token = create_jwt_token(user['id'], user['username'])
-            return jsonify({'username': user['username'],'token': token}), 200
-        else:
-            logging.warning(f"Invalid credentials for User {user['id']}")  # IP
-            return jsonify({"error": "Credenciales inválidas"}), 200
-    else:
-        logging.warning("Invalid credentials")  # IP
-        return jsonify({"error": "Credenciales inválidas"}), 200
-
-@app.route('/api/user/register', methods=['POST'])
+@api.route("/api/app/register", methods=["POST"])
 def register():
-    def create_user(user):
-        users = load_data(USERS_FILE)
-        users.append(user)
-        save_data(USERS_FILE, users)
-        logging.info(f"User {user['id']} created successfully")
-
-    def is_valid_username(username):
-        pattern = r'^[a-zA-Z0-9._]+[a-zA-Z0-9_]$'
-        return bool(re.match(pattern, username))
-
-    def is_valid_email(email):
-        pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-        return bool(re.match(pattern, email))
-
-    def is_valid_password(password):
-        pattern = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$'
-        return bool(re.match(pattern, password))
-
     data = request.get_json()
-    username = data.get('username').capitalize()
-    email = data.get('email')
-    password = data.get('password')
+    username = data.get("username")
+    email = data.get("email")
+    password = data.get("password")
 
     if not username or not email or not password:
-        logging.warning("Usuario o contraseña no proporcionados")
-        return jsonify({"error": "Credenciales inválidas"}), 200
+        return returny({"error": "Credenciales inválidas"})
     
-    if not (is_valid_username(username) or is_valid_email(email) or is_valid_password(password)):
-        logging.warning("Usuario o email no válidos")
-        return jsonify({"error": "Credenciales inválidas"}), 200
+    result = app.register(username, email, password)
+    if result.get("created"):
+        result = result.get("created")
+        return set_token(result["username"], result["token"], "created")
     
-    users = get_users()
-
-    if next((user for user in get_users() if user['username'] == username), None):
-        logging.warning(f"Username {username} already exists")
-        return jsonify({"error": "Usuario ya existe"}), 200
-
-    if next((user for user in get_users() if user['email'] == email), None):
-        logging.warning(f"Email {email} already exists")
-        return jsonify({"error": "Email ya existe"}), 200
-
-    user = {
-        "createdAt": datetime.utcnow().isoformat(timespec='milliseconds') + "Z",
-        "username": username,
-        "email": email,
-        "password": bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt(10)).decode('utf-8'),
-        "posts": [],
-        "followers": [],
-        "followedBy": [],
-        "following": [],
-        "id": str(len(users) + 1)
-    }
-
-    create_user(user)
-    logging.info(f"User {user['id']} logged in successfully")
-    token = create_jwt_token(user['id'], user['username'])
-    return jsonify({'username': user['username'], 'token': token}), 200
+    return returny(result)
 
 # Users
 
-def get_users():
-    return load_data(USERS_FILE)
-
-@app.route('/api/users/<string:username>', methods=['GET'])
+@api.route("/api/user/<string:username>", methods=["GET"])
 @verify_token
 def get_user(username):
-    users = load_data(USERS_FILE)
-    user = next((user for user in users if user['username'] == str(username).capitalize()), None)
+    return returny(app.get_user(username.capitalize(), request.user))
 
-    if user:
-        user_filtered = {
-            "username": user["username"],
-            "posts": user["posts"],
-            "followers": len(user["followers"]),
-            "isFollowing": "yourself" if request.user['username'] == user["username"] else request.user['id'] in user.get("followers", [])
-        }
-        logging.info(f"User {username} fetched successfully")
-        return jsonify(user_filtered), 200
-    else:
-        logging.warning(f"User {username} not found")
-        return jsonify({"message": "User not found"}), 404
-
-@app.route('/api/users/<string:username>/follow', methods=['PUT'])
+@api.route("/api/user/<string:username>/follownt", methods=["PUT"])
 @verify_token
 def follow_user(username):
-    if request.user['username'] == username:
-        return jsonify({"message": "You can't follow yourself"}), 400
-    users = load_data(USERS_FILE)
-    user = next((user for user in users if user['username'] == str(username).capitalize()), None)
-
-    if user:
-        if request.user['id'] in user.get("followers", []):
-            user["followers"].remove(request.user['id'])
-            users[users.index(user)] = user
-            save_data(USERS_FILE, users)
-            logging.info(f"User {username} unfollowed successfully by {request.user['id']}")
-            return jsonify(False), 200
-        else:
-            user["followers"].append(request.user['id'])
-            users[users.index(user)] = user
-            save_data(USERS_FILE, users)
-            logging.info(f"User {username} followed successfully by {request.user['id']}")
-            return jsonify(True), 200
-    else:
-        logging.warning(f"User {username} not found")
-        return jsonify({"message": "User not found"}), 404
-
-#Blogs
-
-@app.route('/api/blogs', methods=['GET'])
-def get_blogs():
-    blogs = load_data(BLOGS_FILE)
-    logging.info("Fetched all blogs")
-    return jsonify(blogs), 200
-
-@app.route('/api/blogs/<int:blog_id>', methods=['GET'])
-def get_blog_by_id(blog_id):
-    try:
-        token = request.headers.get("Authorization")
-        decoded_token = jwt.decode(token, app.config["JWT_SECRET_KEY"], algorithms=["HS256"])
-    except:
-        decoded_token = None
-
-
-    blogs = load_data(BLOGS_FILE)
-    blog = next((blog for blog in blogs if blog['id'] == int(blog_id)), None)
-    if blog:
-        if decoded_token:
-            if (decoded_token['username'] == blog['creator']):
-                blog['editable'] = True
-            else:
-                blog['editable'] = False
-        else:
-            blog['editable'] = False
-        
-        blog_filtered = blog
-        blog_filtered['creator'] = blog_filtered['creator']['username']
-
-        logging.info(f"Blog {blog_id} fetched successfully")
-        return jsonify(blog), 200
-    else:
-        logging.warning(f"Blog {blog_id} not found")
-        return jsonify({"message": "Blog not found"}), 404
-
-@app.route('/api/blogs', methods=['POST'])
-@verify_token
-def create_blog():
-    new_blog = request.get_json()
-    blogs = load_data(BLOGS_FILE)
-    new_blog['id'] = str(len(blogs) + 1)
-    new_blog['createdAt'] = datetime.utcnow().isoformat(timespec='milliseconds') + "Z"
-    new_blog['comments'] = []
-    blogs.append(new_blog)
-
-    users = load_data(USERS_FILE)
-    user = next((user for user in users if user['id'] == str(request.user['id']).capitalize()), None)
-    user['posts'].append(int(new_blog['id']))
-    save_data(USERS_FILE, users)
-
-    new_blog['creator'] = user['username']
-
-    save_data(BLOGS_FILE, blogs)
-    logging.info(f"Blog {new_blog['id']} created successfully")
-    return jsonify(new_blog), 201
-
-@app.route('/api/blogs/<int:blog_id>', methods=['DELETE'])
-@verify_token
-def delete_blog(blog_id):
-    blogs = load_data(BLOGS_FILE)
-    blog = next((blog for blog in blogs if blog['id'] == int(blog_id)), None)
-    if blog:
-        if blog['creator'] == request.user['username']:
-            blogs.remove(blog)
-            save_data(BLOGS_FILE, blogs)
-            logging.info(f"Blog {blog_id} deleted successfully")
-            return jsonify({"message": "Blog deleted"}), 200
-        else:
-            logging.warning(f"User {request.user['id']} not authorized to delete blog {blog_id}")
-            return jsonify({"message": "Unauthorized"}), 401
-    else:
-        logging.warning(f"Blog {blog_id} not found")
-        return jsonify({"message": "Blog not found"}), 404
+    username = username.capitalize()
+    if request.user["username"] == username:
+        return returny({"error": "You can't follow yourself"})
     
-@app.route('/api/blogs/<int:blog_id>', methods=['PUT'])
+    return returny(app.follownt(username, request.user))
+
+#Posts
+
+@api.route("/api/posts", methods=["GET"])
+def get_posts():
+    token = request.headers.get("Authorization")
+
+    if token:
+        return returny(app.get_posts(request.user if app.verify_token["verify"] else {}))
+
+    return returny(app.get_posts())
+
+@api.route("/api/post/<int:post_id>", methods=["GET"])
 @verify_token
-def edit_blog(blog_id):
-    blogs = load_data(BLOGS_FILE)
-    blog = next((blog for blog in blogs if blog['id'] == int(blog_id)), None)
+def get_post(post_id):
+    return returny(app.get_post(post_id, request.user))
+
+@api.route("/api/post/create", methods=["POST"])
+@verify_token
+def create_post():
+    new_post = request.get_json()
+    name = new_post.get("name")
+    location = new_post.get("location")
+    review = new_post.get("review")
+    rating = new_post.get("rating")
+    imageUrl = new_post.get("imageUrl")
+
+    if not name or not location or not review or not rating or not imageUrl:
+        return returny({"error": "Datos inválidos"})
     
-    if blog:
-        if blog['creator'] == request.user['username']:
-            new_blog = request.get_json()
-            campos_permitidos = ["imageUrl", "rating", "review", "location", "name"]
-            for campo in campos_permitidos:
-                if campo in new_blog:
-                    blog[campo] = new_blog[campo]
-            blog['createdAt'] = datetime.utcnow().isoformat(timespec='milliseconds') + "Z"
-            save_data(BLOGS_FILE, blogs)
-            logging.info(f"Blog {blog_id} edited successfully")
-            return jsonify(blog), 200
-        else:
-            logging.warning(f"User {request.user['id']} not authorized to edit blog {blog_id}")
-            return jsonify({"message": "Unauthorized"}), 401
-    else:
-        logging.warning(f"Blog {blog_id} not found")
-        return jsonify({"message": "Blog not found"}), 404
+    return returny(app.create_post(name, location, review, int(rating), imageUrl, request.user))
+    
+@api.route("/api/post/<int:post_id>/edit", methods=["PUT"])
+@verify_token
+def edit_post(post_id):
+    new_post = request.get_json()
+    name = new_post.get("name", "")
+    location = new_post.get("location", "")
+    review = new_post.get("review", "")
+    rating = new_post.get("rating", 0)
+    imageUrl = new_post.get("imageUrl", "")
+    return returny(app.edit_post(post_id, name, location, review, rating, imageUrl, request.user))
+
+@api.route("/api/post/<int:post_id>/delete", methods=["DELETE"])
+@verify_token
+def delete_post(post_id):
+    return returny(app.delete_post(post_id, request.user))
 
 #Comments
-@app.route('/api/blogs/<int:blog_id>', methods=['PUT'])
+
+@api.route("/api/post/<int:post_id>/comment", methods=["PUT"])
 @verify_token
-def new_comment(blog_id):
-    blogs = load_data(BLOGS_FILE)
-    blog = next((blog for blog in blogs if blog['id'] == int(blog_id)), None)
-    if blog:
-        comment = request.get_json()
-        comment['id'] = f"{blog_id}{request.user['id']}{len(blog['comments']) + 1}"
-        comment['createdAt'] = datetime.utcnow().isoformat(timespec='milliseconds') + "Z"
-        comment['userName'] = request.user['username']
-        comment['userId'] = request.user['id']
-        blog['comments'].append(comment)
-        blog['rating'] = round(sum(comment['rating'] for comment in blog['comments']) / len(blog['comments']), 2)
-        save_data(BLOGS_FILE, blogs)
-        logging.info(f"Comment added to blog {blog_id}")
-        return jsonify(blog), 200
-    else:
-        logging.warning(f"Blog {blog_id} not found")
-        return jsonify({"message": "Blog not found"}), 404
+def new_comment(post_id):
+    new_comment = request.get_json()
+    content = new_comment.get("name")
+    rating = new_comment.get("rating")
 
-@app.route('/api/blogs/<int:blog_id>/comments/<int:comment_id>', methods=['DELETE'])
+    if not content or not rating:
+        return returny({"error": "Datos inválidos"})
+
+    return returny(app.new_comment(post_id, content, rating, request.user))
+
+@api.route("/api/post/<int:post_id>/comment/<int:comment_id>/delete", methods=["DELETE"])
 @verify_token
-def delete_comment(blog_id, comment_id):
-    blogs = load_data(BLOGS_FILE)
-    blog = next((blog for blog in blogs if blog['id'] == int(blog_id)), None)
-    if blog:
-        comment = next((comment for comment in blog['comments'] if comment['id'] == str(comment_id)), None)
-        if comment:
-            if request.user['id'] == blog['creator']['userID'] or request.user['id'] == comment['userId']:
-                blog['comments'].remove(comment)
-                blog['rating'] = sum(comment['rating'] for comment in blog['comments']) / len(blog['comments'])
-                save_data(BLOGS_FILE, blogs)
-                logging.info(f"Comment {comment_id} deleted from blog {blog_id}")
-                return jsonify(blog), 200
-            
-            else:
-                logging.warning(f"User {request.user['id']} not authorized to delete comment {comment_id}")
-                return jsonify({"message": "Unauthorized"}), 401
-        else:
-            logging.warning(f"Comment {comment_id} not found in blog {blog_id}")
-            return jsonify({"message": "Comment not found"}), 404
-    else:
-        logging.warning(f"Blog {blog_id} not found")
-        return jsonify({"message": "Blog not found"}), 404
+def delete_comment(post_id, comment_id):
+    return returny(app.delete_comment(post_id, comment_id, request.user))
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    api.run(debug=True)

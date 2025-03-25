@@ -8,22 +8,28 @@
         "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0PjzcACuCnj45otxywWk5_TMJa-YAaAtNJw&s",
         "creator": {
             "username": "M3ssi",
-            "userID": "2"
+            "userID": 2
         },
         "comments": [
             {
-                "userId": "3",
-                "userName": "Juand_kxz",
-                "comment": "Que buen lugar!!",
                 "rating": 7,
-                "createdAt": "2024-11-16T16:09:08.814Z"
+                "createdAt": "2024-11-16T16:09:08.814Z",
+                "creator": {
+                    "username": "Juand_kxz",
+                    "userID": 3
+                },
+                "data": "Que buen lugar!!",
+                "id": 131
             },
             {
-                "userId": "4",
-                "userName": "C0ldplay",
-                "comment": "Si!! La ciudad del amor.",
                 "rating": 9,
-                "createdAt": "2024-11-16T16:11:52.264Z"
+                "createdAt": "2024-11-16T16:11:52.264Z",
+                "creator": {
+                    "username": "C0ldplay",
+                    "userID": 4
+                },
+                "data": "Si!! La ciudad del amor.",
+                "id": 142
             }
         ],
         "id": 1
@@ -37,48 +43,28 @@
         "imageUrl": "https://japonismo.com/wp-content/uploads/2022/06/pagoda-chureito-kawaguchko.jpg",
         "creator": {
             "username": "M3ssi",
-            "userID": "2"
+            "userID": 2
         },
         "comments": [
             {
-                "userId": "3",
-                "userName": "Juand_kxz",
-                "comment": "Que buen lugar",
                 "rating": 8,
                 "createdAt": "2024-11-18T17:47:50.227Z",
-                "id": "241"
+                "id": 231,
+                "creator": {
+                    "username": "Juand_kxz",
+                    "userID": 3
+                },
+                "data": "Que buen lugar"
             },
             {
-                "comment": "jijijija",
                 "rating": 7,
                 "createdAt": "2025-02-19T19:06:31.317Z",
-                "id": "247",
-                "userName": "Juand_kxz",
-                "userId": "4"
-            },
-            {
-                "comment": ":)",
-                "rating": 3,
-                "createdAt": "2025-02-19T19:08:12.938Z",
-                "id": "248",
-                "userName": "Juand_kxz",
-                "userId": "4"
-            },
-            {
-                "comment": "sisas",
-                "rating": 3,
-                "createdAt": "2025-02-23T17:35:43.877Z",
-                "id": "249",
-                "userName": "Juand_kxz",
-                "userId": "4"
-            },
-            {
-                "comment": "no",
-                "rating": 10,
-                "createdAt": "2025-02-23T17:35:51.913Z",
-                "id": "2410",
-                "userName": "Juand_kxz",
-                "userId": "4"
+                "id": 232,
+                "creator": {
+                    "username": "Juand_kxz",
+                    "userID": 4
+                },
+                "data": "jijijija"
             }
         ],
         "id": 2
@@ -92,15 +78,18 @@
         "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPRJQw2JILKfnZZl1fRzGQY2G9B_52RsyhcA&s",
         "creator": {
             "username": "W3stcol",
-            "userID": "1"
+            "userID": 1
         },
         "comments": [
             {
-                "userId": "3",
-                "userName": "Juand_kxz",
-                "comment": "Yo estuve all\u00ed!!",
                 "rating": 9,
-                "createdAt": "2024-11-16T16:09:34.224Z"
+                "createdAt": "2024-11-16T16:09:34.224Z",
+                "creator": {
+                    "username": "Juand_kxz",
+                    "userID": 3
+                },
+                "data": "Yo estuve all\u00ed!!",
+                "id": 331
             }
         ],
         "id": 3
@@ -114,7 +103,7 @@
         "imageUrl": "https://www.viajesdeprimera.com/wp-content/uploads/2020/04/Pante%C3%B3n-de-Agripa-en-Roma.jpg",
         "creator": {
             "username": "W3stcol",
-            "userID": "1"
+            "userID": 1
         },
         "comments": [],
         "id": 4
@@ -128,104 +117,9 @@
         "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsQqh987us9Q7h-phtnhFHfCeOuzr3AjPOdQ&s",
         "creator": {
             "username": "Juand_kxz",
-            "userID": "4"
+            "userID": 4
         },
-        "comments": [
-            {
-                "comments": [],
-                "createdAt": "2025-02-24T16:26:52.535Z",
-                "editable": true,
-                "id": "541",
-                "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsQqh987us9Q7h-phtnhFHfCeOuzr3AjPOdQ&s",
-                "location": "El Cairo, Egipto.",
-                "name": "Piramides",
-                "rating": 9,
-                "review": "Testigos del pasado fara\u00f3nico, las pir\u00e1mides de Giza son una maravilla del mundo antiguo. La Gran Pir\u00e1mide y la misteriosa Esfinge ofrecen una experiencia inolvidable que conecta con una de las civilizaciones m\u00e1s fascinantes de la historia.",
-                "userName": "Juand_kxz",
-                "userId": "4"
-            },
-            {
-                "comments": [
-                    {
-                        "comments": [],
-                        "createdAt": "2025-02-24T16:26:52.535Z",
-                        "editable": true,
-                        "id": "541",
-                        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsQqh987us9Q7h-phtnhFHfCeOuzr3AjPOdQ&s",
-                        "location": "El Cairo, Egipto.",
-                        "name": "Piramides",
-                        "rating": 9,
-                        "review": "Testigos del pasado fara\u00f3nico, las pir\u00e1mides de Giza son una maravilla del mundo antiguo. La Gran Pir\u00e1mide y la misteriosa Esfinge ofrecen una experiencia inolvidable que conecta con una de las civilizaciones m\u00e1s fascinantes de la historia.",
-                        "userId": "4",
-                        "userName": "Juand_kxz"
-                    }
-                ],
-                "createdAt": "2025-02-24T16:26:58.703Z",
-                "editable": true,
-                "id": "542",
-                "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsQqh987us9Q7h-phtnhFHfCeOuzr3AjPOdQ&s",
-                "location": "El Cairo, Egipto.",
-                "name": "Pirmides",
-                "rating": 9,
-                "review": "Testigos del pasado fara\u00f3nico, las pir\u00e1mides de Giza son una maravilla del mundo antiguo. La Gran Pir\u00e1mide y la misteriosa Esfinge ofrecen una experiencia inolvidable que conecta con una de las civilizaciones m\u00e1s fascinantes de la historia.",
-                "userName": "Juand_kxz",
-                "userId": "4"
-            },
-            {
-                "comments": [
-                    {
-                        "comments": [],
-                        "createdAt": "2025-02-24T16:26:52.535Z",
-                        "editable": true,
-                        "id": "541",
-                        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsQqh987us9Q7h-phtnhFHfCeOuzr3AjPOdQ&s",
-                        "location": "El Cairo, Egipto.",
-                        "name": "Piramides",
-                        "rating": 9,
-                        "review": "Testigos del pasado fara\u00f3nico, las pir\u00e1mides de Giza son una maravilla del mundo antiguo. La Gran Pir\u00e1mide y la misteriosa Esfinge ofrecen una experiencia inolvidable que conecta con una de las civilizaciones m\u00e1s fascinantes de la historia.",
-                        "userId": "4",
-                        "userName": "Juand_kxz"
-                    },
-                    {
-                        "comments": [
-                            {
-                                "comments": [],
-                                "createdAt": "2025-02-24T16:26:52.535Z",
-                                "editable": true,
-                                "id": "541",
-                                "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsQqh987us9Q7h-phtnhFHfCeOuzr3AjPOdQ&s",
-                                "location": "El Cairo, Egipto.",
-                                "name": "Piramides",
-                                "rating": 9,
-                                "review": "Testigos del pasado fara\u00f3nico, las pir\u00e1mides de Giza son una maravilla del mundo antiguo. La Gran Pir\u00e1mide y la misteriosa Esfinge ofrecen una experiencia inolvidable que conecta con una de las civilizaciones m\u00e1s fascinantes de la historia.",
-                                "userId": "4",
-                                "userName": "Juand_kxz"
-                            }
-                        ],
-                        "createdAt": "2025-02-24T16:26:58.703Z",
-                        "editable": true,
-                        "id": "542",
-                        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsQqh987us9Q7h-phtnhFHfCeOuzr3AjPOdQ&s",
-                        "location": "El Cairo, Egipto.",
-                        "name": "Pirmides",
-                        "rating": 9,
-                        "review": "Testigos del pasado fara\u00f3nico, las pir\u00e1mides de Giza son una maravilla del mundo antiguo. La Gran Pir\u00e1mide y la misteriosa Esfinge ofrecen una experiencia inolvidable que conecta con una de las civilizaciones m\u00e1s fascinantes de la historia.",
-                        "userId": "4",
-                        "userName": "Juand_kxz"
-                    }
-                ],
-                "createdAt": "2025-02-24T16:28:06.396Z",
-                "editable": true,
-                "id": "543",
-                "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsQqh987us9Q7h-phtnhFHfCeOuzr3AjPOdQ&s",
-                "location": "El Cairo, Egipto.",
-                "name": "Piramids",
-                "rating": 9,
-                "review": "Testigos del pasado fara\u00f3nico, las pir\u00e1mides de Giza son una maravilla del mundo antiguo. La Gran Pir\u00e1mide y la misteriosa Esfinge ofrecen una experiencia inolvidable que conecta con una de las civilizaciones m\u00e1s fascinantes de la historia.",
-                "userName": "Juand_kxz",
-                "userId": "4"
-            }
-        ],
+        "comments": [],
         "id": 5
     },
     {
@@ -237,15 +131,18 @@
         "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt0tB2qMUZn3ZNuBEUy3MfbRDzYsbO_Zd8kQ&s",
         "creator": {
             "username": "C0ldplay",
-            "userID": "3"
+            "userID": 3
         },
         "comments": [
             {
-                "userId": "3",
-                "userName": "Juand_kxz",
-                "comment": "Maravilla arquitect\u00f3nica",
                 "rating": 9,
-                "createdAt": "2024-11-16T16:10:09.547Z"
+                "createdAt": "2024-11-16T16:10:09.547Z",
+                "creator": {
+                    "username": "Juand_kxz",
+                    "userID": 3
+                },
+                "data": "Maravilla arquitect\u00f3nica",
+                "id": 631
             }
         ],
         "id": 6
@@ -259,16 +156,18 @@
         "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFjf7KCY7XYCO0FBVOUB5IvFpqrHauvxMtRQ&s",
         "creator": {
             "username": "C0ldplay",
-            "userID": "3"
+            "userID": 3
         },
         "comments": [
             {
-                "comment": "sisas",
                 "rating": 3,
                 "createdAt": "2025-02-24T15:25:35.991Z",
-                "id": "741",
-                "userName": "Juand_kxz",
-                "userId": "4"
+                "id": 741,
+                "creator": {
+                    "username": "Juand_kxz",
+                    "userID": 4
+                },
+                "data": "sisas"
             }
         ],
         "id": 7
@@ -282,7 +181,7 @@
         "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBAY5I-zMVu65LUQLo4Hd3s7EWOb8w2tceOw&s",
         "creator": {
             "username": "C0ldplay",
-            "userID": "3"
+            "userID": 3
         },
         "comments": [],
         "id": 8
@@ -296,113 +195,9 @@
         "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkyxWo_ByKktmS8LvA8ldqPwjLH1M5euWUTQ&s",
         "creator": {
             "username": "Juand_kxz",
-            "userID": "4"
+            "userID": 4
         },
         "comments": [],
         "id": 9
-    },
-    {
-        "name": "cheese",
-        "location": "minecraft",
-        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQorycNguYdj-wEb0VZBDltdGMJdBIXyUH7NQ&s",
-        "review": "buenisimo",
-        "creator": {
-            "username": "Juand_kxz",
-            "userID": "4"
-        },
-        "rating": 10,
-        "id": 10,
-        "createdAt": "2025-02-18T15:49:50.723Z"
-    },
-    {
-        "name": "cheese",
-        "location": "minecraft",
-        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSmosIfvE5ViR9OVLlzm-zETZEn2tIzk1EHA&s",
-        "review": "gg",
-        "rating": 2,
-        "id": 11,
-        "creator": {
-            "username": "Juand_kxz",
-            "userID": "4"
-        },
-        "createdAt": "2025-02-18T16:27:56.455Z"
-    },
-    {
-        "name": "Juan Torregroza",
-        "location": "ertert",
-        "imageUrl": "https://japonismo.com/wp-content/uploads/2022/06/pagoda-chureito-kawaguchko.jpg",
-        "review": "yy",
-        "rating": 6,
-        "id": 12,
-        "createdAt": "2025-02-18T17:22:24.356Z",
-        "creator": {
-            "username": "Juand_kxz",
-            "userID": "4"
-        }
-    },
-    {
-        "name": "Juan Torregrozaserwer",
-        "location": "ertertt",
-        "imageUrl": "https://japonismo.com/wp-content/uploads/2022/06/pagoda-chureito-kawaguchko.jpg",
-        "review": "yy",
-        "rating": 6,
-        "id": 13,
-        "createdAt": "2025-02-18T17:22:37.326Z",
-        "creator": {
-            "username": "Juand_kxz",
-            "userID": "4"
-        }
-    },
-    {
-        "name": "Sisas",
-        "location": "Colom",
-        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPRJQw2JILKfnZZl1fRzGQY2G9B_52RsyhcA&s",
-        "review": "dd",
-        "rating": 3,
-        "id": 14,
-        "createdAt": "2025-02-18T17:23:15.383Z",
-        "creator": {
-            "username": "Juand_kxz",
-            "userID": "4"
-        }
-    },
-    {
-        "name": "Piramides",
-        "location": "Egipttuy",
-        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Eiffelturm.JPG/280px-Eiffelturm.JPG",
-        "review": "234",
-        "rating": 7,
-        "id": 15,
-        "createdAt": "2025-02-18T17:28:12.643Z",
-        "creator": {
-            "username": "Juand_kxz",
-            "userID": "4"
-        }
-    },
-    {
-        "name": "Piramides",
-        "location": "Par\u00eds",
-        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Eiffelturm.JPG/280px-Eiffelturm.JPG",
-        "review": "y",
-        "rating": 5,
-        "id": 16,
-        "createdAt": "2025-02-18T17:28:59.238Z",
-        "creator": {
-            "username": "Juand_kxz",
-            "userID": "4"
-        }
-    },
-    {
-        "name": "Torre Eiffel",
-        "location": "rtert",
-        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPRJQw2JILKfnZZl1fRzGQY2G9B_52RsyhcA&s",
-        "review": "345",
-        "rating": 5,
-        "id": 17,
-        "createdAt": "2025-02-18T17:39:27.981Z",
-        "creator": {
-            "username": "Juand_kxz",
-            "userID": "4"
-        }
     }
 ]

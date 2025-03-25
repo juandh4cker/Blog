@@ -23,8 +23,28 @@ services:
     environment:
       FLASK_APP: api.py
       FLASK_DEBUG: "1"
+      MONGO_URI: "mongodb://admin:password@mongodb:27017/mi_base_de_datos?authSource=admin"
+    depends_on:
+      - mongodb
     networks:
       - app-network
+
+  mongodb:
+    image: mongo:4.4
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - app-network
+
+volumes:
+  mongo_data:
 
 networks:
   app-network:
