@@ -1,137 +1,57 @@
-from bcrypt import checkpw
-from comments import comments
-from jwtoken import jwtoken
-from log import log
-from posts import posts
-from re import compile, match
-from users import users
-from user import User_lite
-import requests
-
-#Manejo de errores
+from modules.posts import Comment, Post, Posts
+from typing import Any, Dict
+from modules.users import User, Users, User_lite
+from modules.utils.generals import check_password, is_valid_username, is_valid_email, is_valid_password, is_valid_image
+from modules.utils.log import Log
+from modules.utils.token import Token
+import modules.utils.exceptions as exceptions
 
 class App:
     """
     Clase principal de la aplicación que maneja operaciones de acceso, registro,
     gestión de usuarios, posts, comentarios y verificación de tokens.
     """
-    def __init__(self):
-        """
-        Se registra en el log el inicio de la aplicación.
-        """
-        log.info("Application initialized.")
-
-    #Methods
-
-    def __is_valid_username(self, username: str) -> bool:
-        """
-        Valida el formato del nombre de usuario.
-
-        Args:
-            username (str): Nombre de usuario a validar.
-
-        Returns:
-            bool: True si el nombre de usuario es válido, False de lo contrario.
-        """
-        pattern = r"^[a-zA-Z0-9._]+[a-zA-Z0-9_]$"
-        return bool(match(pattern, username))
-
-    def __is_valid_email(self, email: str) -> bool:
-        """
-        Valida el formato del correo electrónico.
-
-        Args:
-            email (str): Correo electrónico a validar.
-
-        Returns:
-            bool: True si el correo electrónico es válido, False de lo contrario.
-        """
-        pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-        return bool(match(pattern, email))
+    Log.info("Application initialized.")
     
-    def __is_valid_password(self, password: str) -> bool:
-        """
-        Valida que la contraseña tenga al menos 8 caracteres, incluyendo mayúsculas,
-        minúsculas y dígitos.
-
-        Args:
-            password (str): Contraseña a validar.
-
-        Returns:
-            bool: True si la contraseña es válida, False de lo contrario.
-        """
-        pattern = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"
-        return bool(match(pattern, password))
-    
-    def is_valid_image_url(self, url: str) -> bool:
-        """
-        Verifica si una URL es válida y apunta a una imagen real.
-
-        Args:
-            url (str): URL a verificar.
-
-        Returns:
-            bool: True si la URL es válida y contiene una imagen, False en caso contrario.
-        """
-        url_regex = compile(
-            r"^(https?://)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$"
-        )
-
-        if not url_regex.fullmatch(url):
-            return False
-
-        if not url.startswith(("http://", "https://")):
-            url = "https://" + url
-
-        try:
-            response = requests.get(url, stream=True, timeout=5, headers={"User-Agent": "Mozilla/5.0"})
-            
-            if response.status_code != 200:
-                return False
-
-            content_type = response.headers.get("Content-Type", "")
-            if content_type.startswith("image/"):
-                return True
-
-            first_bytes = response.raw.read(10)
-            image_signatures = [b"\xff\xd8", b"\x89PNG", b"GIF87a", b"GIF89a"]  # JPEG, PNG, GIF
-            return any(first_bytes.startswith(sig) for sig in image_signatures)
-
-        except requests.RequestException:
-            return False
-
     #Access
 
-    def login(self, email_or_username: str, password: str) -> dict:
+    @staticmethod
+    def login(username_or_email: str, password: str) -> dict:
         """
         Realiza el inicio de sesión del usuario validando sus credenciales.
 
         Args:
-            email_or_username (str): Correo electrónico o nombre de usuario.
+            username_or_email (str): Correo electrónico o nombre de usuario.
             password (str): Contraseña del usuario.
 
         Returns:
             dict: Diccionario con el token y el nombre de usuario si es exitoso, 
                   o un diccionario de error en caso contrario.
         """
-        if not (self.__is_valid_email(email_or_username) or self.__is_valid_username(email_or_username) or self.__is_valid_password(password)):
-            return {"error": "Credenciales inválidas"}
+        try:
+            if not username_or_email or (not is_valid_username(username_or_email) and not is_valid_email(username_or_email)):
+                raise exceptions.InvalidCredential("Username or email")
 
-        user = users.get_user("username", email_or_username.capitalize()) or self.get_user("email", email_or_username.lower())
+            if not password or not is_valid_password(password):
+                raise exceptions.InvalidCredential("Password")
 
-        if user:
-            if checkpw(password.encode("utf-8"), user.password.encode("utf-8")):
-                log.info(f"User {user.ID} logged in")
-                return {"info": {"username": user.username, "token": user.token()}}
+            user: User = Users.get_user("username", username_or_email.capitalize()) or Users.get_user("email", username_or_email.lower())
+
+            if user:
+                if check_password(password, user.password):
+                    Log.info(f"User {user.ID} logged in")
+                    return {"username": user.username, "token": user.token()}
+
+                raise exceptions.IncorrectCredential(user.ID)
 
             else:
-                log.warning(f"Invalid credentials to user {user.ID}")
-                return {"error": "Credenciales inválidas"}
-
-        else:
-            return {"error": "Credenciales inválidas"}
+                raise exceptions.NotFound("user")
+        
+        except Exception as e:
+            raise exceptions.GeneralError(data="Error logging the user", error=str(e), log=f"{{username_or_email: {username_or_email}, password: {password}}}") from e
     
-    def register(self, username: str, email: str, password: str) -> dict: 
+    @staticmethod
+    def register(username: str, email: str, password: str) -> dict: 
         """
         Registra un nuevo usuario en el sistema.
 
@@ -144,25 +64,40 @@ class App:
             dict: Diccionario con el token y el nombre de usuario si el registro es exitoso,
                   o un diccionario de error en caso contrario.
         """
-        if not (self.__is_valid_username(username) or self.__is_valid_email(email) or self.__is_valid_password(password)):
-            return {"error": "Credenciales inválidas"}
+        try:
+            if not username or not is_valid_username(username):
+                raise exceptions.InvalidCredential("username")
+            
+            if not email or not is_valid_email(email):
+                raise exceptions.InvalidCredential("email")
+            
+            if not password or not is_valid_password(password):
+                raise exceptions.InvalidCredential("password")
+            
+            username = username.capitalize()
+            email = email.lower()
+
+            if Users.get_user("username", username):
+                raise exceptions.AlreadyInUse("username")
+            
+            if Users.get_user("email", email):
+                raise exceptions.AlreadyInUse("email")
+
+            user: User = Users.create_user(username, email, password)
+
+            if user:
+                Log.info(f"User {user.ID} created and logged in")
+                return {"username": user.username, "token": user.token()}
+
+            raise exceptions.GeneralError("Error creating the user")
         
-        if users.get_user("username", username) or users.get_user("email", email):
-            return {"error": "Ya en uso"}
-
-        user = users.create_user(username.capitalize(), email.lower(), password)
-
-        if user:
-            log.info(f"User {user.ID} created and logged in")
-            return {"created": {"username": user.username, "token": user.token()}}
-
-        else:
-            log.error(f"Error creating the user {{username: {username}, email: {email}, password: {password}}}")
-            return {"error": "Error al crear el usuario"}
+        except Exception as e:
+            raise exceptions.GeneralError(data=f"Error creating the user", error=str(e), log=f"{{username: {username}, email: {email}, password: {password}}}") from e
     
     #Users
 
-    def get_user(self, username: str, request_user: dict) -> dict:
+    @staticmethod
+    def get_user(username: str, request_user: dict) -> dict:
         """
         Obtiene y filtra la información de un usuario en función de la solicitud.
 
@@ -173,20 +108,23 @@ class App:
         Returns:
             dict: Información filtrada del usuario o un diccionario vacío si no se encuentra.
         """
-        request_User = User_lite(request_user) if request_user.get("ID", None) else None
-        if request_User:
-            user = users.get_user("username", username.capitalize())
+        try:
+            request_User: User_lite = User_lite(request_user)
+            user: User = Users.get_user("username", username.capitalize())
 
             if user:
-                log.info(f"User {user.ID} fetched by User {request_User.ID}")
-                return {"info": user.filter(request_User)}
+                Log.info(f"User {user.ID} fetched by User {request_User.ID}")
+                return user.filter(request_User)
 
-            return {"error": "No encontrado"}
-        return {"error": "No autorizado"}
+            raise exceptions.NotFound("user")
+        
+        except Exception as e:
+            raise exceptions.GeneralError("Error fetching the user", str(e), username) from e
     
     #Follows
 
-    def follownt(self, following_username: str, request_user: dict) -> dict:
+    @staticmethod
+    def follownt(following_username: str, request_user: dict) -> bool:
         """
         Permite a un usuario seguir o dejar de seguir a otro.
 
@@ -195,47 +133,59 @@ class App:
             request_user (dict): Usuario que realiza la solicitud.
 
         Returns:
-            dict: Información filtrada del usuario seguido o un diccionario vacío si falla la operación.
+            bool: True si se ejecutó.
         """
-        follower = User_lite(request_user)
-        following = users.get_user("username", following_username)
-        
-        if following:
-            if follower.ID not in following.followers:
-                if users.follow(following, follower):
-                    log.info(f"User {following.ID} followed by {follower.ID}")
-                    return {"info": users.get_user("ID", following.ID).filter(follower)}
-                
-                log.error(f"Following error by {follower.ID} to {following.ID}")
-                return {"error": "Error al seguir al usuario"}
+        try:
+            follower: User_lite = User_lite(request_user)
+            following: User = Users.get_user("username", following_username)
+            
+            if follower == following:
+                raise exceptions.GeneralError("No puedes seguirte a ti mismo")
 
-            else:
-                if users.unfollow(following, follower):
-                    log.info(f"User {following.ID} unfollowed by {follower.ID}")
-                    return {"info": users.get_user("ID", following.ID).filter(follower)}
-                
-                log.error(f"Unollowing error by {follower.ID} to {following.ID}")
-                return {"error": "Error al dejar de seguir al usuario"}
-        return {"error" ,"No encontrado"}
+            if following:
+                if follower.ID not in following.followers:
+                    if Users.follow(following, follower):
+                        Log.info(f"User {following.ID} followed by {follower.ID}")
+                        return True
+                    
+                    raise exceptions.GeneralError(data="Error al seguir al usuario", log=f"{follower.ID} to {following.ID}")
+
+                else:
+                    if Users.unfollow(following, follower):
+                        Log.info(f"User {following.ID} unfollowed by {follower.ID}")
+                        return True
+                    
+                    raise exceptions.GeneralError(data="Error al dejar de seguir al usuario", log=f"{follower.ID} to {following.ID}")
+            
+            raise exceptions.NotFound("user")
+        
+        except Exception as e:
+            raise exceptions.GeneralError("Error al seguir o no", str(e), f"{following.ID} follownt by {follower.ID}") from e
         
     #Posts
 
-    def get_posts(self, request_user: dict = {}) -> list:
+    @staticmethod
+    def get_posts(request_user: dict) -> list:
         """
-        Obtiene todos los posts.
+        Obtiene todos los Posts.
 
         Args:
             request_user (dict | opcional): Usuario que realiza la solicitud.
 
         Returns:
-            list: Lista de posts.
+            list: Lista de Posts.
             request_user (dict): Usuario que realiza la solicitud.
         """
-        request_User = User_lite(request_user) if request_user else None
-        log.info(f"All posts fetched by {request_User.ID if request_User is not None else 'invited'}")
-        return {"info": posts.get_posts()}
+        try:
+            request_User: User_lite = User_lite(request_user)
+            Log.info(f"All posts fetched by {request_User.ID if request_User else 'invited'}")
+            return Posts.get_posts()
+        
+        except Exception as e:
+            raise exceptions.GeneralError("Error al obtener los posts", str(e)) from e
 
-    def get_post(self, post_id: int, request_user: dict) -> dict:
+    @staticmethod
+    def get_post(post_id: int, request_user: dict) -> dict:
         """
         Obtiene y filtra un post específico.
 
@@ -246,17 +196,21 @@ class App:
         Returns:
             dict: Información filtrada del post o un diccionario vacío si no se encuentra.
         """
-        request_User = User_lite(request_user)
-        if request_User.ID:
-            post = posts.get_post("ID", post_id)
+        try:
+            request_User: User_lite = User_lite(request_user)
+            post: Post = Posts.get_post("ID", post_id)
             
             if post:
-                log.info(f"Post {post.ID} fetched by {request_User.ID}")
-                return {"info": post.filter(request_User)}
+                Log.info(f"Post {post.ID} fetched by {request_User.ID}")
+                return post.filter(request_User)
+            
+            raise exceptions.NotFound("post")
         
-        return {"error": "No encontrado"}
+        except Exception as e:
+            raise exceptions.GeneralError("Error al obtener post", str(e), str(post_id)) from e
     
-    def create_post(self, name: str, location: str, review: str, rating: int, imageUrl: str, creator: dict) -> int:
+    @staticmethod
+    def create_post(name: str, location: str, review: str, rating: int, imageUrl: str, creator: dict) -> int:
         """
         Crea un nuevo post.
 
@@ -271,24 +225,28 @@ class App:
         Returns:
             int: ID del post creado.
         """
-        
-        if rating < 0 or rating > 10:
-            return {"error": "Rating inválido"}
+        try:
+            if rating < 0 or rating > 10:
+                raise ValueError("Rating inválido")
 
-        if not self.is_valid_image_url(imageUrl):
-            return {"error": "Imagen inválida"}
+            if not is_valid_image(imageUrl):
+                raise ValueError("Imagen inválida")
 
-        request_User = User_lite(creator)
-        post = posts.create_post(name.capitalize(), location.capitalize(), review.capitalize(), rating, imageUrl, request_User)
+            request_User: User_lite = User_lite(creator)
+            post: Post = Posts.create_post(name.capitalize(), location.capitalize(), review.capitalize(), rating, imageUrl, request_User)
+            
+            if post:
+                Log.info(f"Post {post.ID} created")
+                return post.ID
+            
+            Log.error(f"Error creating the post {post.json()}")
+            raise exceptions.GeneralError("Error al crear el post")
         
-        if post:
-            log.info(f"Post {post.ID} created")
-            return {"info": post.ID}
-        
-        log.error(f"Error creating the post {post.json()}")
-        return {"error": "Error al crear el post"}
+        except Exception as e:
+            raise exceptions.GeneralError("Error al crear el post", str(e)) from e
     
-    def edit_post(self, post_id: int, name: str, location: str, review: str, rating: int, imageUrl: str, request_user: dict) -> bool:
+    @staticmethod
+    def edit_post(post_id: int, name: str, location: str, review: str, rating: int, imageUrl: str, request_user: dict) -> bool:
         """
         Edita un post existente.
 
@@ -304,48 +262,51 @@ class App:
         Returns:
             bool: True si se editó, False si no.
         """
-        request_User = User_lite(request_user)
-        post = posts.get_post("ID", post_id)
+        try:
+            request_User: User_lite = User_lite(request_user)
+            post: Post = Posts.get_post("ID", post_id)
 
-        new_data = {}
-        if name:
-            new_data["name"] = name
-        
-        if location: 
-            new_data["location"] = location
-
-        if review: 
-            new_data["review"] = review
-
-        if rating and rating != 0: 
-            rating = int(rating)
-            if rating < 0 or rating > 10:
-                return {"error": "Rating inválido"}
-            new_data["rating"] = rating
-
-        if imageUrl: 
-            if not self.is_valid_image_url(imageUrl):
-                return {"error": "Imagen inválida"}
-            new_data["imageUrl"] = imageUrl
-
-        if not new_data:
-            return {"info": True}
-
-        if post:
-            if request_User != post.creator:
-                return {"error": "No está autorizado"}
+            new_data: dict = {}
+            if name:
+                new_data["name"] = name
             
-            edited = posts.edit_post(post, new_data)
-            if edited != "same":
-                log.info(f"Post {post.ID} edited {{original: {post.json()}, edit: {edited}}}")
-                return {"info": True}
-            else:
-                return {"info": True}
+            if location: 
+                new_data["location"] = location
+
+            if review: 
+                new_data["review"] = review
+
+            if rating and rating != 0: 
+                rating = int(rating)
+                if rating < 0 or rating > 10:
+                    raise ValueError("Rating inválido")
+                new_data["rating"] = rating
+
+            if imageUrl: 
+                if not is_valid_image(imageUrl):
+                    raise ValueError("Imagen inválida")
+                new_data["imageUrl"] = imageUrl
+
+            if not new_data:
+                return True
+
+            if post:
+                if request_User != post.creator:
+                    raise exceptions.Unauthorized()
+                
+                edited: dict = Posts.edit_post(post, new_data)
+                if edited is not None:
+                    Log.info(f"Post {post.ID} edited {{original: {post.json()}, edit: {edited}}}")
+                return True
+
+            Log.error(f"Error editing the post {post_id}, new_data: {new_data}")
+            raise exceptions.GeneralError("Error al editar el Post")
         
-        log.error(f"Error editing the post {post_id}, new_data: {new_data}")
-        return {"error": "Error al editar el Post"}
+        except Exception as e:
+            raise exceptions.GeneralError("Error al editar el post", str(e)) from e
     
-    def delete_post(self, post_id: int, request_user: dict) -> bool:
+    @staticmethod
+    def delete_post(post_id: int, request_user: dict) -> bool:
         """
         Elimina un post.
 
@@ -356,24 +317,29 @@ class App:
         Returns:
             bool: True si el post se eliminó, False en caso contrario.
         """
-        request_User = User_lite(request_user)
-        post = posts.get_post("ID", post_id)
-        if post:
-            if request_User != post.creator:
-                return {"error": "No está autorizado"}
-            
-            deleted = posts.delete_post(post)
+        try:
+            request_User: User_lite = User_lite(request_user)
+            post: Post = Posts.get_post("ID", post_id)
+            if post:
+                if request_User != post.creator:
+                    raise exceptions.Unauthorized()
+                
+                deleted: bool = Posts.delete_post(post)
 
-            if deleted:
-                log.info(f"Post {post.ID} deleted {{original: {post.json()}}}")
-                return {"info": deleted}
-        
-        log.error(f"Error deleting post {{post.json()}}")
-        return {"error": "Error al borrar el post"}
+                if deleted:
+                    Log.info(f"Post {post.ID} deleted {{original: {post.json()}}}")
+                    return deleted
+            
+            Log.error(f"Error deleting post {{post.json()}}")
+            raise exceptions.GeneralError("Error al borrar el post")
+         
+        except Exception as e:
+            raise exceptions.GeneralError("Error al borrar el post", str(e)) from e
     
     #Comments
 
-    def new_comment(self, post_id: int, content: str, rating:int, request_user: dict) -> bool:
+    @staticmethod
+    def new_comment(post_id: int, content: str, rating:int, request_user: dict) -> bool:
         """
         Agrega un nuevo comentario a un post.
 
@@ -386,18 +352,26 @@ class App:
         Returns:
             bool: True si se agregó, False si no
         """
-        if rating < 0 or rating > 10:
-            return {"error": "Rating inválido"}
+        try:
+            if rating < 0 or rating > 10:
+                raise ValueError("Rating inválido")
+            
+            creator: User_lite = User_lite(request_user)
+            post: Post = Posts.get_post("ID", post_id)
+            comment: Comment = Posts.new_comment(post, content, rating, creator)
+
+            if comment:
+                Log.info(f"Comment {comment.ID} created by {creator.ID} in {post_id}")
+                return True
+            
+            Log.error(f"Error al crear el comentario {{content: {content}, rating: {rating}}} en el post {post_id} por el usuario {creator.ID}")
+            raise exceptions.GeneralError("Error al crear el comentario")
         
-        creator = User_lite(request_user)
-        comment = comments.new_comment(post_id, content, rating, creator)
-        if comment:
-            log.info(f"Comment {comment.ID} created by {creator.ID} in {post_id}")
-            return {"info": True}
-        log.error(f"Error al crear el comentario {{content: {content}, rating: {rating}}} en el post {post_id} por el usuario {creator.ID}")
-        return {"error": "Error al crear el comentario"}
+        except Exception as e:
+            raise exceptions.GeneralError("Error al crear el comentario", str(e)) from e
     
-    def delete_comment(self, post_id: int, comment_id: int, request_user: dict) -> bool:
+    @staticmethod
+    def delete_comment(post_id: int, comment_id: int, request_user: dict) -> bool:
         """
         Elimina un comentario de un post.
 
@@ -409,23 +383,31 @@ class App:
         Returns:
             bool: True si el comentario se eliminó, False en caso contrario.
         """
-        request_User = User_lite(request_user)
-        comment = comments.get_comment(post_id, comment_id)
-        if comment:
-            if request_User != comment.creator:
-                return {"error": "No está autorizado"}
-            deleted = comments.delete_comment(post_id, comment)
+        try:
+            request_User: User_lite = User_lite(request_user)
+            comment: Comment = Posts.get_comment(post_id, comment_id)
 
-            if deleted:
-                log.info(f"Comentario eliminado {{original: {comment.json()}}}")
-                return {"info": deleted}
-            log.info(f"Error al eliminar el comentario {comment.py}")
-            return {"error": "Error al borrar el comentario"}   
+            if comment:
+                if request_User != comment.creator:
+                    raise exceptions.Unauthorized()
+                deleted: bool = Posts.delete_comment(post_id, comment)
 
-        return {"error": "No encontrado"}
+                if deleted:
+                    Log.info(f"Comentario eliminado {{original: {comment.json()}}}")
+                    return deleted
+                
+                Log.info(f"Error al eliminar el comentario {comment.json()}")
+                raise exceptions.GeneralError("Error al borrar el comentario")
+
+            raise exceptions.NotFound("comment")
+        
+        except Exception as e:
+            raise exceptions.GeneralError("Error al borrar el comentario", str(e)) from e
+    
     #Token
 
-    def verify_token(self, request_token: str) -> bool:
+    @staticmethod
+    def verify_token(request_token: str) -> dict:
         """
         Verifica la validez de un token.
 
@@ -433,8 +415,11 @@ class App:
             request_token (str): Token a verificar.
 
         Returns:
-            bool: True si el token es válido, False de lo contrario.
+            dict: Diccionario con la información del token.
         """
-        return jwtoken.is_valid(request_token)
- 
-app = App()
+        try:
+            valid: Dict[str, Any] = Token.is_valid(request_token)
+            return valid
+        
+        except Exception as e:
+            raise exceptions.GeneralError("Error al verificar el token", str(e)) from e

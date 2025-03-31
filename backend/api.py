@@ -1,211 +1,238 @@
-from flask import Flask, jsonify, request, make_response
+from app import App
+from flask import Flask, jsonify, make_response, request, Response
 from flask_cors import CORS
 from functools import wraps
-from app import app
+from modules.utils.exceptions import *
+from typing import Any, List, Dict, Tuple
 
 #Organizar rutas y hacer archivo para claves/rutas/configuraciones
 #Lenguaje para haces peticiones (graphql)
 
-api = Flask(__name__)
+api: Flask = Flask(__name__)
 CORS(api)
 
 #Methods
 
-def returny(to_return):
-    returned = to_return
-    code = 500
+def returny(to_return: Any, code = 200) -> Tuple[Response, Any]:
+    tipo: str = "info"
+    if code >= 400:
+        tipo = "error"
+    return jsonify({tipo: to_return}), code
 
-    if type(to_return) != dict:
-        return to_return
+def excepty(exception: Exception | CustomException) -> Tuple[Response, Any]:
+    try:
+        raise exception
+    
+    except CustomException as e:
+        try:
+            return returny(e.message, e.code)
 
-    if to_return.get("info"):
-        code = 200
-    
-    elif to_return.get("created"):
-        code = 201
-    
-    else: 
-        error = to_return.get("error", "error")
-        match error:
-            case "Credenciales inválidas":
-                code = 400
-            
-            case "Datos inválidos":
-                code = 400
-            
-            case "No autorizado":
-                code = 401
-            
-            case "No encontrado":
-                code = 404
-            
-            case "Ya en uso":
-                code = 409
-            
-            case _:
-                code = 500
-            
-    return jsonify(returned), code
+        except Exception as f:
+            return returny(f"Error desconocido: {e} | {f}", 500)
+        
+    except Exception as g:
+        return returny(f"Error desconocido: {g}", 500)
 
 # JWT
 
-def set_token(username, token, code):
-    response = make_response(returny({code: username}))
-    response.set_cookie(
-        "token", token,
-        httponly=True,
-        secure=True,
-        samesite="Strict",
-        max_age=86400    # Expira en 1 dia
-    )
-    return response
-
 def verify_token(f):
     @wraps(f)
-    def wrapper(*args, **kwargs):
-        token = request.cookies.get("token", None)
-        if not token:
-            return returny({"error": "No autorizado"})
+    def wrapper(*args: Any, **kwargs: Any) -> Tuple[Response, Any]:
+        try:
+            token: str = request.cookies.get("token") or ""
+            if not token:
+                raise Unauthorized
 
-        result = app.verify_token(token)
+            result: Dict[str, Any] = App.verify_token(token)
+            
+            if result["verify"] is False:
+                raise Unauthorized
+
+            request.user = result["user"]  # type: ignore
+            return f(*args, **kwargs)
         
-        if result["verify"] is False:
-            return returny({"error": "No autorizado"})
-
-        request.user = result["user"]
-        return f(*args, **kwargs)
+        except Exception as e:
+            return excepty(e)
 
     return wrapper
 
 @api.route("/api/app/verify", methods=["GET"])
-def verify_token_request():
-    token = request.cookies.get("token", None)
+def verify_token_request() -> Tuple[Response, Any]:
+    token: str = request.cookies.get("token") or ""
 
     if token:
-        result = app.verify_token(token)
-        verify = result["verify"]
+        result: Dict[str, Any] = App.verify_token(token)
+        verify: bool = result["verify"]
         
         if verify:
-            return returny({"info": verify})
-    return returny({"error": "No autorizado"})
+            return returny(True)
+        
+    return returny(False)
 
 #Access
 
-@api.route("/api/app/login", methods=["POST"])
-def login():
-    data = request.get_json()
-    email_or_username = data.get("email_or_username")
-    password = data.get("password")
+def set_token(token: Dict[str, Any], code: int = 200) -> Response:
+    response: Response = make_response(jsonify(token['username']), code)
+    response.set_cookie(
+        "token", token['token'],
+        httponly = True,
+        secure = True,
+        samesite = "Strict",
+        max_age = 86400 #1 día
+    )
+    return response
 
-    if not email_or_username or not password:
-        return returny({"error": "Credenciales inválidas"})
-    
-    result = app.login(email_or_username, password)
-    if result.get("info"):
-        result = result.get("info")
-        return set_token(result["username"], result["token"], "info")
-    
-    return returny(result)
+@api.route("/api/app/login", methods=["POST"])
+def login() -> Response | Tuple[Response, Any]:
+    try:
+        data: Dict[str, Any] = request.get_json()
+        username_or_email: str = data["username_or_email"]
+        password: str = data["password"]
+        
+        result: Dict[str, Any] = App.login(username_or_email, password)
+        return set_token(result)
+       
+    except Exception as e:
+        return excepty(e)
 
 @api.route("/api/app/register", methods=["POST"])
-def register():
-    data = request.get_json()
-    username = data.get("username")
-    email = data.get("email")
-    password = data.get("password")
+def register() -> Response | Tuple[Response, Any]:
+    try:
+        data: Dict[str, Any] = request.get_json()
+        username: str = data["username"]
+        email: str = data["email"]
+        password: str = data["password"]
 
-    if not username or not email or not password:
-        return returny({"error": "Credenciales inválidas"})
-    
-    result = app.register(username, email, password)
-    if result.get("created"):
-        result = result.get("created")
-        return set_token(result["username"], result["token"], "created")
-    
-    return returny(result)
+        result: Dict[str, Any] = App.register(username, email, password)
+        return set_token(result, 201)
+        
+    except Exception as e:
+        return excepty(e)
 
 # Users
 
 @api.route("/api/user/<string:username>", methods=["GET"])
 @verify_token
-def get_user(username):
-    return returny(app.get_user(username.capitalize(), request.user))
+def get_user(username: str) -> Tuple[Response, Any]:
+    try:
+        user: Dict[str, Any] = App.get_user(username.capitalize(), request.user)  # type: ignore
+        return returny(user)
+    
+    except Exception as e:
+        return excepty(e)
 
 @api.route("/api/user/<string:username>/follownt", methods=["PUT"])
 @verify_token
-def follow_user(username):
-    username = username.capitalize()
-    if request.user["username"] == username:
-        return returny({"error": "You can't follow yourself"})
+def follow_user(username: str) -> Tuple[Response, Any]:
+    try:
+        username = username.capitalize()
+        if request.user["username"] == username: # type: ignore
+            raise Exception("You can't follow yourself")
+        
+        result: bool = App.follownt(username, request.user)  # type: ignore
+        return returny(result)
     
-    return returny(app.follownt(username, request.user))
+    except Exception as e:
+        return excepty(e)
 
 #Posts
 
 @api.route("/api/posts", methods=["GET"])
-def get_posts():
-    token = request.headers.get("Authorization")
+def get_posts() -> Tuple[Response, Any]:
+    try:
+        token: str = request.cookies.get("token") or ""
+        user: Dict[str, Any] = {}
 
-    if token:
-        return returny(app.get_posts(request.user if app.verify_token["verify"] else {}))
+        if token:
+            token_result: Dict[str, Any] = App.verify_token(token)
+            if token_result.get("verify"):
+                user = token_result.get("user") or {}
 
-    return returny(app.get_posts())
+        result: List[Dict[str, Any]] = App.get_posts(user)
+        return returny(result)
+    
+    except Exception as e:
+        return excepty(e)
 
 @api.route("/api/post/<int:post_id>", methods=["GET"])
 @verify_token
-def get_post(post_id):
-    return returny(app.get_post(post_id, request.user))
+def get_post(post_id: int) -> Tuple[Response, Any]:
+    try:
+        result: Dict[str, Any] = App.get_post(post_id, request.user)  # type: ignore
+        return returny(result)
+    
+    except Exception as e:
+        return excepty(e)
 
 @api.route("/api/post/create", methods=["POST"])
 @verify_token
-def create_post():
-    new_post = request.get_json()
-    name = new_post.get("name")
-    location = new_post.get("location")
-    review = new_post.get("review")
-    rating = new_post.get("rating")
-    imageUrl = new_post.get("imageUrl")
+def create_post() -> Tuple[Response, Any]:
+    try:
+        data: Dict[str, Any] = request.get_json()
+        name: str = data["name"]
+        location: str = data["location"]
+        review: str = data["review"]
+        rating: int = data["rating"]
+        imageUrl: str = data["imageUrl"]
 
-    if not name or not location or not review or not rating or not imageUrl:
-        return returny({"error": "Datos inválidos"})
+        result: int = App.create_post(name, location, review, int(rating), imageUrl, request.user)  # type: ignore
+        return returny(result)
     
-    return returny(app.create_post(name, location, review, int(rating), imageUrl, request.user))
+    except Exception as e:
+        return excepty(e)
     
 @api.route("/api/post/<int:post_id>/edit", methods=["PUT"])
 @verify_token
-def edit_post(post_id):
-    new_post = request.get_json()
-    name = new_post.get("name", "")
-    location = new_post.get("location", "")
-    review = new_post.get("review", "")
-    rating = new_post.get("rating", 0)
-    imageUrl = new_post.get("imageUrl", "")
-    return returny(app.edit_post(post_id, name, location, review, rating, imageUrl, request.user))
+def edit_post(post_id: int) -> Tuple[Response, Any]:
+    try:
+        new_post: Dict[str, Any] = request.get_json()
+        name: str = new_post.get("name", "")
+        location: str = new_post.get("location", "")
+        review: str = new_post.get("review", "")
+        rating: int = new_post.get("rating", 0)
+        imageUrl: str = new_post.get("imageUrl", "")
+
+        result: bool = App.edit_post(post_id, name, location, review, rating, imageUrl, request.user)  # type: ignore
+        return returny(result)
+    
+    except Exception as e:
+        return excepty(e)
 
 @api.route("/api/post/<int:post_id>/delete", methods=["DELETE"])
 @verify_token
-def delete_post(post_id):
-    return returny(app.delete_post(post_id, request.user))
+def delete_post(post_id: int) -> Tuple[Response, Any]:
+    try:
+        result: bool = App.delete_post(post_id, request.user)  # type: ignore
+        return returny(result)
+    
+    except Exception as e:
+        return excepty(e)
 
 #Comments
 
 @api.route("/api/post/<int:post_id>/comment", methods=["PUT"])
 @verify_token
-def new_comment(post_id):
-    new_comment = request.get_json()
-    content = new_comment.get("name")
-    rating = new_comment.get("rating")
+def new_comment(post_id: int) -> Tuple[Response, Any]:
+    try:
+        new_comment: Dict[str, Any] = request.get_json()
+        content: str = new_comment["content"]
+        rating: int = new_comment["rating"]
 
-    if not content or not rating:
-        return returny({"error": "Datos inválidos"})
-
-    return returny(app.new_comment(post_id, content, rating, request.user))
+        result: bool = App.new_comment(post_id, content, rating, request.user)  # type: ignore
+        return returny(result)
+    
+    except Exception as e:
+        return excepty(e)
 
 @api.route("/api/post/<int:post_id>/comment/<int:comment_id>/delete", methods=["DELETE"])
 @verify_token
-def delete_comment(post_id, comment_id):
-    return returny(app.delete_comment(post_id, comment_id, request.user))
+def delete_comment(post_id: int, comment_id: int) -> Tuple[Response, Any]:
+    try:
+        result: bool = App.delete_comment(post_id, comment_id, request.user)  # type: ignore
+        return returny(result)
 
+    except Exception as e:
+        return excepty(e)
 
 if __name__ == "__main__":
     api.run(debug=True)
