@@ -1,6 +1,6 @@
 const API_BASE_URL = 'http://localhost:5000/api';
 
-//API
+// API
 export const apiRequest = async (endpoint, method = 'GET', body = null) => {
   const options = {
     method,
@@ -8,99 +8,70 @@ export const apiRequest = async (endpoint, method = 'GET', body = null) => {
       'Accept-Language': 'es',
       'Content-Type': 'application/json',
     },
+    credentials: 'include',
   };
-  
-  const token = getLocalStorage('token');
-  if (token) {
-    options.headers['Authorization'] = token;
-  }
 
   if (body) {
     options.body = JSON.stringify(body);
   }
 
   try {
-    const response = await fetch(`${API_BASE_URL}/${endpoint}`, options);
+    const route = `${API_BASE_URL}/${endpoint}`
+    const response = await fetch(route, options);
+    const data = await response.json();
+
     if (!response.ok) {
-      throw new Error(`Error: ${response.statusText}`);
+      throw new Error(data.error || `Error: ${response.statusText}`);
     }
-    return await response.json();
+
+    if (data.data !== undefined) {
+      return data.data;
+    }
+
+    if (data.error !== undefined) {
+      if (data.error.error === "Unauthorized") {
+        window.location.href = "/logout";
+      }
+      throw new Error(data.error);
+    }
+
+    return data;
+
   } catch (error) {
-    console.error(`API error: ${error.message}`);
-    throw error;
+      console.error(`API error: ${error.error}`);
+      throw error;
   }
 };
 
 //Token
-export const verifyToken = async () => {
-  try {
-    const isAuthenticated = await apiRequest('user/verify');
-    return isAuthenticated;
-  } catch (error) {
-    console.error(`Error verifying token: ${error.message}`);
-    return false;
-  }
-}
+export const verifyToken = async () => apiRequest('app/verify');
 
 //Access
 export const loginTry = async (emailOrUsername, password) => {
-  return apiRequest('user/login', 'POST', { 'email_or_username': emailOrUsername, 'password': password });
+  return apiRequest('app/login', 'POST', { 'username_or_email': emailOrUsername, 'password': password });
 }
-
 export const registerTry = async (username, email, password) => {
-  return apiRequest('user/register', 'POST', { 'username': username, 'email': email, 'password': password });
+  return apiRequest('app/register', 'POST', { 'username': username, 'email': email, 'password': password });
 }
 
 //Users
-export const fetchUsers = (id = null) => {
-  if (id) {
-    return apiRequest(`users/${id}`);
-  } else {
-    return apiRequest('users');
-  }
+export const getUser = async (username) => apiRequest(`user/${username}`);
+export const followntUser = async (username) => apiRequest(`user/${username}/follownt`, 'PUT');
 
-};
-export const followUser = (username) => apiRequest(`users/${username}/follow`, 'PUT');
-
-//Blogs
-export const fetchDestino = (id = null) => {
-  if (id) {
-    return apiRequest(`blogs/${id}`);
-  } else {
-    return apiRequest('blogs');
-  }
-
-};
-export const addDestino = (destino) => apiRequest('blogs', 'POST', destino);
-export const deleteDestinoById = (id) => apiRequest(`blogs/${id}`, 'DELETE');
-export const editDestino = (id, destino) => apiRequest(`blogs/${id}`, 'PUT', destino);
+//Posts
+export const getPosts = async () => apiRequest('posts');
+export const getPost = async (postID) => apiRequest(`post/${postID}`);
+export const addPost = async (postData) => apiRequest('post/create', 'POST', postData);
+export const editPost = async (postID, editedPost) => apiRequest(`post/${postID}/edit`, 'PUT', editedPost);
+export const deletePost = async (postID) => apiRequest(`post/${postID}/delete`, 'DELETE');
 
 //Comments
-export const getComments = async (id) => {
-  try {
-    const blog = await fetchDestino(id);
-    return blog.comments || [];
-    
-  } catch (error) {
-    console.error(`Error fetching comments: ${error.message}`);
-    return [];s
-  }
-};
-export const addComment = (id, comment) => apiRequest(`blogs/${id}`, 'PUT', comment);
-export const deleteComment = (id, commentId) => apiRequest(`blogs/${id}/comments/${commentId}`, 'DELETE');
+export const addComment = (postID, comment) => apiRequest(`post/${postID}/comment`, 'PUT', comment);
+export const deleteComment = (postID, commentID) => apiRequest(`post/${postID}/comment/${commentID}/delete`, 'DELETE');
 
 //LocalStorage
-export const getLocalStorage = (item = null) => {
-  if (item) {
-    const value = localStorage.getItem(item);
-    return value ? JSON.parse(value) : null;
-  }
-
-  const allItems = {};
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    allItems[key] = JSON.parse(localStorage.getItem(key));
-  }
-  return allItems;
+export const getLocalStorage = (item = 'username') => {
+  const value = localStorage.getItem(item);
+  return value ? JSON.parse(value) : null;
 };
-export const setLocalStorage = (key, value) => localStorage.setItem(key, JSON.stringify(value));
+export const setLocalStorage = (value, key = 'username') => localStorage.setItem(key, JSON.stringify(value));

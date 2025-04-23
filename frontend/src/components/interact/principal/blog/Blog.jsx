@@ -1,51 +1,57 @@
 import React, { useEffect, useState } from 'react';
 
-import { apiRequest } from '../../../useful/ApiService';
+import { getPosts } from '../../../useful/ApiService';
 
 import DestinationCard from '../../secondary/destinationCard/DestinationCard';
 
 import './Blog.css';
 
 const Blog = () => {
-  const [destinations, setDestinations] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
-    const fetchDestinations = async () => {
+    const fetchPosts = async () => {
+      setLoading(true);
+      setMessage('Cargando destinos...');
+      
       try {
-        const response = await apiRequest('blogs');
-        setDestinations(response);
+        const response = await getPosts();
+        setMessage('');
+        setPosts(response);
 
-      } catch (err) {
-        setError('Error al cargar los destinos. Intenta de nuevo más tarde.');
+      } catch (error) {
+        setMessage(`Error al cargar los posts: ${error.message || error}`);
 
       } finally {
         setLoading(false);
       }
     };
 
-    fetchDestinations();
+    fetchPosts();
   }, []);
 
   return (
     <>
-      <div className="blog-container">
-        <h2>Destinos Agregados</h2>
-        {loading && <p>Cargando destinos...</p>}
-        {error && <p className="error-message">{error}</p>}
-        {!loading && destinations.length === 0 && <p>No hay destinos agregados.</p>}
-        {!loading && !error && (
-          <div className="destination-list">
-            {destinations.map((destination) => (
+      <div className="base-container blog-container">
+        <h2 className='base-title'>Destinos Agregados</h2>
+        {
+          <p className={`base-message ${loading ? 'loading' : 'error'}`}>
+            {message}
+          </p>
+        }
+        {!loading && !message && posts.length === 0 && <p>No hay destinos agregados.</p>}
+        {!loading && !message && (
+          <div className="base-posts-list">
+            {posts.map((post) => (
               <DestinationCard
-                key={destination.id}
-                id={destination.id}
-                name={destination.name}
-                location={destination.location}
-                imageUrl={destination.imageUrl}
-                review={destination.review}
-                rating={destination.rating}
+                key={post.ID}
+                ID={post.ID}
+                name={post.name}
+                location={post.location}
+                imageUrl={post.imageUrl}
+                rating={post.rating}
               />
             ))}
           </div>

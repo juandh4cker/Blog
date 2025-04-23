@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { addDestino, fetchUsers, getLocalStorage, setLocalStorage } from '../../../useful/ApiService';
-
 import './Dashboard.css';
+import { addPost, getLocalStorage } from '../../../useful/ApiService';
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const user = getLocalStorage('user');
+  const username = getLocalStorage();
 
-  const [newDestination, setNewDestination] = useState({
+  const [newPost, setNewPost] = useState({
     name: '',
     location: '',
     imageUrl: '',
@@ -19,65 +18,47 @@ const Dashboard = () => {
 
   const [message, setMessage] = useState('');
 
-  if (!user) {
-    navigate('/login');
-    return null;
-  }
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewDestination((prev) => ({
+    setNewPost((prev) => ({
       ...prev,
       [name]: value
     }));
   };
 
-  const handleAddDestination = async (e) => {
+  const handleAddPost = async (e) => {
     e.preventDefault();
-    const rating = parseFloat(newDestination.rating);
+    const rating = parseFloat(newPost.rating);
     if (isNaN(rating) || rating < 0 || rating > 10) {
       setMessage('La calificación debe estar entre 0 y 10.');
       return;
     } 
 
-    const destinationData = {
-      ...newDestination,
+    const postData = {
+      ...newPost,
       rating
     };
 
     try {
-      const added = await addDestino(destinationData);
-
-      setMessage('Destino agregado exitosamente!');
-      console.log(`destino/${added.id}`);
-      navigate(`destino/${added.id}`);
+      const response = await addPost(postData);
+      navigate(`/post/${response}`);
 
     } catch (error) {
-      console.error('Error al agregar el destino:', error);
-      setMessage('Hubo un error al agregar el destino. Intenta nuevamente.');
+      setMessage(`Error al agregar el post: ${error.message || error}`);
     }
   };
 
   return (
     <>
-      <div className="dashboard-container">
-        <h1 className="dashboard-header">Bienvenido, {user.username}</h1>
-        <button
-          className="logout-button"
-          onClick={() => {
-            localStorage.removeItem('user');
-            navigate('/login');
-          }}
-        >
-          Cerrar sesión
-        </button>
-        <h2 className="dashboard-subheader">Agregar un nuevo destino turístico</h2>
-        <form className="dashboard-form" onSubmit={handleAddDestination}>
+      <div className="base-container dashboard-container">
+        <h1 className="base-title">Bienvenido, {username}</h1>
+        <h2 className="base-subtitle">Agregar un nuevo destino turístico</h2>
+        <form className="base-form" onSubmit={handleAddPost}>
           <input
             type="text"
             name="name"
             placeholder="Nombre del destino"
-            value={newDestination.name}
+            value={newPost.name}
             onChange={handleInputChange}
             required
           />
@@ -85,7 +66,7 @@ const Dashboard = () => {
             type="text"
             name="location"
             placeholder="Ubicación"
-            value={newDestination.location}
+            value={newPost.location}
             onChange={handleInputChange}
             required
           />
@@ -93,14 +74,14 @@ const Dashboard = () => {
             type="url"
             name="imageUrl"
             placeholder="URL de la imagen del destino"
-            value={newDestination.imageUrl}
+            value={newPost.imageUrl}
             onChange={handleInputChange}
             required
           />
           <textarea
             name="review"
             placeholder="Reseña"
-            value={newDestination.review}
+            value={newPost.review}
             onChange={handleInputChange}
             required
           />
@@ -108,23 +89,28 @@ const Dashboard = () => {
             type="number"
             name="rating"
             placeholder="Calificación (0-10)"
-            value={newDestination.rating}
+            value={newPost.rating}
             onChange={handleInputChange}
             min="0"
             max="10"
             step="0.1"
             required
           />
-          <button type="submit" className="submit-button">Agregar destino</button>
+          <button 
+            type="submit" 
+            className="base-button"
+            >
+              Agregar destino
+          </button>
           <button
             type="button"
             onClick={() => navigate('/blog')}
-            className="login-secondary-button"
+            className="base-secondary-button"
           >
-            Ver los destinos
+            Cancelar
           </button>
         </form>
-        {message && <p className="dashboard-message">{message}</p>}
+        {message && <p className="base-message error">{message}</p>}
       </div>
     </>
   );

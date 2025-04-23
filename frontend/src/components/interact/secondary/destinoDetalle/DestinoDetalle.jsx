@@ -1,44 +1,36 @@
-import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import {
-  fetchDestino,
-  fetchUsers,
+  getPost,
+  deletePost,
   addComment,
-  deleteDestinoById,
-  getComments,
   deleteComment, 
-  getLocalStorage,
-  verifyToken
 } from '../../../useful/ApiService';
 
 import './DestinoDetalle.css';
 
 const DestinoDetalle = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
+  const { ID } = useParams();
   const [destino, setDestino] = useState(null);
-  const [creator, setCreator] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
   const [newComment, setNewComment] = useState('');
   const [newRating, setNewRating] = useState('');
-  const [comments, setComments] = useState([]);
   const [isCreator, setIsCreator] = useState(false);
+  const navigate = useNavigate();
+  const [expandedCommentIndex, setExpandedCommentIndex] = useState(null);
+
 
   useEffect(() => {
     const loadData = async () => {
       try {
-        const data = await fetchDestino(id);
+        const data = await getPost(ID);
         setDestino(data);
-        setComments(await getComments(id));
-
-        const request = await verifyToken();
-        setCreator(request.creator);
-        setIsCreator(data.editable);
+        setIsCreator(data.editable)
 
       } catch (error) {
-        setError('Error al cargar los detalles del destino.');
+        setMessage(`Error al cargar el post: ${error.message || error}`);
 
       } finally {
         setLoading(false);
@@ -46,7 +38,26 @@ const DestinoDetalle = () => {
     };
 
     loadData();
-  }, [id]);
+  }, [ID]);
+
+  const tiempoDesde = (fecha) => {
+    const ahora = new Date();
+    const fechaCreacion = new Date(fecha);
+    const segundos = Math.floor((ahora - fechaCreacion) / 1000);
+  
+    if (segundos < 60) return `hace ${segundos} segundo${segundos !== 1 ? 's' : ''}`;
+    const minutos = Math.floor(segundos / 60);
+    if (minutos < 60) return `hace ${minutos} minuto${minutos !== 1 ? 's' : ''}`;
+    const horas = Math.floor(minutos / 60);
+    if (horas < 24) return `hace ${horas} hora${horas !== 1 ? 's' : ''}`;
+    const dias = Math.floor(horas / 24);
+    if (dias < 30) return `hace ${dias} día${dias !== 1 ? 's' : ''}`;
+    const meses = Math.floor(dias / 30);
+    if (meses < 12) return `hace ${meses} mes${meses !== 1 ? 'es' : ''}`;
+    const años = Math.floor(meses / 12);
+    return `hace ${años} año${años !== 1 ? 's' : ''}`;
+  };
+  
 
   const handleSubmitComment = async (e) => {
     e.preventDefault();
@@ -55,39 +66,38 @@ const DestinoDetalle = () => {
       return;
     }
 
-    const user = JSON.parse(localStorage.getItem('user'));
+    const ratingValue = parseFloat(newRating);
+    if (isNaN(ratingValue) || ratingValue < 1 || ratingValue > 10) {
+      setMessage('La calificación debe estar entre 1 y 10.');
+      return;
+    }
+
     const newEntry = {
-      userId: user.id,
-      userName: user.name,
-      comment: newComment,
-      rating: newRating,
-      createdAt: new Date().toISOString(),
+      content: newComment,
+      rating: ratingValue
     };
 
     try {
-      await addComment(id, newEntry);
-      setComments(await getComments(id));
-      const data = await fetchDestino(id);
+      await addComment(ID, newEntry);
+      const data = await getPost(ID);
       setDestino(data);
       setNewComment('');
       setNewRating('');
 
     } catch (error) {
-      alert('Error al subir el comentario.');
-      console.log(error);
+      setMessage(`Error al subir el comentario: ${error.message || error}`);
     }
   };
 
   const handleDeleteComment = async (commentId) => {
     if (window.confirm('¿Estás seguro de que quieres eliminar este comentario?')) {
       try {
-        await deleteComment(id, commentId);
-        setComments(await getComments(id));
-        const data = await fetchDestino(id);
+        await deleteComment(ID, commentId);
+        const data = await getPost(ID);
         setDestino(data);
 
       } catch (error) {
-        alert('Error al eliminar el comentario.');
+        setMessage(`Error al eliminar el comentario: ${error.message || error}`);
       }
     }
   };
@@ -95,21 +105,21 @@ const DestinoDetalle = () => {
   const handleDeletePost = async () => {
     if (window.confirm('¿Estás seguro de que quieres eliminar este destino?')) {
       try {
-        await deleteDestinoById(id);
+        await deletePost(ID);
         navigate('/blog');
 
       } catch (error) {
-        alert('Error al eliminar el destino.');
+        setMessage(`Error al eliminar el post: ${error.message || error}`);
       }
     }
   };
 
   if (loading) {
-    return <p className="loading-message">Cargando...</p>;
+    return <p className="base-message loading">Cargando...</p>;
   }
 
-  if (error) {
-    return <p className="error-message">{error}</p>;
+  if (message) {
+    return <p className="base-message error">{message}</p>;
   }
 
   if (!destino) {
@@ -129,72 +139,86 @@ const DestinoDetalle = () => {
 
   const handleCreatorClick = () => {
     if (destino.creator) {
-      navigate(`/perfil/${destino.creator}`);
+      navigate(`/user/${destino.creator}`);
     } else {
       console.log('No se pudo encontrar el perfil del creador.');
     }
   };
 
   const handleCommentUserClick = (userId) => {
-    navigate(`/perfil/${userId}`);
+    navigate(`/user/${userId}`);
   };
 
   return (
     <>
-      <div className="destino-detalle">
+      <div className="base-container destino-detalle">
         <img src={destino.imageUrl} alt={destino.name} className="destino-image" />
-        <h2 className="destino-name">{destino.name}</h2>
-        <p className="destino-rating"><b>Calificación: </b>{destino.rating}/10</p>
-        <p className="destino-location"><b>Ubicación: </b>{destino.location}</p>
-        <p className="destino-review"><b>Reseña: </b>{destino.review}</p>
+        <h2 className="base-title">{destino.name}</h2>
+        <p className="base-text"><b>Calificación: </b>{destino.rating}/10</p>
+        <p className="base-text"><b>Ubicación: </b>{destino.location}</p>
+        <p className="base-text"><b>Reseña: </b>{destino.review}</p>    
         <p 
-          className="destino-creator"
+          className="base-text"
           onClick={handleCreatorClick}
-          style={{ cursor: 'pointer', color: '#2980B9', textDecoration: 'underline' }}
         >
-          <b>Agregado por: </b>{destino.creator}
+          <b>Agregado por: </b> <span className="base-hipertext">{destino.creator}</span>
         </p>
-        <div>
-          <button className="button" onClick={handleGoogleMaps}>Ver en Google Maps</button>
-          <button className="button" onClick={handleBackToAll}>Regresar a Todos los Destinos</button>
+        <p className="base-subtitle">Subido hace: {tiempoDesde(destino.createdAt)}</p>
+        <div className='buttons-container'>
+          <button className="base-small-button" onClick={handleGoogleMaps}>Ver en Google Maps</button>
+          <button className="base-small-button" onClick={handleBackToAll}>Regresar a Todos los Destinos</button>
         </div>
 
         {isCreator && (
-          <div>
-            <button className="button" onClick={handleDeletePost}>Eliminar Destino</button>
+          <div className='buttons-container'>
             <button
-              className="button"
-              onClick={() => navigate(`/editar-destino/${id}`)}
+              className="base-small-button"
+              onClick={() => navigate(`/post/${ID}/edit`)}
             >
               Editar Destino
             </button>
+            <button className="base-small-button" onClick={handleDeletePost}>Eliminar Destino</button>
           </div>
         )}
 
         <div className="comment-section">
           <h3>Comentarios</h3>
-          <p>------------------------------------------------------</p>
-          {comments.map((comment, index) => (
-            <div key={index} className="comment-item">
-              <p>
-                <b 
-                  style={{ cursor: 'pointer', color: '#2980B9', textDecoration: 'underline' }}
-                  onClick={() => handleCommentUserClick(comment.creator.username)}
+          {destino.comments.map((comment, index) => (
+            <div
+              key={index}
+              className="comment-item"
+              onClick={() =>
+                setExpandedCommentIndex((prev) => (prev === index ? null : index))
+              }
+              style={{ cursor: 'pointer' }}
+            >
+              <p className="base-text">
+                <b
+                  className="base-hipertext"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleCommentUserClick(comment.creator);
+                  }}
                 >
-                  {comment.creator.username}
-                </b>: {comment.data}
+                  {comment.creator}
+                </b>: {comment.content}
               </p>
-              <p><b>Calificación:</b> {comment.rating}/10</p>
-              {comment.userName === getLocalStorage('user').username && (
-                <button className="button" onClick={() => handleDeleteComment(comment.id)}>Borrar</button>
-              )
-}
-              <p>------------------------------------------------------</p>
+              <p className="base-text"><b>Calificación:</b> {comment.rating}/10</p>
+              <p className="base-subtitle">Subido hace: {tiempoDesde(comment.createdAt)}</p>
+              {comment.editable && expandedCommentIndex === index && (
+                <button
+                  className="base-small-button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteComment(comment.ID);
+                  }}
+                >
+                  Borrar
+                </button>
+              )}
             </div>
           ))}
-
-          <h4>Agregar un Comentario</h4>
-          <form onSubmit={handleSubmitComment}>
+          <form className='base-form .comment-form' onSubmit={handleSubmitComment}>
             <textarea
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
@@ -204,14 +228,14 @@ const DestinoDetalle = () => {
             <input
               type="number"
               value={newRating}
-              onChange={(e) => setNewRating(Number(e.target.value))}
+              onChange={(e) => setNewRating(e.target.value)}
               placeholder="Puntuación (1-10)"
               min="1"
               max="10"
               step="0.1"
               required
             />
-            <button type="submit" className="button">Enviar Comentario.</button>
+            <button type="submit" className="base-small-button">Enviar Comentario.</button>
           </form>
         </div>
       </div>

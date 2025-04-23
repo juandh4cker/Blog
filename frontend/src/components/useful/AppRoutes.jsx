@@ -9,20 +9,14 @@ import DestinoDetalle from './../interact/secondary/destinoDetalle/DestinoDetall
 import EditDestino from './../interact/secondary/editDestino/EditDestino';
 import PrivateRoute from './../useful/PrivateRoute';
 import Perfil from './../interact/principal/perfil/Perfil';
+import Logout from './logout';
 
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
-      <Route 
-        path="/blog" 
-        element={
-          <PrivateRoute>
-            <Blog />
-          </PrivateRoute>
-        } 
-      />
+      <Route path="/register" element={<Register />} />
+      <Route path="/blog" element={<Blog />} />
       <Route 
         path="/dashboard" 
         element={
@@ -32,7 +26,7 @@ const AppRoutes = () => {
         } 
       />
       <Route 
-        path="/destino/:id" 
+        path="/post/:ID" 
         element={
           <PrivateRoute>
             <DestinoDetalle />
@@ -40,7 +34,7 @@ const AppRoutes = () => {
         } 
       />
       <Route 
-        path="/perfil/:id" 
+        path="/user/:username" 
         element={
           <PrivateRoute>
             <Perfil />
@@ -48,23 +42,15 @@ const AppRoutes = () => {
         } 
       />
 
-      {/* Ruta de prueba */}
       <Route 
-        path="/xd"
-        element={
-          <PrivateRoute>
-            <h1>xd</h1>
-          </PrivateRoute>
-        } />
-
-      <Route 
-        path="/editar-destino/:id" 
+        path="/post/:ID/edit" 
         element={
           <PrivateRoute>
             <EditDestino />
           </PrivateRoute>
         } 
       />
+      <Route path="/logout" element={<Logout />} />
       <Route path="/" element={<Navigate to="/login" />} />
       <Route path="*" element={<Navigate to="/dashboard" />} />
     </Routes>

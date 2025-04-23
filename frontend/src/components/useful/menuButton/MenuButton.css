@@ -7,12 +7,17 @@
   
 .menu-button {
   padding: 10px 20px;
-  background: #007BFF;
+  background: #3498DB;
   color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
   font-size: 16px;
+  transition: transform 0.2s ease;
+}
+
+.menu-button:hover {
+  transform: scale(1.02);
 }
 
 .menu {
@@ -23,7 +28,7 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   overflow: hidden;
-  width: 200px;
+  width: 130px;
   margin-top: 5px;
 }
 
@@ -37,8 +42,10 @@
   cursor: pointer;
   border-bottom: 1px solid #eee;
   font-size: 14px;
+  transition: transform 0.2s ease;
 }
 
 .menu-item:hover {
   background-color: #f0f0f0;
+  transform: scale(1.02);
 }

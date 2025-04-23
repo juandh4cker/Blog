@@ -1,35 +1,30 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { getLocalStorage } from '../ApiService';
+
 import './MenuButton.css';
 
 const MenuButton = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const username = getLocalStorage('username');
   const navigate = useNavigate();
-
-  const user = JSON.parse(localStorage.getItem('user'));
 
   const handleNavigate = (path) => {
     setMenuOpen(false);
     navigate(path);
   };
 
-  const handleLogout = () => {
-    setMenuOpen(false);
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
-    navigate('/login');
-  };
-
   const handleProfile = () => {
-    if (user) {
-      navigate(`/perfil/${user.username}`);
+    if (username) {
+      handleNavigate(`/user/${username}`);
+
     } else {
-      alert('Usuario no encontrado');
+      navigate('/logout');
     }
   };
 
-  if (!user) {
+  if (!username) {
     return null;
   }
 
@@ -49,7 +44,7 @@ const MenuButton = () => {
           <button onClick={handleProfile} className="menu-item">
             Perfil
           </button>
-          <button onClick={handleLogout} className="menu-item">
+          <button onClick={() => navigate('/logout')} className="menu-item">
             Cerrar sesión
           </button>
         </div>

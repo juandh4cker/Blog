@@ -1,120 +1,117 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import { apiRequest, fetchDestino, fetchUsers, followUser } from '../../../useful/ApiService';
+import { followntUser, getUser } from '../../../useful/ApiService';
 
 import DestinationCard from '../../secondary/destinationCard/DestinationCard';
 
 import './Perfil.css';
 
 const Perfil = () => {
-  const { id } = useParams();
   const navigate = useNavigate();
-  const [usuario, setUsuario] = useState(null);
-  const [posts, setPosts] = useState([]);
-  const [followers, setFollowers] = useState(0);
+  const { username } = useParams();
+  const [user, setUsuario] = useState(null);
+  const [postsLength, setPostsLength] = useState([]);
+  const [isSelf, setIsSelf] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
 
-  const currentUser = JSON.parse(localStorage.getItem('user'));
-  const currentUserId = currentUser?.id;
-
-  useEffect(() => {
-    const fetchUserAndPosts = async () => {
-      try {
+  const fetchUser = async (load=true) => {
+    try {
+      if (load) {
         setLoading(true);
-        const userData = await apiRequest(`users/${id}`);
-        const userPosts = await fetchUsers(id);
-        const userPost = [];
-        
-        for (let i = 0; i < userPosts.posts.length; i++) {
-          const post = await fetchDestino(userPosts.posts[i]);
-          userPost.push(post);
-        }
+      }
+      const userData = await getUser(username);
+      setUsuario(userData);
+      setPostsLength(userData.posts.length);
 
-        setUsuario(userData);
-        setPosts(userPost);
-        setFollowers(userData.followers);
+      if (userData.hasOwnProperty("isFollowing")) {
+        setIsSelf(false)
         setIsFollowing(userData.isFollowing);
 
-      } catch (err) {
-        console.error(err);
-        setError('Hubo un error al cargar el perfil del usuario y sus posts.');
+      } else {
+        setIsSelf(true)
 
-      } finally {
-        setLoading(false);
       }
-    };
 
-    fetchUserAndPosts();
-  }, [id, currentUserId]);
+    } catch (error) {
+      setMessage(`Error al cargar el perfil: ${error.message || error}`);
+
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchUser(true);
+  }, [username]);
 
   const handleFollowToggle = async () => {
 
     try {
-      setIsFollowing(await followUser(usuario.username));
-      const newFollowers = await apiRequest(`users/${id}`)
-      setFollowers(newFollowers.followers);
+      await followntUser(username)
+      await fetchUser(false)
 
-    } catch (err) {
-      console.error('Error al actualizar seguidores:', err);
+    } catch (error) {
+      setMessage(`Error al seguir: ${error.message || error}`);
     }
   };
 
   if (loading) {
-    return <p className="loading-message">Cargando perfil...</p>;
+    return <p className="base-message loading">Cargando perfil...</p>;
   }
 
-  if (error) {
-    return <p className="error-message">{error}</p>;
-  }
-
-  if (!usuario) {
-    return <p className="error-message">El usuario no existe.</p>;
+  if (!user) {
+    return <p className="base-message error">El user no existe.</p>;
   }
 
   return (
     <>
-      <div className="perfil-usuario">
-        <div className="usuario-info">
-          <h2 className="usuario-name">{usuario.username}</h2>
-          <p>
-            <b>Seguidores:</b> {followers}
+      <div className="base-container perfil-usuario">
+        <div className="user-info">
+          <h2 className="base-title">{user.username}</h2>
+          <p className='base-subtitle'>
+            <b>Seguidores:</b> {user.followers}
           </p>
-          <p>
-            <b>Posts publicados:</b> {posts.length}
+          <p className='base-subtitle'>
+            <b>Posts publicados:</b> {postsLength}
           </p>
-          {usuario.isFollowing !== "yourself" && (
-            <button
-              className={`button follow-button ${isFollowing ? 'following' : ''}`}
-              onClick={handleFollowToggle}
-            >
-              {isFollowing ? 'Dejar de seguir' : 'Seguir'}
+          <div className='buttons-container'>
+            {!isSelf && (
+              <button
+                className={`base-small-button ${isFollowing ? 'following' : ''}`}
+                onClick={handleFollowToggle}
+              >
+                {isFollowing ? 'Dejar de seguir' : 'Seguir'}
+              </button>
+            )}
+            <button className="base-small-button" onClick={() => navigate('/blog')}>
+              Regresar al Blog
             </button>
-          )}
-          <button className="button" onClick={() => navigate('/blog')}>
-            Regresar al Blog
-          </button>
+          </div>
         </div>
-        <div className="usuario-posts">
-          <h3>Posts del Usuario:</h3>
-          {posts.length > 0 ? (
-            <ul className="posts-list">
-              {posts.map((posts) => (
-              <DestinationCard
-                key={posts.id}
-                id={posts.id}
-                name={posts.name}
-                location={posts.location}
-                imageUrl={posts.imageUrl}
-                review={posts.review}
-                rating={posts.rating}
-              />
+        {postsLength !== 0 && <h2 className='base-title'>Posts del usuario</h2>}
+        <div className="user-posts">
+          {
+            <p className={`base-message ${loading ? 'loading' : 'error'}`}>
+              {message}
+            </p>
+          }
+          {!loading && !message && postsLength === 0 && <p>No hay destinos agregados.</p>}
+          {!loading && !message && (
+            <div className="base-posts-list">
+              {user.posts.map((post) => (
+                <DestinationCard
+                  key={post.ID}
+                  ID={post.ID}
+                  name={post.name}
+                  location={post.location}
+                  imageUrl={post.imageUrl}
+                  rating={post.rating}
+                />
               ))}
-            </ul>
-          ) : (
-            <p>Este usuario no ha publicado posts.</p>
+            </div>
           )}
         </div>
       </div>

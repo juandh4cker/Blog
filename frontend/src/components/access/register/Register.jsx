@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 import { registerTry, setLocalStorage } from '../../useful/ApiService';
 
@@ -7,6 +8,8 @@ import './Register.css';
 
 const Register = () => {
   const [formData, setFormData] = useState({ username: '', email: '', password: '' });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
@@ -16,16 +19,18 @@ const Register = () => {
   }, []);
 
   const isValidUsername = (name) => /^[a-zA-Z0-9._]+$/.test(name); // Letras, números, . o _
-  const isValidPassword = (password) =>
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password); // Min 8 caracteres, 1 mayúscula, 1 minúscula, 1 número
-
+  const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const isValidPassword = (password) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password); // Min 8 caracteres, 1 mayúscula, 1 minúscula, 1 número
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setMessage('');
-
+    
     if (!isValidUsername(formData.username)) {
       setMessage('El nombre de usuario solo puede contener letras, números, "." o "_".');
+      return;
+    }
+
+    if (!isValidEmail(formData.email)) {
+      setMessage('Email inválido.');
       return;
     }
 
@@ -36,67 +41,97 @@ const Register = () => {
       return;
     }
 
+    if (formData.password !== formData.confirmPassword) {
+      setMessage(
+        'Las contraseñas no coinciden'
+      );
+      return;
+    }
+    setLoading(true);
+    setMessage('');
+
     try {
       const response = await registerTry(formData.username, formData.email, formData.password);
-
-      if (!response.hasOwnProperty('error')) {
-        setLocalStorage('user', {username: response.username});
-        setLocalStorage('token', response.token);
-        setMessage('¡Bienvenido! Redirigiendo al dashboard...');
-        setTimeout(() => navigate('/dashboard'), 2000);
-
-      } else {
-        setMessage(response.error);
-
-      }
+      setLocalStorage(response);
+      navigate('/blog');
       
     } catch (error) {
-      console.error('Error en el registro:', error);
-      setMessage('Hubo un error en el registro. Intenta nuevamente.');
+      setMessage(`Error al registrar: ${error.message || error}`);
+
+    } finally {
+      setLoading(false);
+      
     }
   };
 
   return (
-    <div className='register-page'>
-      <div className='register-container'>
-        <h2 className='register-title'>Registro para WorldBlog</h2>
-        <p className='register-subtitle'>Únete y descubre los mejores destinos alrededor del mundo</p>
-        <form onSubmit={handleSubmit} className='register-form'>
+    <>
+      <div className='base-container register-container'>
+        <h2 className='base-title'>Registro para WorldBlog</h2>
+        <p className='base-subtitle'>Únete y descubre los mejores destinos alrededor del mundo</p>
+        <form onSubmit={handleSubmit} className='base-form'>
           <input
             type='text'
-            className='register-input'
+            className='base-input'
             placeholder='Nombre de usuario'
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+            required
           />
           <input
             type='email'
-            className='register-input'
+            className='base-input'
             placeholder='Correo electrónico'
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            required
           />
-          <input
-            type='password'
-            className='register-input'
-            placeholder='Contraseña'
-            value={formData.password}
-            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-          />
-          <button type='submit' className='register-button'>
+          <div className='base-password-wrapper'>
+            <input
+              type={showConfirmPassword ? 'text' : 'password'}
+              placeholder='Contraseña'
+              value={formData.password}
+              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+              className='base-input'
+              required
+            />
+            <span
+              className='base-toggle-password'
+              onClick={() => setShowConfirmPassword(prev => !prev)}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+          <div className='base-password-wrapper'>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              placeholder='Confirmar contraseña'
+              value={formData.confirmPassword}
+              onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+              className='base-input'
+              required
+            />
+            <span
+              className='base-toggle-password'
+              onClick={() => setShowPassword(prev => !prev)}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+          <button type='submit' className='base-button'>
           {loading ? 'Registrando...' : 'Registarme'}
           </button>
           <button
             type='button'
-            className='register-secondary-button'
+            className='base-secondary-button'
             onClick={() => navigate('/login')}
           >
             Ya tengo una cuenta
           </button>
         </form>
-        {message && <p className='register-message'>{message}</p>}
+        {message && <p className={`base-message ${loading ? 'loading' : 'error'}`}>{message}</p>}
       </div>
-    </div>
+    </>
   );
 };
 

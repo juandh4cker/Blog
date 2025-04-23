@@ -1,46 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { apiRequest, editDestino } from '../../../useful/ApiService';
+import { editPost, getPost } from '../../../useful/ApiService';
 
 import './EditDestino.css';
 
 const EditDestino = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
-  const user = JSON.parse(localStorage.getItem('user'));
-
-  const [destination, setDestination] = useState({
-    name: '',
-    location: '',
-    imageUrl: '',
-    review: '',
-    rating: ''
-  });
+  const { ID } = useParams();
+  const [destination, setDestination] = useState(null);
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user) {
-      navigate('/login');
-    }
-  }, [user, navigate]);
-
-  useEffect(() => {
     const fetchDestination = async () => {
       try {
-        const response = await apiRequest(`blogs/${id}`);
+        const response = await getPost(ID);
+        if (!response.editable) {
+          navigate(`/post/${ID}`);
+        }
+
         setDestination(response);
+
       } catch (error) {
-        console.error('Error al cargar el destino:', error);
-        setMessage('No se pudo cargar el destino.');
+        setMessage(`Error al editar el destino: ${error.message || error}`);
+
       } finally {
         setLoading(false);
       }
     };
-
+    
     fetchDestination();
-  }, [id]);
+  }, [ID]);
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -62,16 +54,14 @@ const EditDestino = () => {
     const updatedDestination = {
       ...destination,
       rating,
-      creator: user.name
     };
 
     try {
-      editDestino(id, updatedDestination);
+      await editPost(ID, updatedDestination);
       setMessage('Destino actualizado exitosamente!');
-      navigate(`/destino/${id}`);
+      navigate(`/post/${ID}`);
     } catch (error) {
-      console.error('Error al actualizar el destino:', error);
-      setMessage('Hubo un error al actualizar el destino. Intenta nuevamente.');
+      setMessage(`Error al actualizar el destino: ${error.message || error}`);
     }
   };
 
@@ -79,10 +69,10 @@ const EditDestino = () => {
 
   return (
     <>
-      <div className="dashboard-container">
-        <h1 className="dashboard-header">Editar Destino</h1>
-        <h2 className="dashboard-subheader">Edita los detalles del destino</h2>
-        <form className="dashboard-form" onSubmit={handleUpdateDestination}>
+      <div className="base-container dashboard-container">
+        <h1 className="base-title">Editar Destino</h1>
+        <h2 className="base-subtitle">Edita los detalles del destino</h2>
+        <form className="base-form" onSubmit={handleUpdateDestination}>
           <input
             type="text"
             name="name"
@@ -125,16 +115,16 @@ const EditDestino = () => {
             step="0.1"
             required
           />
-          <button type="submit" className="submit-button">Actualizar destino</button>
+          <button type="submit" className="base-button">Actualizar destino</button>
           <button
             type="button"
-            onClick={() => navigate('/blog')}
-            className="login-secondary-button"
+            onClick={() => navigate(`/post/${ID}`)}
+            className="base-secondary-button"
           >
             Cancelar
           </button>
         </form>
-        {message && <p className="dashboard-message">{message}</p>}
+        {message && <p className="base-message error">{message}</p>}
       </div>
     </>
   );
