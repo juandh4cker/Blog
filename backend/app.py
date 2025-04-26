@@ -6,7 +6,6 @@ from modules.utils.log import Log
 from modules.utils.token import Token
 from typing import Any, Dict, List
 
-
 class App:
     Log.info("Application initialized.")
     

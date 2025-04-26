@@ -69,9 +69,9 @@ class User(User_lite):
                 self.username: str = str(data["username"])
                 self.email: str = str(data["email"])
                 self.password: str = str(data["password"])
-                self.posts: List[int] = data.get("posts", [])
-                self.followers: List[int] = data.get("followers", [])#objectid
-                self.following: List[int] = data.get("following", [])
+                self.posts: List[ObjectId] = data.get("posts", [])
+                self.followers: List[ObjectId] = data.get("followers", [])
+                self.following: List[ObjectId] = data.get("following", [])
                 self.createdAt: str = str(data.get("createdAt", creation_date()))
         
         except Exception as e:

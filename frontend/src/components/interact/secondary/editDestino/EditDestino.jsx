@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { editPost, getPost } from '../../../useful/ApiService';
+import { editPost, getPost, setTitle } from '../../../useful/ApiService';
 
 import './EditDestino.css';
 
-const EditDestino = () => {
+const EditPost = () => {
   const navigate = useNavigate();
   const { ID } = useParams();
   const [destination, setDestination] = useState(null);
-  const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(true);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     const fetchDestination = async () => {
       try {
-        const response = await getPost(ID);
-        if (!response.editable) {
+        const data = await getPost(ID);
+        if (!data.editable) {
           navigate(`/post/${ID}`);
         }
 
-        setDestination(response);
+        setDestination(data);
 
       } catch (error) {
-        setMessage(`Error al editar el destino: ${error.message || error}`);
+        setMessage(`Error al editar el post: ${error.message || error}`);
 
       } finally {
         setLoading(false);
@@ -32,7 +32,6 @@ const EditDestino = () => {
     
     fetchDestination();
   }, [ID]);
-  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -58,25 +57,28 @@ const EditDestino = () => {
 
     try {
       await editPost(ID, updatedDestination);
-      setMessage('Destino actualizado exitosamente!');
+      setMessage('Post actualizado exitosamente!');
       navigate(`/post/${ID}`);
+
     } catch (error) {
-      setMessage(`Error al actualizar el destino: ${error.message || error}`);
+      setMessage(`Error al actualizar el post: ${error.message || error}`);
+
     }
   };
 
-  if (loading) return <p>Cargando destino...</p>;
+  if (loading) return <p className='base-message loading'>Cargando post...</p>;
 
   return (
     <>
-      <div className="base-container dashboard-container">
-        <h1 className="base-title">Editar Destino</h1>
-        <h2 className="base-subtitle">Edita los detalles del destino</h2>
+      {setTitle(destination.name, "Edicion del post")}
+      <div className="base-container edit-container">
+        <h1 className="base-title">Editar Post</h1>
+        <h2 className="base-subtitle">Edita los detalles del post</h2>
         <form className="base-form" onSubmit={handleUpdateDestination}>
           <input
             type="text"
             name="name"
-            placeholder="Nombre del destino"
+            placeholder="Nombre del post"
             value={destination.name}
             onChange={handleInputChange}
             required
@@ -92,7 +94,7 @@ const EditDestino = () => {
           <input
             type="url"
             name="imageUrl"
-            placeholder="URL de la imagen del destino"
+            placeholder="URL de la imagen del post"
             value={destination.imageUrl}
             onChange={handleInputChange}
             required
@@ -115,7 +117,7 @@ const EditDestino = () => {
             step="0.1"
             required
           />
-          <button type="submit" className="base-button">Actualizar destino</button>
+          <button type="submit" className="base-button">Actualizar post</button>
           <button
             type="button"
             onClick={() => navigate(`/post/${ID}`)}
@@ -130,4 +132,4 @@ const EditDestino = () => {
   );
 };
 
-export default EditDestino;
+export default EditPost;

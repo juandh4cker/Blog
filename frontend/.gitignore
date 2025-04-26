@@ -1,25 +1,44 @@
-# Logs
-logs
-*.log
+# ─── Logs ─────────────────────────────────────────────────────────────────────
+logs/                    # si usas folder de logs genérico
+*.log                    # todos los .log
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-backend/api.log
 
-#Frontend
-frontend/node_modules
-frontend/dist
-frontend/dist-ssr
+# ─── Entornos y variables de entorno ──────────────────────────────────────────
+.env                     # credenciales, variables secretas
+.env.*                   # otros .env.local, .env.test, etc.
 
-# Editor directories and files
-.vscode/*
+# ─── Node / JavaScript ────────────────────────────────────────────────────────
+**/node_modules/
+**/dist/
+**/dist-ssr/
+
+# Vite temp bundles (timestamp files)
+vite.config.js.timestamp-*.mjs
+vite.config.ts.timestamp-*.mjs
+
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# ─── Docker ───────────────────────────────────────────────────────────────────
+docker-compose.override.yml
+
+# ─── IDEs / Editors ───────────────────────────────────────────────────────────
+# VSCode
+.vscode/
 !.vscode/extensions.json
-.idea
-.DS_Store
+
+# JetBrains (PyCharm/WebStorm/IntelliJ…)
+.idea/
+
+# Visual Studio
+*.sln
 *.suo
 *.ntvs*
-*.njsproj
-*.sln
+
+# Otros
+.DS_Store
 *.sw?

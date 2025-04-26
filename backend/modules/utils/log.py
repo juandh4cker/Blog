@@ -6,8 +6,7 @@ import logging
 load_dotenv()
 
 class Log:
-    __LOG_FILE_PATH: str = path.join(path.dirname(path.abspath(__file__)), getenv("LOG_FILENAME", "api.log"))
-
+    __LOG_FILE_PATH: str = path.join(path.dirname(path.dirname(path.dirname(path.abspath(__file__)))), getenv("LOG_FILENAME", "api.log"))
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s - %(levelname)s - %(message)s",

@@ -1,21 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-import { loginTry, setLocalStorage } from './../../useful/ApiService';
+import { loginTry, setLocalStorage, setTitle } from './../../useful/ApiService';
 
 import './Login.css';
 
 const Login = () => {
-  const [formData, setFormData] = useState({ emailOrUsername: '', password: '' });
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({ usernameOrEmail: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    localStorage.clear();
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,7 +20,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await loginTry(formData.emailOrUsername, formData.password);
+      const response = await loginTry(formData.usernameOrEmail, formData.password);
       setLocalStorage(response);
       navigate('/blog');
 
@@ -38,15 +35,16 @@ const Login = () => {
 
   return (
     <>
+      {setTitle("Login", "Inicio de sesión.")}
       <div className='base-container login-container'>
         <h2 className='base-title'>Bienvenido a WorldBlog</h2>
         <p className='base-subtitle'>Descubre los mejores destinos alrededor del mundo</p>
         <form onSubmit={handleSubmit} className='base-form'>
           <input
             type='text'
-            placeholder='Correo o Nombre de Usuario'
-            value={formData.emailOrUsername}
-            onChange={(e) => setFormData({ ...formData, emailOrUsername: e.target.value })}
+            placeholder='Nombre de Usuario o correo'
+            value={formData.usernameOrEmail}
+            onChange={(e) => setFormData({ ...formData, usernameOrEmail: e.target.value })}
             required
           />
           <div className='base-password-wrapper'>
@@ -57,12 +55,12 @@ const Login = () => {
               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
               required  
             />
-            <span
-              className='base-toggle-password'
-              onClick={() => setShowPassword(prev => !prev)}
-            >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </span>
+              <span
+                className='base-toggle-password'
+                onClick={() => setShowPassword(prev => !prev)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
           </div>
           <button 
             type='submit' 

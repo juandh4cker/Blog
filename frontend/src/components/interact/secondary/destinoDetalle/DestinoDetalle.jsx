@@ -1,37 +1,47 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate , useParams} from 'react-router-dom';
 
 import {
   getPost,
   deletePost,
   addComment,
   deleteComment, 
+  setTitle,
 } from '../../../useful/ApiService';
+
+import ErrorPage from '../../../useful/ErrorPage';
 
 import './DestinoDetalle.css';
 
-const DestinoDetalle = () => {
+const PostDetalle = () => {
+  const navigate = useNavigate();
   const { ID } = useParams();
-  const [destino, setDestino] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [message, setMessage] = useState('');
+  const [post, setPost] = useState(null);
+  const [expandedCommentIndex, setExpandedCommentIndex] = useState(null);
   const [newComment, setNewComment] = useState('');
   const [newRating, setNewRating] = useState('');
   const [isCreator, setIsCreator] = useState(false);
-  const navigate = useNavigate();
-  const [expandedCommentIndex, setExpandedCommentIndex] = useState(null);
-
+  const [loading, setLoading] = useState(true);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     const loadData = async () => {
       try {
         const data = await getPost(ID);
-        setDestino(data);
+        setPost(data);
         setIsCreator(data.editable)
 
       } catch (error) {
-        setMessage(`Error al cargar el post: ${error.message || error}`);
-
+        if (error.message === "Unauthorized") {
+          setMessage("Unauthorized")
+          
+        } else if (error.message === "Not found") {
+          setMessage("Not found")
+          
+        } else {
+          setMessage(`Error al cargar el post: ${error.message || error}`);
+        }
+        
       } finally {
         setLoading(false);
       }
@@ -47,14 +57,19 @@ const DestinoDetalle = () => {
   
     if (segundos < 60) return `hace ${segundos} segundo${segundos !== 1 ? 's' : ''}`;
     const minutos = Math.floor(segundos / 60);
+
     if (minutos < 60) return `hace ${minutos} minuto${minutos !== 1 ? 's' : ''}`;
     const horas = Math.floor(minutos / 60);
+
     if (horas < 24) return `hace ${horas} hora${horas !== 1 ? 's' : ''}`;
     const dias = Math.floor(horas / 24);
+
     if (dias < 30) return `hace ${dias} día${dias !== 1 ? 's' : ''}`;
     const meses = Math.floor(dias / 30);
+
     if (meses < 12) return `hace ${meses} mes${meses !== 1 ? 'es' : ''}`;
     const años = Math.floor(meses / 12);
+
     return `hace ${años} año${años !== 1 ? 's' : ''}`;
   };
   
@@ -80,12 +95,13 @@ const DestinoDetalle = () => {
     try {
       await addComment(ID, newEntry);
       const data = await getPost(ID);
-      setDestino(data);
+      setPost(data);
       setNewComment('');
       setNewRating('');
 
     } catch (error) {
       setMessage(`Error al subir el comentario: ${error.message || error}`);
+
     }
   };
 
@@ -94,22 +110,24 @@ const DestinoDetalle = () => {
       try {
         await deleteComment(ID, commentId);
         const data = await getPost(ID);
-        setDestino(data);
+        setPost(data);
 
       } catch (error) {
         setMessage(`Error al eliminar el comentario: ${error.message || error}`);
+
       }
     }
   };
 
   const handleDeletePost = async () => {
-    if (window.confirm('¿Estás seguro de que quieres eliminar este destino?')) {
+    if (window.confirm('¿Estás seguro de que quieres eliminar este post?')) {
       try {
         await deletePost(ID);
         navigate('/blog');
 
       } catch (error) {
         setMessage(`Error al eliminar el post: ${error.message || error}`);
+        
       }
     }
   };
@@ -118,17 +136,21 @@ const DestinoDetalle = () => {
     return <p className="base-message loading">Cargando...</p>;
   }
 
+  if (message === "Unauthorized" || message === "Not found") {
+    return <ErrorPage type={message} />;
+  }
+
   if (message) {
     return <p className="base-message error">{message}</p>;
   }
 
-  if (!destino) {
-    return <p>El destino no existe.</p>;
+  if (!post) {
+    return <p>El post no existe.</p>;
   }
 
   const handleGoogleMaps = () => {
     const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-      destino.name + ', ' + destino.location
+      post.name + ', ' + post.location
     )}`;
     window.open(url, '_blank');
   };
@@ -138,8 +160,8 @@ const DestinoDetalle = () => {
   };
 
   const handleCreatorClick = () => {
-    if (destino.creator) {
-      navigate(`/user/${destino.creator}`);
+    if (post.creator) {
+      navigate(`/user/${post.creator}`);
     } else {
       console.log('No se pudo encontrar el perfil del creador.');
     }
@@ -151,22 +173,23 @@ const DestinoDetalle = () => {
 
   return (
     <>
-      <div className="base-container destino-detalle">
-        <img src={destino.imageUrl} alt={destino.name} className="destino-image" />
-        <h2 className="base-title">{destino.name}</h2>
-        <p className="base-text"><b>Calificación: </b>{destino.rating}/10</p>
-        <p className="base-text"><b>Ubicación: </b>{destino.location}</p>
-        <p className="base-text"><b>Reseña: </b>{destino.review}</p>    
+      {setTitle(post.name, "description", "Detalles del post")}
+      <div className="base-container post-detalle">
+        <img src={post.imageUrl} alt={post.name} className="post-image" />
+        <h2 className="base-title">{post.name}</h2>
+        <p className="base-text"><b>Calificación: </b>{post.rating}/10</p>
+        <p className="base-text"><b>Ubicación: </b>{post.location}</p>
+        <p className="base-text"><b>Reseña: </b>{post.review}</p>    
         <p 
           className="base-text"
           onClick={handleCreatorClick}
         >
-          <b>Agregado por: </b> <span className="base-hipertext">{destino.creator}</span>
+          <b>Agregado por: </b> <span className="base-hipertext">{post.creator}</span>
         </p>
-        <p className="base-subtitle">Subido hace: {tiempoDesde(destino.createdAt)}</p>
+        <p className="base-subtitle">Subido hace: {tiempoDesde(post.createdAt)}</p>
         <div className='buttons-container'>
           <button className="base-small-button" onClick={handleGoogleMaps}>Ver en Google Maps</button>
-          <button className="base-small-button" onClick={handleBackToAll}>Regresar a Todos los Destinos</button>
+          <button className="base-small-button" onClick={handleBackToAll}>Regresar a Todos los Posts</button>
         </div>
 
         {isCreator && (
@@ -175,15 +198,15 @@ const DestinoDetalle = () => {
               className="base-small-button"
               onClick={() => navigate(`/post/${ID}/edit`)}
             >
-              Editar Destino
+              Editar Post
             </button>
-            <button className="base-small-button" onClick={handleDeletePost}>Eliminar Destino</button>
+            <button className="base-small-button" onClick={handleDeletePost}>Eliminar Post</button>
           </div>
         )}
 
         <div className="comment-section">
           <h3>Comentarios</h3>
-          {destino.comments.map((comment, index) => (
+          {post.comments.map((comment, index) => (
             <div
               key={index}
               className="comment-item"
@@ -243,4 +266,4 @@ const DestinoDetalle = () => {
   );
 };
 
-export default DestinoDetalle;
+export default PostDetalle;

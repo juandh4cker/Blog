@@ -40,7 +40,8 @@ class NotFound(CustomException):
 
     def __init__(self, error: Optional[str] = None) -> None:
         super().__init__(
-            data=f"{error or self.default_error} {self.default_data}", 
+            #data=f"{error or self.default_error} {self.default_data}", 
+            data=self.default_data, 
             code=404
         )
 

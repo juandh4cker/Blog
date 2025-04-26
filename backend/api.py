@@ -8,7 +8,7 @@ from typing import Any, List, Dict, Tuple
 
 #Organizar rutas y hacer archivo para claves/rutas/configuraciones
 #Lenguaje para haces peticiones (graphql)
-#Que el token se envíe siempre
+#Manejar respuestas por códigos y varios idiomas
 
 api: Flask = Flask(__name__)
 CORS(api, supports_credentials=True)
@@ -24,7 +24,8 @@ def returny(to_return: Any, code = 200) -> Tuple[Response, Any]:
     tipo: str = "data"
     if code >= 400:
         tipo = "error"
-    return jsonify({tipo: to_return}), code
+    #return jsonify({tipo: to_return}), code
+    return jsonify({tipo: to_return}), 200 #si todo se procesa
 
 def set_token(token: Dict[str, Any], code: int = 200) -> Response:
     response: Response = make_response(jsonify({"data": token['username']}), code)
@@ -106,7 +107,8 @@ def verify_token_request() -> Tuple[Response, Any]:
         if verify:
             return returny(True)
         
-    return returny(False)
+        return returny(False)
+    return returny(None)
 
 #Access
 

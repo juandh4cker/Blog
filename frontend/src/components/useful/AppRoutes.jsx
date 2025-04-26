@@ -10,6 +10,7 @@ import EditDestino from './../interact/secondary/editDestino/EditDestino';
 import PrivateRoute from './../useful/PrivateRoute';
 import Perfil from './../interact/principal/perfil/Perfil';
 import Logout from './logout';
+import ErrorPage from './ErrorPage';
 
 const AppRoutes = () => {
   return (
@@ -41,7 +42,6 @@ const AppRoutes = () => {
           </PrivateRoute>
         } 
       />
-
       <Route 
         path="/post/:ID/edit" 
         element={
@@ -50,9 +50,10 @@ const AppRoutes = () => {
           </PrivateRoute>
         } 
       />
+        <Route path="/unauthorized" element={<ErrorPage type="Unauthorized" />}/>
       <Route path="/logout" element={<Logout />} />
-      <Route path="/" element={<Navigate to="/login" />} />
-      <Route path="*" element={<Navigate to="/dashboard" />} />
+      <Route path="/" element={<Navigate to="/blog" />} />
+      <Route path="*" element={<ErrorPage type="Not Found" />} />
     </Routes>
   );
 };

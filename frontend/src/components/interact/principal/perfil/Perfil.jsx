@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { followntUser, getUser } from '../../../useful/ApiService';
+import { getUser, followntUser, setTitle } from '../../../useful/ApiService';
 
 import DestinationCard from '../../secondary/destinationCard/DestinationCard';
+import ErrorPage from '../../../useful/ErrorPage';
 
 import './Perfil.css';
 
@@ -11,17 +12,14 @@ const Perfil = () => {
   const navigate = useNavigate();
   const { username } = useParams();
   const [user, setUsuario] = useState(null);
-  const [postsLength, setPostsLength] = useState([]);
+  const [postsLength, setPostsLength] = useState(0);
   const [isSelf, setIsSelf] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(true);
 
-  const fetchUser = async (load=true) => {
+  const fetchUser = async () => {
     try {
-      if (load) {
-        setLoading(true);
-      }
       const userData = await getUser(username);
       setUsuario(userData);
       setPostsLength(userData.posts.length);
@@ -36,25 +34,34 @@ const Perfil = () => {
       }
 
     } catch (error) {
-      setMessage(`Error al cargar el perfil: ${error.message || error}`);
+      if (error.message === "Unauthorized") {
+        setMessage("Unauthorized")
+        
+      } else if (error.message === "Not found") {
+        setMessage("Not found")
+        
+      } else {
+        setMessage(`Error al cargar el perfil: ${error.message || error}`);
+      }
 
     } finally {
       setLoading(false);
     }
   };
-
+  
   useEffect(() => {
-    fetchUser(true);
+    setLoading(true);
+    fetchUser();
   }, [username]);
 
   const handleFollowToggle = async () => {
-
     try {
       await followntUser(username)
-      await fetchUser(false)
+      await fetchUser()
 
     } catch (error) {
       setMessage(`Error al seguir: ${error.message || error}`);
+
     }
   };
 
@@ -62,12 +69,17 @@ const Perfil = () => {
     return <p className="base-message loading">Cargando perfil...</p>;
   }
 
+  if (message === "Unauthorized" || message === "Not found") {
+    return <ErrorPage type={message} />;
+  }
+
   if (!user) {
-    return <p className="base-message error">El user no existe.</p>;
+    return <ErrorPage type="Not found" />;
   }
 
   return (
     <>
+      {setTitle(user.username, "Perfil del usuario.")}
       <div className="base-container perfil-usuario">
         <div className="user-info">
           <h2 className="base-title">{user.username}</h2>
@@ -98,7 +110,7 @@ const Perfil = () => {
               {message}
             </p>
           }
-          {!loading && !message && postsLength === 0 && <p>No hay destinos agregados.</p>}
+          {!loading && !message && postsLength === 0 && <p className='base-message'>No hay destinos agregados.</p>}
           {!loading && !message && (
             <div className="base-posts-list">
               {user.posts.map((post) => (

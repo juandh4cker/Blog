@@ -10,9 +10,13 @@ idna==3.10
 itsdangerous==2.2.0
 Jinja2==3.1.5
 MarkupSafe==3.0.2
+mypy==1.15.0
+mypy_extensions==1.1.0
 PyJWT==2.10.0
 pymongo==4.11.1
 python-dotenv==1.0.1
 requests==2.32.3
+tomli==2.2.1
+typing_extensions==4.13.2
 urllib3==2.3.0
 Werkzeug==3.1.3

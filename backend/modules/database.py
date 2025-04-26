@@ -22,7 +22,7 @@ class DB:
     # Users
 
     @classmethod
-    def _get_users(cls) -> List[Dict[str, Any]]: #__
+    def __get_users(cls) -> List[Dict[str, Any]]:
         try:
             users: List[Dict[str, Any]] = list(cls.__users_collection.find())
             return users if users else []

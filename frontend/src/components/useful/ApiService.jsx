@@ -27,18 +27,15 @@ export const apiRequest = async (endpoint, method = 'GET', body = null) => {
     if (data.data !== undefined) {
       return data.data;
     }
+    
 
     if (data.error !== undefined) {
-      if (data.error.error === "Unauthorized") {
-        window.location.href = "/logout";
-      }
       throw new Error(data.error);
     }
 
     return data;
 
   } catch (error) {
-      console.error(`API error: ${error.error}`);
       throw error;
   }
 };
@@ -75,3 +72,17 @@ export const getLocalStorage = (item = 'username') => {
   return value ? JSON.parse(value) : null;
 };
 export const setLocalStorage = (value, key = 'username') => localStorage.setItem(key, JSON.stringify(value));
+
+import { Helmet } from 'react-helmet';
+export const setTitle = (title="WorldBlog", content="Esto es WorldBlog, un blog de destinos turísticos", name="description") => {
+  let newTitle = "WorldBlog"
+  if (title !== "") {
+    newTitle = `${title} - WorldBlog`;
+  }
+  return (
+    <Helmet>
+      <title>{newTitle}</title>
+      <meta name={name} content={content} />
+    </Helmet>
+  )
+}

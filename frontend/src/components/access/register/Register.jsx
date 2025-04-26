@@ -1,26 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-import { registerTry, setLocalStorage } from '../../useful/ApiService';
+import { registerTry, setLocalStorage, setTitle } from '../../useful/ApiService';
 
 import './Register.css';
 
 const Register = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ username: '', email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    localStorage.clear();
-  }, []);
 
   const isValidUsername = (name) => /^[a-zA-Z0-9._]+$/.test(name); // Letras, números, . o _
   const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const isValidPassword = (password) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password); // Min 8 caracteres, 1 mayúscula, 1 minúscula, 1 número
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -47,6 +45,7 @@ const Register = () => {
       );
       return;
     }
+
     setLoading(true);
     setMessage('');
 
@@ -66,6 +65,7 @@ const Register = () => {
 
   return (
     <>
+      {setTitle("Register", "Registro de usuario")}
       <div className='base-container register-container'>
         <h2 className='base-title'>Registro para WorldBlog</h2>
         <p className='base-subtitle'>Únete y descubre los mejores destinos alrededor del mundo</p>
@@ -95,12 +95,12 @@ const Register = () => {
               className='base-input'
               required
             />
-            <span
-              className='base-toggle-password'
-              onClick={() => setShowConfirmPassword(prev => !prev)}
-            >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </span>
+              <span
+                className='base-toggle-password'
+                onClick={() => setShowConfirmPassword(prev => !prev)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
           </div>
           <div className='base-password-wrapper'>
             <input
@@ -111,15 +111,15 @@ const Register = () => {
               className='base-input'
               required
             />
-            <span
-              className='base-toggle-password'
-              onClick={() => setShowPassword(prev => !prev)}
-            >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </span>
+              <span
+                className='base-toggle-password'
+                onClick={() => setShowPassword(prev => !prev)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
           </div>
           <button type='submit' className='base-button'>
-          {loading ? 'Registrando...' : 'Registarme'}
+            {loading ? 'Registrando...' : 'Registarme'}
           </button>
           <button
             type='button'

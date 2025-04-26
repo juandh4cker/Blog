@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { addPost, getLocalStorage, setTitle } from '../../../useful/ApiService';
+
 import './Dashboard.css';
-import { addPost, getLocalStorage } from '../../../useful/ApiService';
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const username = getLocalStorage();
+  const [message, setMessage] = useState('');
 
   const [newPost, setNewPost] = useState({
     name: '',
@@ -15,8 +17,6 @@ const Dashboard = () => {
     review: '',
     rating: ''
   });
-
-  const [message, setMessage] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -45,11 +45,13 @@ const Dashboard = () => {
 
     } catch (error) {
       setMessage(`Error al agregar el post: ${error.message || error}`);
+      
     }
   };
 
   return (
     <>
+      {setTitle("Dashboard", "Aquí se agregan los posts.")}
       <div className="base-container dashboard-container">
         <h1 className="base-title">Bienvenido, {username}</h1>
         <h2 className="base-subtitle">Agregar un nuevo destino turístico</h2>

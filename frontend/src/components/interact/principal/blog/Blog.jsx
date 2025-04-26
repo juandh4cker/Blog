@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { getPosts } from '../../../useful/ApiService';
+import { getPosts, setTitle } from '../../../useful/ApiService';
 
 import DestinationCard from '../../secondary/destinationCard/DestinationCard';
 
@@ -26,6 +26,7 @@ const Blog = () => {
 
       } finally {
         setLoading(false);
+
       }
     };
 
@@ -34,14 +35,11 @@ const Blog = () => {
 
   return (
     <>
+      {setTitle("", "Aquí se ven todos los posts.")}
       <div className="base-container blog-container">
         <h2 className='base-title'>Destinos Agregados</h2>
-        {
-          <p className={`base-message ${loading ? 'loading' : 'error'}`}>
-            {message}
-          </p>
-        }
-        {!loading && !message && posts.length === 0 && <p>No hay destinos agregados.</p>}
+        {message && <p className={`base-message ${loading ? 'loading' : 'error'}`}>{message}</p>}
+        {!loading && !message && posts.length === 0 && <p className='base-message'>No hay destinos agregados.</p>}
         {!loading && !message && (
           <div className="base-posts-list">
             {posts.map((post) => (
