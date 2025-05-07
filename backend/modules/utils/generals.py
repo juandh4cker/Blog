@@ -6,40 +6,121 @@ from typing import Any, Dict, List, Optional
 import inspect, json
 
 def creation_date() -> str:
+    """
+    Give the actual date.
+
+    Returns:
+        str: Actual date in format ISO 8601.
+    """    
     return datetime.now(timezone.utc).isoformat(timespec="milliseconds")
 
 def check_password(to_check: str, hashed: str) -> bool:
+    """
+    Check a string password with the hashed password.
+
+    Args:
+        to_check (str): The string password.
+        hashed (str): The hashed password.
+
+    Returns:
+        bool: True if is checked, else False.
+    """
     return checkpw(to_check.encode("utf-8"), hashed.encode("utf-8"))
 
 def encode_password(password: str) -> str:
-    try:
-        return hashpw(password.encode("utf-8"), gensalt(10)).decode("utf-8")
+    """
+    Encode a password.
 
-    except Exception as e:
-        raise RuntimeError(f"Error al codificar la contraseña: {e}") from e
+    Args:
+        password (str): The password to encode.
+
+    Returns:
+        str: The encoded password.
+    """    
+    return hashpw(password.encode("utf-8"), gensalt(10)).decode("utf-8")
 
 def logify(exclude: Optional[list] = None) -> str:
+    """
+    Make a log with the function´s args excluding someones.
+
+    Args:
+        exclude (Optional[list], optional): Args to exculde. Defaults to None.
+
+    Returns:
+        str: Formatted log.
+    """    
     exclude = exclude or []
     frame = inspect.currentframe().f_back
     args: Dict[str, Any] = {k: v for k, v in frame.f_locals.items() if k not in exclude}
-    try:
-        return json.dumps(args, default=str)
-    except Exception as e:
-        return f"Error al generar log: {e} | Args: {args}"
+    return json.dumps(args, default=str)
 
 def is_valid_username(username: str) -> bool:
+    """
+    Check if is a valid username.
+
+    Conditions:
+    - It can have letters (upper or lowercase), numbers, dots and underscores.
+    - It can't end with a dot.
+
+    Args:
+        username (str): Username to validate.
+
+    Returns:
+        bool: True if is valid, else False.
+    """    
     pattern: str = r"^[a-zA-Z0-9._]+[a-zA-Z0-9_]$"
     return bool(match(pattern, username))
 
 def is_valid_email(email: str) -> bool:
+    """
+    Check if is a valid email.
+
+    Conditions:
+    - An standart email direction (example@email.com)
+
+    Args:
+        email (str): Email to validate.
+
+    Returns:
+        bool: True if is valid, else False.
+    """    
     pattern: str = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
     return bool(match(pattern, email))
 
 def is_valid_password(password: str) -> bool:
+    """
+    Check if is a valid password.
+
+    Conditions:
+    - Almost 8 characters.
+    - Almost one uppercase.
+    - Almost one lowecase.
+    - Almost one number.
+
+    Args:
+        password (str): Password to validate.
+
+    Returns:
+        bool: True if is valid, else False.
+    """    
     pattern: str = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"
     return bool(match(pattern, password))
 
 def is_valid_image(url: str) -> bool:
+    """
+    Check if is a valid image url.
+
+    Conditions:
+    - It can be with or without 'http://' or 'https://'
+    - Valid domain and optional route.
+    - It can be a JPEG, PNG or GIF.
+
+    Args:
+        url (str): Url with image to validate.
+
+    Returns:
+        bool: True if is valid, else False.
+    """    
     url_regex: Pattern[str] = compile(
         r"^(https?://)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$"
     )

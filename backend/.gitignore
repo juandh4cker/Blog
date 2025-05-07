@@ -18,6 +18,7 @@ env/
 venv/
 ENV/
 venv.bak/
+*.env
 
 # Distribuciones / empaquetados
 build/

@@ -7,12 +7,30 @@ from modules.utils.token import Token
 from typing import Any, Dict, List
 
 class App:
+    """Manages al the app functions."""    
     Log.info("Application initialized.")
     
     #Access
 
     @staticmethod
     def login(username_or_email: str, password: str) -> Dict[str, Any]:
+        """
+        Log an user into the app.
+
+        Args:
+            username_or_email (str): User's username or email.
+            password (str): User's password.
+
+        Raises:
+            InvalidCredential: If username or email aren't valid.
+            InvalidCredential: If password isn't valid.
+            IncorrectCredential: If password doesn't match.
+            NotFound: If the user no exist.
+            GeneralError: General errors.
+
+        Returns:
+            Dict[str, Any]: The username and the token in a dict: {"username": username, "token": token}.
+        """
         try:
             if not username_or_email or (not is_valid_username(username_or_email) and not is_valid_email(username_or_email)):
                 raise InvalidCredential("Username or email")
@@ -40,6 +58,25 @@ class App:
     
     @staticmethod
     def register(username: str, email: str, password: str) -> Dict[str, Any]: 
+        """
+        Register a user into the app.
+
+        Args:
+            username (str): The new's user username.
+            email (str): The new's user email.
+            password (str): The new's user password.
+
+        Raises:
+            InvalidCredential: If username isn't valid.
+            InvalidCredential: If email isn't valid.
+            InvalidCredential: If password isn't valid.
+            AlreadyInUse: If username is already in use by another user.
+            AlreadyInUse: If email is already in use by another user.
+            GeneralError: General errors.
+
+        Returns:
+            Dict[str, Any]: The username and the token in a dict: {"username": username, "token": token}.
+        """        
         try:
             if not username or not is_valid_username(username):
                 raise InvalidCredential("username")
@@ -78,6 +115,20 @@ class App:
 
     @staticmethod
     def get_user(username: str, request_user: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Fetch an user.
+
+        Args:
+            username (str): The user's username to fetch.
+            request_user (Dict[str, Any]): The user that makes the request.
+
+        Raises:
+            NotFound: If the user isn't found.
+            GeneralError: General errors.
+
+        Returns:
+            Dict[str, Any]: The fetched user data.
+        """        
         try:
             request_User: User_lite = User_lite(request_user)
             user: User = Users.get_user(username.capitalize(), "username")
@@ -97,6 +148,20 @@ class App:
 
     @staticmethod
     def follownt(following_username: str, request_user: Dict[str, Any]) -> bool:
+        """
+        Follows or unfollows an user.
+
+        Args:
+            following_username (str): User's username that will be followed or unfollowed.
+            request_user (Dict[str, Any]): User that makes the request.
+
+        Raises:
+            GeneralError: General errors.
+            NotFound: If user isn't found.
+
+        Returns:
+            bool: True if the operation was sucessfull.
+        """        
         try:
             follower: User_lite = User_lite(request_user)
             following: User = Users.get_user(following_username, "username")
@@ -138,6 +203,18 @@ class App:
 
     @staticmethod
     def get_posts(request_user: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """
+        Fetch all posts.
+
+        Args:
+            request_user (Dict[str, Any]): User that makes the request.
+
+        Raises:
+            GeneralError: General errors.
+
+        Returns:
+            List[Dict[str, Any]]: All posts.
+        """        
         try:
             request_User: User_lite = User_lite(request_user)
             Log.info(f"All posts fetched by {request_User.ID if request_User else 'invited'}")
@@ -151,6 +228,20 @@ class App:
 
     @staticmethod
     def get_post(post_id: str, request_user: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Fetch an specific post,
+
+        Args:
+            post_id (str): The post's ID.
+            request_user (Dict[str, Any]): The user that makes the request.
+
+        Raises:
+            NotFound: If post isn´t found.
+            GeneralError: General errors.
+
+        Returns:
+            Dict[str, Any]: The post data.
+        """        
         try:
             request_User: User_lite = User_lite(request_user)
             try:
@@ -175,6 +266,25 @@ class App:
     
     @staticmethod
     def create_post(name: str, location: str, review: str, rating: float, imageUrl: str, creator: Dict[str, Any]) -> str:
+        """
+        Creates a new post.
+
+        Args:
+            name (str): The new post's name.
+            location (str): The new post's location.
+            review (str): The new post's review.
+            rating (float): The new post's rating.
+            imageUrl (str): The new post's imageUrl.
+            creator (Dict[str, Any]): The new post's creator.
+
+        Raises:
+            ValueError: If the rating isn't valid.
+            ValueError: If the imange isn't valid.
+            GeneralError: General errors.
+
+        Returns:
+            str: The created post's ID.
+        """        
         try:
             if rating < 0 or rating > 10:
                 raise ValueError("Rating inválido")
@@ -201,6 +311,28 @@ class App:
     
     @staticmethod
     def edit_post(post_id: str, name: str, location: str, review: str, rating: float, imageUrl: str, request_user: Dict[str, Any]) -> bool:
+        """
+        Edit a post.
+
+        Args:
+            post_id (str): Edited post's ID.
+            name (str): Edited post's name.
+            location (str): Edited post's location.
+            review (str): Edited post's review.
+            rating (float): Edited post's rating.
+            imageUrl (str): Edited post's imageUrl.
+            request_user (Dict[str, Any]): User that makes the request..
+
+        Raises:
+            ValueError: If the rating isn't valid.
+            ValueError: If the imange isn't valid.
+            Unauthorized: If the request user isn't is authorized to edit.
+            NotFound: If post isn't founded.
+            GeneralError: General error.
+
+        Returns:
+            bool: True id was edited.
+        """        
         try:
             request_User: User_lite = User_lite(request_user)
             post: Post = Posts.get_post(post_id)
@@ -251,6 +383,21 @@ class App:
     
     @staticmethod
     def delete_post(post_id: str, request_user: Dict[str, Any]) -> bool:
+        """
+        Delete a post.
+
+        Args:
+            post_id (str): Post's ID.
+            request_user (Dict[str, Any]): User that makes the request.
+
+        Raises:
+            Unauthorized: If the request user isn't is authorized to delete.
+            GeneralError: General errors.
+            NotFound: If post isn't founded.
+
+        Returns:
+            bool: True if was deleted.
+        """        
         try:
             request_User: User_lite = User_lite(request_user)
             post: Post = Posts.get_post(post_id)
@@ -280,6 +427,23 @@ class App:
 
     @staticmethod
     def new_comment(post_id: str, content: str, rating:int, request_user: Dict[str, Any]) -> bool:
+        """
+        Makes a new comment.
+
+        Args:
+            post_id (str): Post's ID.
+            content (str): Comment content.
+            rating (int): Comment rating.
+            request_user (Dict[str, Any]): User that makes the request.
+
+        Raises:
+            ValueError: If the comment rating isn't valid.
+            NotFound: If post isn't found.
+            GeneralError: General errors.
+
+        Returns:
+            bool: True if the comment was added.
+        """        
         try:
             if rating < 0 or rating > 10:
                 raise ValueError("Rating inválido")
@@ -307,6 +471,23 @@ class App:
     
     @staticmethod
     def delete_comment(post_id: str, comment_id: str, request_user: Dict[str, Any]) -> bool:
+        """
+        Delete a comment.
+
+        Args:
+            post_id (str): Post's ID.
+            comment_id (str): Comment's ID.
+            request_user (Dict[str, Any]): User that makes the request.
+
+        Raises:
+            Unauthorized: If the request user isn't is authorized to delete.
+            GeneralError: General errors.
+            NotFound: If the post isn't found.
+            NotFound: If the comment isn't found.
+
+        Returns:
+            bool: True if the comment was deleted.
+        """        
         try:
             post: Post = Posts.get_post(post_id)
 
@@ -341,6 +522,18 @@ class App:
 
     @staticmethod
     def verify_token(request_token: str) -> Dict[str, Any]:
+        """
+        Verify a JWT.
+
+        Args:
+            request_token (str): The token to verify
+
+        Raises:
+            GeneralError: General error
+
+        Returns:
+            Dict[str, Any]: {"verify": True, "user": (token info)} or {"verify": False, "error": (error)}
+        """        
         try:
             valid: Dict[str, Any] = Token.is_valid(request_token)
             return valid
