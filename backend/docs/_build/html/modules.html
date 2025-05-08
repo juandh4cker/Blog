@@ -1,0 +1,1079 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modules &mdash; WorldBlog API 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Utils" href="modules.utils.html" />
+    <link rel="prev" title="App" href="app.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            WorldBlog API
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api.html">Api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app.html">App</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules.utils.html">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-modules.database">Database</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#modules.database.DB"><code class="docutils literal notranslate"><span class="pre">DB</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#modules.database.DB.MONGO_URI"><code class="docutils literal notranslate"><span class="pre">DB.MONGO_URI</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.database.DB.add_comment"><code class="docutils literal notranslate"><span class="pre">DB.add_comment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.database.DB.add_post"><code class="docutils literal notranslate"><span class="pre">DB.add_post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.database.DB.add_user"><code class="docutils literal notranslate"><span class="pre">DB.add_user()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.database.DB.delete_comment"><code class="docutils literal notranslate"><span class="pre">DB.delete_comment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.database.DB.delete_post"><code class="docutils literal notranslate"><span class="pre">DB.delete_post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.database.DB.edit_post"><code class="docutils literal notranslate"><span class="pre">DB.edit_post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.database.DB.follow"><code class="docutils literal notranslate"><span class="pre">DB.follow()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.database.DB.get_comment"><code class="docutils literal notranslate"><span class="pre">DB.get_comment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.database.DB.get_post"><code class="docutils literal notranslate"><span class="pre">DB.get_post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.database.DB.get_posts"><code class="docutils literal notranslate"><span class="pre">DB.get_posts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.database.DB.get_user"><code class="docutils literal notranslate"><span class="pre">DB.get_user()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.database.DB.unfollow"><code class="docutils literal notranslate"><span class="pre">DB.unfollow()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-modules.posts">Posts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#modules.posts.Comment"><code class="docutils literal notranslate"><span class="pre">Comment</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#modules.posts.Comment.filter"><code class="docutils literal notranslate"><span class="pre">Comment.filter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.posts.Comment.json"><code class="docutils literal notranslate"><span class="pre">Comment.json()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#modules.posts.Post"><code class="docutils literal notranslate"><span class="pre">Post</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#modules.posts.Post.edit"><code class="docutils literal notranslate"><span class="pre">Post.edit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.posts.Post.filter"><code class="docutils literal notranslate"><span class="pre">Post.filter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.posts.Post.json"><code class="docutils literal notranslate"><span class="pre">Post.json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.posts.Post.lite"><code class="docutils literal notranslate"><span class="pre">Post.lite()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#modules.posts.Posts"><code class="docutils literal notranslate"><span class="pre">Posts</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#modules.posts.Posts.create_post"><code class="docutils literal notranslate"><span class="pre">Posts.create_post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.posts.Posts.delete_comment"><code class="docutils literal notranslate"><span class="pre">Posts.delete_comment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.posts.Posts.delete_post"><code class="docutils literal notranslate"><span class="pre">Posts.delete_post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.posts.Posts.edit_post"><code class="docutils literal notranslate"><span class="pre">Posts.edit_post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.posts.Posts.get_comment"><code class="docutils literal notranslate"><span class="pre">Posts.get_comment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.posts.Posts.get_post"><code class="docutils literal notranslate"><span class="pre">Posts.get_post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.posts.Posts.get_posts"><code class="docutils literal notranslate"><span class="pre">Posts.get_posts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.posts.Posts.get_user_posts"><code class="docutils literal notranslate"><span class="pre">Posts.get_user_posts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.posts.Posts.new_comment"><code class="docutils literal notranslate"><span class="pre">Posts.new_comment()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-modules.users">Users</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#modules.users.User"><code class="docutils literal notranslate"><span class="pre">User</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#modules.users.User.filter"><code class="docutils literal notranslate"><span class="pre">User.filter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.users.User.json"><code class="docutils literal notranslate"><span class="pre">User.json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.users.User.lite"><code class="docutils literal notranslate"><span class="pre">User.lite()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#modules.users.User_lite"><code class="docutils literal notranslate"><span class="pre">User_lite</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#modules.users.User_lite.json"><code class="docutils literal notranslate"><span class="pre">User_lite.json()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.users.User_lite.token"><code class="docutils literal notranslate"><span class="pre">User_lite.token()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#modules.users.Users"><code class="docutils literal notranslate"><span class="pre">Users</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#modules.users.Users.create_user"><code class="docutils literal notranslate"><span class="pre">Users.create_user()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.users.Users.follow"><code class="docutils literal notranslate"><span class="pre">Users.follow()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.users.Users.get_user"><code class="docutils literal notranslate"><span class="pre">Users.get_user()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.users.Users.unfollow"><code class="docutils literal notranslate"><span class="pre">Users.unfollow()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-modules">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">WorldBlog API</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Modules</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/modules.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="modules">
+<h1>Modules<a class="headerlink" href="#modules" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.utils.html">Utils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules.utils.html#module-modules.utils.generals">Generals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules.utils.html#modules.utils.generals.check_password"><code class="docutils literal notranslate"><span class="pre">check_password()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.utils.html#modules.utils.generals.creation_date"><code class="docutils literal notranslate"><span class="pre">creation_date()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.utils.html#modules.utils.generals.encode_password"><code class="docutils literal notranslate"><span class="pre">encode_password()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.utils.html#modules.utils.generals.is_valid_email"><code class="docutils literal notranslate"><span class="pre">is_valid_email()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.utils.html#modules.utils.generals.is_valid_image"><code class="docutils literal notranslate"><span class="pre">is_valid_image()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.utils.html#modules.utils.generals.is_valid_password"><code class="docutils literal notranslate"><span class="pre">is_valid_password()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.utils.html#modules.utils.generals.is_valid_username"><code class="docutils literal notranslate"><span class="pre">is_valid_username()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.utils.html#modules.utils.generals.logify"><code class="docutils literal notranslate"><span class="pre">logify()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules.utils.html#module-modules.utils.exceptions">Exceptions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules.utils.html#modules.utils.exceptions.AlreadyInUse"><code class="docutils literal notranslate"><span class="pre">AlreadyInUse</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="modules.utils.html#modules.utils.exceptions.AlreadyInUse.default_data"><code class="docutils literal notranslate"><span class="pre">AlreadyInUse.default_data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules.utils.html#modules.utils.exceptions.AlreadyInUse.default_error"><code class="docutils literal notranslate"><span class="pre">AlreadyInUse.default_error</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="modules.utils.html#modules.utils.exceptions.CustomException"><code class="docutils literal notranslate"><span class="pre">CustomException</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.utils.html#modules.utils.exceptions.GeneralError"><code class="docutils literal notranslate"><span class="pre">GeneralError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="modules.utils.html#modules.utils.exceptions.GeneralError.default_error"><code class="docutils literal notranslate"><span class="pre">GeneralError.default_error</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="modules.utils.html#modules.utils.exceptions.IncorrectCredential"><code class="docutils literal notranslate"><span class="pre">IncorrectCredential</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.utils.html#modules.utils.exceptions.InvalidCredential"><code class="docutils literal notranslate"><span class="pre">InvalidCredential</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="modules.utils.html#modules.utils.exceptions.InvalidCredential.default_data"><code class="docutils literal notranslate"><span class="pre">InvalidCredential.default_data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules.utils.html#modules.utils.exceptions.InvalidCredential.default_error"><code class="docutils literal notranslate"><span class="pre">InvalidCredential.default_error</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="modules.utils.html#modules.utils.exceptions.NotFound"><code class="docutils literal notranslate"><span class="pre">NotFound</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="modules.utils.html#modules.utils.exceptions.NotFound.default_data"><code class="docutils literal notranslate"><span class="pre">NotFound.default_data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules.utils.html#modules.utils.exceptions.NotFound.default_error"><code class="docutils literal notranslate"><span class="pre">NotFound.default_error</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="modules.utils.html#modules.utils.exceptions.Unauthorized"><code class="docutils literal notranslate"><span class="pre">Unauthorized</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="modules.utils.html#modules.utils.exceptions.Unauthorized.default_data"><code class="docutils literal notranslate"><span class="pre">Unauthorized.default_data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules.utils.html#modules.utils.exceptions.Unauthorized.default_error"><code class="docutils literal notranslate"><span class="pre">Unauthorized.default_error</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules.utils.html#module-modules.utils.log">Log</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules.utils.html#modules.utils.log.Log"><code class="docutils literal notranslate"><span class="pre">Log</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="modules.utils.html#modules.utils.log.Log.error"><code class="docutils literal notranslate"><span class="pre">Log.error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules.utils.html#modules.utils.log.Log.info"><code class="docutils literal notranslate"><span class="pre">Log.info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules.utils.html#modules.utils.log.Log.logger"><code class="docutils literal notranslate"><span class="pre">Log.logger</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules.utils.html#modules.utils.log.Log.warning"><code class="docutils literal notranslate"><span class="pre">Log.warning()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules.utils.html#module-modules.utils.token">Token</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules.utils.html#modules.utils.token.Token"><code class="docutils literal notranslate"><span class="pre">Token</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="modules.utils.html#modules.utils.token.Token.encode"><code class="docutils literal notranslate"><span class="pre">Token.encode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules.utils.html#modules.utils.token.Token.is_valid"><code class="docutils literal notranslate"><span class="pre">Token.is_valid()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="module-modules.database">
+<span id="database"></span><h2>Database<a class="headerlink" href="#module-modules.database" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="modules.database.DB">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">modules.database.</span></span><span class="sig-name descname"><span class="pre">DB</span></span><a class="reference internal" href="_modules/modules/database.html#DB"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.database.DB" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Manage the app database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>MONGO_URI</strong> (<em>str</em>) – Uniform Resource Identifier.</p></li>
+<li><p><strong>__client</strong> (<em>MongoClient</em>) – The MongoDB client.</p></li>
+<li><p><strong>__db</strong> (<em>Database</em>) – The app database.</p></li>
+<li><p><strong>__users_collection</strong> – The collections where are all the users.</p></li>
+<li><p><strong>__posts_collection</strong> – The collections where are all the posts.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="modules.database.DB.MONGO_URI">
+<span class="sig-name descname"><span class="pre">MONGO_URI</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mongodb://admin:password&#64;mongodb:27017/mi_base_de_datos?authSource=admin'</span></em><a class="headerlink" href="#modules.database.DB.MONGO_URI" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.database.DB.add_comment">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_comment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">post_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ObjectId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/modules/database.html#DB.add_comment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.database.DB.add_comment" title="Link to this definition"></a></dt>
+<dd><p>Add a comment in the post.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>post_id</strong> (<em>ObjectId</em>) – The post’s ID which the comment will be added.</p></li>
+<li><p><strong>comment</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – The comment data.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – Error adding the comment.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if was added.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.database.DB.add_post">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">post</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ObjectId</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/modules/database.html#DB.add_post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.database.DB.add_post" title="Link to this definition"></a></dt>
+<dd><p>Add a post in the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>post</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – Post info.</p></li>
+<li><p><strong>user_id</strong> (<em>ObjectId</em>) – Post Creator ID.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – Error adding the post.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the post was added.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.database.DB.add_user">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/modules/database.html#DB.add_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.database.DB.add_user" title="Link to this definition"></a></dt>
+<dd><p>Add a user in the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – User info.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – Error adding the user.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the user was added.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.database.DB.delete_comment">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_comment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">post_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ObjectId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ObjectId</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/modules/database.html#DB.delete_comment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.database.DB.delete_comment" title="Link to this definition"></a></dt>
+<dd><p>Delete a comment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>post_id</strong> (<em>ObjectId</em>) – The post’s ID which the comment will be deleted.</p></li>
+<li><p><strong>comment_id</strong> (<em>ObjectId</em>) – The comment’s ID that will be deleted.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – Error deleting the comment.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if was deteled.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.database.DB.delete_post">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">post_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ObjectId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ObjectId</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/modules/database.html#DB.delete_post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.database.DB.delete_post" title="Link to this definition"></a></dt>
+<dd><p>Delete a post in the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>post_id</strong> (<em>ObjectId</em>) – Post’s ID.</p></li>
+<li><p><strong>user_id</strong> (<em>ObjectId</em>) – Post creator ID.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – Error deleting the post.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the post was deleted.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.database.DB.edit_post">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edit_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">post_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ObjectId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/modules/database.html#DB.edit_post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.database.DB.edit_post" title="Link to this definition"></a></dt>
+<dd><p>Edit a post in the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>post_id</strong> (<em>ObjectId</em>) – Post’s ID.</p></li>
+<li><p><strong>data</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – New data.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – Error editing the post.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the post was edited.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.database.DB.follow">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">follow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">follower_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ObjectId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">following_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ObjectId</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/modules/database.html#DB.follow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.database.DB.follow" title="Link to this definition"></a></dt>
+<dd><p>Make a follow.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>follower_id</strong> (<em>ObjectId</em>) – User that wants to follow.</p></li>
+<li><p><strong>following_id</strong> (<em>ObjectId</em>) – User that will be followed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the operation was successful.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.database.DB.get_comment">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_comment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">post_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ObjectId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ObjectId</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/modules/database.html#DB.get_comment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.database.DB.get_comment" title="Link to this definition"></a></dt>
+<dd><p>Fetch one comment in the post.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>post_id</strong> (<em>ObjectId</em>) – The post’s ID which the comment will be fetched.</p></li>
+<li><p><strong>comment_id</strong> (<em>ObjectId</em>) – The comment’s ID.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – Error fetching a comment.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The comment or {} if not found.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.database.DB.get_post">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'_id'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/modules/database.html#DB.get_post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.database.DB.get_post" title="Link to this definition"></a></dt>
+<dd><p>Fetch an specific post.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<em>Any</em>) – Fetch an specific post.</p></li>
+<li><p><strong>field</strong> (<em>str</em><em>, </em><em>optional</em>) – Field to search. Defaults to “_id”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – Error fetching the post.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Post if is found, else {}.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.database.DB.get_posts">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_posts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/modules/database.html#DB.get_posts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.database.DB.get_posts" title="Link to this definition"></a></dt>
+<dd><p>Fetch all the posts in the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>RuntimeError</strong> – Error fetching the posts.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>All posts.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[Dict[str, Any]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.database.DB.get_user">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'_id'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/modules/database.html#DB.get_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.database.DB.get_user" title="Link to this definition"></a></dt>
+<dd><p>Fetch a user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<em>Any</em>) – The value of the field to search.</p></li>
+<li><p><strong>field</strong> (<em>str</em><em>, </em><em>optional</em>) – The field to search. Defaults to “_id”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – Error fetching the user.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The user if is founded, else {}.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.database.DB.unfollow">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unfollow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">follower_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ObjectId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">following_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ObjectId</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/modules/database.html#DB.unfollow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.database.DB.unfollow" title="Link to this definition"></a></dt>
+<dd><p>Make a unfollow.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>follower_id</strong> (<em>ObjectId</em>) – User that wants to unfollow.</p></li>
+<li><p><strong>following_id</strong> (<em>ObjectId</em>) – User that will be unfollowed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the operation was successful.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-modules.posts">
+<span id="posts"></span><h2>Posts<a class="headerlink" href="#module-modules.posts" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="modules.posts.Comment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">modules.posts.</span></span><span class="sig-name descname"><span class="pre">Comment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/posts.html#Comment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.posts.Comment" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Initialize a comment.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.posts.Comment.filter">
+<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request_user:</span> <span class="pre">~modules.users.User_lite</span> <span class="pre">=</span> <span class="pre">&lt;modules.users.User_lite</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/modules/posts.html#Comment.filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.posts.Comment.filter" title="Link to this definition"></a></dt>
+<dd><p>Filter a comment with this params:
+- Changes “_id” for “ID”.
+- Only returns the creator username.
+- If the request user is the creator, returns “editable” as True, else False.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request_user</strong> (<a class="reference internal" href="#modules.users.User_lite" title="modules.users.User_lite"><em>User_lite</em></a><em>, </em><em>optional</em>) – The user that fetch the comment. Defaults to User_lite().</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – Error filtering the comment.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The comment filtered.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.posts.Comment.json">
+<span class="sig-name descname"><span class="pre">json</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/modules/posts.html#Comment.json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.posts.Comment.json" title="Link to this definition"></a></dt>
+<dd><p>Parse the comment to JSON format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Comment data in JSON.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="modules.posts.Post">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">modules.posts.</span></span><span class="sig-name descname"><span class="pre">Post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/posts.html#Post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.posts.Post" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Initialize a post.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.posts.Post.edit">
+<span class="sig-name descname"><span class="pre">edit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/modules/posts.html#Post.edit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.posts.Post.edit" title="Link to this definition"></a></dt>
+<dd><p>Edit a post, only in the valid fields: “name”, “location”, “review”, “rating”, “imageUrl”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>new_info</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>, </em><em>optional</em>) – New post’s data. Defaults to {}.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – Error editting the post.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The edited post.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.posts.Post.filter">
+<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request_user:</span> <span class="pre">~modules.users.User_lite</span> <span class="pre">=</span> <span class="pre">&lt;modules.users.User_lite</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/modules/posts.html#Post.filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.posts.Post.filter" title="Link to this definition"></a></dt>
+<dd><p>Filter a post with this params:
+- Changes “_id” for “ID”.
+- Only returns the creator username.
+- If the request user is the creator, returns “editable” as True, else False.
+- Filter every comment in the comments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request_user</strong> (<a class="reference internal" href="#modules.users.User_lite" title="modules.users.User_lite"><em>User_lite</em></a><em>, </em><em>optional</em>) – The user that fetch the post. Defaults to User_lite().</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – Error filtering the post.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The post filtered.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.posts.Post.json">
+<span class="sig-name descname"><span class="pre">json</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/modules/posts.html#Post.json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.posts.Post.json" title="Link to this definition"></a></dt>
+<dd><p>Parse the post to JSON format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Post data in JSON.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.posts.Post.lite">
+<span class="sig-name descname"><span class="pre">lite</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/modules/posts.html#Post.lite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.posts.Post.lite" title="Link to this definition"></a></dt>
+<dd><p>Make a lite post version, only returns:
+- ID.
+- Name.
+- Location.
+- Rating.
+- ImageUrl.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The lite post.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="modules.posts.Posts">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">modules.posts.</span></span><span class="sig-name descname"><span class="pre">Posts</span></span><a class="reference internal" href="_modules/modules/posts.html#Posts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.posts.Posts" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>It manages the posts an comments.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.posts.Posts.create_post">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">review</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rating</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imageUrl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">creator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#modules.users.User_lite" title="modules.users.User_lite"><span class="pre">User_lite</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#modules.posts.Post" title="modules.posts.Post"><span class="pre">Post</span></a></span></span><a class="reference internal" href="_modules/modules/posts.html#Posts.create_post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.posts.Posts.create_post" title="Link to this definition"></a></dt>
+<dd><p>Create a new post.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Post’s name.</p></li>
+<li><p><strong>location</strong> (<em>str</em>) – Post’s location.</p></li>
+<li><p><strong>review</strong> (<em>str</em>) – Post’s review.</p></li>
+<li><p><strong>rating</strong> (<em>float</em>) – Post’s rating.</p></li>
+<li><p><strong>imageUrl</strong> (<em>str</em>) – Post’s image url.</p></li>
+<li><p><strong>creator</strong> (<a class="reference internal" href="#modules.users.User_lite" title="modules.users.User_lite"><em>User_lite</em></a>) – Post’s creator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – Error creating the post.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>New post data if was created.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#modules.posts.Post" title="modules.posts.Post">Post</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.posts.Posts.delete_comment">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_comment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">post</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#modules.posts.Post" title="modules.posts.Post"><span class="pre">Post</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#modules.posts.Comment" title="modules.posts.Comment"><span class="pre">Comment</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#modules.posts.Comment" title="modules.posts.Comment"><span class="pre">Comment</span></a></span></span><a class="reference internal" href="_modules/modules/posts.html#Posts.delete_comment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.posts.Posts.delete_comment" title="Link to this definition"></a></dt>
+<dd><p>Delete a comment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>post</strong> (<a class="reference internal" href="#modules.posts.Post" title="modules.posts.Post"><em>Post</em></a>) – Post where is the comment.</p></li>
+<li><p><strong>comment</strong> (<a class="reference internal" href="#modules.posts.Comment" title="modules.posts.Comment"><em>Comment</em></a>) – Comment to delete.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – Error deleting the comment.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Deleted comment data.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#modules.posts.Comment" title="modules.posts.Comment">Comment</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.posts.Posts.delete_post">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">post</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#modules.posts.Post" title="modules.posts.Post"><span class="pre">Post</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#modules.posts.Post" title="modules.posts.Post"><span class="pre">Post</span></a></span></span><a class="reference internal" href="_modules/modules/posts.html#Posts.delete_post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.posts.Posts.delete_post" title="Link to this definition"></a></dt>
+<dd><p>Delete a post</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>post</strong> (<a class="reference internal" href="#modules.posts.Post" title="modules.posts.Post"><em>Post</em></a>) – The post to delete.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – Error deleting the post.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Deleted post data.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#modules.posts.Post" title="modules.posts.Post">Post</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.posts.Posts.edit_post">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edit_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">post</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#modules.posts.Post" title="modules.posts.Post"><span class="pre">Post</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#modules.posts.Post" title="modules.posts.Post"><span class="pre">Post</span></a></span></span><a class="reference internal" href="_modules/modules/posts.html#Posts.edit_post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.posts.Posts.edit_post" title="Link to this definition"></a></dt>
+<dd><p>Edit a post.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>post</strong> (<a class="reference internal" href="#modules.posts.Post" title="modules.posts.Post"><em>Post</em></a>) – The post to edit.</p></li>
+<li><p><strong>new_data</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em><em>, </em><em>optional</em>) – New data. Defaults to {}.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – Error editing the post.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Edited post if was edited.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#modules.posts.Post" title="modules.posts.Post">Post</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.posts.Posts.get_comment">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_comment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">post_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ObjectId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ObjectId</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#modules.posts.Comment" title="modules.posts.Comment"><span class="pre">Comment</span></a></span></span><a class="reference internal" href="_modules/modules/posts.html#Posts.get_comment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.posts.Posts.get_comment" title="Link to this definition"></a></dt>
+<dd><p>Fetch one comment in the post.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>post_id</strong> (<em>ObjectId</em>) – Post’ID where is the comment.</p></li>
+<li><p><strong>comment_id</strong> (<em>ObjectId</em>) – Comment’s ID to fetch.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – Error fetching a comment.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The comment fetched if it exist.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#modules.posts.Comment" title="modules.posts.Comment">Comment</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.posts.Posts.get_post">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'_id'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#modules.posts.Post" title="modules.posts.Post"><span class="pre">Post</span></a></span></span><a class="reference internal" href="_modules/modules/posts.html#Posts.get_post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.posts.Posts.get_post" title="Link to this definition"></a></dt>
+<dd><p>Fetch an specific post.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<em>Any</em>) – Fetch an specific post.</p></li>
+<li><p><strong>field</strong> (<em>str</em><em>, </em><em>optional</em>) – Field to search. Defaults to “_id”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – Error fetching the post.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The post founded.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#modules.posts.Post" title="modules.posts.Post">Post</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.posts.Posts.get_posts">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_posts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/modules/posts.html#Posts.get_posts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.posts.Posts.get_posts" title="Link to this definition"></a></dt>
+<dd><p>Fetch all the posts in the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>RuntimeError</strong> – Error fetching the posts.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>All posts.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[Dict[str, Any]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.posts.Posts.get_user_posts">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_user_posts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_posts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/modules/posts.html#Posts.get_user_posts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.posts.Posts.get_user_posts" title="Link to this definition"></a></dt>
+<dd><p>Fetch all the posts for one user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user_posts</strong> (<em>list</em><em>, </em><em>optional</em>) – The ID of every post to fetch. Defaults to [].</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – Error fetching the user posts.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>All user’s post or [] if is empty.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[Dict[str, Any]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.posts.Posts.new_comment">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">new_comment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">post</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#modules.posts.Post" title="modules.posts.Post"><span class="pre">Post</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rating</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">creator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#modules.users.User_lite" title="modules.users.User_lite"><span class="pre">User_lite</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#modules.posts.Comment" title="modules.posts.Comment"><span class="pre">Comment</span></a></span></span><a class="reference internal" href="_modules/modules/posts.html#Posts.new_comment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.posts.Posts.new_comment" title="Link to this definition"></a></dt>
+<dd><p>Create a new comment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>post</strong> (<a class="reference internal" href="#modules.posts.Post" title="modules.posts.Post"><em>Post</em></a>) – Post where will be the comment.</p></li>
+<li><p><strong>content</strong> (<em>str</em>) – Comment’s content.</p></li>
+<li><p><strong>rating</strong> (<em>float</em>) – Comment’s rating.</p></li>
+<li><p><strong>creator</strong> (<a class="reference internal" href="#modules.users.User_lite" title="modules.users.User_lite"><em>User_lite</em></a>) – Comment’s creator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – Error creating the comment</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>New comment data if was added.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#modules.posts.Comment" title="modules.posts.Comment">Comment</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-modules.users">
+<span id="users"></span><h2>Users<a class="headerlink" href="#module-modules.users" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="modules.users.User">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">modules.users.</span></span><span class="sig-name descname"><span class="pre">User</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/users.html#User"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.users.User" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#modules.users.User_lite" title="modules.users.User_lite"><code class="xref py py-class docutils literal notranslate"><span class="pre">User_lite</span></code></a></p>
+<p>Initialize an user.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.users.User.filter">
+<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request_user:</span> <span class="pre">~modules.users.User_lite</span> <span class="pre">=</span> <span class="pre">&lt;modules.users.User_lite</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/modules/users.html#User.filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.users.User.filter" title="Link to this definition"></a></dt>
+<dd><p>Filter a user with this params:
+- Returns the “username”.
+- Returns the posts.
+- Returns the count of followers.
+- Returns “isFollowing” as True of False, if is self don’t have this key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request_user</strong> (<a class="reference internal" href="#modules.users.User_lite" title="modules.users.User_lite"><em>User_lite</em></a><em>, </em><em>optional</em>) – The user that fetch the post. Defaults to User_lite().</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – Error filtering the user.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The user filtered.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.users.User.json">
+<span class="sig-name descname"><span class="pre">json</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/modules/users.html#User.json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.users.User.json" title="Link to this definition"></a></dt>
+<dd><p>Parse the user to JSON format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>User data in JSON.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.users.User.lite">
+<span class="sig-name descname"><span class="pre">lite</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#modules.users.User_lite" title="modules.users.User_lite"><span class="pre">User_lite</span></a></span></span><a class="reference internal" href="_modules/modules/users.html#User.lite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.users.User.lite" title="Link to this definition"></a></dt>
+<dd><p>Make a lite user’s version.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>RuntimeError</strong> – Error liting de user.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The lite user’s version.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#modules.users.User_lite" title="modules.users.User_lite">User_lite</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="modules.users.User_lite">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">modules.users.</span></span><span class="sig-name descname"><span class="pre">User_lite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/users.html#User_lite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.users.User_lite" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Initialize a lite user’s version.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.users.User_lite.json">
+<span class="sig-name descname"><span class="pre">json</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/modules/users.html#User_lite.json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.users.User_lite.json" title="Link to this definition"></a></dt>
+<dd><p>Parse the user to JSON format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>User data in JSON.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.users.User_lite.token">
+<span class="sig-name descname"><span class="pre">token</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/modules/users.html#User_lite.token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.users.User_lite.token" title="Link to this definition"></a></dt>
+<dd><p>Creates a JWT with the user data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>RuntimeError</strong> – Error creating the token.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The JWT created.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="modules.users.Users">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">modules.users.</span></span><span class="sig-name descname"><span class="pre">Users</span></span><a class="reference internal" href="_modules/modules/users.html#Users"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.users.Users" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Manage all users in the app.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.users.Users.create_user">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#modules.users.User" title="modules.users.User"><span class="pre">User</span></a></span></span><a class="reference internal" href="_modules/modules/users.html#Users.create_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.users.Users.create_user" title="Link to this definition"></a></dt>
+<dd><p>Creates a new user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> (<em>str</em>) – The username.</p></li>
+<li><p><strong>email</strong> (<em>str</em>) – The email.</p></li>
+<li><p><strong>password</strong> (<em>str</em>) – The password</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – Error creating the user.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The new user if was created.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#modules.users.User" title="modules.users.User">User</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.users.Users.follow">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">follow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">follower</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#modules.users.User_lite" title="modules.users.User_lite"><span class="pre">User_lite</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">following</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#modules.users.User_lite" title="modules.users.User_lite"><span class="pre">User_lite</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/modules/users.html#Users.follow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.users.Users.follow" title="Link to this definition"></a></dt>
+<dd><p>Make a follow.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>follower</strong> (<a class="reference internal" href="#modules.users.User_lite" title="modules.users.User_lite"><em>User_lite</em></a>) – User that wants to follow.</p></li>
+<li><p><strong>following</strong> (<a class="reference internal" href="#modules.users.User_lite" title="modules.users.User_lite"><em>User_lite</em></a>) – User that will be followed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – Error following.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the operation was successfull.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.users.Users.get_user">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'_id'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#modules.users.User" title="modules.users.User"><span class="pre">User</span></a></span></span><a class="reference internal" href="_modules/modules/users.html#Users.get_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.users.Users.get_user" title="Link to this definition"></a></dt>
+<dd><p>Fetch a user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<em>Any</em>) – The value of the field to search.</p></li>
+<li><p><strong>field</strong> (<em>str</em><em>, </em><em>optional</em>) – The field to search. Defaults to “_id”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – Error fetching the user.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The user.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.users.Users.unfollow">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unfollow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">follower</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#modules.users.User_lite" title="modules.users.User_lite"><span class="pre">User_lite</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">following</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#modules.users.User_lite" title="modules.users.User_lite"><span class="pre">User_lite</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/modules/users.html#Users.unfollow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.users.Users.unfollow" title="Link to this definition"></a></dt>
+<dd><p>Make a unfollow.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>follower</strong> (<a class="reference internal" href="#modules.users.User_lite" title="modules.users.User_lite"><em>User_lite</em></a>) – User that wants to unfollow.</p></li>
+<li><p><strong>following</strong> (<a class="reference internal" href="#modules.users.User_lite" title="modules.users.User_lite"><em>User_lite</em></a>) – User that will be unfollowed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – Error unfollowing.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the operation was successfull.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-modules">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-modules" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="app.html" class="btn btn-neutral float-left" title="App" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="modules.utils.html" class="btn btn-neutral float-right" title="Utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Jadevx.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

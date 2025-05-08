@@ -1,0 +1,493 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Utils &mdash; WorldBlog API 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Modules" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            WorldBlog API
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api.html">Api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app.html">App</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-modules.utils.generals">Generals</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#modules.utils.generals.check_password"><code class="docutils literal notranslate"><span class="pre">check_password()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.utils.generals.creation_date"><code class="docutils literal notranslate"><span class="pre">creation_date()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.utils.generals.encode_password"><code class="docutils literal notranslate"><span class="pre">encode_password()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.utils.generals.is_valid_email"><code class="docutils literal notranslate"><span class="pre">is_valid_email()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.utils.generals.is_valid_image"><code class="docutils literal notranslate"><span class="pre">is_valid_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.utils.generals.is_valid_password"><code class="docutils literal notranslate"><span class="pre">is_valid_password()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.utils.generals.is_valid_username"><code class="docutils literal notranslate"><span class="pre">is_valid_username()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.utils.generals.logify"><code class="docutils literal notranslate"><span class="pre">logify()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-modules.utils.exceptions">Exceptions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#modules.utils.exceptions.AlreadyInUse"><code class="docutils literal notranslate"><span class="pre">AlreadyInUse</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.utils.exceptions.CustomException"><code class="docutils literal notranslate"><span class="pre">CustomException</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.utils.exceptions.GeneralError"><code class="docutils literal notranslate"><span class="pre">GeneralError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.utils.exceptions.IncorrectCredential"><code class="docutils literal notranslate"><span class="pre">IncorrectCredential</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.utils.exceptions.InvalidCredential"><code class="docutils literal notranslate"><span class="pre">InvalidCredential</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.utils.exceptions.NotFound"><code class="docutils literal notranslate"><span class="pre">NotFound</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modules.utils.exceptions.Unauthorized"><code class="docutils literal notranslate"><span class="pre">Unauthorized</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-modules.utils.log">Log</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#modules.utils.log.Log"><code class="docutils literal notranslate"><span class="pre">Log</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-modules.utils.token">Token</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#modules.utils.token.Token"><code class="docutils literal notranslate"><span class="pre">Token</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#module-modules.database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#module-modules.posts">Posts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#module-modules.users">Users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#module-modules">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">WorldBlog API</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Modules</a></li>
+      <li class="breadcrumb-item active">Utils</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/modules.utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="utils">
+<h1>Utils<a class="headerlink" href="#utils" title="Link to this heading"></a></h1>
+<section id="module-modules.utils.generals">
+<span id="generals"></span><h2>Generals<a class="headerlink" href="#module-modules.utils.generals" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="modules.utils.generals.check_password">
+<span class="sig-prename descclassname"><span class="pre">modules.utils.generals.</span></span><span class="sig-name descname"><span class="pre">check_password</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to_check</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hashed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/modules/utils/generals.html#check_password"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.utils.generals.check_password" title="Link to this definition"></a></dt>
+<dd><p>Check a string password with the hashed password.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>to_check</strong> (<em>str</em>) – The string password.</p></li>
+<li><p><strong>hashed</strong> (<em>str</em>) – The hashed password.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if is checked, else False.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="modules.utils.generals.creation_date">
+<span class="sig-prename descclassname"><span class="pre">modules.utils.generals.</span></span><span class="sig-name descname"><span class="pre">creation_date</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/modules/utils/generals.html#creation_date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.utils.generals.creation_date" title="Link to this definition"></a></dt>
+<dd><p>Give the actual date.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Actual date in format ISO 8601.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="modules.utils.generals.encode_password">
+<span class="sig-prename descclassname"><span class="pre">modules.utils.generals.</span></span><span class="sig-name descname"><span class="pre">encode_password</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/modules/utils/generals.html#encode_password"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.utils.generals.encode_password" title="Link to this definition"></a></dt>
+<dd><p>Encode a password.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>password</strong> (<em>str</em>) – The password to encode.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The encoded password.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="modules.utils.generals.is_valid_email">
+<span class="sig-prename descclassname"><span class="pre">modules.utils.generals.</span></span><span class="sig-name descname"><span class="pre">is_valid_email</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/modules/utils/generals.html#is_valid_email"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.utils.generals.is_valid_email" title="Link to this definition"></a></dt>
+<dd><p>Check if is a valid email.</p>
+<p>Conditions:
+- An standart email direction (<a class="reference external" href="mailto:example&#37;&#52;&#48;email&#46;com">example<span>&#64;</span>email<span>&#46;</span>com</a>)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>email</strong> (<em>str</em>) – Email to validate.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if is valid, else False.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="modules.utils.generals.is_valid_image">
+<span class="sig-prename descclassname"><span class="pre">modules.utils.generals.</span></span><span class="sig-name descname"><span class="pre">is_valid_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/modules/utils/generals.html#is_valid_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.utils.generals.is_valid_image" title="Link to this definition"></a></dt>
+<dd><p>Check if is a valid image url.</p>
+<p>Conditions:
+- It can be with or without ‘<a class="reference external" href="http://">http://</a>’ or ‘<a class="reference external" href="https://">https://</a>’
+- Valid domain and optional route.
+- It can be a JPEG, PNG or GIF.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>url</strong> (<em>str</em>) – Url with image to validate.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if is valid, else False.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="modules.utils.generals.is_valid_password">
+<span class="sig-prename descclassname"><span class="pre">modules.utils.generals.</span></span><span class="sig-name descname"><span class="pre">is_valid_password</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/modules/utils/generals.html#is_valid_password"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.utils.generals.is_valid_password" title="Link to this definition"></a></dt>
+<dd><p>Check if is a valid password.</p>
+<p>Conditions:
+- Almost 8 characters.
+- Almost one uppercase.
+- Almost one lowecase.
+- Almost one number.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>password</strong> (<em>str</em>) – Password to validate.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if is valid, else False.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="modules.utils.generals.is_valid_username">
+<span class="sig-prename descclassname"><span class="pre">modules.utils.generals.</span></span><span class="sig-name descname"><span class="pre">is_valid_username</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/modules/utils/generals.html#is_valid_username"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.utils.generals.is_valid_username" title="Link to this definition"></a></dt>
+<dd><p>Check if is a valid username.</p>
+<p>Conditions:
+- It can have letters (upper or lowercase), numbers, dots and underscores.
+- It can’t end with a dot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>username</strong> (<em>str</em>) – Username to validate.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if is valid, else False.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="modules.utils.generals.logify">
+<span class="sig-prename descclassname"><span class="pre">modules.utils.generals.</span></span><span class="sig-name descname"><span class="pre">logify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/modules/utils/generals.html#logify"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.utils.generals.logify" title="Link to this definition"></a></dt>
+<dd><p>Make a log with the function´s args excluding someones.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>exclude</strong> (<em>Optional</em><em>[</em><em>list</em><em>]</em><em>, </em><em>optional</em>) – Args to exculde. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Formatted log.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-modules.utils.exceptions">
+<span id="exceptions"></span><h2>Exceptions<a class="headerlink" href="#module-modules.utils.exceptions" title="Link to this heading"></a></h2>
+<dl class="py exception">
+<dt class="sig sig-object py" id="modules.utils.exceptions.AlreadyInUse">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">modules.utils.exceptions.</span></span><span class="sig-name descname"><span class="pre">AlreadyInUse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/utils/exceptions.html#AlreadyInUse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.utils.exceptions.AlreadyInUse" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#modules.utils.exceptions.CustomException" title="modules.utils.exceptions.CustomException"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomException</span></code></a></p>
+<p>Custom exception for already in use.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="modules.utils.exceptions.AlreadyInUse.default_data">
+<span class="sig-name descname"><span class="pre">default_data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Already</span> <span class="pre">in</span> <span class="pre">use'</span></em><a class="headerlink" href="#modules.utils.exceptions.AlreadyInUse.default_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="modules.utils.exceptions.AlreadyInUse.default_error">
+<span class="sig-name descname"><span class="pre">default_error</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Username</span> <span class="pre">or</span> <span class="pre">email'</span></em><a class="headerlink" href="#modules.utils.exceptions.AlreadyInUse.default_error" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="modules.utils.exceptions.CustomException">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">modules.utils.exceptions.</span></span><span class="sig-name descname"><span class="pre">CustomException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Error'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">500</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/utils/exceptions.html#CustomException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.utils.exceptions.CustomException" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Base class for custom exceptions with auto-logging</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="modules.utils.exceptions.GeneralError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">modules.utils.exceptions.</span></span><span class="sig-name descname"><span class="pre">GeneralError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Error'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Exception</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">500</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/utils/exceptions.html#GeneralError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.utils.exceptions.GeneralError" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#modules.utils.exceptions.CustomException" title="modules.utils.exceptions.CustomException"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomException</span></code></a></p>
+<p>Custom exception for an exception.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="modules.utils.exceptions.GeneralError.default_error">
+<span class="sig-name descname"><span class="pre">default_error</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Error</span> <span class="pre">desconocido'</span></em><a class="headerlink" href="#modules.utils.exceptions.GeneralError.default_error" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="modules.utils.exceptions.IncorrectCredential">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">modules.utils.exceptions.</span></span><span class="sig-name descname"><span class="pre">IncorrectCredential</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ObjectId</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/utils/exceptions.html#IncorrectCredential"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.utils.exceptions.IncorrectCredential" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#modules.utils.exceptions.CustomException" title="modules.utils.exceptions.CustomException"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomException</span></code></a></p>
+<p>Custom exception for incorrect credential.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="modules.utils.exceptions.InvalidCredential">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">modules.utils.exceptions.</span></span><span class="sig-name descname"><span class="pre">InvalidCredential</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/utils/exceptions.html#InvalidCredential"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.utils.exceptions.InvalidCredential" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#modules.utils.exceptions.CustomException" title="modules.utils.exceptions.CustomException"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomException</span></code></a></p>
+<p>Custom exception for invalid credentaial.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="modules.utils.exceptions.InvalidCredential.default_data">
+<span class="sig-name descname"><span class="pre">default_data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Invalid</span> <span class="pre">credentials'</span></em><a class="headerlink" href="#modules.utils.exceptions.InvalidCredential.default_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="modules.utils.exceptions.InvalidCredential.default_error">
+<span class="sig-name descname"><span class="pre">default_error</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Username,</span> <span class="pre">email</span> <span class="pre">or</span> <span class="pre">password'</span></em><a class="headerlink" href="#modules.utils.exceptions.InvalidCredential.default_error" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="modules.utils.exceptions.NotFound">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">modules.utils.exceptions.</span></span><span class="sig-name descname"><span class="pre">NotFound</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/utils/exceptions.html#NotFound"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.utils.exceptions.NotFound" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#modules.utils.exceptions.CustomException" title="modules.utils.exceptions.CustomException"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomException</span></code></a></p>
+<p>Custom exception for not found.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="modules.utils.exceptions.NotFound.default_data">
+<span class="sig-name descname"><span class="pre">default_data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Not</span> <span class="pre">Found'</span></em><a class="headerlink" href="#modules.utils.exceptions.NotFound.default_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="modules.utils.exceptions.NotFound.default_error">
+<span class="sig-name descname"><span class="pre">default_error</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Object'</span></em><a class="headerlink" href="#modules.utils.exceptions.NotFound.default_error" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="modules.utils.exceptions.Unauthorized">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">modules.utils.exceptions.</span></span><span class="sig-name descname"><span class="pre">Unauthorized</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modules/utils/exceptions.html#Unauthorized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.utils.exceptions.Unauthorized" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#modules.utils.exceptions.CustomException" title="modules.utils.exceptions.CustomException"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomException</span></code></a></p>
+<p>Custom exception for unauthorized.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="modules.utils.exceptions.Unauthorized.default_data">
+<span class="sig-name descname"><span class="pre">default_data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Unauthorized'</span></em><a class="headerlink" href="#modules.utils.exceptions.Unauthorized.default_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="modules.utils.exceptions.Unauthorized.default_error">
+<span class="sig-name descname"><span class="pre">default_error</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Unauthorized'</span></em><a class="headerlink" href="#modules.utils.exceptions.Unauthorized.default_error" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-modules.utils.log">
+<span id="log"></span><h2>Log<a class="headerlink" href="#module-modules.utils.log" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="modules.utils.log.Log">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">modules.utils.log.</span></span><span class="sig-name descname"><span class="pre">Log</span></span><a class="reference internal" href="_modules/modules/utils/log.html#Log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.utils.log.Log" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Control the backend’s log.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>__LOG_FILE_PATH</strong> (<em>str</em>) – The path of the log file.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.utils.log.Log.error">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/modules/utils/log.html#Log.error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.utils.log.Log.error" title="Link to this definition"></a></dt>
+<dd><p>Register an error in the log.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.utils.log.Log.info">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/modules/utils/log.html#Log.info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.utils.log.Log.info" title="Link to this definition"></a></dt>
+<dd><p>Register an info in the log.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="modules.utils.log.Log.logger">
+<span class="sig-name descname"><span class="pre">logger</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Logger</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;Logger</span> <span class="pre">API_Logger</span> <span class="pre">(INFO)&gt;</span></em><a class="headerlink" href="#modules.utils.log.Log.logger" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.utils.log.Log.warning">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">warning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/modules/utils/log.html#Log.warning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.utils.log.Log.warning" title="Link to this definition"></a></dt>
+<dd><p>Register an warning in the log.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-modules.utils.token">
+<span id="token"></span><h2>Token<a class="headerlink" href="#module-modules.utils.token" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="modules.utils.token.Token">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">modules.utils.token.</span></span><span class="sig-name descname"><span class="pre">Token</span></span><a class="reference internal" href="_modules/modules/utils/token.html#Token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.utils.token.Token" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Controls the JWT in the app.</p>
+<p>Args:
+__JWT_SECRET_KEY (str): The key to hash the JWT.
+__JWT_ALGORITHM (str): The JWT algorithm. Defaults to “HS256”.
+__JWT_EXPIRATION (int): The valid time of the token.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.utils.token.Token.encode">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ObjectId</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/modules/utils/token.html#Token.encode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.utils.token.Token.encode" title="Link to this definition"></a></dt>
+<dd><p>Encode a token.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user_id</strong> (<em>ObjectId</em>) – The user’s ID.</p></li>
+<li><p><strong>username</strong> (<em>str</em>) – The user’s username.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – If it can’t be encoded.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The JWT token.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modules.utils.token.Token.is_valid">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/modules/utils/token.html#Token.is_valid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#modules.utils.token.Token.is_valid" title="Link to this definition"></a></dt>
+<dd><p>Verify a JWT.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>token</strong> (<em>str</em>) – The token to verify.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – If the token can’t be validate.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>{“verify”: True, “user”: (token info)} or {“verify”: False, “error”: (error)}</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="Modules" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Jadevx.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

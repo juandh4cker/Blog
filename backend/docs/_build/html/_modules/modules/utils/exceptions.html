@@ -1,0 +1,265 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>modules.utils.exceptions &mdash; Worldblog 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Worldblog
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Worldblog</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">modules.utils.exceptions</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for modules.utils.exceptions</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">bson</span><span class="w"> </span><span class="kn">import</span> <span class="n">ObjectId</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">modules.utils.log</span><span class="w"> </span><span class="kn">import</span> <span class="n">Log</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<div class="viewcode-block" id="CustomException">
+<a class="viewcode-back" href="../../../modules.utils.html#modules.utils.exceptions.CustomException">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CustomException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for custom exceptions with auto-logging&quot;&quot;&quot;</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">log</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">500</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a custom exception.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data (str, optional): The data to error. Defaults to &quot;Error&quot;.</span>
+<span class="sd">            error (Optional[str], optional): The error given. Defaults to None.</span>
+<span class="sd">            log (Optional[str], optional): The log info. Defaults to None.</span>
+<span class="sd">            code (int, optional): The error code. Defaults to 500.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="n">parts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()]</span>
+        <span class="k">if</span> <span class="n">error</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="o">=</span> <span class="n">error</span>
+            <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot; | &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">code</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">code</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+        
+        <span class="n">log_message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">log</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="si">}</span><span class="s2"> | Log: </span><span class="si">{</span><span class="n">log</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">Log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">log_message</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># Subclases</span>
+
+<div class="viewcode-block" id="GeneralError">
+<a class="viewcode-back" href="../../../modules.utils.html#modules.utils.exceptions.GeneralError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">GeneralError</span><span class="p">(</span><span class="n">CustomException</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Custom exception for an exception.&quot;&quot;&quot;</span>
+    <span class="n">default_error</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Error desconocido&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="ne">Exception</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">log</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">500</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>     
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        An general error.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data (str, optional): The data to the error. Defaults to &quot;Error&quot;.</span>
+<span class="sd">            error (Optional[Exception], optional): The error given. Defaults to None.</span>
+<span class="sd">            log (Optional[str], optional): The log info. Defaults to None.</span>
+<span class="sd">            code (int, optional): The error code. Defaults to 500.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> 
+            <span class="n">error</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_error</span><span class="p">,</span> 
+            <span class="n">log</span><span class="o">=</span><span class="n">log</span><span class="p">,</span> 
+            <span class="n">code</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="s2">&quot;code&quot;</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="NotFound">
+<a class="viewcode-back" href="../../../modules.utils.html#modules.utils.exceptions.NotFound">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">NotFound</span><span class="p">(</span><span class="n">CustomException</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Custom exception for not found.&quot;&quot;&quot;</span>
+    <span class="n">default_data</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Not Found&quot;</span>
+    <span class="n">default_error</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Object&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a Not Found exceotion</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            error (Optional[str], optional): Object that not found. Defaults to None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#data = f&quot;{error} {self.default_data}&quot; if error else self.default_data</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="c1">#data=f&quot;{error or self.default_error} {self.default_data}&quot;, </span>
+            <span class="c1">#data=data,</span>
+            <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_data</span><span class="p">,</span>
+            <span class="n">code</span><span class="o">=</span><span class="mi">404</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Unauthorized">
+<a class="viewcode-back" href="../../../modules.utils.html#modules.utils.exceptions.Unauthorized">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Unauthorized</span><span class="p">(</span><span class="n">CustomException</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Custom exception for unauthorized.&quot;&quot;&quot;</span>
+    <span class="n">default_data</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Unauthorized&quot;</span>
+    <span class="n">default_error</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Unauthorized&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize an unauthorized exception.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            error (Optional[str], optional): Error. Defaults to None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_data</span><span class="p">,</span> 
+            <span class="n">error</span><span class="o">=</span><span class="n">error</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_error</span><span class="p">,</span> 
+            <span class="n">code</span><span class="o">=</span><span class="mi">401</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="AlreadyInUse">
+<a class="viewcode-back" href="../../../modules.utils.html#modules.utils.exceptions.AlreadyInUse">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AlreadyInUse</span><span class="p">(</span><span class="n">CustomException</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Custom exception for already in use.&quot;&quot;&quot;</span>
+    <span class="n">default_data</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Already in use&quot;</span>
+    <span class="n">default_error</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Username or email&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize an already in use exception.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            error (Optional[str], optional): Error. Defaults to None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>         
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_data</span><span class="p">,</span>
+            <span class="n">error</span><span class="o">=</span><span class="n">error</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_error</span><span class="p">,</span> 
+            <span class="n">code</span><span class="o">=</span><span class="mi">409</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="IncorrectCredential">
+<a class="viewcode-back" href="../../../modules.utils.html#modules.utils.exceptions.IncorrectCredential">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">IncorrectCredential</span><span class="p">(</span><span class="n">CustomException</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Custom exception for incorrect credential.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ObjectId</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize an incorrect credential exception.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            error (Optional[str], optional): Error. Defaults to None.</span>
+<span class="sd">        &quot;&quot;&quot;</span> 
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">data</span><span class="o">=</span><span class="s2">&quot;Incorrect credentials&quot;</span><span class="p">,</span>
+            <span class="n">log</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Invalid credentials to User: </span><span class="si">{</span><span class="n">user_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">code</span><span class="o">=</span><span class="mi">400</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="InvalidCredential">
+<a class="viewcode-back" href="../../../modules.utils.html#modules.utils.exceptions.InvalidCredential">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">InvalidCredential</span><span class="p">(</span><span class="n">CustomException</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Custom exception for invalid credentaial.&quot;&quot;&quot;</span>
+    <span class="n">default_data</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Invalid credentials&quot;</span>
+    <span class="n">default_error</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Username, email or password&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize an invalid credentaial exception.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            error (Optional[str], optional): Error. Defaults to None.</span>
+<span class="sd">        &quot;&quot;&quot;</span> 
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">default_data</span><span class="p">,</span>
+            <span class="n">error</span><span class="o">=</span><span class="n">error</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_error</span><span class="p">,</span>
+            <span class="n">code</span><span class="o">=</span><span class="mi">400</span>
+        <span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Jadevx.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

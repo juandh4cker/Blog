@@ -1,0 +1,682 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>app &mdash; Worldblog 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Worldblog
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Worldblog</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">app</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for app</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">modules.posts</span><span class="w"> </span><span class="kn">import</span> <span class="n">Comment</span><span class="p">,</span> <span class="n">Post</span><span class="p">,</span> <span class="n">Posts</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">modules.users</span><span class="w"> </span><span class="kn">import</span> <span class="n">User</span><span class="p">,</span> <span class="n">Users</span><span class="p">,</span> <span class="n">User_lite</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">modules.utils.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">modules.utils.generals</span><span class="w"> </span><span class="kn">import</span> <span class="n">check_password</span><span class="p">,</span> <span class="n">logify</span><span class="p">,</span> <span class="n">is_valid_username</span><span class="p">,</span> <span class="n">is_valid_email</span><span class="p">,</span> <span class="n">is_valid_password</span><span class="p">,</span> <span class="n">is_valid_image</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">modules.utils.log</span><span class="w"> </span><span class="kn">import</span> <span class="n">Log</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">modules.utils.token</span><span class="w"> </span><span class="kn">import</span> <span class="n">Token</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+
+<div class="viewcode-block" id="App">
+<a class="viewcode-back" href="../app.html#app.App">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">App</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Manages al the app functions.&quot;&quot;&quot;</span>    
+    <span class="n">Log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Application initialized.&quot;</span><span class="p">)</span>
+    
+    <span class="c1">#Access</span>
+
+<div class="viewcode-block" id="App.login">
+<a class="viewcode-back" href="../app.html#app.App.login">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">login</span><span class="p">(</span><span class="n">username_or_email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Log an user into the app.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            username_or_email (str): User&#39;s username or email.</span>
+<span class="sd">            password (str): User&#39;s password.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            InvalidCredential: If username or email aren&#39;t valid.</span>
+<span class="sd">            InvalidCredential: If password isn&#39;t valid.</span>
+<span class="sd">            IncorrectCredential: If password doesn&#39;t match.</span>
+<span class="sd">            NotFound: If the user no exist.</span>
+<span class="sd">            GeneralError: General errors.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict[str, Any]: The username and the token in a dict: {&quot;username&quot;: username, &quot;token&quot;: token}.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">username_or_email</span> <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="n">is_valid_username</span><span class="p">(</span><span class="n">username_or_email</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_valid_email</span><span class="p">(</span><span class="n">username_or_email</span><span class="p">)):</span>
+                <span class="k">raise</span> <span class="n">InvalidCredential</span><span class="p">(</span><span class="s2">&quot;Username or email&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">password</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">is_valid_password</span><span class="p">(</span><span class="n">password</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">InvalidCredential</span><span class="p">(</span><span class="s2">&quot;Password&quot;</span><span class="p">)</span>
+            
+            <span class="n">user</span><span class="p">:</span> <span class="n">User</span> <span class="o">=</span> <span class="n">Users</span><span class="o">.</span><span class="n">get_user</span><span class="p">(</span><span class="n">username_or_email</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="s2">&quot;email&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="s2">&quot;@&quot;</span> <span class="ow">in</span> <span class="n">username_or_email</span> <span class="k">else</span> <span class="n">Users</span><span class="o">.</span><span class="n">get_user</span><span class="p">(</span><span class="n">username_or_email</span><span class="o">.</span><span class="n">capitalize</span><span class="p">(),</span> <span class="s2">&quot;username&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">user</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">check_password</span><span class="p">(</span><span class="n">password</span><span class="p">,</span> <span class="n">user</span><span class="o">.</span><span class="n">password</span><span class="p">):</span>
+                    <span class="n">Log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;User </span><span class="si">{</span><span class="n">user</span><span class="o">.</span><span class="n">ID</span><span class="si">}</span><span class="s2"> logged in&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">token</span><span class="p">()}</span>
+                <span class="k">raise</span> <span class="n">IncorrectCredential</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">ID</span><span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">NotFound</span><span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">)</span>
+        
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GeneralError</span><span class="p">(</span>
+                <span class="n">data</span><span class="o">=</span><span class="s2">&quot;Error logging the user&quot;</span><span class="p">,</span>  
+                <span class="n">error</span><span class="o">=</span><span class="n">e</span><span class="p">,</span> 
+                <span class="n">log</span><span class="o">=</span><span class="n">logify</span><span class="p">([</span><span class="s2">&quot;password&quot;</span><span class="p">])</span>
+            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+    
+<div class="viewcode-block" id="App.register">
+<a class="viewcode-back" href="../app.html#app.App.register">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">register</span><span class="p">(</span><span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span> 
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Register a user into the app.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            username (str): The new&#39;s user username.</span>
+<span class="sd">            email (str): The new&#39;s user email.</span>
+<span class="sd">            password (str): The new&#39;s user password.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            InvalidCredential: If username isn&#39;t valid.</span>
+<span class="sd">            InvalidCredential: If email isn&#39;t valid.</span>
+<span class="sd">            InvalidCredential: If password isn&#39;t valid.</span>
+<span class="sd">            AlreadyInUse: If username is already in use by another user.</span>
+<span class="sd">            AlreadyInUse: If email is already in use by another user.</span>
+<span class="sd">            GeneralError: General errors.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict[str, Any]: The username and the token in a dict: {&quot;username&quot;: username, &quot;token&quot;: token}.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">username</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">is_valid_username</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">InvalidCredential</span><span class="p">(</span><span class="s2">&quot;username&quot;</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">email</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">is_valid_email</span><span class="p">(</span><span class="n">email</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">InvalidCredential</span><span class="p">(</span><span class="s2">&quot;email&quot;</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">password</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">is_valid_password</span><span class="p">(</span><span class="n">password</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">InvalidCredential</span><span class="p">(</span><span class="s2">&quot;password&quot;</span><span class="p">)</span>
+            
+            <span class="n">username</span> <span class="o">=</span> <span class="n">username</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span>
+            <span class="n">email</span> <span class="o">=</span> <span class="n">email</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">Users</span><span class="o">.</span><span class="n">get_user</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="s2">&quot;username&quot;</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">AlreadyInUse</span><span class="p">(</span><span class="s2">&quot;username&quot;</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">Users</span><span class="o">.</span><span class="n">get_user</span><span class="p">(</span><span class="n">email</span><span class="p">,</span> <span class="s2">&quot;email&quot;</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">AlreadyInUse</span><span class="p">(</span><span class="s2">&quot;email&quot;</span><span class="p">)</span>
+
+            <span class="n">user</span><span class="p">:</span> <span class="n">User</span> <span class="o">=</span> <span class="n">Users</span><span class="o">.</span><span class="n">create_user</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">user</span><span class="p">:</span>
+                <span class="n">Log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;User </span><span class="si">{</span><span class="n">user</span><span class="o">.</span><span class="n">ID</span><span class="si">}</span><span class="s2"> created and logged in&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">token</span><span class="p">()}</span>
+
+            <span class="k">raise</span> <span class="n">GeneralError</span><span class="p">(</span><span class="s2">&quot;Error creating the user&quot;</span><span class="p">)</span>
+        
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GeneralError</span><span class="p">(</span>
+                <span class="n">data</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Error creating the user&quot;</span><span class="p">,</span> 
+                <span class="n">error</span><span class="o">=</span><span class="n">e</span><span class="p">,</span> 
+                <span class="n">log</span><span class="o">=</span><span class="n">logify</span><span class="p">([</span><span class="s2">&quot;password&quot;</span><span class="p">])</span>
+            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+    
+    <span class="c1">#Users</span>
+
+<div class="viewcode-block" id="App.get_user">
+<a class="viewcode-back" href="../app.html#app.App.get_user">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_user</span><span class="p">(</span><span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">request_user</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fetch an user.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            username (str): The user&#39;s username to fetch.</span>
+<span class="sd">            request_user (Dict[str, Any]): The user that makes the request.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            NotFound: If the user isn&#39;t found.</span>
+<span class="sd">            GeneralError: General errors.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict[str, Any]: The fetched user data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">request_User</span><span class="p">:</span> <span class="n">User_lite</span> <span class="o">=</span> <span class="n">User_lite</span><span class="p">(</span><span class="n">request_user</span><span class="p">)</span>
+            <span class="n">user</span><span class="p">:</span> <span class="n">User</span> <span class="o">=</span> <span class="n">Users</span><span class="o">.</span><span class="n">get_user</span><span class="p">(</span><span class="n">username</span><span class="o">.</span><span class="n">capitalize</span><span class="p">(),</span> <span class="s2">&quot;username&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">user</span><span class="p">:</span>
+                <span class="n">Log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;User </span><span class="si">{</span><span class="n">user</span><span class="o">.</span><span class="n">ID</span><span class="si">}</span><span class="s2"> fetched by User </span><span class="si">{</span><span class="n">request_User</span><span class="o">.</span><span class="n">ID</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">user</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">request_User</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">NotFound</span><span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">)</span>
+        
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GeneralError</span><span class="p">(</span>
+                <span class="n">data</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Error fetching the user </span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> 
+                <span class="n">error</span><span class="o">=</span><span class="n">e</span>
+            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+    
+    <span class="c1">#Follows</span>
+
+<div class="viewcode-block" id="App.follownt">
+<a class="viewcode-back" href="../app.html#app.App.follownt">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">follownt</span><span class="p">(</span><span class="n">following_username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">request_user</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Follows or unfollows an user.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            following_username (str): User&#39;s username that will be followed or unfollowed.</span>
+<span class="sd">            request_user (Dict[str, Any]): User that makes the request.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            GeneralError: General errors.</span>
+<span class="sd">            NotFound: If user isn&#39;t found.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if the operation was sucessfull.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">follower</span><span class="p">:</span> <span class="n">User_lite</span> <span class="o">=</span> <span class="n">User_lite</span><span class="p">(</span><span class="n">request_user</span><span class="p">)</span>
+            <span class="n">following</span><span class="p">:</span> <span class="n">User</span> <span class="o">=</span> <span class="n">Users</span><span class="o">.</span><span class="n">get_user</span><span class="p">(</span><span class="n">following_username</span><span class="p">,</span> <span class="s2">&quot;username&quot;</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">follower</span> <span class="o">==</span> <span class="n">following</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">GeneralError</span><span class="p">(</span><span class="s2">&quot;No puedes seguirte a ti mismo&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">following</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">follower</span><span class="o">.</span><span class="n">ID</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">following</span><span class="o">.</span><span class="n">followers</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">Users</span><span class="o">.</span><span class="n">follow</span><span class="p">(</span><span class="n">follower</span><span class="p">,</span> <span class="n">following</span><span class="p">):</span>
+                        <span class="n">Log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;User </span><span class="si">{</span><span class="n">following</span><span class="o">.</span><span class="n">ID</span><span class="si">}</span><span class="s2"> followed by </span><span class="si">{</span><span class="n">follower</span><span class="o">.</span><span class="n">ID</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="k">return</span> <span class="kc">True</span>
+                    
+                    <span class="k">raise</span> <span class="n">GeneralError</span><span class="p">(</span>
+                        <span class="n">data</span><span class="o">=</span><span class="s2">&quot;Error al seguir al usuario&quot;</span><span class="p">,</span> 
+                        <span class="n">log</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">follower</span><span class="o">.</span><span class="n">ID</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">following</span><span class="o">.</span><span class="n">ID</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">)</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">Users</span><span class="o">.</span><span class="n">unfollow</span><span class="p">(</span><span class="n">follower</span><span class="p">,</span> <span class="n">following</span><span class="p">):</span>
+                        <span class="n">Log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;User </span><span class="si">{</span><span class="n">following</span><span class="o">.</span><span class="n">ID</span><span class="si">}</span><span class="s2"> unfollowed by </span><span class="si">{</span><span class="n">follower</span><span class="o">.</span><span class="n">ID</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="k">return</span> <span class="kc">True</span>
+                    
+                    <span class="k">raise</span> <span class="n">GeneralError</span><span class="p">(</span>
+                        <span class="n">data</span><span class="o">=</span><span class="s2">&quot;Error al dejar de seguir al usuario&quot;</span><span class="p">,</span> 
+                        <span class="n">log</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">follower</span><span class="o">.</span><span class="n">ID</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">following</span><span class="o">.</span><span class="n">ID</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">)</span>
+            
+            <span class="k">raise</span> <span class="n">NotFound</span><span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">)</span>
+        
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GeneralError</span><span class="p">(</span>
+                <span class="n">data</span><span class="o">=</span><span class="s2">&quot;Error al seguir o no&quot;</span><span class="p">,</span> 
+                <span class="n">error</span><span class="o">=</span><span class="n">e</span><span class="p">,</span> 
+                <span class="n">log</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">following</span><span class="o">.</span><span class="n">ID</span><span class="si">}</span><span class="s2"> follownt by </span><span class="si">{</span><span class="n">follower</span><span class="o">.</span><span class="n">ID</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+        
+    <span class="c1">#Posts</span>
+
+<div class="viewcode-block" id="App.get_posts">
+<a class="viewcode-back" href="../app.html#app.App.get_posts">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_posts</span><span class="p">(</span><span class="n">request_user</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fetch all posts.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            request_user (Dict[str, Any]): User that makes the request.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            GeneralError: General errors.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List[Dict[str, Any]]: All posts.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">request_User</span><span class="p">:</span> <span class="n">User_lite</span> <span class="o">=</span> <span class="n">User_lite</span><span class="p">(</span><span class="n">request_user</span><span class="p">)</span>
+            <span class="n">Log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;All posts fetched by </span><span class="si">{</span><span class="n">request_User</span><span class="o">.</span><span class="n">ID</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">request_User</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;invited&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">Posts</span><span class="o">.</span><span class="n">get_posts</span><span class="p">()</span>
+        
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GeneralError</span><span class="p">(</span>
+                <span class="n">data</span><span class="o">=</span><span class="s2">&quot;Error al obtener los posts&quot;</span><span class="p">,</span> 
+                <span class="n">error</span><span class="o">=</span><span class="n">e</span>
+            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+
+<div class="viewcode-block" id="App.get_post">
+<a class="viewcode-back" href="../app.html#app.App.get_post">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_post</span><span class="p">(</span><span class="n">post_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">request_user</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fetch an specific post,</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            post_id (str): The post&#39;s ID.</span>
+<span class="sd">            request_user (Dict[str, Any]): The user that makes the request.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            NotFound: If post isn´t found.</span>
+<span class="sd">            GeneralError: General errors.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict[str, Any]: The post data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">request_User</span><span class="p">:</span> <span class="n">User_lite</span> <span class="o">=</span> <span class="n">User_lite</span><span class="p">(</span><span class="n">request_user</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">object_id_post</span> <span class="o">=</span> <span class="n">ObjectId</span><span class="p">(</span><span class="n">post_id</span><span class="p">)</span>
+            
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">NotFound</span><span class="p">(</span><span class="s2">&quot;post&quot;</span><span class="p">)</span>
+            
+            <span class="n">post</span><span class="p">:</span> <span class="n">Post</span> <span class="o">=</span> <span class="n">Posts</span><span class="o">.</span><span class="n">get_post</span><span class="p">(</span><span class="n">object_id_post</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">post</span><span class="p">:</span>
+                <span class="n">Log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Post </span><span class="si">{</span><span class="n">post</span><span class="o">.</span><span class="n">ID</span><span class="si">}</span><span class="s2"> fetched by </span><span class="si">{</span><span class="n">request_User</span><span class="o">.</span><span class="n">ID</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">post</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">request_User</span><span class="p">)</span>
+            
+            <span class="k">raise</span> <span class="n">NotFound</span><span class="p">(</span><span class="s2">&quot;post&quot;</span><span class="p">)</span>
+        
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GeneralError</span><span class="p">(</span>
+                <span class="n">data</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Error al obtener post </span><span class="si">{</span><span class="n">post_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> 
+                <span class="n">error</span><span class="o">=</span><span class="n">e</span>
+            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+    
+<div class="viewcode-block" id="App.create_post">
+<a class="viewcode-back" href="../app.html#app.App.create_post">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_post</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">review</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">rating</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">imageUrl</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">creator</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a new post.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name (str): The new post&#39;s name.</span>
+<span class="sd">            location (str): The new post&#39;s location.</span>
+<span class="sd">            review (str): The new post&#39;s review.</span>
+<span class="sd">            rating (float): The new post&#39;s rating.</span>
+<span class="sd">            imageUrl (str): The new post&#39;s imageUrl.</span>
+<span class="sd">            creator (Dict[str, Any]): The new post&#39;s creator.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If the rating isn&#39;t valid.</span>
+<span class="sd">            ValueError: If the imange isn&#39;t valid.</span>
+<span class="sd">            GeneralError: General errors.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The created post&#39;s ID.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">rating</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">rating</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Rating inválido&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_valid_image</span><span class="p">(</span><span class="n">imageUrl</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Imagen inválida&quot;</span><span class="p">)</span>
+
+            <span class="n">request_User</span><span class="p">:</span> <span class="n">User_lite</span> <span class="o">=</span> <span class="n">User_lite</span><span class="p">(</span><span class="n">creator</span><span class="p">)</span>
+            <span class="n">post</span><span class="p">:</span> <span class="n">Post</span> <span class="o">=</span> <span class="n">Posts</span><span class="o">.</span><span class="n">create_post</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">capitalize</span><span class="p">(),</span> <span class="n">location</span><span class="o">.</span><span class="n">title</span><span class="p">(),</span> <span class="n">review</span><span class="o">.</span><span class="n">capitalize</span><span class="p">(),</span> <span class="n">rating</span><span class="p">,</span> <span class="n">imageUrl</span><span class="p">,</span> <span class="n">request_User</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">post</span><span class="p">:</span>
+                <span class="n">Log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Post </span><span class="si">{</span><span class="n">post</span><span class="o">.</span><span class="n">ID</span><span class="si">}</span><span class="s2"> created&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">post</span><span class="o">.</span><span class="n">ID</span><span class="p">)</span>
+            
+            <span class="n">Log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error creating the post </span><span class="si">{</span><span class="n">post</span><span class="o">.</span><span class="n">json</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">GeneralError</span><span class="p">(</span><span class="s2">&quot;Error al crear el post&quot;</span><span class="p">)</span>
+        
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GeneralError</span><span class="p">(</span>
+                <span class="n">data</span><span class="o">=</span><span class="s2">&quot;Error al crear el post&quot;</span><span class="p">,</span> 
+                <span class="n">error</span><span class="o">=</span><span class="n">e</span><span class="p">,</span>
+                <span class="n">log</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;name: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">, location: </span><span class="si">{</span><span class="n">location</span><span class="si">}</span><span class="s2">, review: </span><span class="si">{</span><span class="n">review</span><span class="si">}</span><span class="s2">, rating: </span><span class="si">{</span><span class="n">rating</span><span class="si">}</span><span class="s2">, imageUrl: </span><span class="si">{</span><span class="n">imageUrl</span><span class="si">}</span><span class="s2">, creator: </span><span class="si">{</span><span class="n">creator</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+    
+<div class="viewcode-block" id="App.edit_post">
+<a class="viewcode-back" href="../app.html#app.App.edit_post">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">edit_post</span><span class="p">(</span><span class="n">post_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">review</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">rating</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">imageUrl</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">request_user</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Edit a post.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            post_id (str): Edited post&#39;s ID.</span>
+<span class="sd">            name (str): Edited post&#39;s name.</span>
+<span class="sd">            location (str): Edited post&#39;s location.</span>
+<span class="sd">            review (str): Edited post&#39;s review.</span>
+<span class="sd">            rating (float): Edited post&#39;s rating.</span>
+<span class="sd">            imageUrl (str): Edited post&#39;s imageUrl.</span>
+<span class="sd">            request_user (Dict[str, Any]): User that makes the request..</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If the rating isn&#39;t valid.</span>
+<span class="sd">            ValueError: If the imange isn&#39;t valid.</span>
+<span class="sd">            Unauthorized: If the request user isn&#39;t is authorized to edit.</span>
+<span class="sd">            NotFound: If post isn&#39;t founded.</span>
+<span class="sd">            GeneralError: General error.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True id was edited.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">request_User</span><span class="p">:</span> <span class="n">User_lite</span> <span class="o">=</span> <span class="n">User_lite</span><span class="p">(</span><span class="n">request_user</span><span class="p">)</span>
+            <span class="n">post</span><span class="p">:</span> <span class="n">Post</span> <span class="o">=</span> <span class="n">Posts</span><span class="o">.</span><span class="n">get_post</span><span class="p">(</span><span class="n">post_id</span><span class="p">)</span>
+
+            <span class="n">new_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">if</span> <span class="n">name</span><span class="p">:</span>
+                <span class="n">new_data</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+            
+            <span class="k">if</span> <span class="n">location</span><span class="p">:</span> 
+                <span class="n">new_data</span><span class="p">[</span><span class="s2">&quot;location&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">location</span>
+
+            <span class="k">if</span> <span class="n">review</span><span class="p">:</span> 
+                <span class="n">new_data</span><span class="p">[</span><span class="s2">&quot;review&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">review</span>
+
+            <span class="k">if</span> <span class="n">rating</span> <span class="ow">and</span> <span class="n">rating</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span> 
+                <span class="n">rating</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">rating</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">rating</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">rating</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Rating inválido&quot;</span><span class="p">)</span>
+                <span class="n">new_data</span><span class="p">[</span><span class="s2">&quot;rating&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rating</span>
+
+            <span class="k">if</span> <span class="n">imageUrl</span><span class="p">:</span> 
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">is_valid_image</span><span class="p">(</span><span class="n">imageUrl</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Imagen inválida&quot;</span><span class="p">)</span>
+                <span class="n">new_data</span><span class="p">[</span><span class="s2">&quot;imageUrl&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">imageUrl</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">new_data</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+
+            <span class="k">if</span> <span class="n">post</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">request_User</span> <span class="o">!=</span> <span class="n">post</span><span class="o">.</span><span class="n">creator</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">Unauthorized</span><span class="p">()</span>
+                
+                <span class="n">edited</span><span class="p">:</span> <span class="n">Post</span> <span class="o">=</span> <span class="n">Posts</span><span class="o">.</span><span class="n">edit_post</span><span class="p">(</span><span class="n">post</span><span class="p">,</span> <span class="n">new_data</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">edited</span><span class="p">:</span>
+                    <span class="n">Log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Post </span><span class="si">{</span><span class="n">post</span><span class="o">.</span><span class="n">ID</span><span class="si">}</span><span class="s2"> edited </span><span class="se">{{</span><span class="s2">original: </span><span class="si">{</span><span class="n">post</span><span class="o">.</span><span class="n">filter</span><span class="p">()</span><span class="si">}</span><span class="s2">, edit: </span><span class="si">{</span><span class="n">edited</span><span class="o">.</span><span class="n">filter</span><span class="p">()</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+                
+                <span class="n">Log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error editing the post </span><span class="si">{</span><span class="n">post_id</span><span class="si">}</span><span class="s2">, new_data: </span><span class="si">{</span><span class="n">new_data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="n">GeneralError</span><span class="p">(</span><span class="s2">&quot;Error al editar el Post&quot;</span><span class="p">)</span>
+
+            <span class="k">raise</span> <span class="n">NotFound</span><span class="p">(</span><span class="s2">&quot;post&quot;</span><span class="p">)</span>
+             
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GeneralError</span><span class="p">(</span>
+                <span class="n">data</span><span class="o">=</span><span class="s2">&quot;Error al editar el post&quot;</span><span class="p">,</span> 
+                <span class="n">error</span><span class="o">=</span><span class="n">e</span>
+                <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+    
+<div class="viewcode-block" id="App.delete_post">
+<a class="viewcode-back" href="../app.html#app.App.delete_post">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_post</span><span class="p">(</span><span class="n">post_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">request_user</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete a post.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            post_id (str): Post&#39;s ID.</span>
+<span class="sd">            request_user (Dict[str, Any]): User that makes the request.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            Unauthorized: If the request user isn&#39;t is authorized to delete.</span>
+<span class="sd">            GeneralError: General errors.</span>
+<span class="sd">            NotFound: If post isn&#39;t founded.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if was deleted.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">request_User</span><span class="p">:</span> <span class="n">User_lite</span> <span class="o">=</span> <span class="n">User_lite</span><span class="p">(</span><span class="n">request_user</span><span class="p">)</span>
+            <span class="n">post</span><span class="p">:</span> <span class="n">Post</span> <span class="o">=</span> <span class="n">Posts</span><span class="o">.</span><span class="n">get_post</span><span class="p">(</span><span class="n">post_id</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">post</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">request_User</span> <span class="o">!=</span> <span class="n">post</span><span class="o">.</span><span class="n">creator</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">Unauthorized</span><span class="p">()</span>
+                
+                <span class="n">deleted</span><span class="p">:</span> <span class="n">Post</span> <span class="o">=</span> <span class="n">Posts</span><span class="o">.</span><span class="n">delete_post</span><span class="p">(</span><span class="n">post</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">deleted</span><span class="p">:</span>
+                    <span class="n">Log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Post </span><span class="si">{</span><span class="n">post</span><span class="o">.</span><span class="n">ID</span><span class="si">}</span><span class="s2"> deleted </span><span class="se">{{</span><span class="s2">original: </span><span class="si">{</span><span class="n">post</span><span class="o">.</span><span class="n">json</span><span class="p">()</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+            
+                <span class="n">Log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error deleting post </span><span class="si">{</span><span class="n">post</span><span class="o">.</span><span class="n">filter</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="n">GeneralError</span><span class="p">(</span><span class="s2">&quot;Error al borrar el post&quot;</span><span class="p">)</span>
+            
+            <span class="k">raise</span> <span class="n">NotFound</span><span class="p">(</span><span class="s2">&quot;post&quot;</span><span class="p">)</span>
+         
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GeneralError</span><span class="p">(</span>
+                <span class="n">data</span><span class="o">=</span><span class="s2">&quot;Error al borrar el post&quot;</span><span class="p">,</span> 
+                <span class="n">error</span><span class="o">=</span><span class="n">e</span>
+            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+    
+    <span class="c1">#Comments</span>
+
+<div class="viewcode-block" id="App.new_comment">
+<a class="viewcode-back" href="../app.html#app.App.new_comment">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">new_comment</span><span class="p">(</span><span class="n">post_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">rating</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">request_user</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Makes a new comment.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            post_id (str): Post&#39;s ID.</span>
+<span class="sd">            content (str): Comment content.</span>
+<span class="sd">            rating (int): Comment rating.</span>
+<span class="sd">            request_user (Dict[str, Any]): User that makes the request.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If the comment rating isn&#39;t valid.</span>
+<span class="sd">            NotFound: If post isn&#39;t found.</span>
+<span class="sd">            GeneralError: General errors.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if the comment was added.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">rating</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">rating</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Rating inválido&quot;</span><span class="p">)</span>
+            
+            <span class="n">post</span><span class="p">:</span> <span class="n">Post</span> <span class="o">=</span> <span class="n">Posts</span><span class="o">.</span><span class="n">get_post</span><span class="p">(</span><span class="n">post_id</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">post</span><span class="p">:</span>
+                <span class="n">creator</span><span class="p">:</span> <span class="n">User_lite</span> <span class="o">=</span> <span class="n">User_lite</span><span class="p">(</span><span class="n">request_user</span><span class="p">)</span>
+                <span class="n">comment</span><span class="p">:</span> <span class="n">Comment</span> <span class="o">=</span> <span class="n">Posts</span><span class="o">.</span><span class="n">new_comment</span><span class="p">(</span><span class="n">post</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">rating</span><span class="p">,</span> <span class="n">creator</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">comment</span><span class="p">:</span>
+                    <span class="n">Log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Comment </span><span class="si">{</span><span class="n">comment</span><span class="o">.</span><span class="n">ID</span><span class="si">}</span><span class="s2"> created by </span><span class="si">{</span><span class="n">creator</span><span class="o">.</span><span class="n">ID</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="n">post_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+                
+                <span class="k">raise</span> <span class="n">GeneralError</span><span class="p">(</span><span class="s2">&quot;Error al crear el comentario&quot;</span><span class="p">)</span>
+            
+            <span class="k">raise</span> <span class="n">NotFound</span><span class="p">(</span><span class="s2">&quot;post&quot;</span><span class="p">)</span>
+        
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GeneralError</span><span class="p">(</span>
+                <span class="n">data</span><span class="o">=</span><span class="s2">&quot;Error al crear el comentario&quot;</span><span class="p">,</span> 
+                <span class="n">error</span><span class="o">=</span><span class="n">e</span><span class="p">,</span>
+                <span class="n">log</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">{{</span><span class="s2">content: </span><span class="si">{</span><span class="n">content</span><span class="si">}</span><span class="s2">, rating: </span><span class="si">{</span><span class="n">rating</span><span class="si">}</span><span class="s2">, post: </span><span class="si">{</span><span class="n">post_id</span><span class="si">}</span><span class="s2">, creator: </span><span class="si">{</span><span class="n">request_user</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span>
+            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+    
+<div class="viewcode-block" id="App.delete_comment">
+<a class="viewcode-back" href="../app.html#app.App.delete_comment">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_comment</span><span class="p">(</span><span class="n">post_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">comment_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">request_user</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete a comment.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            post_id (str): Post&#39;s ID.</span>
+<span class="sd">            comment_id (str): Comment&#39;s ID.</span>
+<span class="sd">            request_user (Dict[str, Any]): User that makes the request.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            Unauthorized: If the request user isn&#39;t is authorized to delete.</span>
+<span class="sd">            GeneralError: General errors.</span>
+<span class="sd">            NotFound: If the post isn&#39;t found.</span>
+<span class="sd">            NotFound: If the comment isn&#39;t found.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if the comment was deleted.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">post</span><span class="p">:</span> <span class="n">Post</span> <span class="o">=</span> <span class="n">Posts</span><span class="o">.</span><span class="n">get_post</span><span class="p">(</span><span class="n">post_id</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">post</span><span class="p">:</span>
+                <span class="n">request_User</span><span class="p">:</span> <span class="n">User_lite</span> <span class="o">=</span> <span class="n">User_lite</span><span class="p">(</span><span class="n">request_user</span><span class="p">)</span>
+                <span class="n">comment</span><span class="p">:</span> <span class="n">Comment</span> <span class="o">=</span> <span class="n">Posts</span><span class="o">.</span><span class="n">get_comment</span><span class="p">(</span><span class="n">ObjectId</span><span class="p">(</span><span class="n">post_id</span><span class="p">),</span> <span class="n">ObjectId</span><span class="p">(</span><span class="n">comment_id</span><span class="p">))</span>
+
+                <span class="k">if</span> <span class="n">comment</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">request_User</span> <span class="o">!=</span> <span class="n">comment</span><span class="o">.</span><span class="n">creator</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="n">Unauthorized</span><span class="p">()</span>
+                    <span class="n">deleted</span><span class="p">:</span> <span class="n">Comment</span> <span class="o">=</span> <span class="n">Posts</span><span class="o">.</span><span class="n">delete_comment</span><span class="p">(</span><span class="n">post</span><span class="p">,</span> <span class="n">comment</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">deleted</span><span class="p">:</span>
+                        <span class="n">Log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Comentario eliminado </span><span class="se">{{</span><span class="s2">original: </span><span class="si">{</span><span class="n">comment</span><span class="o">.</span><span class="n">filter</span><span class="p">()</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="k">return</span> <span class="kc">True</span>
+                    
+                    <span class="n">Log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error al eliminar el comentario </span><span class="si">{</span><span class="n">comment</span><span class="o">.</span><span class="n">filter</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">raise</span> <span class="n">GeneralError</span><span class="p">(</span><span class="s2">&quot;Error al borrar el comentario&quot;</span><span class="p">)</span>
+
+                <span class="k">raise</span> <span class="n">NotFound</span><span class="p">(</span><span class="s2">&quot;comment&quot;</span><span class="p">)</span>
+            
+            <span class="k">raise</span> <span class="n">NotFound</span><span class="p">(</span><span class="s2">&quot;post&quot;</span><span class="p">)</span>
+        
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GeneralError</span><span class="p">(</span>
+                <span class="n">data</span><span class="o">=</span><span class="s2">&quot;Error al borrar el comentario&quot;</span><span class="p">,</span> 
+                <span class="n">error</span><span class="o">=</span><span class="n">e</span><span class="p">,</span>
+                <span class="n">log</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;post_id: </span><span class="si">{</span><span class="n">post_id</span><span class="si">}</span><span class="s2">, comment_id: </span><span class="si">{</span><span class="n">comment_id</span><span class="si">}</span><span class="s2">, request_user: </span><span class="si">{</span><span class="n">request_user</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+    
+    <span class="c1">#Token</span>
+
+<div class="viewcode-block" id="App.verify_token">
+<a class="viewcode-back" href="../app.html#app.App.verify_token">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">verify_token</span><span class="p">(</span><span class="n">request_token</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Verify a JWT.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            request_token (str): The token to verify</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            GeneralError: General error</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict[str, Any]: {&quot;verify&quot;: True, &quot;user&quot;: (token info)} or {&quot;verify&quot;: False, &quot;error&quot;: (error)}</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">valid</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">Token</span><span class="o">.</span><span class="n">is_valid</span><span class="p">(</span><span class="n">request_token</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">valid</span>
+        
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GeneralError</span><span class="p">(</span>
+                <span class="n">data</span><span class="o">=</span><span class="s2">&quot;Error al verificar el token&quot;</span><span class="p">,</span> 
+                <span class="n">error</span><span class="o">=</span><span class="n">e</span>
+            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Jadevx.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,652 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>modules.posts &mdash; Worldblog 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Worldblog
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Worldblog</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">modules.posts</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for modules.posts</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">bson</span><span class="w"> </span><span class="kn">import</span> <span class="n">ObjectId</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">modules.database</span><span class="w"> </span><span class="kn">import</span> <span class="n">DB</span> <span class="k">as</span> <span class="n">db</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">modules.utils.generals</span><span class="w"> </span><span class="kn">import</span> <span class="n">creation_date</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">modules.users</span><span class="w"> </span><span class="kn">import</span> <span class="n">User_lite</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Optional</span>
+
+<div class="viewcode-block" id="Comment">
+<a class="viewcode-back" href="../../modules.html#modules.posts.Comment">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Comment</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize a comment.&quot;&quot;&quot;</span>    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a Comment.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data (Optional[Dict[str, Any]], optional): The comment data. Defaults to None.</span>
+<span class="sd">                - _id (ObjectId, optional): The comment ID, if isn&#39;t given create a new ID.</span>
+<span class="sd">                - content (str): The comment text, the content.</span>
+<span class="sd">                - rating (float): Comment rating.</span>
+<span class="sd">                - creator (User_lite): Comment creator.</span>
+<span class="sd">                - createdAt (str, optional): Creation date, if isn&#39;t given create a new one.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If the data types don&#39;t match.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="c1">#if not data or any(field is None for field in [data.get(&quot;content&quot;), data.get(&quot;creator&quot;), data.get(&quot;rating&quot;)]):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">valid</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ID</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="o">=</span> <span class="n">ObjectId</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;_id&quot;</span><span class="p">,</span> <span class="n">ObjectId</span><span class="p">()))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;content&quot;</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">rating</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;rating&quot;</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">creator</span><span class="p">:</span> <span class="n">User_lite</span> <span class="o">=</span> <span class="n">User_lite</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;creator&quot;</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">createdAt</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;createdAt&quot;</span><span class="p">,</span> <span class="n">creation_date</span><span class="p">()))</span>
+        
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error initializing the comment: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The validity of the comment.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if is valid, else False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">valid</span>
+
+<div class="viewcode-block" id="Comment.json">
+<a class="viewcode-back" href="../../modules.html#modules.posts.Comment.json">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">json</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parse the comment to JSON format.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict[str, Any]: Comment data in JSON.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error parsing the comment: No data was provided.&quot;</span><span class="p">)</span>
+            
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span>
+                <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">,</span>
+                <span class="s2">&quot;rating&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">rating</span><span class="p">,</span>
+                <span class="s2">&quot;creator&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">creator</span><span class="o">.</span><span class="n">json</span><span class="p">(),</span>
+                <span class="s2">&quot;createdAt&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">createdAt</span>
+            <span class="p">}</span>
+        
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error parsing the comment: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Comment.filter">
+<a class="viewcode-back" href="../../modules.html#modules.posts.Comment.filter">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request_user</span><span class="p">:</span> <span class="n">User_lite</span> <span class="o">=</span> <span class="n">User_lite</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Filter a comment with this params:</span>
+<span class="sd">        - Changes &quot;_id&quot; for &quot;ID&quot;.</span>
+<span class="sd">        - Only returns the creator username.</span>
+<span class="sd">        - If the request user is the creator, returns &quot;editable&quot; as True, else False.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            request_user (User_lite, optional): The user that fetch the comment. Defaults to User_lite().</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error filtering the comment.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict[str, Any]: The comment filtered.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">returned_comment</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+            <span class="n">returned_comment</span><span class="p">[</span><span class="s2">&quot;ID&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">returned_comment</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;_id&quot;</span><span class="p">))</span>
+            <span class="n">returned_comment</span><span class="p">[</span><span class="s2">&quot;creator&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">creator</span><span class="o">.</span><span class="n">username</span>
+            <span class="n">returned_comment</span><span class="p">[</span><span class="s2">&quot;editable&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">request_user</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">creator</span> <span class="k">else</span> <span class="kc">False</span>
+            <span class="k">return</span> <span class="n">returned_comment</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error filtering the comment: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Post">
+<a class="viewcode-back" href="../../modules.html#modules.posts.Post">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Post</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize a post.&quot;&quot;&quot;</span>    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a post.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data (Optional[Dict[str, Any]], optional): The post data. Defaults to None.</span>
+<span class="sd">                - _id (ObjectId, optional): The post ID, if isn&#39;t given create a new ID.</span>
+<span class="sd">                - name (str): Post&#39;s name.</span>
+<span class="sd">                - location (str): Post&#39;s location.</span>
+<span class="sd">                - review (str): Post&#39;s review.</span>
+<span class="sd">                - rating (float): Post&#39;s rating.</span>
+<span class="sd">                - imageUrl (str): Post&#39;s image url.</span>
+<span class="sd">                - creator (User_lite): Post&#39;s creator.</span>
+<span class="sd">                - comments (List[Dict[str, Any]], optional): The post&#39;s comments or [] if isn&#39;t given.</span>
+<span class="sd">                - createdAt (str, optional): Creation date, if isn&#39;t given create a new one.</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If the data types don&#39;t match.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="c1">#if not data or any(field is None for field in [data.get(&quot;name&quot;), data.get(&quot;location&quot;), data.get(&quot;review&quot;), data.get(&quot;rating&quot;), data.get(&quot;imageUrl&quot;), data.get(&quot;creator&quot;)]):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">valid</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ID</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="o">=</span> <span class="n">ObjectId</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;_id&quot;</span><span class="p">,</span> <span class="n">ObjectId</span><span class="p">()))</span> 
+                <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">location</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;location&quot;</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">review</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;review&quot;</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">rating</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;rating&quot;</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">imageUrl</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;imageUrl&quot;</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">creator</span><span class="p">:</span> <span class="n">User_lite</span> <span class="o">=</span> <span class="n">User_lite</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;creator&quot;</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">comments</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;comments&quot;</span><span class="p">,</span> <span class="p">[])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">createdAt</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;createdAt&quot;</span><span class="p">,</span> <span class="n">creation_date</span><span class="p">()))</span>
+        
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error initializing the post. </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__bool__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The validity of the post.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if is valid, else False.</span>
+<span class="sd">        &quot;&quot;&quot;</span> 
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">valid</span>
+
+<div class="viewcode-block" id="Post.json">
+<a class="viewcode-back" href="../../modules.html#modules.posts.Post.json">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">json</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parse the post to JSON format.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict[str, Any]: Post data in JSON.</span>
+<span class="sd">        &quot;&quot;&quot;</span>    
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error parsing the post: No data was provided.&quot;</span><span class="p">)</span>
+            
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="s2">&quot;location&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">location</span><span class="p">,</span>
+                <span class="s2">&quot;review&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">review</span><span class="p">,</span>
+                <span class="s2">&quot;rating&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">rating</span><span class="p">,</span>
+                <span class="s2">&quot;imageUrl&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageUrl</span><span class="p">,</span>
+                <span class="s2">&quot;creator&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">creator</span><span class="o">.</span><span class="n">json</span><span class="p">(),</span>
+                <span class="s2">&quot;comments&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">comments</span><span class="p">,</span>
+                <span class="s2">&quot;createdAt&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">createdAt</span>
+            <span class="p">}</span>
+        
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error parsing the Post: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Post.filter">
+<a class="viewcode-back" href="../../modules.html#modules.posts.Post.filter">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request_user</span><span class="p">:</span> <span class="n">User_lite</span> <span class="o">=</span> <span class="n">User_lite</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Filter a post with this params:</span>
+<span class="sd">        - Changes &quot;_id&quot; for &quot;ID&quot;.</span>
+<span class="sd">        - Only returns the creator username.</span>
+<span class="sd">        - If the request user is the creator, returns &quot;editable&quot; as True, else False.</span>
+<span class="sd">        - Filter every comment in the comments.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            request_user (User_lite, optional): The user that fetch the post. Defaults to User_lite().</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error filtering the post.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict[str, Any]: The post filtered.</span>
+<span class="sd">        &quot;&quot;&quot;</span>    
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">returned_post</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+            <span class="n">returned_post</span><span class="p">[</span><span class="s2">&quot;ID&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">returned_post</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;_id&quot;</span><span class="p">))</span>
+            <span class="n">returned_post</span><span class="p">[</span><span class="s2">&quot;creator&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">creator</span><span class="o">.</span><span class="n">username</span>
+            <span class="n">returned_post</span><span class="p">[</span><span class="s2">&quot;editable&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">request_user</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">creator</span>
+            <span class="n">returned_post</span><span class="p">[</span><span class="s2">&quot;comments&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">Comment</span><span class="p">(</span><span class="n">comment</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">request_user</span><span class="p">)</span> <span class="k">for</span> <span class="n">comment</span> <span class="ow">in</span> <span class="n">returned_post</span><span class="p">[</span><span class="s2">&quot;comments&quot;</span><span class="p">]]</span>
+            <span class="k">return</span> <span class="n">returned_post</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error filtering the post: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Post.edit">
+<a class="viewcode-back" href="../../modules.html#modules.posts.Post.edit">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">edit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_info</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{})</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Edit a post, only in the valid fields: &quot;name&quot;, &quot;location&quot;, &quot;review&quot;, &quot;rating&quot;, &quot;imageUrl&quot;.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            new_info (Dict[str, Any], optional): New post&#39;s data. Defaults to {}.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error editting the post.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict[str, Any]: The edited post.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">new_info</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{}</span>
+
+        <span class="n">edited_fields</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">valid_fields</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;location&quot;</span><span class="p">,</span> <span class="s2">&quot;review&quot;</span><span class="p">,</span> <span class="s2">&quot;rating&quot;</span><span class="p">,</span> <span class="s2">&quot;imageUrl&quot;</span><span class="p">}</span>
+
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">new_info</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">valid_fields</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">!=</span> <span class="n">value</span><span class="p">:</span>
+                    <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+                    <span class="n">edited_fields</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+            <span class="k">return</span> <span class="n">edited_fields</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error editting the post: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Post.lite">
+<a class="viewcode-back" href="../../modules.html#modules.posts.Post.lite">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">lite</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Make a lite post version, only returns:</span>
+<span class="sd">        - ID.</span>
+<span class="sd">        - Name.</span>
+<span class="sd">        - Location.</span>
+<span class="sd">        - Rating.</span>
+<span class="sd">        - ImageUrl.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict[str, Any]: The lite post.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error liting the post: No data was provided.&quot;</span><span class="p">)</span>
+        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">&quot;ID&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ID</span><span class="p">),</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="s2">&quot;location&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">location</span><span class="p">,</span>
+                <span class="s2">&quot;rating&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">rating</span><span class="p">,</span>
+                <span class="s2">&quot;imageUrl&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageUrl</span>
+            <span class="p">}</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error liting the post: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Posts">
+<a class="viewcode-back" href="../../modules.html#modules.posts.Posts">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Posts</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;It manages the posts an comments.&quot;&quot;&quot;</span>    
+<div class="viewcode-block" id="Posts.get_posts">
+<a class="viewcode-back" href="../../modules.html#modules.posts.Posts.get_posts">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_posts</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fetch all the posts in the database.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error fetching the posts.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List[Dict[str, Any]]: All posts.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">posts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">get_posts</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">posts</span>
+        
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error fetching the posts: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+
+<div class="viewcode-block" id="Posts.get_user_posts">
+<a class="viewcode-back" href="../../modules.html#modules.posts.Posts.get_user_posts">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_user_posts</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">user_posts</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fetch all the posts for one user.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            user_posts (list, optional): The ID of every post to fetch. Defaults to [].</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error fetching the user posts.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List[Dict[str, Any]]: All user&#39;s post or [] if is empty.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">posts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">for</span> <span class="n">post_id</span> <span class="ow">in</span> <span class="n">user_posts</span><span class="p">:</span>
+                <span class="n">lite</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_post</span><span class="p">(</span><span class="n">post_id</span><span class="p">)</span><span class="o">.</span><span class="n">lite</span><span class="p">()</span>
+                <span class="n">posts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lite</span><span class="p">)</span>
+                
+            <span class="k">return</span> <span class="n">posts</span>
+        
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error fetching the user&#39;s posts: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+
+<div class="viewcode-block" id="Posts.get_post">
+<a class="viewcode-back" href="../../modules.html#modules.posts.Posts.get_post">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_post</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;_id&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Post</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fetch an specific post.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (Any): Fetch an specific post.</span>
+<span class="sd">            field (str, optional): Field to search. Defaults to &quot;_id&quot;.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error fetching the post.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Post: The post founded.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">post</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">get_post</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">Post</span><span class="p">(</span><span class="n">post</span><span class="p">)</span>
+        
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error fetching the post: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+
+<div class="viewcode-block" id="Posts.create_post">
+<a class="viewcode-back" href="../../modules.html#modules.posts.Posts.create_post">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_post</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">review</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">rating</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">imageUrl</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">creator</span><span class="p">:</span> <span class="n">User_lite</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Post</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a new post.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name (str): Post&#39;s name.</span>
+<span class="sd">            location (str): Post&#39;s location.</span>
+<span class="sd">            review (str): Post&#39;s review.</span>
+<span class="sd">            rating (float): Post&#39;s rating.</span>
+<span class="sd">            imageUrl (str): Post&#39;s image url.</span>
+<span class="sd">            creator (User_lite): Post&#39;s creator.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error creating the post.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Post: New post data if was created.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">new_post</span><span class="p">:</span> <span class="n">Post</span> <span class="o">=</span> <span class="n">Post</span><span class="p">({</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+                <span class="s2">&quot;location&quot;</span><span class="p">:</span> <span class="n">location</span><span class="p">,</span>
+                <span class="s2">&quot;review&quot;</span><span class="p">:</span> <span class="n">review</span><span class="p">,</span>
+                <span class="s2">&quot;rating&quot;</span><span class="p">:</span> <span class="n">rating</span><span class="p">,</span>
+                <span class="s2">&quot;imageUrl&quot;</span><span class="p">:</span> <span class="n">imageUrl</span><span class="p">,</span>
+                <span class="s2">&quot;creator&quot;</span><span class="p">:</span> <span class="n">creator</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+            <span class="p">})</span>
+            <span class="k">return</span> <span class="n">new_post</span> <span class="k">if</span> <span class="n">db</span><span class="o">.</span><span class="n">add_post</span><span class="p">(</span><span class="n">new_post</span><span class="o">.</span><span class="n">json</span><span class="p">(),</span> <span class="n">creator</span><span class="o">.</span><span class="n">ID</span><span class="p">)</span> <span class="k">else</span> <span class="n">Post</span><span class="p">()</span>
+        
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error creating the post: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+                
+<div class="viewcode-block" id="Posts.edit_post">
+<a class="viewcode-back" href="../../modules.html#modules.posts.Posts.edit_post">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">edit_post</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">post</span><span class="p">:</span> <span class="n">Post</span><span class="p">,</span> <span class="n">new_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{})</span> <span class="o">-&gt;</span> <span class="n">Post</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Edit a post.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            post (Post): The post to edit.</span>
+<span class="sd">            new_data (Dict[str, Any], optional): New data. Defaults to {}.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error editing the post.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Post: Edited post if was edited.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">edited</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">edit</span><span class="p">(</span><span class="n">new_data</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">edited</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">post</span> <span class="k">if</span> <span class="n">db</span><span class="o">.</span><span class="n">edit_post</span><span class="p">(</span><span class="n">post</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> <span class="n">edited</span><span class="p">)</span> <span class="k">else</span> <span class="n">Post</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">Post</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error editing the post: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+    
+<div class="viewcode-block" id="Posts.delete_post">
+<a class="viewcode-back" href="../../modules.html#modules.posts.Posts.delete_post">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_post</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">post</span><span class="p">:</span> <span class="n">Post</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Post</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete a post</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            post (Post): The post to delete.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error deleting the post.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Post: Deleted post data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">post</span> <span class="k">if</span> <span class="n">db</span><span class="o">.</span><span class="n">delete_post</span><span class="p">(</span><span class="n">post</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> <span class="n">post</span><span class="o">.</span><span class="n">creator</span><span class="o">.</span><span class="n">ID</span><span class="p">)</span> <span class="k">else</span> <span class="n">Post</span><span class="p">()</span>
+        
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error deleting the post: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+    
+    <span class="c1">#Comments</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__get_comments</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">post</span><span class="p">:</span> <span class="n">Post</span><span class="p">,</span> <span class="n">request_user</span><span class="p">:</span> <span class="n">User_lite</span> <span class="o">=</span> <span class="n">User_lite</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fetch all the comments in a post.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            post (Post): The post to fetch comments.</span>
+<span class="sd">            request_user (User_lite, optional): The user that makes the request. Defaults to User_lite().</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error fetching the comments.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List[Dict[str, Any]]: All the comments or [] if it don&#39;t have comments.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">db_comments</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">_get_comments</span><span class="p">(</span><span class="n">post</span><span class="o">.</span><span class="n">ID</span><span class="p">)</span>
+            <span class="n">comments</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">comment</span> <span class="ow">in</span> <span class="n">db_comments</span><span class="p">:</span>
+                <span class="n">comments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Comment</span><span class="p">(</span><span class="n">comment</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">request_user</span><span class="p">))</span>
+            
+            <span class="k">return</span> <span class="n">comments</span>
+        
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error fetching the comments: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>    
+
+<div class="viewcode-block" id="Posts.get_comment">
+<a class="viewcode-back" href="../../modules.html#modules.posts.Posts.get_comment">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_comment</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">post_id</span><span class="p">:</span> <span class="n">ObjectId</span><span class="p">,</span> <span class="n">comment_id</span><span class="p">:</span> <span class="n">ObjectId</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Comment</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fetch one comment in the post.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            post_id (ObjectId): Post&#39;ID where is the comment.</span>
+<span class="sd">            comment_id (ObjectId): Comment&#39;s ID to fetch.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error fetching a comment.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Comment: The comment fetched if it exist.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">comment</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>  <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">get_comment</span><span class="p">(</span><span class="n">post_id</span><span class="p">,</span> <span class="n">comment_id</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">Comment</span><span class="p">(</span><span class="n">comment</span><span class="p">)</span>
+        
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error fetching the comment. </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+
+<div class="viewcode-block" id="Posts.new_comment">
+<a class="viewcode-back" href="../../modules.html#modules.posts.Posts.new_comment">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">new_comment</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">post</span><span class="p">:</span> <span class="n">Post</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">rating</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">creator</span><span class="p">:</span> <span class="n">User_lite</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Comment</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a new comment.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            post (Post): Post where will be the comment.</span>
+<span class="sd">            content (str): Comment&#39;s content.</span>
+<span class="sd">            rating (float): Comment&#39;s rating.</span>
+<span class="sd">            creator (User_lite): Comment&#39;s creator.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error creating the comment</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Comment: New comment data if was added.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">new_comment</span><span class="p">:</span> <span class="n">Comment</span> <span class="o">=</span> <span class="n">Comment</span><span class="p">({</span>
+                <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">content</span><span class="p">,</span>
+                <span class="s2">&quot;rating&quot;</span><span class="p">:</span> <span class="n">rating</span><span class="p">,</span>
+                <span class="s2">&quot;creator&quot;</span><span class="p">:</span> <span class="n">creator</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+            <span class="p">})</span>
+            <span class="k">return</span> <span class="n">new_comment</span> <span class="k">if</span> <span class="n">db</span><span class="o">.</span><span class="n">add_comment</span><span class="p">(</span><span class="n">post</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> <span class="n">new_comment</span><span class="o">.</span><span class="n">json</span><span class="p">())</span> <span class="k">else</span> <span class="n">Comment</span><span class="p">()</span>
+        
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error creating the comment: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+    
+<div class="viewcode-block" id="Posts.delete_comment">
+<a class="viewcode-back" href="../../modules.html#modules.posts.Posts.delete_comment">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_comment</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">post</span><span class="p">:</span> <span class="n">Post</span><span class="p">,</span> <span class="n">comment</span><span class="p">:</span> <span class="n">Comment</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Comment</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete a comment.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            post (Post): Post where is the comment.</span>
+<span class="sd">            comment (Comment): Comment to delete.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error deleting the comment.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Comment: Deleted comment data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span> 
+            <span class="k">return</span> <span class="n">comment</span> <span class="k">if</span> <span class="n">db</span><span class="o">.</span><span class="n">delete_comment</span><span class="p">(</span><span class="n">post</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> <span class="n">comment</span><span class="o">.</span><span class="n">ID</span><span class="p">)</span> <span class="k">else</span> <span class="n">Comment</span><span class="p">()</span>
+        
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error deleting the comment: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Jadevx.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

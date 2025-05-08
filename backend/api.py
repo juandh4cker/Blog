@@ -1,10 +1,11 @@
 from app import App
 from modules.utils.token import Token
-from flask import Flask, jsonify, make_response, request, Response
+from flask import Flask, jsonify, make_response, request, Response, send_from_directory
 from flask_cors import CORS
 from functools import wraps
 from modules.utils.exceptions import *
 from typing import Any, List, Dict, Tuple
+import os
  
 #Por hacer:
 # - Mejorar errores, código de errores
@@ -423,6 +424,32 @@ def delete_comment(post_id: str, comment_id: str) -> Tuple[Response, Any]:
 
     except Exception as e:
         return excepty(e)
+
+
+SPHINX_BUILD_PATH = os.path.join(os.getcwd(), 'docs', '_build', 'html')
+
+@api.route('/api/docs/<path:filename>')
+def serve_docs(filename):
+    """
+    Give the filename.
+
+    Args:
+        filename (_type_): Filename.
+
+    Returns:
+        _type_: The file.
+    """    
+    return send_from_directory(SPHINX_BUILD_PATH, filename)
+
+@api.route('/api/docs/')
+def serve_docs_index():
+    """
+    Give the app documentation.
+
+    Returns:
+        _type_: index.html
+    """    
+    return send_from_directory(SPHINX_BUILD_PATH, 'index.html')
 
 if __name__ == "__main__":
     api.run(debug=True)

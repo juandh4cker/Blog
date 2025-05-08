@@ -1,0 +1,615 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>api &mdash; WorldBlog API 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            WorldBlog API
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">Api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app.html">App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Modules</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">WorldBlog API</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">api</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for api</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">app</span><span class="w"> </span><span class="kn">import</span> <span class="n">App</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">modules.utils.token</span><span class="w"> </span><span class="kn">import</span> <span class="n">Token</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flask</span><span class="w"> </span><span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">,</span> <span class="n">make_response</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">Response</span><span class="p">,</span> <span class="n">send_from_directory</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flask_cors</span><span class="w"> </span><span class="kn">import</span> <span class="n">CORS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">wraps</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">modules.utils.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+ 
+<span class="c1">#Por hacer:</span>
+<span class="c1"># - Mejorar errores, código de errores</span>
+<span class="c1"># - Organizar rutas y hacer archivo para claves/rutas/configuraciones</span>
+<span class="c1"># - Lenguaje para haces peticiones (graphql)</span>
+<span class="c1"># - Manejar respuestas por códigos y varios idiomas</span>
+
+<span class="n">api</span><span class="p">:</span> <span class="n">Flask</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="n">CORS</span><span class="p">(</span><span class="n">api</span><span class="p">,</span> <span class="n">supports_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">#Methods</span>
+<div class="viewcode-block" id="logout">
+<a class="viewcode-back" href="../api.html#api.logout">[docs]</a>
+<span class="nd">@api</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/api/app/logout&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">logout</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Logout a user.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Response: Delete the token and retuns {&quot;data&quot;: &quot;Sesión cerrada&quot;}</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="n">response</span> <span class="o">=</span> <span class="n">make_response</span><span class="p">({</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="s2">&quot;Sesión cerrada&quot;</span><span class="p">})</span>
+    <span class="n">response</span><span class="o">.</span><span class="n">set_cookie</span><span class="p">(</span><span class="s1">&#39;token&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">expires</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">samesite</span><span class="o">=</span><span class="s1">&#39;Lax&#39;</span><span class="p">,</span> <span class="n">secure</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">response</span></div>
+
+
+<div class="viewcode-block" id="returny">
+<a class="viewcode-back" href="../api.html#api.returny">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">returny</span><span class="p">(</span><span class="n">to_return</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">code</span> <span class="o">=</span> <span class="mi">200</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Response</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Make a return witk code</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        to_return (Any): Data to return.</span>
+<span class="sd">        code (int, optional): Code to return.. Defaults to 200.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[Response, Any]: The data with the code.</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="n">tipo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;data&quot;</span>
+    <span class="k">if</span> <span class="n">code</span> <span class="o">&gt;=</span> <span class="mi">400</span><span class="p">:</span>
+        <span class="n">tipo</span> <span class="o">=</span> <span class="s2">&quot;error&quot;</span>
+    <span class="c1">#return jsonify({tipo: to_return}), code</span>
+    <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="n">tipo</span><span class="p">:</span> <span class="n">to_return</span><span class="p">}),</span> <span class="mi">200</span> <span class="c1">#si todo se procesa</span></div>
+
+
+<div class="viewcode-block" id="set_token">
+<a class="viewcode-back" href="../api.html#api.set_token">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">set_token</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">code</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set a safe token.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        token (Dict[str, Any]): Token.</span>
+<span class="sd">        code (int, optional): Code to returns. Defaults to 200.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Response: Set the token.</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="n">response</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="n">make_response</span><span class="p">(</span><span class="n">jsonify</span><span class="p">({</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">token</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]}),</span> <span class="n">code</span><span class="p">)</span>
+    <span class="n">response</span><span class="o">.</span><span class="n">set_cookie</span><span class="p">(</span>
+        <span class="s2">&quot;token&quot;</span><span class="p">,</span> <span class="n">token</span><span class="p">[</span><span class="s1">&#39;token&#39;</span><span class="p">],</span>
+        <span class="n">httponly</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">secure</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">samesite</span> <span class="o">=</span> <span class="s2">&quot;Strict&quot;</span><span class="p">,</span>
+        <span class="n">max_age</span> <span class="o">=</span> <span class="mi">86400</span> <span class="c1">#1 día</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">response</span></div>
+
+
+<div class="viewcode-block" id="excepty">
+<a class="viewcode-back" href="../api.html#api.excepty">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">excepty</span><span class="p">(</span><span class="n">exception</span><span class="p">:</span> <span class="ne">Exception</span> <span class="o">|</span> <span class="n">CustomException</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Response</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Manage the exceptions.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        exception (Exception | CustomException): Exception ocurred.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        exception: The exception</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[Response, Any]: The error.</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">exception</span>
+    
+    <span class="k">except</span> <span class="n">CustomException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">returny</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">error</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">code</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">returny</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error desconocido: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+        
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">g</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">returny</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error desconocido: </span><span class="si">{</span><span class="n">g</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span></div>
+
+
+<span class="c1"># JWT</span>
+
+<div class="viewcode-block" id="verify_token">
+<a class="viewcode-back" href="../api.html#api.verify_token">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">verify_token</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Verify a JWT.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        f (_type_): Function</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        Unauthorized: Not token</span>
+<span class="sd">        Unauthorized: Invalid token</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Response: Function response</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="nd">@wraps</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Wrap the function.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            Unauthorized: Not token</span>
+<span class="sd">            Unauthorized: Invalid token</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            _type_: Function response.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">token</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">cookies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">token</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">Unauthorized</span><span class="p">()</span>
+
+            <span class="n">result</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">App</span><span class="o">.</span><span class="n">verify_token</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;verify&quot;</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">Unauthorized</span><span class="p">()</span>
+
+            <span class="n">user</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">]</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">user</span>  <span class="c1"># type: ignore</span>
+
+            <span class="n">resp</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Response</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+            <span class="n">new_token</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Token</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">user</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">],</span> <span class="n">user</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">])</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                <span class="n">response_obj</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="n">make_response</span><span class="p">(</span><span class="o">*</span><span class="n">resp</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">response_obj</span><span class="p">:</span> <span class="n">Response</span> <span class="o">=</span> <span class="n">make_response</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
+
+            <span class="n">response_obj</span><span class="o">.</span><span class="n">set_cookie</span><span class="p">(</span>
+                <span class="s2">&quot;token&quot;</span><span class="p">,</span>
+                <span class="n">new_token</span><span class="p">,</span>
+                <span class="n">httponly</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">secure</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">samesite</span><span class="o">=</span><span class="s2">&quot;Strict&quot;</span><span class="p">,</span>
+                <span class="n">max_age</span><span class="o">=</span><span class="mi">86400</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">response_obj</span>
+
+        <span class="k">except</span> <span class="n">CustomException</span> <span class="k">as</span> <span class="n">ce</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">excepty</span><span class="p">(</span><span class="n">ce</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">excepty</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">wrapper</span></div>
+
+
+<div class="viewcode-block" id="verify_token_request">
+<a class="viewcode-back" href="../api.html#api.verify_token_request">[docs]</a>
+<span class="nd">@api</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/api/app/verify&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">verify_token_request</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Response</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Verify a token by request.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[Response, Any]: Verify info.</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="n">token</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">cookies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">token</span><span class="p">:</span>
+        <span class="n">result</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">App</span><span class="o">.</span><span class="n">verify_token</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+        <span class="n">verify</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;verify&quot;</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="n">verify</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">returny</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">returny</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">returny</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div>
+
+
+<span class="c1">#Access</span>
+
+<div class="viewcode-block" id="login">
+<a class="viewcode-back" href="../api.html#api.login">[docs]</a>
+<span class="nd">@api</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/api/app/login&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">login</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Response</span> <span class="o">|</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Response</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Log an user.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Response | Tuple[Response, Any]: Loggin info.</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
+        <span class="n">username_or_email</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;username_or_email&quot;</span><span class="p">]</span>
+        <span class="n">password</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;password&quot;</span><span class="p">]</span>
+        
+        <span class="n">result</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">App</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">username_or_email</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">set_token</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+       
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">excepty</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="register">
+<a class="viewcode-back" href="../api.html#api.register">[docs]</a>
+<span class="nd">@api</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/api/app/register&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">register</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Response</span> <span class="o">|</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Response</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Register an user</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Response | Tuple[Response, Any]: Register info.</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
+        <span class="n">username</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">]</span>
+        <span class="n">email</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;email&quot;</span><span class="p">]</span>
+        <span class="n">password</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;password&quot;</span><span class="p">]</span>
+
+        <span class="n">result</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">App</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">set_token</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="mi">201</span><span class="p">)</span>
+        
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">excepty</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
+
+
+<span class="c1"># Users</span>
+
+<div class="viewcode-block" id="get_user">
+<a class="viewcode-back" href="../api.html#api.get_user">[docs]</a>
+<span class="nd">@api</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/api/user/&lt;string:username&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
+<span class="nd">@verify_token</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_user</span><span class="p">(</span><span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Response</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fetch an user.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        username (str): User&#39;s username to fetch.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[Response, Any]: User data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">user</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">App</span><span class="o">.</span><span class="n">get_user</span><span class="p">(</span><span class="n">username</span><span class="o">.</span><span class="n">capitalize</span><span class="p">(),</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+        <span class="k">return</span> <span class="n">returny</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+    
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">excepty</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="follow_user">
+<a class="viewcode-back" href="../api.html#api.follow_user">[docs]</a>
+<span class="nd">@api</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/api/user/&lt;string:username&gt;/follownt&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;PUT&quot;</span><span class="p">])</span>
+<span class="nd">@verify_token</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">follow_user</span><span class="p">(</span><span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Response</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Follow or unfollows an user.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        username (str): User&#39;s username to follow or unfollow</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        Exception: If is himself.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[Response, Any]: Follow data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">username</span> <span class="o">=</span> <span class="n">username</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">username</span><span class="p">:</span> <span class="c1"># type: ignore</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;You can&#39;t follow yourself&quot;</span><span class="p">)</span>
+        
+        <span class="n">result</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">App</span><span class="o">.</span><span class="n">follownt</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+        <span class="k">return</span> <span class="n">returny</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">excepty</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
+
+
+<span class="c1">#Posts</span>
+
+<div class="viewcode-block" id="get_posts">
+<a class="viewcode-back" href="../api.html#api.get_posts">[docs]</a>
+<span class="nd">@api</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/api/posts&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_posts</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Response</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fetch all posts.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[Response, Any]: Posts data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">token</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">cookies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">user</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">if</span> <span class="n">token</span><span class="p">:</span>
+            <span class="n">token_result</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">App</span><span class="o">.</span><span class="n">verify_token</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">token_result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;verify&quot;</span><span class="p">):</span>
+                <span class="n">user</span> <span class="o">=</span> <span class="n">token_result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+
+        <span class="n">result</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">App</span><span class="o">.</span><span class="n">get_posts</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">returny</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">excepty</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_post">
+<a class="viewcode-back" href="../api.html#api.get_post">[docs]</a>
+<span class="nd">@api</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/api/post/&lt;string:post_id&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
+<span class="nd">@verify_token</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_post</span><span class="p">(</span><span class="n">post_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Response</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fetch a post.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        post_id (str): Post&#39;s ID to fetch.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[Response, Any]: Post data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">result</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">App</span><span class="o">.</span><span class="n">get_post</span><span class="p">(</span><span class="n">post_id</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+        <span class="k">return</span> <span class="n">returny</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">excepty</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="create_post">
+<a class="viewcode-back" href="../api.html#api.create_post">[docs]</a>
+<span class="nd">@api</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/api/post/create&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+<span class="nd">@verify_token</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_post</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Response</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a new post.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[Response, Any]: Creation data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+        <span class="n">location</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;location&quot;</span><span class="p">]</span>
+        <span class="n">review</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;review&quot;</span><span class="p">]</span>
+        <span class="n">rating</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;rating&quot;</span><span class="p">]</span>
+        <span class="n">imageUrl</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;imageUrl&quot;</span><span class="p">]</span>
+
+        <span class="n">result</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">App</span><span class="o">.</span><span class="n">create_post</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">review</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">rating</span><span class="p">),</span> <span class="n">imageUrl</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+        <span class="k">return</span> <span class="n">returny</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">excepty</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="edit_post">
+<a class="viewcode-back" href="../api.html#api.edit_post">[docs]</a>
+<span class="nd">@api</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/api/post/&lt;string:post_id&gt;/edit&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;PUT&quot;</span><span class="p">])</span>
+<span class="nd">@verify_token</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">edit_post</span><span class="p">(</span><span class="n">post_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Response</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Edit a post.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        post_id (str): Post&#39;s ID.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[Response, Any]: Edition data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">new_post</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">new_post</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">location</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">new_post</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;location&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">review</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">new_post</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;review&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">rating</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">new_post</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;rating&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">imageUrl</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">new_post</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;imageUrl&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="n">result</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">App</span><span class="o">.</span><span class="n">edit_post</span><span class="p">(</span><span class="n">post_id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">review</span><span class="p">,</span> <span class="n">rating</span><span class="p">,</span> <span class="n">imageUrl</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+        <span class="k">return</span> <span class="n">returny</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">excepty</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="delete_post">
+<a class="viewcode-back" href="../api.html#api.delete_post">[docs]</a>
+<span class="nd">@api</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/api/post/&lt;string:post_id&gt;/delete&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;DELETE&quot;</span><span class="p">])</span>
+<span class="nd">@verify_token</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">delete_post</span><span class="p">(</span><span class="n">post_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Response</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Delete a post.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        post_id (str): Post&#39;s ID.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[Response, Any]: Deletion data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">result</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">App</span><span class="o">.</span><span class="n">delete_post</span><span class="p">(</span><span class="n">post_id</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+        <span class="k">return</span> <span class="n">returny</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">excepty</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
+
+
+<span class="c1">#Comments</span>
+
+<div class="viewcode-block" id="new_comment">
+<a class="viewcode-back" href="../api.html#api.new_comment">[docs]</a>
+<span class="nd">@api</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/api/post/&lt;string:post_id&gt;/comment&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;PUT&quot;</span><span class="p">])</span>
+<span class="nd">@verify_token</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">new_comment</span><span class="p">(</span><span class="n">post_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Response</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a new comment.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        post_id (str): Post&#39;s ID.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[Response, Any]: Creation data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">new_comment</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
+        <span class="n">content</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">new_comment</span><span class="p">[</span><span class="s2">&quot;content&quot;</span><span class="p">]</span>
+        <span class="n">rating</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">new_comment</span><span class="p">[</span><span class="s2">&quot;rating&quot;</span><span class="p">]</span>
+
+        <span class="n">result</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">App</span><span class="o">.</span><span class="n">new_comment</span><span class="p">(</span><span class="n">post_id</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">rating</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+        <span class="k">return</span> <span class="n">returny</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">excepty</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="delete_comment">
+<a class="viewcode-back" href="../api.html#api.delete_comment">[docs]</a>
+<span class="nd">@api</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/api/post/&lt;string:post_id&gt;/comment/&lt;string:comment_id&gt;/delete&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;DELETE&quot;</span><span class="p">])</span>
+<span class="nd">@verify_token</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">delete_comment</span><span class="p">(</span><span class="n">post_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">comment_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Response</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Delete a comment.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        post_id (str): Post&#39;s ID.</span>
+<span class="sd">        comment_id (str): Comment&#39;s ID.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[Response, Any]: Deletion data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">result</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">App</span><span class="o">.</span><span class="n">delete_comment</span><span class="p">(</span><span class="n">post_id</span><span class="p">,</span> <span class="n">comment_id</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+        <span class="k">return</span> <span class="n">returny</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">excepty</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
+
+
+
+<span class="n">SPHINX_BUILD_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s1">&#39;docs&#39;</span><span class="p">,</span> <span class="s1">&#39;_build&#39;</span><span class="p">,</span> <span class="s1">&#39;html&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="serve_docs">
+<a class="viewcode-back" href="../api.html#api.serve_docs">[docs]</a>
+<span class="nd">@api</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/api/docs/&lt;path:filename&gt;&#39;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">serve_docs</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Give the filename.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        filename (_type_): Filename.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        _type_: The file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="k">return</span> <span class="n">send_from_directory</span><span class="p">(</span><span class="n">SPHINX_BUILD_PATH</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="serve_docs_index">
+<a class="viewcode-back" href="../api.html#api.serve_docs_index">[docs]</a>
+<span class="nd">@api</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/api/docs/&#39;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">serve_docs_index</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Give the app documentation.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        _type_: index.html</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="k">return</span> <span class="n">send_from_directory</span><span class="p">(</span><span class="n">SPHINX_BUILD_PATH</span><span class="p">,</span> <span class="s1">&#39;index.html&#39;</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">api</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Jadevx.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

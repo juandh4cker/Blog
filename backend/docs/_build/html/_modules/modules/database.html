@@ -1,0 +1,715 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>modules.database &mdash; Worldblog 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Worldblog
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Worldblog</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">modules.database</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for modules.database</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">bson</span><span class="w"> </span><span class="kn">import</span> <span class="n">ObjectId</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span> 
+<span class="kn">from</span><span class="w"> </span><span class="nn">os</span><span class="w"> </span><span class="kn">import</span> <span class="n">getenv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pymongo</span><span class="w"> </span><span class="kn">import</span> <span class="n">MongoClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pymongo.collection</span><span class="w"> </span><span class="kn">import</span> <span class="n">Collection</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pymongo.database</span><span class="w"> </span><span class="kn">import</span> <span class="n">Database</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pymongo.results</span><span class="w"> </span><span class="kn">import</span> <span class="n">InsertOneResult</span><span class="p">,</span> <span class="n">UpdateResult</span><span class="p">,</span> <span class="n">DeleteResult</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="n">load_dotenv</span><span class="p">()</span>
+
+<div class="viewcode-block" id="DB">
+<a class="viewcode-back" href="../../modules.html#modules.database.DB">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DB</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Manage the app database.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        MONGO_URI (str): Uniform Resource Identifier.</span>
+<span class="sd">        __client (MongoClient): The MongoDB client.</span>
+<span class="sd">        __db (Database): The app database.</span>
+<span class="sd">        __users_collection: The collections where are all the users.</span>
+<span class="sd">        __posts_collection: The collections where are all the posts.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">MONGO_URI</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;MONGO_URI&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">MONGO_URI</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Error: MONGO_URI isn&#39;t is configured in the env.&quot;</span><span class="p">)</span>
+
+    <span class="n">__client</span><span class="p">:</span> <span class="n">MongoClient</span> <span class="o">=</span> <span class="n">MongoClient</span><span class="p">(</span><span class="n">MONGO_URI</span><span class="p">)</span>
+    <span class="n">__db</span><span class="p">:</span> <span class="n">Database</span> <span class="o">=</span> <span class="n">__client</span><span class="p">[</span><span class="s2">&quot;worldblog&quot;</span><span class="p">]</span>
+    <span class="n">__users_collection</span><span class="p">:</span> <span class="n">Collection</span> <span class="o">=</span> <span class="n">__db</span><span class="p">[</span><span class="s2">&quot;users&quot;</span><span class="p">]</span>
+    <span class="n">__posts_collection</span><span class="p">:</span> <span class="n">Collection</span> <span class="o">=</span> <span class="n">__db</span><span class="p">[</span><span class="s2">&quot;posts&quot;</span><span class="p">]</span>
+
+    <span class="c1"># Users</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__get_users</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fetch all the users in the app.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error fetching the users.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List[Dict[str, Any]]: All the users.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">users</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">__users_collection</span><span class="o">.</span><span class="n">find</span><span class="p">())</span>
+            <span class="k">return</span> <span class="n">users</span> <span class="k">if</span> <span class="n">users</span> <span class="k">else</span> <span class="p">[]</span>
+    
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error fetching the users: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__count_users</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Count the numbers of users in the app.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error counting the users.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: Number of users.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__users_collection</span><span class="o">.</span><span class="n">count_documents</span><span class="p">({})</span>
+            <span class="k">return</span> <span class="n">count</span> <span class="k">if</span> <span class="n">count</span> <span class="k">else</span> <span class="mi">0</span>
+    
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error counting the users: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+        
+<div class="viewcode-block" id="DB.get_user">
+<a class="viewcode-back" href="../../modules.html#modules.database.DB.get_user">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_user</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;_id&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fetch a user.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (Any): The value of the field to search.</span>
+<span class="sd">            field (str, optional): The field to search. Defaults to &quot;_id&quot;.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error fetching the user.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict[str, Any]: The user if is founded, else {}.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">ObjectId</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">if</span> <span class="n">field</span> <span class="o">==</span> <span class="s2">&quot;_id&quot;</span> <span class="k">else</span> <span class="n">value</span>
+            <span class="n">user</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__users_collection</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">field</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span>
+            <span class="k">return</span> <span class="n">user</span> <span class="k">if</span> <span class="n">user</span> <span class="k">else</span> <span class="p">{}</span>
+    
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error fetching the user: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+
+<div class="viewcode-block" id="DB.add_user">
+<a class="viewcode-back" href="../../modules.html#modules.database.DB.add_user">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_user</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a user in the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            user (Dict[str, Any]): User info.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error adding the user.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if the user was added.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">:</span> <span class="n">InsertOneResult</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__users_collection</span><span class="o">.</span><span class="n">insert_one</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">inserted_id</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unknown error&quot;</span><span class="p">)</span>
+    
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error adding the user: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__edit_user</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Edit a user in the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            user_id (ObjectId): User&#39;s ID.</span>
+<span class="sd">            data (Dict[str, Any]): New data.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error editing the user.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if the user was edited.</span>
+<span class="sd">        &quot;&quot;&quot;</span>     
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">:</span> <span class="n">UpdateResult</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__users_collection</span><span class="o">.</span><span class="n">update_one</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">user_id</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;$set&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">})</span>
+
+            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">modified_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unknown error&quot;</span><span class="p">)</span>
+        
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error editing the user: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__delete_user</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete a user in the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            user_id (ObjectId): User&#39;s ID.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error deleting the user.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if the user was deleted.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">user</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_user</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+            <span class="n">user_posts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ObjectId</span><span class="p">]</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;posts&quot;</span><span class="p">,</span> <span class="p">[])</span>
+
+            <span class="k">for</span> <span class="n">post_id</span> <span class="ow">in</span> <span class="n">user_posts</span><span class="p">:</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">delete_post</span><span class="p">(</span><span class="n">post_id</span><span class="p">,</span> <span class="n">user_id</span><span class="p">)</span>
+
+            <span class="n">result</span><span class="p">:</span> <span class="n">DeleteResult</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__users_collection</span><span class="o">.</span><span class="n">delete_one</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">user_id</span><span class="p">})</span>
+
+            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">deleted_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unknown error&quot;</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error deleting the user: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+
+    <span class="c1"># Follows</span>
+
+<div class="viewcode-block" id="DB.follow">
+<a class="viewcode-back" href="../../modules.html#modules.database.DB.follow">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">follow</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">follower_id</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="p">,</span> <span class="n">following_id</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Make a follow.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            follower_id (ObjectId): User that wants to follow.</span>
+<span class="sd">            following_id (ObjectId): User that will be followed.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if the operation was successful.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">def</span><span class="w"> </span><span class="nf">add_follower</span><span class="p">(</span><span class="n">following_id</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="p">,</span> <span class="n">follower_id</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Add a follower.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                following_id (ObjectId): User to whom a follower is to be added.</span>
+<span class="sd">                follower_id (ObjectId): Folloller&#39;s ID to be added.</span>
+
+<span class="sd">            Raises:</span>
+<span class="sd">                RuntimeError: If the operation was bad.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                bool: True if the operation was successful.</span>
+<span class="sd">            &quot;&quot;&quot;</span>            
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">result</span><span class="p">:</span> <span class="n">UpdateResult</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__users_collection</span><span class="o">.</span><span class="n">update_one</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">following_id</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;$addToSet&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;followers&quot;</span><span class="p">:</span> <span class="n">follower_id</span><span class="p">}})</span>
+                
+                <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">modified_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unknown error&quot;</span><span class="p">)</span>
+            
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error adding follower: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">add_following</span><span class="p">(</span><span class="n">follower_id</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="p">,</span> <span class="n">following_id</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Add a following.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                follower_id (ObjectId): User to whom a following is to be added.</span>
+<span class="sd">                following_id (ObjectId): Following&#39;s ID to be added.</span>
+
+<span class="sd">            Raises:</span>
+<span class="sd">                RuntimeError: If the operation was bad.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                bool: True if the operation was successful.</span>
+<span class="sd">            &quot;&quot;&quot;</span>            
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">result</span><span class="p">:</span> <span class="n">UpdateResult</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__users_collection</span><span class="o">.</span><span class="n">update_one</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">follower_id</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;$addToSet&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;following&quot;</span><span class="p">:</span> <span class="n">following_id</span><span class="p">}})</span>
+
+                <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">modified_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unknown error&quot;</span><span class="p">)</span>
+        
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error adding following: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">add_follower</span><span class="p">(</span><span class="n">following_id</span><span class="p">,</span> <span class="n">follower_id</span><span class="p">)</span> <span class="ow">and</span> <span class="n">add_following</span><span class="p">(</span><span class="n">follower_id</span><span class="p">,</span> <span class="n">following_id</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error following: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+
+<div class="viewcode-block" id="DB.unfollow">
+<a class="viewcode-back" href="../../modules.html#modules.database.DB.unfollow">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">unfollow</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">follower_id</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="p">,</span> <span class="n">following_id</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Make a unfollow.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            follower_id (ObjectId): User that wants to unfollow.</span>
+<span class="sd">            following_id (ObjectId): User that will be unfollowed.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if the operation was successful.</span>
+<span class="sd">        &quot;&quot;&quot;</span>  
+        <span class="k">def</span><span class="w"> </span><span class="nf">delete_follower</span><span class="p">(</span><span class="n">following_id</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="p">,</span> <span class="n">follower_id</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Delete a follower.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                following_id (ObjectId): User to whom a follower is to be deleted.</span>
+<span class="sd">                follower_id (ObjectId): Folloller&#39;s ID to be deleted.</span>
+
+<span class="sd">            Raises:</span>
+<span class="sd">                RuntimeError: If the operation was bad.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                bool: True if the operation was successful.</span>
+<span class="sd">            &quot;&quot;&quot;</span>    
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">result</span><span class="p">:</span> <span class="n">UpdateResult</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__users_collection</span><span class="o">.</span><span class="n">update_one</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">following_id</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;$pull&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;followers&quot;</span><span class="p">:</span> <span class="n">follower_id</span><span class="p">}})</span>
+                
+                <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">modified_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unknown error&quot;</span><span class="p">)</span>
+        
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error deleting follower: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">delete_following</span><span class="p">(</span><span class="n">follower_id</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="p">,</span> <span class="n">following_id</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Delete a following.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                follower_id (ObjectId): User to whom a following is to be Deleted.</span>
+<span class="sd">                following_id (ObjectId): Following&#39;s ID to be Deleted.</span>
+
+<span class="sd">            Raises:</span>
+<span class="sd">                RuntimeError: If the operation was bad.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                bool: True if the operation was successful.</span>
+<span class="sd">            &quot;&quot;&quot;</span>    
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">result</span><span class="p">:</span> <span class="n">UpdateResult</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__users_collection</span><span class="o">.</span><span class="n">update_one</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">follower_id</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;$pull&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;following&quot;</span><span class="p">:</span> <span class="n">following_id</span><span class="p">}})</span>
+                
+                <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">modified_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">True</span> 
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unknown error&quot;</span><span class="p">)</span>
+        
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error deleting following: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">delete_follower</span><span class="p">(</span><span class="n">following_id</span><span class="p">,</span> <span class="n">follower_id</span><span class="p">)</span> <span class="ow">and</span> <span class="n">delete_following</span><span class="p">(</span><span class="n">follower_id</span><span class="p">,</span> <span class="n">following_id</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error unfollowing: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+
+    <span class="c1">#Posts</span>
+
+<div class="viewcode-block" id="DB.get_posts">
+<a class="viewcode-back" href="../../modules.html#modules.database.DB.get_posts">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_posts</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fetch all the posts in the database.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error fetching the posts.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List[Dict[str, Any]]: All posts.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">projection</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">&quot;location&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">&quot;rating&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">&quot;imageUrl&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="n">posts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">__posts_collection</span><span class="o">.</span><span class="n">find</span><span class="p">({},</span> <span class="n">projection</span><span class="p">))</span>
+            <span class="k">return</span> <span class="p">[</span>
+                <span class="p">{</span><span class="o">**</span><span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">post</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s2">&quot;_id&quot;</span><span class="p">},</span> <span class="s2">&quot;ID&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">])}</span>
+                <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span>
+            <span class="p">]</span>
+    
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error fetching the posts: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__count_posts</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Count the posts in the database.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error counting the posts.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: Number of posts.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__posts_collection</span><span class="o">.</span><span class="n">count_documents</span><span class="p">({})</span>
+            <span class="k">return</span> <span class="n">count</span> <span class="k">if</span> <span class="n">count</span> <span class="k">else</span> <span class="mi">0</span>
+    
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error counting the posts: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+
+<div class="viewcode-block" id="DB.get_post">
+<a class="viewcode-back" href="../../modules.html#modules.database.DB.get_post">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_post</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;_id&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fetch an specific post.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (Any): Fetch an specific post.</span>
+<span class="sd">            field (str, optional): Field to search. Defaults to &quot;_id&quot;.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error fetching the post.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict[str, Any]: Post if is found, else {}.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">ObjectId</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">if</span> <span class="n">field</span> <span class="o">==</span> <span class="s2">&quot;_id&quot;</span> <span class="k">else</span> <span class="n">value</span>
+            <span class="n">post</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__posts_collection</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">field</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span>
+            <span class="k">return</span> <span class="n">post</span> <span class="k">if</span> <span class="n">post</span> <span class="k">else</span> <span class="p">{}</span>
+    
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error fetching the post: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+
+<div class="viewcode-block" id="DB.add_post">
+<a class="viewcode-back" href="../../modules.html#modules.database.DB.add_post">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_post</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">post</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">user_id</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a post in the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            post (Dict[str, Any]): Post info.</span>
+<span class="sd">            user_id (ObjectId): Post Creator ID.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error adding the post.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if the post was added.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result_1</span><span class="p">:</span> <span class="n">InsertOneResult</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__posts_collection</span><span class="o">.</span><span class="n">insert_one</span><span class="p">(</span><span class="n">post</span><span class="p">)</span>
+            <span class="n">result_2</span><span class="p">:</span> <span class="n">UpdateResult</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__users_collection</span><span class="o">.</span><span class="n">update_one</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">user_id</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;$addToSet&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;posts&quot;</span><span class="p">:</span> <span class="n">post</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">]}})</span>
+            
+            <span class="k">if</span> <span class="n">result_1</span><span class="o">.</span><span class="n">inserted_id</span> <span class="ow">and</span> <span class="n">result_2</span><span class="o">.</span><span class="n">modified_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>       
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unknown error&quot;</span><span class="p">)</span>
+    
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error adding the post: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+
+<div class="viewcode-block" id="DB.edit_post">
+<a class="viewcode-back" href="../../modules.html#modules.database.DB.edit_post">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">edit_post</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">post_id</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Edit a post in the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            post_id (ObjectId): Post&#39;s ID.</span>
+<span class="sd">            data (Dict[str, Any]): New data.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error editing the post.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if the post was edited.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">:</span> <span class="n">UpdateResult</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__posts_collection</span><span class="o">.</span><span class="n">update_one</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">post_id</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;$set&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">})</span>
+
+            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">modified_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unknown error&quot;</span><span class="p">)</span>
+    
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error editing the post: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+
+<div class="viewcode-block" id="DB.delete_post">
+<a class="viewcode-back" href="../../modules.html#modules.database.DB.delete_post">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_post</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">post_id</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete a post in the database.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            post_id (ObjectId): Post&#39;s ID.</span>
+<span class="sd">            user_id (ObjectId): Post creator ID.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error deleting the post.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if the post was deleted.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result_1</span><span class="p">:</span> <span class="n">DeleteResult</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__posts_collection</span><span class="o">.</span><span class="n">delete_one</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">post_id</span><span class="p">})</span>
+            <span class="n">result_2</span><span class="p">:</span> <span class="n">UpdateResult</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__users_collection</span><span class="o">.</span><span class="n">update_one</span><span class="p">({</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">user_id</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;$pull&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;posts&quot;</span><span class="p">:</span> <span class="n">post_id</span><span class="p">}})</span>
+
+            <span class="k">if</span> <span class="n">result_1</span><span class="o">.</span><span class="n">deleted_count</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">result_2</span><span class="o">.</span><span class="n">modified_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unknown error&quot;</span><span class="p">)</span>
+    
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error deleting the post: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+
+    <span class="c1"># Comments</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_comments</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">post_id</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fetch all the comments in a post.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            post_id (ObjectId): The post&#39;s ID which the comments will be fetched.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error fetching the comments.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List[Dict[str, Any]]: All the comments or [] if it don&#39;t have comments.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">post</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_post</span><span class="p">(</span><span class="n">post_id</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">post</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;comments&quot;</span><span class="p">,</span> <span class="p">[])</span> <span class="k">if</span> <span class="n">post</span> <span class="k">else</span> <span class="p">[]</span>
+    
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error fetching the comments: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__count_comments</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">post_id</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Count all the comments in a post</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            post_id (ObjectId): The post&#39;s ID which the comments will be counted.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error counting the comments.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: Number of comments in a post.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">comments</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_get_comments</span><span class="p">(</span><span class="n">post_id</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">comments</span><span class="p">)</span> <span class="k">if</span> <span class="n">comments</span> <span class="k">else</span> <span class="mi">0</span>
+    
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error counting the comments: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+
+<div class="viewcode-block" id="DB.get_comment">
+<a class="viewcode-back" href="../../modules.html#modules.database.DB.get_comment">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_comment</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">post_id</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="p">,</span> <span class="n">comment_id</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fetch one comment in the post.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            post_id (ObjectId): The post&#39;s ID which the comment will be fetched.</span>
+<span class="sd">            comment_id (ObjectId): The comment&#39;s ID.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error fetching a comment.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict[str, Any]: The comment or {} if not found.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">post</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span>  <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__posts_collection</span><span class="o">.</span><span class="n">find_one</span><span class="p">(</span>
+                <span class="p">{</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">post_id</span><span class="p">,</span> <span class="s2">&quot;comments._id&quot;</span><span class="p">:</span> <span class="n">comment_id</span><span class="p">},</span>
+                <span class="p">{</span><span class="s2">&quot;comments.$&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+            <span class="p">)</span>
+            <span class="n">comment</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span>  <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;comments&quot;</span><span class="p">,</span> <span class="p">[</span><span class="kc">None</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">post</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="k">return</span> <span class="n">comment</span> <span class="k">if</span> <span class="n">comment</span> <span class="k">else</span> <span class="p">{}</span>
+       
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error fetching the comment: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+
+<div class="viewcode-block" id="DB.add_comment">
+<a class="viewcode-back" href="../../modules.html#modules.database.DB.add_comment">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_comment</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">post_id</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="p">,</span> <span class="n">comment</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a comment in the post.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            post_id (ObjectId): The post&#39;s ID which the comment will be added.</span>
+<span class="sd">            comment (Dict[str, Any]): The comment data.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error adding the comment.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if was added.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">:</span> <span class="n">UpdateResult</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__posts_collection</span><span class="o">.</span><span class="n">update_one</span><span class="p">(</span>
+                <span class="p">{</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">post_id</span><span class="p">},</span>
+                <span class="p">{</span><span class="s2">&quot;$push&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;comments&quot;</span><span class="p">:</span> <span class="n">comment</span><span class="p">}}</span>
+            <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">modified_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unknown error&quot;</span><span class="p">)</span>
+    
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error adding the comment: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+
+<div class="viewcode-block" id="DB.delete_comment">
+<a class="viewcode-back" href="../../modules.html#modules.database.DB.delete_comment">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete_comment</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">post_id</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="p">,</span> <span class="n">comment_id</span><span class="p">:</span> <span class="n">ObjectId</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete a comment.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            post_id (ObjectId): The post&#39;s ID which the comment will be deleted.</span>
+<span class="sd">            comment_id (ObjectId): The comment&#39;s ID that will be deleted.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: Error deleting the comment.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if was deteled.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">:</span> <span class="n">UpdateResult</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__posts_collection</span><span class="o">.</span><span class="n">update_one</span><span class="p">(</span>
+                <span class="p">{</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">post_id</span><span class="p">},</span>
+                <span class="p">{</span><span class="s2">&quot;$pull&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;comments&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="n">comment_id</span><span class="p">}}}</span>
+            <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">modified_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unknown error&quot;</span><span class="p">)</span>
+    
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error deleting the comment: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Jadevx.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
