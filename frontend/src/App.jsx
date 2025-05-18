@@ -1,6 +1,7 @@
-// src/App.jsx
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
+
+import { SessionProvider } from './components/useful/SessionContext';
 
 import Fondo from './components/useful/fondo/Fondo';
 import MenuButton from './components/useful/menuButton/MenuButton';
@@ -11,13 +12,14 @@ import './App.css';
 
 const App = () => {
   return (
-    <Router basename="/Blog">
-      <AuthChecker>
-        <AppRoutes />
+    <SessionProvider>
+      <Router basename="/Blog">
+        <AuthChecker>
+          <AppRoutes />
+        </AuthChecker>
         <Fondo />
-        <MenuButton />
-      </AuthChecker>
-    </Router>
+      </Router>
+    </SessionProvider>
   );
 };
 

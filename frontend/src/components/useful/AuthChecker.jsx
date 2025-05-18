@@ -1,30 +1,59 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getLocalStorage, verifyToken } from './ApiService';
+import { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+
+import { useSession } from './SessionContext';
+
+import { verifyToken } from './ApiService';
+
+import MenuButton from './menuButton/MenuButton';
 
 const AuthChecker = ({ children }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const { session, setSession } = useSession();
+
+  const publicRoutes = ['/login', '/register', '/logout', '/lp'];
+
+  const isPublicRoute = publicRoutes.some(route =>
+    location.pathname.toLowerCase().startsWith(route)
+
+  );
+
+  const sharedRoutes = ['/blog'];
+
+  const isSharedRoute = sharedRoutes.some(route =>
+    location.pathname.toLowerCase().startsWith(route)
+  );
 
   useEffect(() => {
-    const token = getLocalStorage();
+    if (isPublicRoute) return;
 
-    if (token) {
-      verifyToken()
-        .then(isValid => {
-          if (!isValid) {
-            localStorage.clear();
-            navigate('/logout');
-          }
-        })
-        .catch(() => {
-          localStorage.clear();
+    verifyToken()
+      .then(isValid => {
+        if (!isValid && !isSharedRoute) {
           navigate('/logout');
-        });
+          setSession({ username: "", isAuthenticated: false })
 
-    }
-  }, [navigate]);
+        } else if (!isValid && isSharedRoute) {
+          setSession({ username: "", isAuthenticated: false })
 
-  return <>{children}</>;
+        } else {
+          setSession({ username: isValid, isAuthenticated: true })
+
+        }
+      })
+      .catch(() => {
+        navigate('/logout');
+      });
+  }, [location.pathname, navigate, isPublicRoute]);
+
+  return (
+    <>
+      {children}
+      {session.isAuthenticated && <MenuButton />}
+    </>
+  );
 };
 
 export default AuthChecker;

@@ -1,5 +1,5 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { setTitle } from './ApiService';
 
 const ErrorPage = ({ type = 'Not Found' }) => {
   const navigate = useNavigate();

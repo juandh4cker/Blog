@@ -1,119 +1,103 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { addPost, getLocalStorage, setTitle } from '../../../useful/ApiService';
+import { addPost, setTitle } from '../../../useful/ApiService';
 
-import './Dashboard.css';
+import Button from '../../../elements/Button';
+import Container from '../../../elements/Container';
+import Form from '../../../elements/Form';
+import Input from '../../../elements/Input';
+import Message from '../../../elements/Message';
+import Text from '../../../elements/Text';
+import Textarea from '../../../elements/Textarea';
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const username = getLocalStorage();
-  const [message, setMessage] = useState('');
-
-  const [newPost, setNewPost] = useState({
-    name: '',
-    location: '',
-    imageUrl: '',
-    review: '',
-    rating: ''
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewPost((prev) => ({
-      ...prev,
-      [name]: value
-    }));
-  };
+  const [formData, setFormData] = useState({ name: '', location: '', imageUrl: '', review: '', rating: ''});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleAddPost = async (e) => {
     e.preventDefault();
-    const rating = parseFloat(newPost.rating);
+
+    const rating = parseFloat(formData.rating);
     if (isNaN(rating) || rating < 0 || rating > 10) {
-      setMessage('La calificación debe estar entre 0 y 10.');
+      setError('La calificación debe estar entre 0 y 10.');
       return;
     } 
 
     const postData = {
-      ...newPost,
+      ...formData,
       rating
     };
+
+    setError('')
+    setLoading(true);
 
     try {
       const response = await addPost(postData);
       navigate(`/post/${response}`);
 
     } catch (error) {
-      setMessage(`Error al agregar el post: ${error.message || error}`);
+      setError(`Error al agregar el post: ${error.message || error}`);
       
+    } finally {
+      setLoading(false);
+
     }
   };
 
   return (
     <>
       {setTitle("Dashboard", "Aquí se agregan los posts.")}
-      <div className="base-container dashboard-container">
-        <h1 className="base-title">Bienvenido, {username}</h1>
-        <h2 className="base-subtitle">Agregar un nuevo destino turístico</h2>
-        <form className="base-form" onSubmit={handleAddPost}>
-          <input
-            type="text"
-            name="name"
-            placeholder="Nombre del destino"
-            value={newPost.name}
-            onChange={handleInputChange}
-            required
+      <Container className="max-w-lg">
+        <Text variant='title'>Agregar un post</Text>
+        <Text variant='subtitle'>Rellena los datos para agregarlos</Text>
+        <Form onSubmit={handleAddPost}>
+          <Input 
+            placeholder="Nombre del post"
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           />
-          <input
-            type="text"
-            name="location"
+          <Input 
             placeholder="Ubicación"
-            value={newPost.location}
-            onChange={handleInputChange}
-            required
+            value={formData.location}
+            onChange={(e) => setFormData({ ...formData, location: e.target.value })}
           />
-          <input
-            type="url"
-            name="imageUrl"
-            placeholder="URL de la imagen del destino"
-            value={newPost.imageUrl}
-            onChange={handleInputChange}
-            required
+          <Input 
+            placeholder="URL de la imagen del post"
+            value={formData.imageUrl}
+            onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
           />
-          <textarea
-            name="review"
+          <Textarea
             placeholder="Reseña"
-            value={newPost.review}
-            onChange={handleInputChange}
-            required
+            value={formData.review}
+            onChange={(e) => setFormData({ ...formData, review: e.target.value })}
           />
-          <input
-            type="number"
-            name="rating"
-            placeholder="Calificación (0-10)"
-            value={newPost.rating}
-            onChange={handleInputChange}
+          <Input
+            type='number'
             min="0"
             max="10"
             step="0.1"
-            required
+            placeholder="Calificación (0-10)"
+            value={formData.rating}
+            onChange={(e) => setFormData({ ...formData, rating: e.target.value })}
           />
-          <button 
-            type="submit" 
-            className="base-button"
-            >
-              Agregar destino
-          </button>
-          <button
-            type="button"
-            onClick={() => navigate('/blog')}
-            className="base-secondary-button"
+          <Button
+            type='submit' 
+            disabled={loading}
           >
-            Cancelar
-          </button>
-        </form>
-        {message && <p className="base-message error">{message}</p>}
-      </div>
+            {"Agregar post"}
+          </Button>
+          <Button
+            variant='secondary'
+            onClick={() => navigate(-1)}
+          >
+            {"Cancelar"}
+          </Button>
+        </Form>
+        {error && <Message error={error} />}
+      </Container>
     </>
   );
 };

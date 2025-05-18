@@ -1,33 +1,14 @@
-import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import { getLocalStorage } from './ApiService';
+import { useSession } from './SessionContext';
 
 const PrivateRoute = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const { session } = useSession();
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const username = getLocalStorage();
-        setIsAuthenticated(username !== null);
-
-      } catch (error) {
-        setIsAuthenticated(false);
-
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    checkAuth();
-  }, []);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
+  if (session.isAuthenticated === null) {
+    return <div>Cargando...</div>;
   }
 
-  return isAuthenticated ? children : <Navigate to="/logout" />;
+  return session.isAuthenticated ? children : <Navigate to="/logout" />;
 };
 
 export default PrivateRoute;

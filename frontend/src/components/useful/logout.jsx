@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { apiRequest } from './ApiService';
+import { useSession } from './SessionContext';
 
 const Logout = () => {
   const navigate = useNavigate();
+  const { setSession } = useSession();
 
   useEffect(() => {
     const handleLogout = async () => {
@@ -13,6 +15,7 @@ const Logout = () => {
         console.error('Error logging out:', error);
       } finally {
         localStorage.clear();
+        setSession({ username: "", isAuthenticated: false })
         navigate('/login', { replace: true });
       }
     };

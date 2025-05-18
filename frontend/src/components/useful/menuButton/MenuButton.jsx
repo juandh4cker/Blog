@@ -1,52 +1,48 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSession } from '../SessionContext';
 
-import { getLocalStorage } from '../ApiService';
-
-import './MenuButton.css';
+// Componente reutilizable con nombre distinto
+const ItemButton = ({ children, onClick }) => {
+  return (
+    <button 
+      onClick={onClick} 
+      className="block w-full px-5 py-2 text-left text-sm border-b border-gray-200 transition-transform hover:bg-gray-100 hover:scale-[1.02]"
+    >
+      {children}
+    </button>
+  );
+};
 
 const MenuButton = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const username = getLocalStorage('username');
   const navigate = useNavigate();
+  const { session } = useSession();
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleNavigate = (path) => {
+  const handleNavigate = path => {
     setMenuOpen(false);
     navigate(path);
   };
 
   const handleProfile = () => {
-    if (username) {
-      handleNavigate(`/user/${username}`);
-
-    } else {
-      navigate('/logout');
-    }
+    if (session.username) handleNavigate(`/user/${session.username}`);
+    else navigate('/logout');
   };
 
-  if (!username) {
-    return null;
-  }
-
   return (
-    <div className="menu-container">
-      <button onClick={() => setMenuOpen(!menuOpen)} className="menu-button">
+    <div className="fixed top-5 right-5 z-[1000]">
+      <button 
+        onClick={() => setMenuOpen(!menuOpen)} 
+        className="px-5 py-2 bg-blue-500 text-white rounded-[10px] text-base transition-transform duration-200 hover:scale-[1.02]"
+      >
         ☰ Menú
       </button>
       {menuOpen && (
-        <div className="menu">
-          <button onClick={() => handleNavigate('/dashboard')} className="menu-item">
-            Dashboard
-          </button>
-          <button onClick={() => handleNavigate('/blog')} className="menu-item">
-            Blog
-          </button>
-          <button onClick={handleProfile} className="menu-item">
-            Perfil
-          </button>
-          <button onClick={() => navigate('/logout')} className="menu-item">
-            Cerrar sesión
-          </button>
+        <div className="absolute top-full right-0 bg-white/90 shadow-md rounded w-[130px] mt-1 overflow-hidden">
+          <ItemButton onClick={() => handleNavigate('/dashboard')}>Dashboard</ItemButton>
+          <ItemButton onClick={() => handleNavigate('/blog')}>Blog</ItemButton>
+          <ItemButton onClick={handleProfile}>Perfil</ItemButton>
+          <ItemButton onClick={() => navigate('/logout')}>Cerrar sesión</ItemButton>
         </div>
       )}
     </div>

@@ -86,3 +86,11 @@ export const setTitle = (title="WorldBlog", content="Esto es WorldBlog, un blog 
     </Helmet>
   )
 }
+// no se usa
+export const handleInputChange = (e, set) => {
+  const { name, value } = e.target;
+  set((prev) => ({
+    ...prev,
+    [name]: value
+  }));
+};

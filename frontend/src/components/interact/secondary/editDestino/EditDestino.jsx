@@ -1,133 +1,126 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { editPost, getPost, setTitle } from '../../../useful/ApiService';
 
-import './EditDestino.css';
+import Button from '../../../elements/Button';
+import Container from '../../../elements/Container';
+import Form from '../../../elements/Form';
+import Input from '../../../elements/Input';
+import Message from '../../../elements/Message';
+import Text from '../../../elements/Text';
+import Textarea from '../../../elements/Textarea';
 
 const EditPost = () => {
   const navigate = useNavigate();
   const { ID } = useParams();
-  const [destination, setDestination] = useState(null);
+  const [formData, setFormData] = useState({ name: '', location: '', imageUrl: '', review: '', rating: ''});
   const [loading, setLoading] = useState(true);
-  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    const fetchDestination = async () => {
+    const fetchPost = async () => {
       try {
         const data = await getPost(ID);
         if (!data.editable) {
           navigate(`/post/${ID}`);
         }
 
-        setDestination(data);
+        setFormData(data);
 
       } catch (error) {
-        setMessage(`Error al editar el post: ${error.message || error}`);
+        setError(`Error al editar el post: ${error.message || error}`);
 
       } finally {
         setLoading(false);
+
       }
     };
     
-    fetchDestination();
+    fetchPost();
   }, [ID]);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setDestination((prev) => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleUpdateDestination = async (e) => {
+  const handleUpdatePost = async (e) => {
     e.preventDefault();
 
-    const rating = parseFloat(destination.rating);
+    const rating = parseFloat(formData.rating);
     if (isNaN(rating) || rating < 0 || rating > 10) {
-      setMessage('La calificación debe estar entre 0 y 10.');
+      setError('La calificación debe estar entre 0 y 10.');
       return;
     }
 
-    const updatedDestination = {
-      ...destination,
+    const updatedPost = {
+      ...formData,
       rating,
     };
 
+    setError('')
+    setLoading(true);
+
     try {
-      await editPost(ID, updatedDestination);
-      setMessage('Post actualizado exitosamente!');
+      await editPost(ID, updatedPost);
       navigate(`/post/${ID}`);
 
     } catch (error) {
-      setMessage(`Error al actualizar el post: ${error.message || error}`);
+      setError(`Error al actualizar el post: ${error.message || error}`);
+
+    } finally {
+      setLoading(false);
 
     }
   };
 
-  if (loading) return <p className='base-message loading'>Cargando post...</p>;
-
   return (
     <>
-      {setTitle(destination.name, "Edicion del post")}
-      <div className="base-container edit-container">
-        <h1 className="base-title">Editar Post</h1>
-        <h2 className="base-subtitle">Edita los detalles del post</h2>
-        <form className="base-form" onSubmit={handleUpdateDestination}>
-          <input
-            type="text"
-            name="name"
+      {setTitle(formData.name, "Edicion del post")}
+      <Container className="max-w-lg">
+        <Text variant='title'>Editar Post</Text>
+        <Text variant='subtitle'>Edita los detalles del post</Text>
+        <Form onSubmit={handleUpdatePost}>
+          <Input 
             placeholder="Nombre del post"
-            value={destination.name}
-            onChange={handleInputChange}
-            required
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           />
-          <input
-            type="text"
-            name="location"
+          <Input 
             placeholder="Ubicación"
-            value={destination.location}
-            onChange={handleInputChange}
-            required
+            value={formData.location}
+            onChange={(e) => setFormData({ ...formData, location: e.target.value })}
           />
-          <input
-            type="url"
-            name="imageUrl"
+          <Input 
             placeholder="URL de la imagen del post"
-            value={destination.imageUrl}
-            onChange={handleInputChange}
-            required
+            value={formData.imageUrl}
+            onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
           />
-          <textarea
-            name="review"
+          <Textarea
             placeholder="Reseña"
-            value={destination.review}
-            onChange={handleInputChange}
-            required
+            value={formData.review}
+            onChange={(e) => setFormData({ ...formData, review: e.target.value })}
           />
-          <input
-            type="number"
-            name="rating"
-            placeholder="Calificación (0-10)"
-            value={destination.rating}
-            onChange={handleInputChange}
+          <Input
+            type='number'
             min="0"
             max="10"
             step="0.1"
-            required
+            placeholder="Calificación (0-10)"
+            value={formData.rating}
+            onChange={(e) => setFormData({ ...formData, rating: e.target.value })}
           />
-          <button type="submit" className="base-button">Actualizar post</button>
-          <button
-            type="button"
-            onClick={() => navigate(`/post/${ID}`)}
-            className="base-secondary-button"
+          <Button
+            type='submit' 
+            disabled={loading}
           >
-            Cancelar
-          </button>
-        </form>
-        {message && <p className="base-message error">{message}</p>}
-      </div>
+            {"Editar post"}
+          </Button>
+          <Button
+            variant='secondary'
+            onClick={() => navigate(-1)}
+          >
+            {"Cancelar"}
+          </Button>
+        </Form>
+        {error && <Message error={error} />}
+      </Container>
     </>
   );
 };

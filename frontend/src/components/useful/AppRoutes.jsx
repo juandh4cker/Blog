@@ -1,8 +1,7 @@
-import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 
-import Login from './../access/login/Login';
-import Register from './../access/register/Register';
+import Login from '../access/Login';
+import Register from '../access/Register';
 import Dashboard from './../interact/principal/dashboard/Dashboard';
 import Blog from './../interact/principal/blog/Blog';
 import DestinoDetalle from './../interact/secondary/destinoDetalle/DestinoDetalle';
@@ -11,10 +10,12 @@ import PrivateRoute from './../useful/PrivateRoute';
 import Perfil from './../interact/principal/perfil/Perfil';
 import Logout from './logout';
 import ErrorPage from './ErrorPage';
+import LandingPage from '../access/LandingPage';
 
 const AppRoutes = () => {
   return (
     <Routes>
+      <Route path="/lp" element={<LandingPage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/blog" element={<Blog />} />

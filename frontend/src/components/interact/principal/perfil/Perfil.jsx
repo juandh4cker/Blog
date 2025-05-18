@@ -1,27 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { getUser, followntUser, setTitle } from '../../../useful/ApiService';
 
-import DestinationCard from '../../secondary/destinationCard/DestinationCard';
 import ErrorPage from '../../../useful/ErrorPage';
+import PostsViewer from '../../../useful/postsViewer';
 
-import './Perfil.css';
+import Button from '../../../elements/Button';
+import Container from '../../../elements/Container';
+import Text from '../../../elements/Text';
+import Message from '../../../elements/Message';
 
 const Perfil = () => {
   const navigate = useNavigate();
   const { username } = useParams();
-  const [user, setUsuario] = useState(null);
+  const [user, setUser] = useState(null);
   const [postsLength, setPostsLength] = useState(0);
   const [isSelf, setIsSelf] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
-  const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   const fetchUser = async () => {
     try {
       const userData = await getUser(username);
-      setUsuario(userData);
+      setUser(userData);
       setPostsLength(userData.posts.length);
 
       if (userData.hasOwnProperty("isFollowing")) {
@@ -35,42 +38,45 @@ const Perfil = () => {
 
     } catch (error) {
       if (error.message === "Unauthorized") {
-        setMessage("Unauthorized")
+        setError("Unauthorized")
         
       } else if (error.message === "Not found") {
-        setMessage("Not found")
+        setError("Not found")
         
       } else {
-        setMessage(`Error al cargar el perfil: ${error.message || error}`);
+        setError(`Error al cargar el perfil: ${error.message || error}`);
       }
 
     } finally {
       setLoading(false);
+
     }
   };
   
-  useEffect(() => {
-    setLoading(true);
-    fetchUser();
-  }, [username]);
-
   const handleFollowToggle = async () => {
     try {
       await followntUser(username)
       await fetchUser()
 
     } catch (error) {
-      setMessage(`Error al seguir: ${error.message || error}`);
+      setError(`Error al seguir: ${error.message || error}`);
 
     }
   };
 
+  useEffect(() => {
+    setLoading(true);
+    fetchUser();
+    
+  }, [username]);
+
+
   if (loading) {
-    return <p className="base-message loading">Cargando perfil...</p>;
+    return <Message loading={loading} />;
   }
 
-  if (message === "Unauthorized" || message === "Not found") {
-    return <ErrorPage type={message} />;
+  if (error === "Unauthorized" || error === "Not found") {
+    return <ErrorPage type={error} />;
   }
 
   if (!user) {
@@ -80,53 +86,39 @@ const Perfil = () => {
   return (
     <>
       {setTitle(user.username, "Perfil del usuario.")}
-      <div className="base-container perfil-usuario">
-        <div className="user-info">
-          <h2 className="base-title">{user.username}</h2>
-          <p className='base-subtitle'>
+      <Container className="max-w-3xl">
+        <div className="flex flex-col items-center bg-[rgba(255,255,255,0.75)] shadow-[0_4px_20px_rgba(0,0,0,0.1)] border w-full gap-4 mb-5 p-3 rounded-[5px] border-solid border-[#ccc]">
+          <Text variant='title'>{user.username}</Text>
+          <Text variant='subtitle' className='!my-0'>
             <b>Seguidores:</b> {user.followers}
-          </p>
-          <p className='base-subtitle'>
+          </Text>
+          <Text variant='subtitle' className='!my-0'>
             <b>Posts publicados:</b> {postsLength}
-          </p>
-          <div className='buttons-container'>
+          </Text>
+          <div className='flex justify-between gap-4 items-center'>
             {!isSelf && (
-              <button
-                className={`base-small-button ${isFollowing ? 'following' : ''}`}
+              <Button 
+                variant='small' 
                 onClick={handleFollowToggle}
               >
-                {isFollowing ? 'Dejar de seguir' : 'Seguir'}
-              </button>
+                {isFollowing ? 'Siguiendo' : 'Seguir'}
+              </Button>
             )}
-            <button className="base-small-button" onClick={() => navigate('/blog')}>
-              Regresar al Blog
-            </button>
+            <Button 
+              variant='small'
+              onClick={() => navigate(-1)}
+            >
+              {"Regresar"}
+            </Button>
           </div>
         </div>
-        {postsLength !== 0 && <h2 className='base-title'>Posts del usuario</h2>}
-        <div className="user-posts">
-          {
-            <p className={`base-message ${loading ? 'loading' : 'error'}`}>
-              {message}
-            </p>
-          }
-          {!loading && !message && postsLength === 0 && <p className='base-message'>No hay destinos agregados.</p>}
-          {!loading && !message && (
-            <div className="base-posts-list">
-              {user.posts.map((post) => (
-                <DestinationCard
-                  key={post.ID}
-                  ID={post.ID}
-                  name={post.name}
-                  location={post.location}
-                  imageUrl={post.imageUrl}
-                  rating={post.rating}
-                />
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
+        {postsLength !== 0 && <Text variant='title'>{"Posts del usuario"}</Text>}
+        <PostsViewer
+          posts={user.posts}
+          loading={loading}
+          error={error}
+        />
+      </Container>
     </>
   );
 };

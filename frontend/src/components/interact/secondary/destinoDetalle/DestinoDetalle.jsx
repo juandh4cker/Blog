@@ -11,44 +11,24 @@ import {
 
 import ErrorPage from '../../../useful/ErrorPage';
 
-import './DestinoDetalle.css';
+import Message from '../../../elements/Message';
+import Button from '../../../elements/Button';
+import Container from '../../../elements/Container';
+import Text from '../../../elements/Text';
+import Textarea from '../../../elements/Textarea';
+import Comment from '../../../useful/Comment';
+import Input from '../../../elements/Input';
+import Form from '../../../elements/Form';
 
 const PostDetalle = () => {
   const navigate = useNavigate();
   const { ID } = useParams();
   const [post, setPost] = useState(null);
-  const [expandedCommentIndex, setExpandedCommentIndex] = useState(null);
+  const [isCreator, setIsCreator] = useState(false);
   const [newComment, setNewComment] = useState('');
   const [newRating, setNewRating] = useState('');
-  const [isCreator, setIsCreator] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [message, setMessage] = useState('');
-
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const data = await getPost(ID);
-        setPost(data);
-        setIsCreator(data.editable)
-
-      } catch (error) {
-        if (error.message === "Unauthorized") {
-          setMessage("Unauthorized")
-          
-        } else if (error.message === "Not found") {
-          setMessage("Not found")
-          
-        } else {
-          setMessage(`Error al cargar el post: ${error.message || error}`);
-        }
-        
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadData();
-  }, [ID]);
+  const [error, setError] = useState('');
 
   const tiempoDesde = (fecha) => {
     const ahora = new Date();
@@ -72,7 +52,6 @@ const PostDetalle = () => {
 
     return `hace ${años} año${años !== 1 ? 's' : ''}`;
   };
-  
 
   const handleSubmitComment = async (e) => {
     e.preventDefault();
@@ -83,7 +62,7 @@ const PostDetalle = () => {
 
     const ratingValue = parseFloat(newRating);
     if (isNaN(ratingValue) || ratingValue < 1 || ratingValue > 10) {
-      setMessage('La calificación debe estar entre 1 y 10.');
+      setError('La calificación debe estar entre 1 y 10.');
       return;
     }
 
@@ -100,22 +79,8 @@ const PostDetalle = () => {
       setNewRating('');
 
     } catch (error) {
-      setMessage(`Error al subir el comentario: ${error.message || error}`);
+      setError(`Error al subir el comentario: ${error.message || error}`);
 
-    }
-  };
-
-  const handleDeleteComment = async (commentId) => {
-    if (window.confirm('¿Estás seguro de que quieres eliminar este comentario?')) {
-      try {
-        await deleteComment(ID, commentId);
-        const data = await getPost(ID);
-        setPost(data);
-
-      } catch (error) {
-        setMessage(`Error al eliminar el comentario: ${error.message || error}`);
-
-      }
     }
   };
 
@@ -126,26 +91,53 @@ const PostDetalle = () => {
         navigate('/blog');
 
       } catch (error) {
-        setMessage(`Error al eliminar el post: ${error.message || error}`);
+        setError(`Error al eliminar el post: ${error.message || error}`);
         
       }
     }
   };
 
+  const loadData = async () => {
+    try {
+      const data = await getPost(ID);
+      setPost(data);
+      setIsCreator(data.editable)
+
+    } catch (error) {
+      if (error.message === "Unauthorized") {
+        setError("Unauthorized")
+        
+      } else if (error.message === "Not found") {
+        setError("Not found")
+        
+      } else {
+        setError(`Error al cargar el post: ${error.message || error}`);
+      }
+      
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+
+    loadData();
+  }, [ID]);
+
   if (loading) {
-    return <p className="base-message loading">Cargando...</p>;
+    return <Message loading={loading} />;
   }
 
-  if (message === "Unauthorized" || message === "Not found") {
-    return <ErrorPage type={message} />;
+  if (error === "Unauthorized" || error === "Not found") {
+    return <ErrorPage type={error} />;
   }
 
-  if (message) {
-    return <p className="base-message error">{message}</p>;
+  if (error) {
+    return <Message error={error}/>;
   }
 
   if (!post) {
-    return <p>El post no existe.</p>;
+    return <ErrorPage type="Not found" />;
   }
 
   const handleGoogleMaps = () => {
@@ -174,81 +166,73 @@ const PostDetalle = () => {
   return (
     <>
       {setTitle(post.name, "description", "Detalles del post")}
-      <div className="base-container post-detalle">
-        <img src={post.imageUrl} alt={post.name} className="post-image" />
-        <h2 className="base-title">{post.name}</h2>
-        <p className="base-text"><b>Calificación: </b>{post.rating}/10</p>
-        <p className="base-text"><b>Ubicación: </b>{post.location}</p>
-        <p className="base-text"><b>Reseña: </b>{post.review}</p>    
-        <p 
+      <Container className="max-w-xl">
+        <img src={post.imageUrl} alt={post.name} className="w-full h-auto mb-6 rounded-[10px]" />
+        <Text variant="title">{post.name}</Text>
+        <Text>
+          <b>Calificación: </b>{post.rating}/10
+        </Text>
+        <Text>
+          <b>Ubicación: </b>{post.location}
+        </Text>
+        <Text>
+          <b>Reseña: </b>{post.review}
+        </Text>    
+        <Text 
           className="base-text"
           onClick={handleCreatorClick}
         >
-          <b>Agregado por: </b> <span className="base-hipertext">{post.creator}</span>
-        </p>
-        <p className="base-subtitle">Subido hace: {tiempoDesde(post.createdAt)}</p>
-        <div className='buttons-container'>
-          <button className="base-small-button" onClick={handleGoogleMaps}>Ver en Google Maps</button>
-          <button className="base-small-button" onClick={handleBackToAll}>Regresar a Todos los Posts</button>
+          <b>Agregado por: </b>
+          <span className="text-center text-[1.1rem] text-[#2980B9] my-2 cursor-pointer underline">
+            {post.creator}
+          </span>
+        </Text>
+        <Text variant="subtitle">Subido hace: {tiempoDesde(post.createdAt)}</Text>
+        <div className='flex justify-between gap-4 items-center'>
+          <Button 
+            variant="small" 
+            onClick={handleGoogleMaps}
+          >
+            Ver en Google Maps
+          </Button>
+          <Button 
+            variant="small" 
+            onClick={handleBackToAll}
+          >
+            Regresar a Todos los Posts
+          </Button>
         </div>
-
         {isCreator && (
-          <div className='buttons-container'>
-            <button
-              className="base-small-button"
+          <div className='flex justify-between gap-4 items-center'>
+            <Button
+              className="small"
               onClick={() => navigate(`/post/${ID}/edit`)}
             >
               Editar Post
-            </button>
-            <button className="base-small-button" onClick={handleDeletePost}>Eliminar Post</button>
+            </Button>
+            <Button 
+              className="small" 
+              onClick={handleDeletePost}
+            >
+              Eliminar Post
+            </Button>
           </div>
         )}
-
-        <div className="comment-section">
-          <h3>Comentarios</h3>
+        <div className="w-4/5 flex items-center justify-center flex-col">
+          <Text variant='title'>Comentarios</Text>
           {post.comments.map((comment, index) => (
-            <div
-              key={index}
-              className="comment-item"
-              onClick={() =>
-                setExpandedCommentIndex((prev) => (prev === index ? null : index))
-              }
-              style={{ cursor: 'pointer' }}
-            >
-              <p className="base-text">
-                <b
-                  className="base-hipertext"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleCommentUserClick(comment.creator);
-                  }}
-                >
-                  {comment.creator}
-                </b>: {comment.content}
-              </p>
-              <p className="base-text"><b>Calificación:</b> {comment.rating}/10</p>
-              <p className="base-subtitle">Subido hace: {tiempoDesde(comment.createdAt)}</p>
-              {comment.editable && expandedCommentIndex === index && (
-                <button
-                  className="base-small-button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleDeleteComment(comment.ID);
-                  }}
-                >
-                  Borrar
-                </button>
-              )}
-            </div>
+            <Comment key={comment.ID || index} ID={ID} index={index} comment={comment} tiempoDesde={tiempoDesde} setError={setError} loadData={loadData}/>
           ))}
-          <form className='base-form .comment-form' onSubmit={handleSubmitComment}>
-            <textarea
+          <Form 
+            className='w-[90%]' 
+            onSubmit={handleSubmitComment}
+          >
+            <Textarea
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
               placeholder="Escribe tu comentario aquí"
-              required
             />
-            <input
+            <Input
               type="number"
               value={newRating}
               onChange={(e) => setNewRating(e.target.value)}
@@ -258,10 +242,10 @@ const PostDetalle = () => {
               step="0.1"
               required
             />
-            <button type="submit" className="base-small-button">Enviar Comentario.</button>
-          </form>
+            <Button type="submit" variant="small">Enviar Comentario.</Button>
+          </Form>
         </div>
-      </div>
+      </Container>
     </>
   );
 };

@@ -6,12 +6,6 @@ from functools import wraps
 from modules.utils.exceptions import *
 from typing import Any, List, Dict, Tuple
 import os
- 
-#Por hacer:
-# - Mejorar errores, código de errores
-# - Organizar rutas y hacer archivo para claves/rutas/configuraciones
-# - Lenguaje para haces peticiones (graphql)
-# - Manejar respuestas por códigos y varios idiomas
 
 api: Flask = Flask(__name__)
 CORS(api, supports_credentials=True)
@@ -175,7 +169,7 @@ def verify_token_request() -> Tuple[Response, Any]:
         verify: bool = result["verify"]
         
         if verify:
-            return returny(True)
+            return returny(result["user"]["username"])
         
         return returny(False)
     return returny(None)
