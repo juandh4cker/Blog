@@ -37,8 +37,8 @@ def returny(to_return: Any, code = 200) -> Tuple[Response, Any]:
     tipo: str = "data"
     if code >= 400:
         tipo = "error"
-    #return jsonify({tipo: to_return}), code
-    return jsonify({tipo: to_return}), 200 #si todo se procesa
+    return jsonify({tipo: to_return}), code
+    #return jsonify({tipo: to_return}), 200 #si todo se procesa
 
 def set_token(token: Dict[str, Any], code: int = 200) -> Response:
     """

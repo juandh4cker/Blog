@@ -68,6 +68,7 @@ def is_valid_username(username: str) -> bool:
     Returns:
         bool: True if is valid, else False.
     """    
+    #minimo 3, maximo 12 caracteres
     pattern: str = r"^[a-zA-Z0-9._]+[a-zA-Z0-9_]$"
     return bool(match(pattern, username))
 
