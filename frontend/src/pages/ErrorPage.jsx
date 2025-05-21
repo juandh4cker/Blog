@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import useTitle from '../hooks/useTitle';
+import { useTitle } from '../hooks/useTitle';
 
 const ErrorPage = ({ type = 'Not Found' }) => {
   const navigate = useNavigate();

@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import useTitle from '../hooks/useTitle';
+import { useTitle } from '../hooks/useTitle';
 
 import { getUser, followOrUnfollowUser } from '../api/users';
 
 import ErrorPage from './ErrorPage';
-import PostsViewer from '../components/postsViewer';
+import PostsList from '../components/posts/postsViewer';
 
+import ButtonContainer from '../components/tags/ButtonContainer'
 import Button from '../components/tags/Button';
 import Container from '../components/tags/Container';
 import Text from '../components/tags/Text';
@@ -105,7 +106,7 @@ const Perfil = () => {
           <Text variant='subtitle' className='!my-0'>
             <b>Posts publicados:</b> {postsLength}
           </Text>
-          <div className='flex justify-between gap-4 items-center'>
+          <ButtonContainer>
             {!isSelf && (
               <Button 
                 variant='small' 
@@ -120,10 +121,10 @@ const Perfil = () => {
             >
               {"Regresar"}
             </Button>
-          </div>
+          </ButtonContainer>
         </div>
         {postsLength !== 0 && <Text variant='title'>{"Posts del usuario"}</Text>}
-        <PostsViewer
+        <PostsList
           posts={user.posts}
           loading={loading}
           error={error}

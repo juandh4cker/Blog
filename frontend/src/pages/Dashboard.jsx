@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import useTitle from '../hooks/useTitle';
+import { useTitle } from '../hooks/useTitle';
 import { addPost } from '../api/posts';
 
 import Button from '../components/tags/Button';
@@ -10,7 +10,6 @@ import Form from '../components/tags/Form';
 import Input from '../components/tags/Input';
 import Message from '../components/tags/Message';
 import Text from '../components/tags/Text';
-import Textarea from '../components/tags/Textarea';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -76,16 +75,14 @@ const Dashboard = () => {
             value={formData.imageUrl}
             onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
           />
-          <Textarea
+          <Input
+            variant='textarea'
             placeholder="Reseña"
             value={formData.review}
             onChange={(e) => setFormData({ ...formData, review: e.target.value })}
           />
           <Input
-            type='number'
-            min="0"
-            max="10"
-            step="0.1"
+            variant='rating'
             placeholder="Calificación (0-10)"
             value={formData.rating}
             onChange={(e) => setFormData({ ...formData, rating: e.target.value })}

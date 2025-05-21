@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
-import useTitle from '../hooks/useTitle';
+import { useTitle } from '../hooks/useTitle';
 
-import Login from '../components/Login'
-import Register from '../components/Register';
+import Login from '../components/access/Login'
+import Register from '../components/access/Register';
 
 import Container from '../components/tags/Container';
 import Text from '../components/tags/Text';

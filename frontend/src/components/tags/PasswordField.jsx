@@ -3,9 +3,8 @@ import { useState } from "react";
 import Input from "./Input";
 
 const PasswordField = ({
-  value = "",
-  onChange = () => {},
   confirm = false,
+  ...props
 
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -16,9 +15,8 @@ const PasswordField = ({
         type={showPassword ? "text" : "password"}
         placeholder={confirm ? "Confirmar contraseña" : "Contraseña"}
         className="pr-10 w-full box-border"
-        value={value}
-        onChange={onChange}
         required
+        {...props}
       />
       <button
         type="button"

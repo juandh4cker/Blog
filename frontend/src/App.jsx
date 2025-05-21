@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { SessionProvider } from './context/SessionContext';
 import { TitleProvider } from './context/TitleContext'
 
-import Fondo from './components/Fondo';
+import Fondo from './components/basics/Fondo';
 
 import AppRoutes from './routes/AppRoutes';
 import AuthChecker from './auth/AuthChecker';

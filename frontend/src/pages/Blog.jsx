@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 
-import useTitle from '../hooks/useTitle';
+import { useTitle } from '../hooks/useTitle';
 
 import { fetchPosts } from '../api/posts';
 
-import PostsViewer from '../components/postsViewer';
+import PostsList from '../components/posts/postsViewer';
 
 import Container from '../components/tags/Container';
 import Text from '../components/tags/Text';
@@ -46,7 +46,7 @@ const Blog = () => {
       <Container className="max-w-3xl">
         <Text variant='title'>Blog</Text>
         <Text variant='subtitle'>Ver todos los posts agregados</Text>
-        <PostsViewer
+        <PostsList
           posts={posts}
           loading={loading}
           error={error}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate , useParams} from 'react-router-dom';
 
-import useTitle from '../hooks/useTitle';
+import { useTitle } from '../hooks/useTitle';
 
 import { getPost, deletePost } from '../api/posts';
 
@@ -9,12 +9,15 @@ import { addComment } from '../api/comments';
 
 import ErrorPage from './ErrorPage';
 
+import { tiempoDesde } from '../utils/tiempoDesde';
+
+import CommentsList from '../components/comments/CommentsList';
+
+import ButtonContainer from '../components/tags/ButtonContainer';
 import Message from '../components/tags/Message';
 import Button from '../components/tags/Button';
 import Container from '../components/tags/Container';
 import Text from '../components/tags/Text';
-import Textarea from '../components/tags/Textarea';
-import Comment from '../components/Comment';
 import Input from '../components/tags/Input';
 import Form from '../components/tags/Form';
 
@@ -30,32 +33,46 @@ const Post = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const { setTitle, setDescription } = useTitle(
-    null,
-    "Aquí se ve un post"
-  );
+  const { setTitle, setDescription } = useTitle(null, "Aquí se ve un post");
 
-  const tiempoDesde = (fecha) => {
-    const ahora = new Date();
-    const fechaCreacion = new Date(fecha);
-    const segundos = Math.floor((ahora - fechaCreacion) / 1000);
-  
-    if (segundos < 60) return `hace ${segundos} segundo${segundos !== 1 ? 's' : ''}`;
-    const minutos = Math.floor(segundos / 60);
+  const loadPost = async () => {
+    try {
+      const data = await getPost(ID);
+      setPost(data);
+      setIsCreator(data.editable);
 
-    if (minutos < 60) return `hace ${minutos} minuto${minutos !== 1 ? 's' : ''}`;
-    const horas = Math.floor(minutos / 60);
+      setTitle(data.name);
+      setDescription(data.review);
+      
+    } catch (error) {
+      if (error.message === "Unauthorized") {
+        setError("Unauthorized");
+        
+      } else if (error.message === "Not found") {
+        setError("Not found");
+        
+      } else {
+        setError(`Error al cargar el post: ${error.message || error}`);
+        setTitle('Error');
 
-    if (horas < 24) return `hace ${horas} hora${horas !== 1 ? 's' : ''}`;
-    const dias = Math.floor(horas / 24);
+      }
+    } finally {
+      setLoading(false);
 
-    if (dias < 30) return `hace ${dias} día${dias !== 1 ? 's' : ''}`;
-    const meses = Math.floor(dias / 30);
+    }
+  };
 
-    if (meses < 12) return `hace ${meses} mes${meses !== 1 ? 'es' : ''}`;
-    const años = Math.floor(meses / 12);
+  const handleDeletePost = async () => {
+    if (window.confirm('¿Estás seguro de que quieres eliminar este post?')) {
+      try {
+        await deletePost(ID);
+        navigate('/blog');
 
-    return `hace ${años} año${años !== 1 ? 's' : ''}`;
+      } catch (error) {
+        setError(`Error al eliminar el post: ${error.message || error}`);
+        
+      }
+    }
   };
 
   const handleSubmitComment = async (e) => {
@@ -89,48 +106,9 @@ const Post = () => {
     }
   };
 
-  const handleDeletePost = async () => {
-    if (window.confirm('¿Estás seguro de que quieres eliminar este post?')) {
-      try {
-        await deletePost(ID);
-        navigate('/blog');
-
-      } catch (error) {
-        setError(`Error al eliminar el post: ${error.message || error}`);
-        
-      }
-    }
-  };
-
-  const loadData = async () => {
-    try {
-      const data = await getPost(ID);
-      setPost(data);
-      setIsCreator(data.editable);
-
-      setTitle(data.name);
-      setDescription(data.review);
-      
-    } catch (error) {
-      if (error.message === "Unauthorized") {
-        setError("Unauthorized")
-        
-      } else if (error.message === "Not found") {
-        setError("Not found")
-        
-      } else {
-        setError(`Error al cargar el post: ${error.message || error}`);
-        setTitle('error')
-
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    loadPost();
 
-    loadData();
   }, [ID]);
 
   if (loading) {
@@ -152,19 +130,19 @@ const Post = () => {
   const handleGoogleMaps = () => {
     const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
       post.name + ', ' + post.location
+      
     )}`;
     window.open(url, '_blank');
-  };
 
-  const handleBackToAll = () => {
-    navigate('/blog');
   };
 
   const handleCreatorClick = () => {
     if (post.creator) {
       navigate(`/user/${post.creator}`);
+
     } else {
-      console.log('No se pudo encontrar el perfil del creador.');
+      alert('No se pudo encontrar el perfil del creador');
+
     }
   };
 
@@ -182,71 +160,28 @@ const Post = () => {
         <Text>
           <b>Reseña: </b>{post.review}
         </Text>    
-        <Text 
-          className="base-text"
-          onClick={handleCreatorClick}
-        >
+        <Text className="base-text" onClick={handleCreatorClick}>
           <b>Agregado por: </b>
-          <span className="text-center text-[1.1rem] text-[#2980B9] my-2 cursor-pointer underline">
-            {post.creator}
-          </span>
+          <Text variant='hipertext'>{post.creator}</Text>
         </Text>
         <Text variant="subtitle">Subido hace: {tiempoDesde(post.createdAt)}</Text>
-        <div className='flex justify-between gap-4 items-center'>
-          <Button 
-            variant="small" 
-            onClick={handleGoogleMaps}
-          >
-            Ver en Google Maps
-          </Button>
-          <Button 
-            variant="small" 
-            onClick={handleBackToAll}
-          >
-            Regresar a Todos los Posts
-          </Button>
-        </div>
+        <ButtonContainer>
+          <Button variant="small" onClick={handleGoogleMaps}>Ver en Google Maps</Button>
+          <Button variant="small" onClick={() => navigate(-1)}>Regresar</Button>
+        </ButtonContainer>
         {isCreator && (
-          <div className='flex justify-between gap-4 items-center'>
-            <Button
-              className="small"
-              onClick={() => navigate(`/post/${ID}/edit`)}
-            >
-              Editar Post
-            </Button>
-            <Button 
-              className="small" 
-              onClick={handleDeletePost}
-            >
-              Eliminar Post
-            </Button>
-          </div>
+          <ButtonContainer>
+            <Button className="small" onClick={() => navigate(`/post/${ID}/edit`)}>Editar Post</Button>
+            <Button className="small" onClick={handleDeletePost}>Eliminar Post</Button>
+          </ButtonContainer>
         )}
         <div className="w-4/5 flex items-center justify-center flex-col">
           <Text variant='title'>Comentarios</Text>
-          {post.comments.map((comment, index) => (
-            <Comment key={comment.ID || index} ID={ID} index={index} comment={comment} tiempoDesde={tiempoDesde} setError={setError} loadData={loadData}/>
-          ))}
-          <Form 
-            className='w-[90%]' 
-            onSubmit={handleSubmitComment}
-          >
-            <Textarea
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-              placeholder="Escribe tu comentario aquí"
-            />
-            <Input
-              type="number"
-              value={newRating}
-              onChange={(e) => setNewRating(e.target.value)}
-              placeholder="Puntuación (1-10)"
-              min="1"
-              max="10"
-              step="0.1"
-              required
-            />
-            <Button type="submit" variant="small">Enviar Comentario.</Button>
+          <CommentsList comments={post.comments} postID={ID} setError={setError} loadData={loadPost}/>
+          <Form className='w-[90%]' onSubmit={handleSubmitComment}>
+            <Input value={newComment} onChange={(e) => setNewComment(e.target.value)} placeholder="Escribe tu comentario aquí" variant='textarea' />
+            <Input value={newRating} onChange={(e) => setNewRating(e.target.value)} placeholder="Puntuación (1-10)" variant='rating' />
+            <Button type="submit" variant="small">Enviar Comentario</Button>
           </Form>
         </div>
       </Container>

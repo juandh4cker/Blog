@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import useAuth from '../hooks/useAuth';
+import { useAuth } from '../hooks/useAuth';
 
 import { verifyToken } from '../api/auth';
 
-import MenuButton from '../components/MenuButton';
+import MenuButton from '../components/basics/MenuButton';
 
 const AuthChecker = ({ children }) => {
   const navigate = useNavigate();

@@ -4,6 +4,7 @@ const Text = ({
   children,
   variant = "text",
   className = "",
+  tag = "",
   ...props
 }) => {
   const baseStyle = "text-center";
@@ -15,7 +16,16 @@ const Text = ({
     hipertext: "text-[1.1rem] text-[#2980B9] my-2 cursor-pointer underline",
   };
 
-  const Tag = variant === 'title' ? 'h1' : variant === 'subtitle' ? 'h2' : 'p';
+  const Tag = tag || (
+    variant === 'title'
+      ? 'h1'
+      : variant === 'subtitle'
+      ? 'h2'
+      : variant === 'hipertext'
+      ? 'span'
+      : 'p'
+  );
+
   const variantClass = variants[variant] || variants.text;
 
   return (
