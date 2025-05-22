@@ -1,20 +1,20 @@
-import clsx from "clsx";
+import clsx from 'clsx';
 
 const Message = ({
   children,
-  sucess = "",
-  error = "",
+  sucess = '',
+  error = '',
   loading = false,
-  className = "",
+  className = '',
   ...props
   
 }) => {
-  const baseStyle = "text-center mt-4";
+  const baseStyle = 'text-center mt-4';
 
   const variants = {
-    sucess: "text-green-600",
-    error: "text-red-600",
-    loading: "text-blue-600",
+    sucess: 'text-green-600',
+    error: 'text-red-600',
+    loading: 'text-blue-600',
   };
 
   return (
@@ -31,7 +31,7 @@ const Message = ({
       )}
       {loading && (
         <p className={clsx(baseStyle, variants['loading'], className)} {...props}>
-          Cargando...
+          {'Cargando...'}
         </p>
       )}
       {!loading && !error && (

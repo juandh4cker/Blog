@@ -8,6 +8,7 @@ import PostsList from '../components/posts/postsViewer';
 
 import Container from '../components/tags/Container';
 import Text from '../components/tags/Text';
+import Message from '../components/tags/Message';
 
 const Blog = () => {
   const [posts, setPosts] = useState([]);
@@ -15,27 +16,23 @@ const Blog = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  useTitle(
-    "",
-    "Aquí se ven todos los posts."
-  );
+  useTitle('', 'Aquí se ven todos los posts.');
 
   useEffect(() => {
     const getPosts = async () => {
       setLoading(true);
-      
-      try {
-        const response = await fetchPosts();
+
+      fetchPosts()
+      .then((response) => {
         setError('');
         setPosts(response);
-
-      } catch (error) {
+      })
+      .catch((error) => {
         setError(`Error al cargar los posts: ${error.message || error}`);
-
-      } finally {
+      })
+      .finally(() => {
         setLoading(false);
-
-      }
+      })
     };
 
     getPosts();
@@ -43,14 +40,11 @@ const Blog = () => {
 
   return (
     <>
-      <Container className="max-w-3xl">
-        <Text variant='title'>Blog</Text>
-        <Text variant='subtitle'>Ver todos los posts agregados</Text>
-        <PostsList
-          posts={posts}
-          loading={loading}
-          error={error}
-        />
+      <Container className='max-w-3xl'>
+        <Text variant='title'>{'Blog'}</Text>
+        <Text variant='subtitle'>{'Ver todos los posts agregados'}</Text>
+        {(loading || error) && <Message error={error} loading={loading} />}
+        {!loading && !error && <PostsList posts={posts} />}
       </Container>
     </>
   );  

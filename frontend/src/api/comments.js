@@ -1,5 +1,9 @@
 import { apiRequest } from './index';
 
-export const addComment = (postID, comment) => apiRequest(`post/${postID}/comment`, 'PUT', comment);
+export const addComment = (postID, comment) => {
+  return apiRequest(`post/${postID}/comment`, 'PUT', comment);
+};
 
-export const deleteComment = (postID, commentID) => apiRequest(`post/${postID}/comment/${commentID}/delete`, 'DELETE');
+export const deleteComment = (postID, commentID) => {
+  return apiRequest(`post/${postID}/comment/${commentID}/delete`, 'DELETE');
+};

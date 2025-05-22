@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
+import { useNav } from '../../hooks/useNav';
 import { useAuth } from '../../hooks/useAuth';
 import { useForm } from '../../hooks/useForm';
-import { handleLogin } from '../../api/auth';
+import { apiLogin } from '../../api/auth';
 
 import Button from '../tags/Button';
 import Form from '../tags/Form';
@@ -12,7 +12,7 @@ import Message from '../tags/Message';
 import PasswordField from '../tags/PasswordField';
 
 const Login = ({ setInLogin }) => {
-  const navigate = useNavigate();
+  const { navigateBlog } = useNav();
   const { setSession } = useAuth();
 
   const { formData, setInputData } = useForm({ usernameOrEmail: '', password: '' });
@@ -25,18 +25,17 @@ const Login = ({ setInLogin }) => {
     setError('')
     setLoading(true);
 
-    try {
-      const response = await handleLogin(formData.usernameOrEmail, formData.password);
-      setSession({ username: response, isAuthenticated: true })
-      navigate('/blog');
-
-    } catch (error) {
+    apiLogin(formData.usernameOrEmail, formData.password)
+    .then((response) => {
+      setSession({ username: response, isAuthenticated: true });
+      navigateBlog();
+    })
+    .catch((error) => {
       setError(error.message || error);
-
-    } finally {
+    })
+    .finally(() => {
       setLoading(false);
-
-    }
+    });
   };
 
   return (
@@ -45,7 +44,7 @@ const Login = ({ setInLogin }) => {
         <Input placeholder='Nombre de usuario o correo' {...setInputData('usernameOrEmail')} />
         <PasswordField {...setInputData('password')} />
         <Button type='submit' disabled={loading}>{loading ? 'Iniciando...' : 'Iniciar Sesión'}</Button>
-        <Button variant='secondary' onClick={() => setInLogin(false)}>{"No tengo una cuenta"}</Button>
+        <Button variant='secondary' onClick={() => setInLogin(false)}>{'No tengo una cuenta'}</Button>
       </Form>
       {error && <Message error={error} />}
     </>

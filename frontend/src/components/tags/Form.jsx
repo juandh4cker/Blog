@@ -1,18 +1,15 @@
-import clsx from "clsx";
+import clsx from 'clsx';
 
 const Form = ({
   children,
-  className = "",
+  className = '',
   ...props
 
 }) => {
-  const baseStyle = "flex flex-col w-full";
+  const baseStyle = 'flex flex-col w-full';
 
   return (
-    <form
-      className={clsx(baseStyle, className)}
-      {...props}
-    >
+    <form className={clsx(baseStyle, className)} {...props}>
       {children}
     </form>
   );

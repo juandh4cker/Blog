@@ -20,7 +20,7 @@ const CommentsList = ({ comments, postID, setError, loadData }) => {
         />
       ))}
     </>
-  )
-}
+  );
+};
 
 export default CommentsList;

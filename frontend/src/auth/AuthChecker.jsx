@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 import { useAuth } from '../hooks/useAuth';
 
-import { verifyToken } from '../api/auth';
+import { apiCheckToken } from '../api/auth';
 
 import MenuButton from '../components/basics/MenuButton';
 
@@ -13,7 +13,7 @@ const AuthChecker = ({ children }) => {
 
   const { session, setSession } = useAuth();
 
-  const publicRoutes = ['/welcome', '/logout'];
+  const publicRoutes = ['/welcome', '/logout', '/', '*'];
   const isPublicRoute = publicRoutes.some(route =>
     location.pathname.toLowerCase().startsWith(route)
   );
@@ -26,22 +26,20 @@ const AuthChecker = ({ children }) => {
   useEffect(() => {
     if (isPublicRoute) return;
 
-    verifyToken()
+    apiCheckToken()
       .then(isValid => {
         if (!isValid) {
-          setSession({ username: "", isAuthenticated: false });
+          setSession({ username: '', isAuthenticated: false });
           if (!isSharedRoute) {
-            navigate("/logout")
+            navigate('/logout')
           };
 
         } else {
           setSession({ username: isValid, isAuthenticated: true });
-          
         }
       })
       .catch(() => {
         navigate('/logout');
-
       });
   }, [location.pathname, navigate, isPublicRoute]);
 

@@ -11,7 +11,7 @@ const PrivateRoute = () => {
     return <Message loading={true}/>;
   }
 
-  return session.isAuthenticated ? <Outlet /> : <Navigate to="/logout" />;
+  return session.isAuthenticated ? <Outlet /> : <Navigate to='/logout' />;
 };
 
 export default PrivateRoute;

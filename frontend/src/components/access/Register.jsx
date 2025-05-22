@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
+import { useNav } from '../../hooks/useNav';
 import { useAuth } from '../../hooks/useAuth';
 import { useForm } from '../../hooks/useForm';
-import { handleRegister } from '../../api/auth';
+import { apiRegister } from '../../api/auth';
 import { registerSchema } from '../../schema/registerSchema';
 
 import Button from '../tags/Button';
@@ -13,17 +13,17 @@ import Message from '../tags/Message';
 import PasswordField from '../tags/PasswordField';
 
 const Register = ({ setInLogin }) => {
-  const navigate = useNavigate();
+  const { navigateBlog } = useNav();
   const { setSession } = useAuth();
 
   const { formData, setInputData } = useForm({ username: '', email: '', password: '', confirmPassword: '' });
-  
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       registerSchema.parse(formData);
 
@@ -33,27 +33,25 @@ const Register = ({ setInLogin }) => {
 
       } else {
         setError('Error al validar los datos');
-        
       }
-      return;
 
+      return;
     }
 
     setLoading(true);
     setError('');
 
-    try {
-      const response = await handleRegister(formData.username, formData.email, formData.password);
+    apiRegister(formData.username, formData.email, formData.password)
+    .then((response) => {
       setSession({ username: response, isAuthenticated: true })
-      navigate('/blog');
-      
-    } catch (error) {
+      navigateBlog();
+    })
+    .catch((error) => {
       setError(error.message || error);
-
-    } finally {
+    })
+    .finally(() => {
       setLoading(false);
-      
-    }
+    });
   };
 
   return (

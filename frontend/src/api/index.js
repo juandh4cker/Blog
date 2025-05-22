@@ -18,8 +18,8 @@ export const apiRequest = async (endpoint, method = 'get', body = null) => {
       data: body,
     });
 
-    return response.data.data !== undefined 
-      ? response.data.data 
+    return response.data.data !== undefined
+      ? response.data.data
       : response.data;
 
   } catch (error) {
@@ -29,7 +29,8 @@ export const apiRequest = async (endpoint, method = 'get', body = null) => {
         status:  error.response.status,
         data:    error.response.data,
       };
-    }
+    };
+
     throw error;
-  }
+  };
 };

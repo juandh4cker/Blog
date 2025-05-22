@@ -1,13 +1,13 @@
-import clsx from "clsx";
+import clsx from 'clsx';
 
-const ButtonContainer = ({ 
+const ButtonContainer = ({
   children,
   className,
   ...props
 
 }) => {
-  const baseStyle = "flex justify-between gap-4 items-center";
-  
+  const baseStyle = 'flex justify-between gap-4 items-center';
+
   return(
     <div className={clsx(baseStyle, className)} {...props}>
       {children}

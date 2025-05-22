@@ -1,11 +1,21 @@
 import { apiRequest } from './index';
 
-export const fetchPosts = () => apiRequest('posts');
+export const fetchPosts = () => {
+  return apiRequest('posts');
+};
 
-export const getPost = (postID) => apiRequest(`post/${postID}`);
+export const fetchPost = (postID) => {
+  return apiRequest(`post/${postID}`);
+};
 
-export const addPost = (postData) => apiRequest('post/create', 'POST', postData);
+export const addPost = (postData) => {
+  return apiRequest('post/create', 'POST', postData);
+};
 
-export const editPost = (postID, editedPost) => apiRequest(`post/${postID}/edit`, 'PUT', editedPost);
+export const editPost = (postID, postData) => {
+  return apiRequest(`post/${postID}/edit`, 'PUT', postData);
+};
 
-export const deletePost = (postID) => apiRequest(`post/${postID}/delete`, 'DELETE');
+export const deletePost = (postID) => {
+  return apiRequest(`post/${postID}/delete`, 'DELETE');
+};

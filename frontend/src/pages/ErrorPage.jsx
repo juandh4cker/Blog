@@ -1,12 +1,15 @@
-import { useNavigate } from 'react-router-dom';
 import { useTitle } from '../hooks/useTitle';
+import { useNav } from '../hooks/useNav';
+
+import Container from '../components/tags/Container';
+import Text from '../components/tags/Text';
+import ButtonContainer from '../components/tags/ButtonContainer';
+import Button from '../components/tags/Button';
 
 const ErrorPage = ({ type = 'Not Found' }) => {
-  const navigate = useNavigate();
-  useTitle(
-    type === 'Unauthorized' ? 'No autorizado' : 'Página no encontrada',
-    "Error"
-  );
+  const { navigateBack, navigateBlog } = useNav();
+  const { title } = useTitle(type === 'Unauthorized' ? 'No autorizado' : 'Página no encontrada', 'Error');
+
   const message =
     type === 'Unauthorized'
       ? 'No tienes permiso para acceder a esta página.'
@@ -14,26 +17,14 @@ const ErrorPage = ({ type = 'Not Found' }) => {
 
   return (
     <>
-      <div className="base-container">
-        <h1 className="base-title">{title}</h1>
-        <p className="base-subtitle">{message}</p>
-
-        <div className="buttons-container">
-          <button
-            className="base-secondary-button"
-            onClick={() => navigate(-1)}
-          >
-            Volver
-          </button>
-
-          <button
-            className="base-button"
-            onClick={() => navigate('/blog')}
-          >
-            Ir al Blog
-          </button>
-        </div>
-      </div>
+      <Container>
+        <Text variant='title'>{title}</Text>
+        <Text variant='subtitle'>{message}</Text>
+        <ButtonContainer>
+          <Button onClick={navigateBlog}>{'Ir al Blog'}</Button>
+          <Button variant='secondary' onClick={navigateBack}>{'Volver'}</Button>
+        </ButtonContainer>
+      </Container>
     </>
   );
 };
