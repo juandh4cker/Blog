@@ -17,7 +17,7 @@ import Message from '../components/tags/Message';
 
 const Perfil = () => {
   const { username } = useParams();
-  const { navigateBack } = useNav();
+  const { navBack } = useNav();
 
   const [user, setUser] = useState(null);
   const [postsLength, setPostsLength] = useState(0);
@@ -27,9 +27,9 @@ const Perfil = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const { setTitle, setDescription } = useTitle( null, 'Aquí se ve un perfil'); //quitar?
+  const { setTitle } = useTitle( null, 'Aquí se ve un perfil');
 
-  const getUser = async () => {
+  const loadUser = async () => {
     fetchUser(username)
     .then((userData) => {
       setUser(userData);
@@ -64,7 +64,7 @@ const Perfil = () => {
   const handleFollow = () => {
     followOrUnfollowUser(username)
       .then(() => {
-        fetchUser()
+        loadUser();
       })
       .catch((error) => {
         setError(`Error al seguir: ${error.message || error}`);
@@ -72,9 +72,7 @@ const Perfil = () => {
   };
 
   useEffect(() => {
-    setLoading(true);
-    getUser();
-
+    loadUser();
   }, [username]);
 
 
@@ -91,27 +89,25 @@ const Perfil = () => {
   }
 
   return (
-    <>
-      <Container className='max-w-3xl'>
-        <div className='flex flex-col items-center bg-[rgba(255,255,255,0.75)] shadow-[0_4px_20px_rgba(0,0,0,0.1)] border w-full gap-4 mb-5 p-3 rounded-[5px] border-solid border-[#ccc]'>
-          <Text variant='title'>{user.username}</Text>
-          <Text variant='subtitle' className='!my-0'>
-            <b>Seguidores:</b> {user.followers}
-          </Text>
-          <Text variant='subtitle' className='!my-0'>
-            <b>Posts publicados:</b> {postsLength}
-          </Text>
-          <ButtonContainer>
-            {!isSelf && (
-              <Button variant='small' onClick={handleFollow}>{isFollowing ? 'Siguiendo' : 'Seguir'}</Button>
-            )}
-            <Button variant='small' onClick={navigateBack}>{'Regresar'}</Button>
-          </ButtonContainer>
-        </div>
-        {postsLength !== 0 && <Text variant='title'>{'Posts del usuario'}</Text>}
-        <PostsList posts={user.posts} />
-      </Container>
-    </>
+    <Container className='max-w-3xl'>
+      <div className='flex flex-col items-center bg-[rgba(255,255,255,0.75)] shadow-[0_4px_20px_rgba(0,0,0,0.1)] border w-full gap-4 mb-5 p-3 rounded-[5px] border-solid border-[#ccc]'>
+        <Text variant='title'>{user.username}</Text>
+        <Text variant='subtitle' className='!my-0'>
+          <b>Seguidores:</b> {user.followers}
+        </Text>
+        <Text variant='subtitle' className='!my-0'>
+          <b>Posts publicados:</b> {postsLength}
+        </Text>
+        <ButtonContainer>
+          {!isSelf && (
+            <Button variant='small' onClick={handleFollow}>{isFollowing ? 'Siguiendo' : 'Seguir'}</Button>
+          )}
+          <Button variant='small' onClick={navBack}>{'Regresar'}</Button>
+        </ButtonContainer>
+      </div>
+      {postsLength !== 0 && <Text variant='title'>{'Posts del usuario'}</Text>}
+      <PostsList posts={user.posts} />
+    </Container>
   );
 };
 

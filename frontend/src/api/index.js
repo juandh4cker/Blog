@@ -11,6 +11,9 @@ const api = axios.create({
 });
 
 export const apiRequest = async (endpoint, method = 'get', body = null) => {
+  // Log
+  //console.log('API Request →', { url: `${api.defaults.baseURL}/${endpoint}`, method: method.toUpperCase(), data: body, });
+
   try {
     const response = await api.request({
       url: endpoint,
@@ -24,6 +27,9 @@ export const apiRequest = async (endpoint, method = 'get', body = null) => {
 
   } catch (error) {
     if (error.response) {
+      // Log
+      //console.error('API Response Error ←', { status: error.response.status, data: error.response.data, });
+
       throw {
         message: error.response.data.error || error.response.statusText,
         status:  error.response.status,

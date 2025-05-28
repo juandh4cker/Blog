@@ -1,28 +1,35 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { useAuth } from '../hooks/useAuth';
+import { useNav } from '../hooks/useNav';
 import { apiLogout } from '../api/auth';
 
 import Message from '../components/tags/Message';
 
 const Logout = () => {
-  const navigate = useNavigate();
-  const { setSession } = useAuth();
+  const { navWelcome } = useNav();
+  const { session, setSession } = useAuth();
 
-  useEffect(() => {
+  const clearSession = () => {
+    localStorage.clear();
+    setSession({ username: "", isAuthenticated: null });
+    navWelcome();
+  }
+
+  useEffect(() => {    
+    if (!session.isAuthenticated) {
+      clearSession();
+      return;
+    }
+
     apiLogout()
       .catch((error) => {
         console.error('Error logging out:', error);
-
       })
       .finally(() => {
-        localStorage.clear();
-        setSession({ username: "", isAuthenticated: null });
-        navigate('/welcome', { replace: true });
-
+        clearSession();
       });
-  }, [navigate, setSession]);
+  }, [setSession]);
 
   return <Message loading={true} />;
 };

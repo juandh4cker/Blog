@@ -1,19 +1,20 @@
 import { useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { useAuth } from '../hooks/useAuth';
+import { useNav } from '../hooks/useNav';
 
 import { apiCheckToken } from '../api/auth';
 
 import MenuButton from '../components/basics/MenuButton';
 
 const AuthChecker = ({ children }) => {
-  const navigate = useNavigate();
+  const { navLogout } = useNav();
   const location = useLocation();
 
   const { session, setSession } = useAuth();
 
-  const publicRoutes = ['/welcome', '/logout', '/', '*'];
+  const publicRoutes = ['/welcome', '/logout'];
   const isPublicRoute = publicRoutes.some(route =>
     location.pathname.toLowerCase().startsWith(route)
   );
@@ -31,7 +32,7 @@ const AuthChecker = ({ children }) => {
         if (!isValid) {
           setSession({ username: '', isAuthenticated: false });
           if (!isSharedRoute) {
-            navigate('/logout')
+            navLogout();
           };
 
         } else {
@@ -39,9 +40,9 @@ const AuthChecker = ({ children }) => {
         }
       })
       .catch(() => {
-        navigate('/logout');
+        navLogout();
       });
-  }, [location.pathname, navigate, isPublicRoute]);
+  }, [location.pathname, isPublicRoute]);
 
   return (
     <>

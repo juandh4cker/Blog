@@ -4,11 +4,15 @@ export const useNav = () => {
   const navigate = useNavigate();
 
   return {
-    navigateBack: (steps = 1) => navigate(-steps),
-    navigateBlog: () => navigate('/blog'),
-    navigateDashboard: () => navigate('/dashboard'),
-    navigateLogout: () => navigate('/logout'),
-    navigateUser: (user) => navigate(`/user/${user}`),
-    navigatePost: (postID, edit=false) => navigate(`/post/${postID}${edit ? '/edit' : ''}`)
+    navigate,
+    nav: (route) => navigate(route),
+    navBack: () => navigate(-1),
+    navBackSteps: (steps = 1) => navigate(-steps),
+    navBlog: () => navigate('/blog'),
+    navDashboard: () => navigate('/dashboard'),
+    navLogout: () => navigate('/logout'),
+    navUser: (user) => navigate(`/user/${user}`),
+    navPost: (postID, edit=false) => navigate(`/post/${postID}${edit ? '/edit' : ''}`),
+    navWelcome: () => navigate('/welcome', { replace: true }), //Ver eso de replace
   };
 };

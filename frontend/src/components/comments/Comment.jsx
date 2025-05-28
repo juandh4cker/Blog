@@ -8,7 +8,7 @@ import Button from '../tags/Button';
 import Text from '../tags/Text';
 
 const Comment = ({ index, comment, postID, loadData , expanded, setExpanded, setError }) => {
-  const { navigateUser } = useNav();
+  const { navUser } = useNav();
 
   const handleDeleteComment = async () => {
     if (window.confirm('¿Estás seguro de que quieres eliminar este comentario?')) {
@@ -33,7 +33,7 @@ const Comment = ({ index, comment, postID, loadData , expanded, setExpanded, set
           variant='hipertext' tag='b'
           onClick={(e) => {
             e.stopPropagation();
-            navigateUser(comment.creator);
+            navUser(comment.creator);
             }
           }
         >

@@ -7,7 +7,7 @@ import ButtonContainer from '../components/tags/ButtonContainer';
 import Button from '../components/tags/Button';
 
 const ErrorPage = ({ type = 'Not Found' }) => {
-  const { navigateBack, navigateBlog } = useNav();
+  const { navBack, navBlog } = useNav();
   const { title } = useTitle(type === 'Unauthorized' ? 'No autorizado' : 'Página no encontrada', 'Error');
 
   const message =
@@ -21,8 +21,8 @@ const ErrorPage = ({ type = 'Not Found' }) => {
         <Text variant='title'>{title}</Text>
         <Text variant='subtitle'>{message}</Text>
         <ButtonContainer>
-          <Button onClick={navigateBlog}>{'Ir al Blog'}</Button>
-          <Button variant='secondary' onClick={navigateBack}>{'Volver'}</Button>
+          <Button onClick={navBlog}>{'Ir al Blog'}</Button>
+          <Button variant='secondary' onClick={navBack}>{'Volver'}</Button>
         </ButtonContainer>
       </Container>
     </>

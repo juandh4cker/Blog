@@ -9,7 +9,7 @@ const Message = ({
   ...props
   
 }) => {
-  const baseStyle = 'text-center mt-4';
+  const baseStyle = 'text-center';
 
   const variants = {
     sucess: 'text-green-600',
@@ -26,7 +26,7 @@ const Message = ({
       )}
       {error && (
         <p className={clsx(baseStyle, variants['error'], className)} {...props}>
-          {error}
+          {error.message || error}
         </p>
       )}
       {loading && (

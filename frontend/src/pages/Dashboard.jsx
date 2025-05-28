@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { useNav } from '../hooks/useNav';
+import { useForm } from '../hooks/useForm';
 import { useTitle } from '../hooks/useTitle';
 import { addPost } from '../api/posts';
 
@@ -12,9 +13,9 @@ import Message from '../components/tags/Message';
 import Text from '../components/tags/Text';
 
 const Dashboard = () => {
-  const { navigateBack, navigatePost } = useNav();
+  const { navBack, navPost } = useNav();
 
-  const [formData, setFormData] = useState({ name: '', location: '', imageUrl: '', review: '', rating: ''});
+  const { formData, setInputData } = useForm({ name: '', location: '', imageUrl: '', review: '', rating: ''});
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -25,8 +26,8 @@ const Dashboard = () => {
     e.preventDefault();
 
     const rating = parseFloat(formData.rating);
-    if (isNaN(rating) || rating < 0 || rating > 10) {
-      setError('La calificación debe estar entre 0 y 10.');
+    if (isNaN(rating) || rating < 1 || rating > 10) {
+      setError('La calificación debe estar entre 1 y 10.');
       return;
     } 
 
@@ -40,7 +41,7 @@ const Dashboard = () => {
 
     addPost(postData)
     .then((response) => {
-      navigatePost(`/post/${response}`);
+      navPost(`/post/${response}`);
     })
     .catch((error) => {
       setError(`Error al agregar el post: ${error.message || error}`);
@@ -51,44 +52,20 @@ const Dashboard = () => {
   };
 
   return (
-    <>
-      <Container className='max-w-lg'>
-        <Text variant='title'>Agregar un post</Text>
-        <Text variant='subtitle'>Rellena los datos para agregarlos</Text>
-        <Form onSubmit={handleAddPost}>
-          <Input
-            placeholder='Nombre del post'
-            value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          />
-          <Input
-            placeholder='Ubicación'
-            value={formData.location}
-            onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-          />
-          <Input
-            placeholder='URL de la imagen del post'
-            value={formData.imageUrl}
-            onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
-          />
-          <Input
-            variant='textarea'
-            placeholder='Reseña'
-            value={formData.review}
-            onChange={(e) => setFormData({ ...formData, review: e.target.value })}
-          />
-          <Input
-            variant='rating'
-            placeholder='Calificación (0-10)'
-            value={formData.rating}
-            onChange={(e) => setFormData({ ...formData, rating: e.target.value })}
-          />
-          <Button type='submit' disabled={loading}>{'Agregar post'}</Button>
-          <Button variant='secondary' onClick={navigateBack}>{'Cancelar'}</Button>
-        </Form>
-        {error && <Message error={error} />}
-      </Container>
-    </>
+    <Container className='max-w-lg'>
+      <Text variant='title'>Agregar un post</Text>
+      <Text variant='subtitle'>Rellena los datos para agregarlos</Text>
+      <Form onSubmit={handleAddPost}>
+        <Input placeholder='Nombre del post' {...setInputData('name')} />
+        <Input placeholder='Ubicación' {...setInputData('location')} />
+        <Input placeholder='URL de la imagen del post' {...setInputData('imageUrl')} />
+        <Input variant='textarea' placeholder='Reseña' {...setInputData('review')} />
+        <Input variant='rating' placeholder='Calificación (0-10)' {...setInputData('rating')} />
+        <Button type='submit' disabled={loading}>{'Agregar post'}</Button>
+        <Button variant='secondary' onClick={navBack}>{'Cancelar'}</Button>
+      </Form>
+      {error && <Message error={error} />}
+    </Container>
   );
 };
 

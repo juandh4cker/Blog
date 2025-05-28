@@ -5,13 +5,13 @@ import { useNav } from '../../hooks/useNav';
 import Message from '../tags/Message';
 
 const PostCard = ({ post }) => {
-  const { navigatePost } = useNav();
+  const { navPost } = useNav();
   
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <div
-      onClick={() => navigatePost(post.ID)}
+      onClick={() => navPost(post.ID)}
       className='flex flex-col items-center flex-grow flex-shrink basis-[calc(25%-1rem)] max-w-[27%] min-w-[150px] border border-[#ccc] rounded-[8px] overflow-hidden bg-white no-underline text-current p-2.5 my-2.5 shadow-md transition-transform duration-200 hover:-translate-y-1.5 hover:bg-gray-100'
     >
       {!imageLoaded && (

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useNav } from '../hooks/useNav';
+import { useForm } from '../hooks/useForm';
 import { useTitle } from '../hooks/useTitle';
 
 import { editPost, fetchPost } from '../api/posts';
@@ -14,21 +15,20 @@ import Message from '../components/tags/Message';
 import Text from '../components/tags/Text';
 
 const EditPost = () => {
-  const { navigateBack, navigatePost } = useNav();
+  const { navPost } = useNav();
   const { ID } = useParams();
 
-  const [formData, setFormData] = useState({ name: '', location: '', imageUrl: '', review: '', rating: ''});
+  const { formData, setFormData, setInputData } = useForm({ name: '', location: '', imageUrl: '', review: '', rating: ''});
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   const { setTitle, setDescription } = useTitle(null, 'Aquí se ve un post');
 
-  useEffect(() => {
-    const getPost = async () => {
-      fetchPost(ID)
+  const loadPost = async () => {
+    fetchPost(ID)
       .then((postData) => {
-        if (!postData.editable) navigatePost(ID);
+        if (!postData.editable) navPost(ID);
 
         setFormData(postData);
         setTitle(postData.name);
@@ -43,15 +43,16 @@ const EditPost = () => {
       })
     };
 
-    getPost();
+  useEffect(() => {
+    loadPost();
   }, [ID]);
 
   const handleUpdatePost = async (e) => {
     e.preventDefault();
 
     const rating = parseFloat(formData.rating);
-    if (isNaN(rating) || rating < 0 || rating > 10) {
-      setError('La calificación debe estar entre 0 y 10.');
+    if (isNaN(rating) || rating < 1 || rating > 10) {
+      setError('La calificación debe estar entre 1 y 10.');
       return;
     }
 
@@ -64,15 +65,15 @@ const EditPost = () => {
     setLoading(true);
 
     editPost(ID, updatedPost)
-    .then(() => {
-      navigatePost(ID);
-    })
-    .catch((error) => {
-      setError(`Error al actualizar el post: ${error.message || error}`);
-    })
-    .finally(() => {
-      setLoading(false);
-    })
+      .then(() => {
+        navPost(ID);
+      })
+      .catch((error) => {
+        setError(`Error al actualizar el post: ${error.message || error}`);
+      })
+      .finally(() => {
+        setLoading(false);
+      })
   };
 
   return (
@@ -81,35 +82,13 @@ const EditPost = () => {
         <Text variant='title'>Editar Post</Text>
         <Text variant='subtitle'>Edita los detalles del post</Text>
         <Form onSubmit={handleUpdatePost}>
-          <Input
-            placeholder='Nombre del post'
-            value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          />
-          <Input
-            placeholder='Ubicación'
-            value={formData.location}
-            onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-          />
-          <Input
-            placeholder='URL de la imagen del post'
-            value={formData.imageUrl}
-            onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
-          />
-          <Input
-            variant='textarea'
-            placeholder='Reseña'
-            value={formData.review}
-            onChange={(e) => setFormData({ ...formData, review: e.target.value })}
-          />
-          <Input
-            variant='rating'
-            placeholder='Calificación (0-10)'
-            value={formData.rating}
-            onChange={(e) => setFormData({ ...formData, rating: e.target.value })}
-          />
+          <Input placeholder='Nombre del post' {...setInputData('name')} />
+          <Input placeholder='Ubicación' {...setInputData('location')} />
+          <Input placeholder='URL de la imagen del post' {...setInputData('imageUrl')} />
+          <Input variant='textarea' placeholder='Reseña' {...setInputData('review')} />
+          <Input variant='rating' placeholder='Calificación (0-10)' {...setInputData('rating')} />
           <Button type='submit' disabled={loading}>{'Editar post'}</Button>
-          <Button variant='secondary' onClick={navigateBack}>{'Cancelar'}</Button>
+          <Button variant='secondary' onClick={() => navPost(ID)}>{'Cancelar'}</Button>
         </Form>
         {error && <Message error={error} />}
       </Container>

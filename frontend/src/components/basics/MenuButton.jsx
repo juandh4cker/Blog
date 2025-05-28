@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNav } from '../../hooks/useNav';
 
 const ItemButton = ({ children, onClick }) => (
   <button
@@ -11,8 +11,8 @@ const ItemButton = ({ children, onClick }) => (
 );
 
 const MenuButton = ({ username }) => {
-  const navigate = useNavigate();
   const menuRef = useRef(null);
+  const { nav } = useNav();
 
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -29,16 +29,7 @@ const MenuButton = ({ username }) => {
 
   const handleNavigate = (path) => {
     setMenuOpen(false);
-    navigate(path);
-  };
-
-  const handleProfile = () => {
-    if (username) {
-      handleNavigate(`/user/${username}`);
-
-    } else {
-      handleNavigate('/logout');
-    }
+    nav(path);
   };
 
   return (
@@ -54,7 +45,7 @@ const MenuButton = ({ username }) => {
       {menuOpen && (
         <div className='absolute top-full right-0 bg-white/90 shadow-md rounded w-[140px] mt-2 overflow-hidden animate-fade-in'>
           <ItemButton onClick={() => handleNavigate('/blog')}>{'Blog'}</ItemButton>
-          <ItemButton onClick={handleProfile}>{'Perfil'}</ItemButton>
+          <ItemButton onClick={() => handleNavigate(`/user/${username}`)}>{'Perfil'}</ItemButton>
           <ItemButton onClick={() => handleNavigate('/dashboard')}>{'Dashboard'}</ItemButton>
           <ItemButton onClick={() => handleNavigate('/logout')}>{'Cerrar sesión'}</ItemButton>
         </div>

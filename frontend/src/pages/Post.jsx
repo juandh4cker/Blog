@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { useNav } from '../hooks/useNav';
+import { useForm } from '../hooks/useForm';
 import { useTitle } from '../hooks/useTitle';
 
 import { fetchPost, deletePost } from '../api/posts';
@@ -23,13 +24,12 @@ import Input from '../components/tags/Input';
 import Form from '../components/tags/Form';
 
 const Post = () => {
-  const { navigateBack, navigateBlog, navigateUser, navigatePost } = useNav();
+  const { navBack, navBlog, navUser, navPost } = useNav();
   const { ID } = useParams();
 
   const [post, setPost] = useState(null);
   const [isCreator, setIsCreator] = useState(false);
-  const [newComment, setNewComment] = useState('');
-  const [newRating, setNewRating] = useState('');
+  const { formData, setFormData, setInputData } = useForm({ content: '', rating: '' });
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -38,78 +38,68 @@ const Post = () => {
 
   const loadPost = async () => {
     fetchPost(ID)
-    .then((postData) => {
-      setPost(postData);
-      setIsCreator(postData.editable);
+      .then((postData) => {
+        setPost(postData);
+        setIsCreator(postData.editable);
 
-      setTitle(postData.name);
-      setDescription(postData.review);
-    })
-    .catch((error) => {
-      if (error.message === 'Unauthorized') {
-        setError('Unauthorized');
+        setTitle(postData.name);
+        setDescription(postData.review);
+      })
+      .catch((error) => {
+        if (error.message === 'Unauthorized') {
+          setError('Unauthorized');
 
-      } else if (error.message === 'Not found') {
-        setError('Not found');
+        } else if (error.message === 'Not found') {
+          setError('Not found');
 
-      } else {
-        setError(`Error al cargar el post: ${error.message || error}`);
-        setTitle('Error');
-      }
-    })
-    .finally(() => {
-      setLoading(false);
-    })
+        } else {
+          setError(`Error al cargar el post: ${error.message || error}`);
+          setTitle('Error');
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      })
   };
 
   const handleDeletePost = async () => {
     if (window.confirm('¿Estás seguro de que quieres eliminar este post?')) {
       deletePost(ID)
-      .then(() => {
-        navigateBlog
-      })
-      .catch((error) => {
-        setError(`Error al eliminar el post: ${error.message || error}`);
-      })
+        .then(() => {
+          navBlog();
+        })
+        .catch((error) => {
+          setError(`Error al eliminar el post: ${error.message || error}`);
+        })
     }
   };
 
   const handleSubmitComment = async (e) => {
     e.preventDefault();
-    if (!newComment || newRating <= 0 || newRating > 10) {
-      alert('Por favor ingrese un comentario y una puntuación válida.');
-      return;
-    }
 
-    const ratingValue = parseFloat(newRating);
-    if (isNaN(ratingValue) || ratingValue < 1 || ratingValue > 10) {
+    const rating = parseFloat(formData.rating);
+    if (isNaN(rating) || rating < 1 || rating > 10) {
       setError('La calificación debe estar entre 1 y 10.');
       return;
-    }
+    } 
 
-    const newEntry = {
-      content: newComment,
-      rating: ratingValue
+    const commentData = {
+      ...formData,
+      rating
     };
 
-    addComment(ID, newEntry)
-    .then(() => {
-
-      fetchPost(ID)
-      .then((postData) => {
-        setPost(postData);
-        setNewComment('');
-        setNewRating('');
+    addComment(ID, commentData)
+      .then(() => {
+        loadPost();
+        setFormData({ content: '', rating: '' });
       })
-    })
-    .catch((error) => {
-      setError(`Error al subir el comentario: ${error.message || error}`);
-    })
+      .catch((error) => {
+        setError(`Error al subir el comentario: ${error.message || error}`);
+      })
   };
 
   useEffect(() => {
     loadPost();
-
   }, [ID]);
 
   if (loading) {
@@ -139,7 +129,7 @@ const Post = () => {
 
   const handleCreatorClick = () => {
     if (post.creator) {
-      navigateUser(post.creator);
+      navUser(post.creator);
 
     } else {
       alert('No se pudo encontrar el perfil del creador');
@@ -168,20 +158,20 @@ const Post = () => {
         <Text variant='subtitle'>Subido hace: {tiempoDesde(post.createdAt)}</Text>
         <ButtonContainer>
           <Button variant='small' onClick={handleGoogleMaps}>Ver en Google Maps</Button>
-          <Button variant='small' onClick={navigateBack}>Regresar</Button>
+          <Button variant='small' onClick={navBack}>Regresar</Button>
         </ButtonContainer>
         {isCreator && (
           <ButtonContainer>
-            <Button className='small' onClick={() => navigatePost(ID, true)}>Editar Post</Button>
-            <Button className='small' onClick={handleDeletePost}>Eliminar Post</Button>
+            <Button variant='small' onClick={() => navPost(ID, true)}>Editar Post</Button>
+            <Button variant='small' onClick={handleDeletePost}>Eliminar Post</Button>
           </ButtonContainer>
         )}
         <div className='w-4/5 flex items-center justify-center flex-col'>
           <Text variant='title'>Comentarios</Text>
           <CommentsList comments={post.comments} postID={ID} setError={setError} loadData={loadPost}/>
           <Form className='w-[90%]' onSubmit={handleSubmitComment}>
-            <Input value={newComment} onChange={(e) => setNewComment(e.target.value)} placeholder='Escribe tu comentario aquí' variant='textarea' />
-            <Input value={newRating} onChange={(e) => setNewRating(e.target.value)} placeholder='Puntuación (1-10)' variant='rating' />
+            <Input variant='textarea' placeholder='Escribe tu comentario aquí' {...setInputData('content')} />
+            <Input variant='rating' placeholder='Calificación (0-10)' {...setInputData('rating')} />
             <Button type='submit' variant='small'>Enviar Comentario</Button>
           </Form>
         </div>
