@@ -1,24 +1,19 @@
-import { useEffect } from 'react';
+import { useAuth, useNav } from '../hooks';
+import { apiLogout } from '../api';
 
-import { useAuth } from '../hooks/useAuth';
-import { useNav } from '../hooks/useNav';
-import { apiLogout } from '../api/auth';
-
-import Message from '../components/tags/Message';
-
-const Logout = () => {
-  const { navWelcome } = useNav();
+export const Logout = () => {
+  const { navLogout, navWelcome } = useNav();
   const { session, setSession } = useAuth();
 
   const clearSession = () => {
     localStorage.clear();
     setSession({ username: "", isAuthenticated: null });
-    navWelcome();
   }
 
-  useEffect(() => {    
+  const logout = async () => {
     if (!session.isAuthenticated) {
       clearSession();
+      navWelcome();
       return;
     }
 
@@ -28,10 +23,9 @@ const Logout = () => {
       })
       .finally(() => {
         clearSession();
+        navLogout();
       });
-  }, [setSession]);
+  }
 
-  return <Message loading={true} />;
+  return logout;
 };
-
-export default Logout;

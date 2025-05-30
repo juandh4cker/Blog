@@ -23,11 +23,17 @@ const reviewField = z
   .min(1, { message: 'La reseña debe tener al menos 1 caracter' })
   .max(300, { message: 'La reseña debe tener menos de 300 caracteres' })
 
-const ratingField = z
-  .number({ required_error: 'La calificación es obligatoria', invalid_type_error: 'La calificación debe ser un número' })
-  .int({ message: 'La calificación debe ser un número entero' })
-  .min(1, { message: 'La calificación no debe ser menor que 1' })
-  .max(10, { message: 'La calificación no debe ser mayor que 10' })
+const ratingField = z.preprocess(
+  (val) => {
+    if (typeof val === 'string') return parseInt(val, 10)
+    return val
+  },
+  z
+    .number({ required_error: 'La calificación es obligatoria', invalid_type_error: 'La calificación debe ser un número' })
+    .int({ message: 'La calificación debe ser un número entero' })
+    .min(1, { message: 'La calificación no debe ser menor que 1' })
+    .max(10, { message: 'La calificación no debe ser mayor que 10' })
+)
 
 export const postSchema = z.object({
   name: postNameField,

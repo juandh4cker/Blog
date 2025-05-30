@@ -1,10 +1,6 @@
-import { useTitle } from '../hooks/useTitle';
-import { useNav } from '../hooks/useNav';
+import { useNav, useTitle } from '../hooks';
 
-import Container from '../components/tags/Container';
-import Text from '../components/tags/Text';
-import ButtonContainer from '../components/tags/ButtonContainer';
-import Button from '../components/tags/Button';
+import { Button, ButtonContainer, Container, Text} from '../components/tags';
 
 const ErrorPage = ({ type = 'Not Found' }) => {
   const { navBack, navBlog } = useNav();

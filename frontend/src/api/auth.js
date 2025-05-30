@@ -1,4 +1,4 @@
-import { apiRequest } from './index';
+import { apiRequest } from './api';
 
 //Access
 export const apiLogin = (emailOrUsername, password) => {

@@ -1,4 +1,4 @@
-import { apiRequest } from './index';
+import { apiRequest } from './api';
 
 export const fetchPosts = () => {
   return apiRequest('posts');

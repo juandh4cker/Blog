@@ -1,11 +1,10 @@
 import { useNav } from '../../hooks/useNav';
 
-import  { deleteComment }  from '../../api/comments';
+import  { deleteComment }  from '../../api';
 
 import  { tiempoDesde } from '../../utils/tiempoDesde';
 
-import Button from '../tags/Button';
-import Text from '../tags/Text';
+import { Button, Text } from '../tags';
 
 const Comment = ({ index, comment, postID, loadData , expanded, setExpanded, setError }) => {
   const { navUser } = useNav();

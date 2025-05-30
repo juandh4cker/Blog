@@ -1,18 +1,18 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
-import { useNav } from '../hooks/useNav';
-import { useTitle } from '../hooks/useTitle';
+import { useNav, useTitle } from '../hooks';
 
 import Login from '../components/access/Login'
 import Register from '../components/access/Register';
 
-import Container from '../components/tags/Container';
-import Text from '../components/tags/Text';
-import Button from '../components/tags/Button';
-import Message from '../components/tags/Message';
+import { Button, Container, Message, Text } from '../components/tags';
 
 const LandingPage = () => {
   const { navBlog } = useNav();
+  const location = useLocation();
+
+  const from = location.state?.from;
 
   const [ inLogin, setInlogin ] = useState(true);
   const [error, setError] = useState('');
@@ -22,8 +22,18 @@ const LandingPage = () => {
   return (
     <Container className='max-w-md'>
       <Text variant='title'>{'Bienvenido a WorldBlog'}</Text>
-      <Text variant='subtitle'>{'Descubre los mejores destinos alrededor del mundo'}</Text>
-      {inLogin ? <Login setInLogin={setInlogin} setError={setError}/> : <Register setInLogin={setInlogin} setError={setError}/>}
+      <Text variant='subtitle'>
+        {from ?
+            'Necesitas iniciar sesión para ver este contenido'
+          :
+            'Descubre los mejores destinos alrededor del mundo'
+        }
+      </Text>
+      {inLogin ? 
+        <Login setInLogin={setInlogin} setError={setError} from={from}/> 
+        : 
+        <Register setInLogin={setInlogin} setError={setError} from={from}/>
+      }
       <Button variant='secondary' className='w-full' onClick={navBlog}>{'Entrar como invitado'}</Button>
       {error && <Message error={error} />}
     </Container>

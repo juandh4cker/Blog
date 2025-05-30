@@ -1,40 +1,24 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
 
-import { useAuth } from '../../hooks/useAuth';
-import { useNav } from '../../hooks/useNav';
-import { apiRegister } from '../../api/auth';
-import { registerSchema } from '../../schema/registerSchema';
+import { useAuth, useNav } from '../../hooks';
+import { apiRegister } from '../../api';
+import { registerSchema } from '../../schema';
 
-import Button from '../tags/Button';
-import Form from '../tags/Form';
-import Input from '../tags/Input';
+import { Button, Form, Input } from '../tags';
 
-const Register = ({ setInLogin, setError }) => {
+const Register = ({ from, setInLogin, setError }) => {
   const { setSession } = useAuth();
-  const { navBlog } = useNav();
+  const { nav, navBlog } = useNav();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm({
-    resolver: zodResolver(registerSchema),
-    defaultValues: {
-      username: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-    },
-  });
+  const [loading, setLoading] = useState(false)
 
   const onSubmit = async (data) => {
     setError('');
 
-    apiRegister(data.username, data.email, data.password)
+    return apiRegister(data.username, data.email, data.password)
       .then((response) => {
         setSession({ username: response, isAuthenticated: true })
-        navBlog();
+        from ? nav(from) : navBlog();
       })
       .catch((error) => {
         setError(error.message || error);
@@ -42,13 +26,16 @@ const Register = ({ setInLogin, setError }) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <Input placeholder='Nombre de usuario' error={errors.username} {...register('username')} />
-      <Input variant='email' error={errors.email} {...register('email')} />
-      <Input variant="password" error={errors.password} {...register('password')} />
-      <Input variant="confirmPassword" error={errors.confirmPassword} {...register('confirmPassword')} />
-      <Button type='submit' disabled={isSubmitting}>{isSubmitting ? 'Registrando...' : 'Registarme'}</Button>
-      <Button variant='secondary' onClick={() => setInLogin(true)} disabled={isSubmitting}>{"Ya tengo una cuenta"}</Button>
+    <Form
+      defaultValues={{ username: '', email: '' , password: '' , confirmPassword: '' }} 
+      schema={registerSchema} onSubmit={onSubmit} isSubmitting={setLoading}
+    >
+      <Input name="username" placeholder='Nombre de usuario'/>
+      <Input name="email" variant='email'/>
+      <Input name="password" variant="password"/>
+      <Input name="confirmPassword" variant="confirmPassword"/>
+      <Button type='submit' disabled={loading}>{loading ? 'Registrando...' : 'Registarme'}</Button>
+      <Button variant='secondary' onClick={() => setInLogin(true)} disabled={loading}>{"Ya tengo una cuenta"}</Button>
     </Form>
   );
 };

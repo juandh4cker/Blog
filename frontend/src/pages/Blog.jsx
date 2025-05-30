@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { useTitle } from '../hooks/useTitle';
+import { useTitle } from '../hooks';
 
 import { fetchPosts } from '../api/posts';
 
 import PostsList from '../components/posts/postsViewer';
 
-import Container from '../components/tags/Container';
-import Text from '../components/tags/Text';
-import Message from '../components/tags/Message';
+import { Container, Text, Message } from '../components/tags';
 
 const Blog = () => {
   const [posts, setPosts] = useState([]);

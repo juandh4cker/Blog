@@ -1,45 +1,50 @@
-import { forwardRef, useState } from 'react';
+import { useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import clsx from 'clsx';
 
 import Message from './Message';
 
-const Input = forwardRef(({
+const Input = ({
   className = '',
   type = 'text',
   required = true,
   variant = 'base',
-  error,
+  name,
   ...props
-}, ref) => {
-  const baseStyle = 'bg-white my-2 py-3 px-4 text-base rounded-[5px] border border-[#ccc] transition-transform transform hover:scale-[1.02] focus:border-[#3498db] focus:outline-none';
-  const [showPassword, setShowPassword] = useState(false);
+
+}) => {
+  const { register, formState: { errors } } = useFormContext()
+  
+  const baseStyle = 'bg-white my-2 py-3 px-4 text-base rounded-[5px] border border-[#ccc] transition-transform transform hover:scale-[1.02] focus:border-[#3498db] focus:outline-none'
+  const error = errors[name]
 
   if (variant === 'textarea') {
     return (
       <>
         <textarea
-          ref={ref}
           className={clsx(baseStyle, className)}
           required={required}
+          {...register(name)}
           {...props}
         />
-        {error && <Message error={error} />}
+        {error && <Message error={error.message} />}
       </>
-    );
+    )
   }
 
   if (variant === 'password' || variant === 'confirmPassword') {
-    const placeholder = variant === 'confirmPassword' ? 'Confirmar contraseña' : 'Contraseña';
+    const [showPassword, setShowPassword] = useState(false)
+    const placeholder = variant === 'confirmPassword' ? 'Confirmar contraseña' : 'Contraseña'
     return (
       <>
         <div className='relative w-full max-w-full box-border'>
           <input
-            ref={ref}
             className={clsx(baseStyle, className, 'pr-10 w-full box-border')}
             type={showPassword ? 'text' : 'password'}
-            required={required}
             placeholder={placeholder}
+            required={required}
+            {...register(name)}
             {...props}
           />
           <button
@@ -50,30 +55,28 @@ const Input = forwardRef(({
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </button>
         </div>
-        {error && <Message error={error} />}
+        {error && <Message error={error.message} />}
       </>
-    );
+    )
   }
 
-  const ratingProps = variant === 'rating' ? { min: '1', max: '10', step: '0.1' } : {};
-  const emailProps = variant === 'email' ? { placeholder: 'Correo electrónico',type: 'email' } : {};
+  const ratingProps = variant === 'rating' ? { min: '1', max: '10', step: '0.1' } : {}
+  const emailProps = variant === 'email' ? { placeholder: 'Correo electrónico', type: 'email' } : {}
   
   return (
     <>
       <input
-        ref={ref}
         className={clsx(baseStyle, className)}
         type={variant === 'rating' ? 'number' : type}
         required={required}
+        {...register(name)}
+        {...props}
         {...ratingProps}
         {...emailProps}
-        {...props}
       />
-      {error && <Message error={error} />}
+      {error && <Message error={error.message} />}
     </>
-  );
-});
+  )
+}
 
-Input.displayName = 'Input';
-
-export default Input;
+export default Input

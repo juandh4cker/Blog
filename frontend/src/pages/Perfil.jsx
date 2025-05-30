@@ -1,19 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useNav } from '../hooks/useNav';
-import { useTitle } from '../hooks/useTitle';
+import { useNav, useTitle } from '../hooks';
 
 import { fetchUser, followOrUnfollowUser } from '../api/users';
 
 import ErrorPage from './ErrorPage';
 import PostsList from '../components/posts/postsViewer';
 
-import ButtonContainer from '../components/tags/ButtonContainer'
-import Button from '../components/tags/Button';
-import Container from '../components/tags/Container';
-import Text from '../components/tags/Text';
-import Message from '../components/tags/Message';
+import { Button, ButtonContainer, Container, Text, Message } from '../components/tags';
 
 const Perfil = () => {
   const { username } = useParams();

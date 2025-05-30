@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNav } from '../../hooks/useNav';
 
+import { Logout } from '../../auth/logout';
+
 const ItemButton = ({ children, onClick }) => (
   <button
     onClick={onClick}
@@ -13,6 +15,8 @@ const ItemButton = ({ children, onClick }) => (
 const MenuButton = ({ username }) => {
   const menuRef = useRef(null);
   const { nav } = useNav();
+
+  const logout = Logout();
 
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -47,7 +51,7 @@ const MenuButton = ({ username }) => {
           <ItemButton onClick={() => handleNavigate('/blog')}>{'Blog'}</ItemButton>
           <ItemButton onClick={() => handleNavigate(`/user/${username}`)}>{'Perfil'}</ItemButton>
           <ItemButton onClick={() => handleNavigate('/dashboard')}>{'Dashboard'}</ItemButton>
-          <ItemButton onClick={() => handleNavigate('/logout')}>{'Cerrar sesión'}</ItemButton>
+          <ItemButton onClick={logout}>{'Cerrar sesión'}</ItemButton>
         </div>
       )}
     </div>

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-import { useNav } from '../../hooks/useNav';
+import { useNav } from '../../hooks';
 
-import Message from '../tags/Message';
+import { Message } from '../tags';
 
 const PostCard = ({ post }) => {
   const { navPost } = useNav();
@@ -27,10 +27,10 @@ const PostCard = ({ post }) => {
       />
       <h3 className='my-2.5 text-[1.2rem] text-center'>{post.name}</h3>
       <p className='my-1 text-base text-center'>
-        <b>Ubicación:</b> {post.location}
+        <b>{'Ubicación:'}</b> {post.location}
       </p>
       <p className='my-1 text-base text-center'>
-        <b>Calificación:</b> {post.rating}/10
+        <b>{'Calificación: '}</b>{post.rating}{'/10'}
       </p>
     </div>
   );

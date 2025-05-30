@@ -1,20 +1,21 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { useAuth } from '../hooks/useAuth';
-import { useNav } from '../hooks/useNav';
+import { useAuth } from '../hooks';
+import { apiCheckToken } from '../api';
 
-import { apiCheckToken } from '../api/auth';
+import { Logout } from './logout';
 
 import MenuButton from '../components/basics/MenuButton';
+import LoginButton from '../components/basics/LoginButton';
 
 const AuthChecker = ({ children }) => {
-  const { navLogout } = useNav();
   const location = useLocation();
+  const logout = Logout();
 
   const { session, setSession } = useAuth();
 
-  const publicRoutes = ['/welcome', '/logout'];
+  const publicRoutes = ['/welcome'];
   const isPublicRoute = publicRoutes.some(route =>
     location.pathname.toLowerCase().startsWith(route)
   );
@@ -32,7 +33,7 @@ const AuthChecker = ({ children }) => {
         if (!isValid) {
           setSession({ username: '', isAuthenticated: false });
           if (!isSharedRoute) {
-            navLogout();
+            logout();
           };
 
         } else {
@@ -40,14 +41,14 @@ const AuthChecker = ({ children }) => {
         }
       })
       .catch(() => {
-        navLogout();
+        logout();
       });
   }, [location.pathname, isPublicRoute]);
 
   return (
     <>
       {children}
-      {session.isAuthenticated && <MenuButton username={session.username} />}
+      {session.isAuthenticated ? <MenuButton username={session.username}/> : (isSharedRoute ? <LoginButton /> : <></>)} 
     </>
   );
 };

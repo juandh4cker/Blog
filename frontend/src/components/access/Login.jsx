@@ -1,35 +1,23 @@
-import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 
-import { useAuth } from '../../hooks/useAuth';
-import { useNav } from '../../hooks/useNav';
-import { apiLogin } from '../../api/auth';
+import { useAuth, useNav } from '../../hooks';
+import { apiLogin } from '../../api';
 
-import Button from '../tags/Button';
-import Form from '../tags/Form';
-import Input from '../tags/Input';
+import { Button, Form, Input } from '../tags';
 
-const Login = ({ setInLogin, setError }) => {
+const Login = ({ from, setInLogin, setError }) => {
   const { setSession } = useAuth();
-  const { navBlog } = useNav();
+  const { nav, navBlog } = useNav();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { isSubmitting },
-  } = useForm({
-    defaultValues: {
-      usernameOrEmail: '',
-      password: '',
-    },
-  });
+  const [loading, setLoading] = useState(false)
 
   const onSubmit = async (data) => {
     setError('')
 
-    apiLogin(data.usernameOrEmail, data.password)
+    return apiLogin(data.usernameOrEmail, data.password)
       .then((response) => {
         setSession({ username: response, isAuthenticated: true });
-        navBlog();
+        from ? nav(from) : navBlog();
       })
       .catch((error) => {
         setError(error.message || error);
@@ -37,11 +25,14 @@ const Login = ({ setInLogin, setError }) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <Input placeholder='Nombre de usuario o correo' {...register('usernameOrEmail')} />
-      <Input variant="password" {...register('password')} />
-      <Button type='submit' disabled={isSubmitting}>{isSubmitting ? 'Iniciando...' : 'Iniciar Sesión'}</Button>
-      <Button variant='secondary' onClick={() => setInLogin(false) } disabled={isSubmitting}>{'No tengo una cuenta'}</Button>
+    <Form 
+      defaultValues={{ usernameOrEmail: '', password: '' }}
+      onSubmit={onSubmit} isSubmitting={setLoading}
+    >
+      <Input name="usernameOrEmail" placeholder="Nombre de usuario" />
+      <Input name="password" variant="password" />
+      <Button type='submit' disabled={loading}>{loading ? 'Iniciando...' : 'Iniciar Sesión'}</Button>
+      <Button variant='secondary' onClick={() => setInLogin(false)} disabled={loading}>{'No tengo una cuenta'}</Button>
     </Form>
   );
 };

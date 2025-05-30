@@ -7,7 +7,6 @@ import Dashboard from '../pages/Dashboard';
 import Post from '../pages/Post'
 import Perfil from '../pages/Perfil';
 import EditPost from '../pages/EditPost';
-import Logout from '../auth/logout';
 import ErrorPage from '../pages/ErrorPage';
 
 const AppRoutes = () => {
@@ -23,7 +22,6 @@ const AppRoutes = () => {
         <Route path='/post/:ID/edit' element={<EditPost />} />
       </Route>
 
-      <Route path='/logout' element={<Logout />} />
       <Route path='/' element={<Navigate to='/blog' />} />
       <Route path='*' element={<ErrorPage type='Not Found' />} />
     </Routes>

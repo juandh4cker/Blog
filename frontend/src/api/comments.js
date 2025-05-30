@@ -1,4 +1,4 @@
-import { apiRequest } from './index';
+import { apiRequest } from './api';
 
 export const addComment = (postID, comment) => {
   return apiRequest(`post/${postID}/comment`, 'PUT', comment);

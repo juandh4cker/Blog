@@ -1,6 +1,6 @@
 import PostCard from './DestinationCard';
 
-import Message from '../tags/Message';
+import { Message } from '../tags';
 
 const PostsList = ({ posts }) => {
   return (

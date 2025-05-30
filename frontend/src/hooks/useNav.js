@@ -1,7 +1,8 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export const useNav = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   return {
     navigate,
@@ -10,9 +11,10 @@ export const useNav = () => {
     navBackSteps: (steps = 1) => navigate(-steps),
     navBlog: () => navigate('/blog'),
     navDashboard: () => navigate('/dashboard'),
-    navLogout: () => navigate('/logout'),
+    navLogout: () => navigate('/welcome', { replace: true }),
     navUser: (user) => navigate(`/user/${user}`),
     navPost: (postID, edit=false) => navigate(`/post/${postID}${edit ? '/edit' : ''}`),
-    navWelcome: () => navigate('/welcome', { replace: true }), //Ver eso de replace
+    navWelcome: () => navigate('/welcome', { replace: true, state: { from: location.pathname } })
   };
 };
+ 

@@ -1,13 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useNav } from '../hooks/useNav';
-import { useForm } from '../hooks/useForm';
-import { useTitle } from '../hooks/useTitle';
+import { useNav, useTitle } from '../hooks';
+import { commentSchema } from '../schema';
 
-import { fetchPost, deletePost } from '../api/posts';
+import { fetchPost, deletePost, addComment } from '../api';
 
-import { addComment } from '../api/comments';
 
 import ErrorPage from './ErrorPage';
 
@@ -15,23 +13,19 @@ import { tiempoDesde } from '../utils/tiempoDesde';
 
 import CommentsList from '../components/comments/CommentsList';
 
-import ButtonContainer from '../components/tags/ButtonContainer';
-import Message from '../components/tags/Message';
-import Button from '../components/tags/Button';
-import Container from '../components/tags/Container';
-import Text from '../components/tags/Text';
-import Input from '../components/tags/Input';
-import Form from '../components/tags/Form';
+import { Button, ButtonContainer, Container, Form, Input, Message, Text } from '../components/tags';
 
 const Post = () => {
   const { navBack, navBlog, navUser, navPost } = useNav();
   const { ID } = useParams();
 
+  const formRef = useRef();
+
   const [post, setPost] = useState(null);
   const [isCreator, setIsCreator] = useState(false);
-  const { formData, setFormData, setInputData } = useForm({ content: '', rating: '' });
 
   const [loading, setLoading] = useState(true);
+  const [uploadingComment, setUploadingComment] = useState(false);
   const [error, setError] = useState('');
 
   const { setTitle, setDescription } = useTitle(null, 'Aquí se ve un post');
@@ -74,24 +68,13 @@ const Post = () => {
     }
   };
 
-  const handleSubmitComment = async (e) => {
-    e.preventDefault();
-
-    const rating = parseFloat(formData.rating);
-    if (isNaN(rating) || rating < 1 || rating > 10) {
-      setError('La calificación debe estar entre 1 y 10.');
-      return;
-    } 
-
-    const commentData = {
-      ...formData,
-      rating
-    };
-
-    addComment(ID, commentData)
+  const submitComment = async (data) => {
+    addComment(ID, data)
       .then(() => {
         loadPost();
-        setFormData({ content: '', rating: '' });
+        if (formRef.current) {
+          formRef.current.reset({ content: '', rating: '' });
+        }
       })
       .catch((error) => {
         setError(`Error al subir el comentario: ${error.message || error}`);
@@ -127,15 +110,6 @@ const Post = () => {
 
   };
 
-  const handleCreatorClick = () => {
-    if (post.creator) {
-      navUser(post.creator);
-
-    } else {
-      alert('No se pudo encontrar el perfil del creador');
-
-    }
-  };
 
   return (
     <>
@@ -151,7 +125,7 @@ const Post = () => {
         <Text>
           <b>Reseña: </b>{post.review}
         </Text>
-        <Text className='base-text' onClick={handleCreatorClick}>
+        <Text className='base-text' onClick={() => navUser(post.creator)}>
           <b>Agregado por: </b>
           <Text variant='hipertext'>{post.creator}</Text>
         </Text>
@@ -169,10 +143,13 @@ const Post = () => {
         <div className='w-4/5 flex items-center justify-center flex-col'>
           <Text variant='title'>Comentarios</Text>
           <CommentsList comments={post.comments} postID={ID} setError={setError} loadData={loadPost}/>
-          <Form className='w-[90%]' onSubmit={handleSubmitComment}>
-            <Input variant='textarea' placeholder='Escribe tu comentario aquí' {...setInputData('content')} />
-            <Input variant='rating' placeholder='Calificación (0-10)' {...setInputData('rating')} />
-            <Button type='submit' variant='small'>Enviar Comentario</Button>
+          <Form 
+            defaultValues={{ content: '', rating: '' }} ref={formRef} className='w-[90%]'
+            schema={commentSchema} onSubmit={submitComment} isSubmitting={setUploadingComment}
+          >
+            <Input name='content' variant='textarea' placeholder='Escribe tu comentario aquí' />
+            <Input name='rating' variant='rating' placeholder='Calificación (0-10)' />
+            <Button type='submit' variant='small' disabled={uploadingComment}>{uploadingComment ? 'Enviando...' : 'Enviar comentario'}</Button>
           </Form>
         </div>
       </Container>

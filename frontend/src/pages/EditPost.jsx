@@ -1,45 +1,40 @@
-import { useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useNav } from '../hooks/useNav';
-import { useForm } from '../hooks/useForm';
-import { useTitle } from '../hooks/useTitle';
+import { useNav, useTitle } from '../hooks';
+import { editPost, fetchPost } from '../api';
+import { postSchema } from '../schema';
 
-import { editPost, fetchPost } from '../api/posts';
-
-import Button from '../components/tags/Button';
-import Container from '../components/tags/Container';
-import Form from '../components/tags/Form';
-import Input from '../components/tags/Input';
-import Message from '../components/tags/Message';
-import Text from '../components/tags/Text';
+import { Button, Container, Form, Input, Message, Text } from '../components/tags';
 
 const EditPost = () => {
   const { navPost } = useNav();
   const { ID } = useParams();
+  const formRef = useRef();
 
-  const { formData, setFormData, setInputData } = useForm({ name: '', location: '', imageUrl: '', review: '', rating: ''});
+  const [post, setPost] = useState({ name: '', location: '', imageUrl: '', review: '', rating: ''});
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const { setTitle, setDescription } = useTitle(null, 'Aquí se ve un post');
+  const { setTitle, setDescription } = useTitle(null, 'Aquí se edita un post');
 
   const loadPost = async () => {
-    fetchPost(ID)
+    return fetchPost(ID)
       .then((postData) => {
         if (!postData.editable) navPost(ID);
 
-        setFormData(postData);
+        setPost(postData);
         setTitle(postData.name);
         setDescription(postData.review);
+
+        if (formRef.current) {
+          formRef.current.reset(postData);
+        }
       })
       .catch((error) => {
         setError(`Error al editar el post: ${error.message || error}`);
         setTitle('Error');
-      })
-      .finally(() => {
-        setLoading(false);
       })
     };
 
@@ -47,32 +42,15 @@ const EditPost = () => {
     loadPost();
   }, [ID]);
 
-  const handleUpdatePost = async (e) => {
-    e.preventDefault();
-
-    const rating = parseFloat(formData.rating);
-    if (isNaN(rating) || rating < 1 || rating > 10) {
-      setError('La calificación debe estar entre 1 y 10.');
-      return;
-    }
-
-    const updatedPost = {
-      ...formData,
-      rating,
-    };
-
+  const onSubmit = async (data) => {
     setError('')
-    setLoading(true);
 
-    editPost(ID, updatedPost)
+    return editPost(ID, data)
       .then(() => {
         navPost(ID);
       })
       .catch((error) => {
         setError(`Error al actualizar el post: ${error.message || error}`);
-      })
-      .finally(() => {
-        setLoading(false);
       })
   };
 
@@ -81,14 +59,17 @@ const EditPost = () => {
       <Container className='max-w-lg'>
         <Text variant='title'>Editar Post</Text>
         <Text variant='subtitle'>Edita los detalles del post</Text>
-        <Form onSubmit={handleUpdatePost}>
-          <Input placeholder='Nombre del post' {...setInputData('name')} />
-          <Input placeholder='Ubicación' {...setInputData('location')} />
-          <Input placeholder='URL de la imagen del post' {...setInputData('imageUrl')} />
-          <Input variant='textarea' placeholder='Reseña' {...setInputData('review')} />
-          <Input variant='rating' placeholder='Calificación (0-10)' {...setInputData('rating')} />
+        <Form
+          defaultValues={post} ref={formRef}
+          schema={postSchema} onSubmit={onSubmit} isSubmitting={setLoading}
+        >
+          <Input name="name" placeholder='Nombre del post'/>
+          <Input name="location" placeholder='Ubicación'/>
+          <Input name="imageUrl" placeholder='URL de la imagen del post'/>
+          <Input name="review" variant='textarea' placeholder='Reseña'/>
+          <Input name="rating" variant='rating' placeholder='Calificación (0-10)'/>
           <Button type='submit' disabled={loading}>{'Editar post'}</Button>
-          <Button variant='secondary' onClick={() => navPost(ID)}>{'Cancelar'}</Button>
+          <Button variant='secondary' onClick={() => navPost(ID)} disabled={loading}>{'Cancelar'}</Button>
         </Form>
         {error && <Message error={error} />}
       </Container>

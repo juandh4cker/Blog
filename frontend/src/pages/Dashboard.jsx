@@ -1,68 +1,46 @@
 import { useState } from 'react';
 
-import { useNav } from '../hooks/useNav';
-import { useForm } from '../hooks/useForm';
-import { useTitle } from '../hooks/useTitle';
-import { addPost } from '../api/posts';
+import { useNav, useTitle } from '../hooks';
+import { addPost } from '../api';
+import { postSchema } from '../schema';
 
-import Button from '../components/tags/Button';
-import Container from '../components/tags/Container';
-import Form from '../components/tags/Form';
-import Input from '../components/tags/Input';
-import Message from '../components/tags/Message';
-import Text from '../components/tags/Text';
+import { Button, Container, Form, Input, Message, Text } from '../components/tags';
 
 const Dashboard = () => {
   const { navBack, navPost } = useNav();
-
-  const { formData, setInputData } = useForm({ name: '', location: '', imageUrl: '', review: '', rating: ''});
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   useTitle('Dashboard', 'Aquí agregas posts.');
 
-  const handleAddPost = async (e) => {
-    e.preventDefault();
-
-    const rating = parseFloat(formData.rating);
-    if (isNaN(rating) || rating < 1 || rating > 10) {
-      setError('La calificación debe estar entre 1 y 10.');
-      return;
-    } 
-
-    const postData = {
-      ...formData,
-      rating
-    };
-
+  const onSubmit = async (data) => {
     setError('')
-    setLoading(true);
 
-    addPost(postData)
-    .then((response) => {
-      navPost(`/post/${response}`);
-    })
-    .catch((error) => {
-      setError(`Error al agregar el post: ${error.message || error}`);
-    })
-    .finally(() => {
-      setLoading(false);
-    })
+    return addPost(data)
+      .then((response) => {
+        navPost(`/post/${response}`);
+      })
+      .catch((error) => {
+        setError(`Error al agregar el post: ${error.message || error}`);
+      })
   };
 
   return (
     <Container className='max-w-lg'>
       <Text variant='title'>Agregar un post</Text>
       <Text variant='subtitle'>Rellena los datos para agregarlos</Text>
-      <Form onSubmit={handleAddPost}>
-        <Input placeholder='Nombre del post' {...setInputData('name')} />
-        <Input placeholder='Ubicación' {...setInputData('location')} />
-        <Input placeholder='URL de la imagen del post' {...setInputData('imageUrl')} />
-        <Input variant='textarea' placeholder='Reseña' {...setInputData('review')} />
-        <Input variant='rating' placeholder='Calificación (0-10)' {...setInputData('rating')} />
+      <Form
+        defaultValues={{ name: '', location: '', imageUrl: '', review: '', rating: ''}} 
+        schema={postSchema} onSubmit={onSubmit} isSubmitting={setLoading}
+      >
+        <Input name="name" placeholder='Nombre del post'/>
+        <Input name="location" placeholder='Ubicación'/>
+        <Input name="imageUrl" placeholder='URL de la imagen del post'/>
+        <Input name="review" variant='textarea' placeholder='Reseña'/>
+        <Input name="rating" variant='rating' placeholder='Calificación (0-10)'/>
         <Button type='submit' disabled={loading}>{'Agregar post'}</Button>
-        <Button variant='secondary' onClick={navBack}>{'Cancelar'}</Button>
+        <Button variant='secondary' onClick={navBack} disabled={loading}>{'Cancelar'}</Button>
       </Form>
       {error && <Message error={error} />}
     </Container>

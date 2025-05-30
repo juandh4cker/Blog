@@ -1,4 +1,4 @@
-import { apiRequest } from './index';
+import { apiRequest } from './api';
 
 export const fetchUser = (username) => {
   return apiRequest(`user/${username}`);
