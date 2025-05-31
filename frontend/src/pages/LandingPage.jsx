@@ -1,23 +1,39 @@
-import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
-import { useNav, useTitle } from '../hooks';
+import { useAuth, useNav, useTitle } from '../hooks';
 
-import Login from '../components/access/Login'
-import Register from '../components/access/Register';
+import { apiLogin, apiRegister } from '../api';
+import { registerSchema } from '../schema'
 
-import { Button, Container, Message, Text } from '../components/tags';
+import { Button, Container, Form, Input, Message, Text } from '../components/tags';
 
-const LandingPage = () => {
-  const { navBlog } = useNav();
-  const location = useLocation();
-
-  const from = location.state?.from;
+const Welcome = () => {
+  const { setSession } = useAuth();
+  const { from, navBlog, navFrom } = useNav();
 
   const [ inLogin, setInlogin ] = useState(true);
-  const [error, setError] = useState('');
+  const [ loading, setLoading ] = useState(false);
+
+  const [ error, setError ] = useState('');
+
+  const handleSubmit = async (apiFn, args) => {
+  setError('');
+
+  return apiFn(...args)
+    .then((response) => {
+      setSession({ username: response, isAuthenticated: true });
+      navFrom(() => navBlog());
+    })
+    .catch((error) => {
+      setError(error.message || error);
+    });
+  };
 
   useTitle('Inicio', 'Inicia sesión o registrate');
+
+  useEffect(() => {
+    setError('');
+  }, [inLogin]);
 
   return (
     <Container className='max-w-md'>
@@ -29,15 +45,47 @@ const LandingPage = () => {
             'Descubre los mejores destinos alrededor del mundo'
         }
       </Text>
-      {inLogin ? 
-        <Login setInLogin={setInlogin} setError={setError} from={from}/> 
-        : 
-        <Register setInLogin={setInlogin} setError={setError} from={from}/>
+      {inLogin ?
+        <Login handleSubmit={handleSubmit} setInLogin={setInlogin} loading={loading} setLoading={setLoading} />
+        :
+        <Register handleSubmit={handleSubmit} setInLogin={setInlogin} loading={loading} setLoading={setLoading} />
       }
-      <Button variant='secondary' className='w-full' onClick={navBlog}>{'Entrar como invitado'}</Button>
+      <Button variant='secondary' className='w-full' onClick={navBlog} disabled={loading}>{'Entrar como invitado'}</Button>
       {error && <Message error={error} />}
     </Container>
   );
 };
 
-export default LandingPage;
+const Login = ({ handleSubmit, setInLogin, loading, setLoading }) => {
+  return (
+    <Form
+      defaultValues={{ usernameOrEmail: '', password: '' }}
+      onSubmit={(data) => handleSubmit(apiLogin, [data.usernameOrEmail, data.password])}
+      isSubmitting={setLoading}
+    >
+      <Input name='usernameOrEmail' placeholder='Nombre de usuario' />
+      <Input name='password' variant='password' />
+      <Button type='submit' disabled={loading}>{loading ? 'Iniciando...' : 'Iniciar Sesión'}</Button>
+      <Button variant='secondary' onClick={() => setInLogin(false)} disabled={loading}>{'No tengo una cuenta'}</Button>
+    </Form>
+  );
+};
+
+const Register = ({ handleSubmit, setInLogin, loading, setLoading }) => {
+  return (
+    <Form
+      defaultValues={{ username: '', email: '', password: '', confirmPassword: '' }}
+      onSubmit={(data) => handleSubmit(apiRegister, [data.username, data.email, data.password])}
+      isSubmitting={setLoading} schema={registerSchema}
+    >
+      <Input name='username' placeholder='Nombre de usuario'/>
+      <Input name='email' variant='email'/>
+      <Input name='password' variant='password'/>
+      <Input name='confirmPassword' variant='confirmPassword'/>
+      <Button type='submit' disabled={loading}>{loading ? 'Registrando...' : 'Registarme'}</Button>
+      <Button variant='secondary' onClick={() => setInLogin(true)} disabled={loading}>{'Ya tengo una cuenta'}</Button>
+    </Form>
+  );
+};
+
+export default Welcome;

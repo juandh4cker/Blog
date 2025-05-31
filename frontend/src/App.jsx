@@ -24,6 +24,7 @@ const App = () => {
 
 {"Hook de mensajes flotantes (para errores o mensajes)"}
 {"Mejorar input"}
+{"ponerle aria"}
 {"Configurar formatter con prettier"}
 
 export default App;

@@ -1,6 +1,6 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
 
-import LandingPage from '../pages/LandingPage';
+import Welcome from '../pages/LandingPage';
 import Blog from '../pages/Blog';
 import PrivateRoute from './PrivateRoute';
 import Dashboard from '../pages/Dashboard';
@@ -12,7 +12,7 @@ import ErrorPage from '../pages/ErrorPage';
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path='/welcome' element={<LandingPage />} />
+      <Route path='/welcome' element={<Welcome />} />
       <Route path='/blog' element={<Blog />} />
 
       <Route element={<PrivateRoute />}>
