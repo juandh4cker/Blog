@@ -6,9 +6,9 @@ import { useNav, useTitle } from '../hooks';
 import { fetchUser, followOrUnfollowUser } from '../api/users';
 
 import ErrorPage from './ErrorPage';
-import PostsList from '../components/posts/postsViewer';
+import PostsList from '../components/PostsList';
 
-import { Button, ButtonContainer, Container, Text, Message } from '../components/tags';
+import { Button, ButtonContainer, Container, Text, Message } from '../components/ui';
 
 const Perfil = () => {
   const { username } = useParams();

@@ -1,7 +1,7 @@
-import { useAuth, useNav } from '../hooks';
+import { useAuth, useNav } from '.';
 import { apiLogout } from '../api';
 
-export const Logout = () => {
+export const useLogout = () => {
   const { navLogout, navWelcome } = useNav();
   const { session, setSession } = useAuth();
 

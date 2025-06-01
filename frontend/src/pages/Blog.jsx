@@ -2,25 +2,24 @@ import { useEffect, useState } from 'react';
 
 import { useTitle } from '../hooks';
 
-import { fetchPosts } from '../api/posts';
+import { fetchPosts } from '../api';
 
-import PostsList from '../components/posts/postsViewer';
+import { Container, Text, Message } from '../components/ui';
 
-import { Container, Text, Message } from '../components/tags';
+import PostsList from '../components/PostsList';
 
 const Blog = () => {
+  useTitle('', 'Aquí se ven todos los posts.');
+
   const [posts, setPosts] = useState([]);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  useTitle('', 'Aquí se ven todos los posts.');
+  const getPosts = async () => {
+    setLoading(true);
 
-  useEffect(() => {
-    const getPosts = async () => {
-      setLoading(true);
-
-      fetchPosts()
+    fetchPosts()
       .then((response) => {
         setError('');
         setPosts(response);
@@ -31,21 +30,20 @@ const Blog = () => {
       .finally(() => {
         setLoading(false);
       })
-    };
+  };
 
+  useEffect(() => {
     getPosts();
   }, []);
 
   return (
-    <>
-      <Container className='max-w-3xl'>
-        <Text variant='title'>{'Blog'}</Text>
-        <Text variant='subtitle'>{'Ver todos los posts agregados'}</Text>
-        {(loading || error) && <Message error={error} loading={loading} />}
-        {!loading && !error && <PostsList posts={posts} />}
-      </Container>
-    </>
-  );  
+    <Container className='max-w-3xl'>
+      <Text variant='title'>{'Blog'}</Text>
+      <Text variant='subtitle'>{'Ver todos los posts agregados'}</Text>
+      {(loading || error) && <Message error={error} loading={loading} />}
+      {!(loading || error) && <PostsList posts={posts} />}
+    </Container>
+  );
 };
 
 export default Blog;

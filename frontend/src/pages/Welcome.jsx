@@ -3,11 +3,14 @@ import { useEffect, useState } from 'react';
 import { useAuth, useNav, useTitle } from '../hooks';
 
 import { apiLogin, apiRegister } from '../api';
+
 import { registerSchema } from '../schema'
 
-import { Button, Container, Form, Input, Message, Text } from '../components/tags';
+import { Button, Container, Form, Input, Message, Text } from '../components/ui';
 
 const Welcome = () => {
+  useTitle('Inicio', 'Inicia sesión o registrate');
+
   const { setSession } = useAuth();
   const { from, navBlog, navFrom } = useNav();
 
@@ -28,8 +31,6 @@ const Welcome = () => {
       setError(error.message || error);
     });
   };
-
-  useTitle('Inicio', 'Inicia sesión o registrate');
 
   useEffect(() => {
     setError('');

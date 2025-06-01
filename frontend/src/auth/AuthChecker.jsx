@@ -1,17 +1,14 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { useAuth } from '../hooks';
+import { useAuth, useLogout } from '../hooks';
 import { apiCheckToken } from '../api';
 
-import { Logout } from './logout';
-
-import MenuButton from '../components/basics/MenuButton';
-import LoginButton from '../components/basics/LoginButton';
+import { MenuButton, LoginButton } from '../components/MenuButton';
 
 const AuthChecker = ({ children }) => {
   const location = useLocation();
-  const logout = Logout();
+  const logout = useLogout();
 
   const { session, setSession } = useAuth();
 

@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { useAuth } from '../hooks';
-import { Logout } from '../auth/logout';
+import { useAuth, useLogout } from '../hooks';
 
-import Message from '../components/tags/Message';
+import { Message } from '../components/ui';
 
 const PrivateRoute = () => {
   const { session } = useAuth();
-  const logout = Logout();
+  const logout = useLogout();
 
   const [loggingOut, setLoggingOut] = useState(false);
 

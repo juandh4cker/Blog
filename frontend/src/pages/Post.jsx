@@ -2,18 +2,18 @@ import { useRef, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useNav, useTitle } from '../hooks';
+
 import { commentSchema } from '../schema';
 
 import { fetchPost, deletePost, addComment } from '../api';
-
 
 import ErrorPage from './ErrorPage';
 
 import { tiempoDesde } from '../utils/tiempoDesde';
 
-import CommentsList from '../components/comments/CommentsList';
+import CommentsList from '../components/CommentsList';
 
-import { Button, ButtonContainer, Container, Form, Input, Message, Text } from '../components/tags';
+import { Button, ButtonContainer, Container, Form, Input, Message, Text } from '../components/ui';
 
 const Post = () => {
   const { navBack, navBlog, navUser, navPost } = useNav();

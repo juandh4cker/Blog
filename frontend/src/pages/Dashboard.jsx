@@ -4,7 +4,7 @@ import { useNav, useTitle } from '../hooks';
 import { addPost } from '../api';
 import { postSchema } from '../schema';
 
-import { Button, Container, Form, Input, Message, Text } from '../components/tags';
+import { Button, Container, Form, Input, Message, Text } from '../components/ui';
 
 const Dashboard = () => {
   const { navBack, navPost } = useNav();

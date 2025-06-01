@@ -5,7 +5,7 @@ import { AppContext } from './context/AppContext';
 import AppRoutes from './routes/AppRoutes';
 import AuthChecker from './auth/AuthChecker';
 
-import Fondo from './components/basics/Fondo';
+import Fondo from './components/Fondo';
 
 import './App.css';
 

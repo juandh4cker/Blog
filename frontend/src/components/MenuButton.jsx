@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNav } from '../../hooks/useNav';
+import { useNav, useLogout } from '../hooks';
 
-import { Logout } from '../../auth/logout';
+const menuStyle = 'fixed top-5 right-5 z-[1000]'
+const menuButtonStyle ='px-5 py-2 bg-blue-500 text-white rounded-[10px] text-base transition-transform duration-200 hover:scale-[1.02]'
 
 const ItemButton = ({ children, onClick }) => (
   <button
@@ -12,11 +13,25 @@ const ItemButton = ({ children, onClick }) => (
   </button>
 );
 
-const MenuButton = ({ username }) => {
+export const LoginButton = () => {
+  const { navWelcome } = useNav();
+
+  return (
+    <button
+      onClick={navWelcome}
+      className={`${menuStyle} ${menuButtonStyle}`}
+      aria-label="Iniciar sesión"
+    >
+      {'Iniciar sesión'}
+    </button>
+  );
+};
+
+export const MenuButton = ({ username }) => {
   const menuRef = useRef(null);
   const { nav } = useNav();
 
-  const logout = Logout();
+  const logout = useLogout();
 
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -37,10 +52,10 @@ const MenuButton = ({ username }) => {
   };
 
   return (
-    <div className='fixed top-5 right-5 z-[1000]' ref={menuRef}>
+    <div className={menuStyle} ref={menuRef}>
       <button
         onClick={() => setMenuOpen(prev => !prev)}
-        className='px-5 py-2 bg-blue-500 text-white rounded-[10px] text-base transition-transform duration-200 hover:scale-[1.02]'
+        className={menuButtonStyle}
         aria-expanded={menuOpen}
         aria-label='Menú de usuario'
       >
@@ -57,5 +72,3 @@ const MenuButton = ({ username }) => {
     </div>
   );
 };
-
-export default MenuButton;
