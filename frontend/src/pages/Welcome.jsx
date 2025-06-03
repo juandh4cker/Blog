@@ -8,13 +8,13 @@ import { registerSchema } from '../schema'
 
 import { Button, Container, Form, Input, Message, Text } from '../components/ui';
 
-const Welcome = () => {
+const Welcome = ({ inRegister = false }) => {
   useTitle('Inicio', 'Inicia sesión o registrate');
 
-  const { setSession } = useAuth();
+  const { setAuth } = useAuth();
   const { from, navBlog, navFrom } = useNav();
 
-  const [ inLogin, setInlogin ] = useState(true);
+  const [ inLogin, setInlogin ] = useState(!inRegister);
   const [ loading, setLoading ] = useState(false);
 
   const [ error, setError ] = useState('');
@@ -24,7 +24,7 @@ const Welcome = () => {
 
   return apiFn(...args)
     .then((response) => {
-      setSession({ username: response, isAuthenticated: true });
+      setAuth({ username: response, isAuthenticated: true });
       navFrom(() => navBlog());
     })
     .catch((error) => {
@@ -62,7 +62,7 @@ const Login = ({ handleSubmit, setInLogin, loading, setLoading }) => {
     <Form
       defaultValues={{ usernameOrEmail: '', password: '' }}
       onSubmit={(data) => handleSubmit(apiLogin, [data.usernameOrEmail, data.password])}
-      isSubmitting={setLoading}
+      isSubmitting={setLoading} confirmExit={false}
     >
       <Input name='usernameOrEmail' placeholder='Nombre de usuario' />
       <Input name='password' variant='password' />
@@ -77,7 +77,7 @@ const Register = ({ handleSubmit, setInLogin, loading, setLoading }) => {
     <Form
       defaultValues={{ username: '', email: '', password: '', confirmPassword: '' }}
       onSubmit={(data) => handleSubmit(apiRegister, [data.username, data.email, data.password])}
-      isSubmitting={setLoading} schema={registerSchema}
+      isSubmitting={setLoading} schema={registerSchema} confirmExit={false}
     >
       <Input name='username' placeholder='Nombre de usuario'/>
       <Input name='email' variant='email'/>

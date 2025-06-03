@@ -6,23 +6,23 @@ import { useAuth, useLogout } from '../hooks';
 import { Message } from '../components/ui';
 
 const PrivateRoute = () => {
-  const { session } = useAuth();
+  const { auth } = useAuth();
   const logout = useLogout();
 
   const [loggingOut, setLoggingOut] = useState(false);
 
   useEffect(() => {
-    if (session.isAuthenticated === false && !loggingOut) {
+    if (auth.isAuthenticated === false && !loggingOut) {
       setLoggingOut(true);
       logout();
     }
-  }, [session.isAuthenticated, logout, loggingOut]);
+  }, [auth.isAuthenticated, logout, loggingOut]);
 
-  if (session.isAuthenticated === null || loggingOut) {
+  if (auth.isAuthenticated === null || loggingOut) {
     return <Message loading={true} />;
   }
   
-  if (!session.isAuthenticated) {
+  if (!auth.isAuthenticated) {
    return null;
   }
 

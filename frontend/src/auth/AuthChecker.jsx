@@ -4,13 +4,13 @@ import { useLocation } from 'react-router-dom';
 import { useAuth, useLogout } from '../hooks';
 import { apiCheckToken } from '../api';
 
-import { MenuButton, LoginButton } from '../components/MenuButton';
+import { UserMenu, GuestMenu } from '../components/Menu';
 
 const AuthChecker = ({ children }) => {
   const location = useLocation();
   const logout = useLogout();
 
-  const { session, setSession } = useAuth();
+  const { auth, setAuth } = useAuth();
 
   const publicRoutes = ['/welcome'];
   const isPublicRoute = publicRoutes.some(route =>
@@ -28,13 +28,13 @@ const AuthChecker = ({ children }) => {
     apiCheckToken()
       .then(isValid => {
         if (!isValid) {
-          setSession({ username: '', isAuthenticated: false });
+          setAuth({ username: '', isAuthenticated: false });
           if (!isSharedRoute) {
             logout();
           };
 
         } else {
-          setSession({ username: isValid, isAuthenticated: true });
+          setAuth({ username: isValid, isAuthenticated: true });
         }
       })
       .catch(() => {
@@ -45,7 +45,7 @@ const AuthChecker = ({ children }) => {
   return (
     <>
       {children}
-      {session.isAuthenticated ? <MenuButton username={session.username}/> : (isSharedRoute ? <LoginButton /> : <></>)} 
+      {auth.isAuthenticated ? <UserMenu username={auth.username}/> : (isSharedRoute ? <GuestMenu /> : <></>)} 
     </>
   );
 };

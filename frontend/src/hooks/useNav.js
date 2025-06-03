@@ -18,6 +18,7 @@ export const useNav = () => {
     navUser: (user) => navigate(`/user/${user}`),
     navPost: (postID, edit=false) => navigate(`/post/${postID}${edit ? '/edit' : ''}`),
     navWelcome: () => navigate('/welcome', { replace: true, state: { from: location.pathname } }),
+    navRegister: () => navigate('/welcome/register', { replace: true, state: { from: location.pathname } }),
     navFrom: (alternative = () => navigate('/')) => from ? navigate(from) : alternative()
   };
 };

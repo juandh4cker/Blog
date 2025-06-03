@@ -13,6 +13,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path='/welcome' element={<Welcome />} />
+      <Route path='/welcome/register' element={<Welcome inRegister={true} />} />
       <Route path='/blog' element={<Blog />} />
 
       <Route element={<PrivateRoute />}>

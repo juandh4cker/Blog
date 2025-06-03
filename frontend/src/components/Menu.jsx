@@ -4,7 +4,7 @@ import { useNav, useLogout } from '../hooks';
 const menuStyle = 'fixed top-5 right-5 z-[1000]'
 const menuButtonStyle ='px-5 py-2 bg-blue-500 text-white rounded-[10px] text-base transition-transform duration-200 hover:scale-[1.02]'
 
-const ItemButton = ({ children, onClick }) => (
+const MenuItem = ({ children, onClick }) => (
   <button
     onClick={onClick}
     className='block w-full px-5 py-2 text-left text-sm border-b border-gray-200 transition-transform hover:bg-gray-100 hover:scale-[1.02]'
@@ -13,7 +13,7 @@ const ItemButton = ({ children, onClick }) => (
   </button>
 );
 
-export const LoginButton = () => {
+export const GuestMenu = () => {
   const { navWelcome } = useNav();
 
   return (
@@ -27,9 +27,9 @@ export const LoginButton = () => {
   );
 };
 
-export const MenuButton = ({ username }) => {
+export const UserMenu = ({ username }) => {
   const menuRef = useRef(null);
-  const { nav } = useNav();
+  const { navBlog, navUser, navDashboard } = useNav();
 
   const logout = useLogout();
 
@@ -46,9 +46,9 @@ export const MenuButton = ({ username }) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleNavigate = (path) => {
+  const handleNav = (navigate) => {
     setMenuOpen(false);
-    nav(path);
+    navigate();
   };
 
   return (
@@ -63,10 +63,10 @@ export const MenuButton = ({ username }) => {
       </button>
       {menuOpen && (
         <div className='absolute top-full right-0 bg-white/90 shadow-md rounded w-[140px] mt-2 overflow-hidden animate-fade-in'>
-          <ItemButton onClick={() => handleNavigate('/blog')}>{'Blog'}</ItemButton>
-          <ItemButton onClick={() => handleNavigate(`/user/${username}`)}>{'Perfil'}</ItemButton>
-          <ItemButton onClick={() => handleNavigate('/dashboard')}>{'Dashboard'}</ItemButton>
-          <ItemButton onClick={logout}>{'Cerrar sesión'}</ItemButton>
+          <MenuItem onClick={() => handleNav(navBlog)}>{'Blog'}</MenuItem>
+          <MenuItem onClick={() => handleNav(() => navUser(username))}>{'Perfil'}</MenuItem>
+          <MenuItem onClick={() => handleNav(navDashboard)}>{'Dashboard'}</MenuItem>
+          <MenuItem onClick={() => handleNav(logout)}>{'Cerrar sesión'}</MenuItem>
         </div>
       )}
     </div>

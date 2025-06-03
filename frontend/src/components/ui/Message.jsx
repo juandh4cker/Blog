@@ -1,5 +1,13 @@
 import clsx from 'clsx';
 
+const baseStyle = 'text-center';
+
+const variants = {
+  sucess: 'text-green-600',
+  error: 'text-red-600',
+  loading: 'text-blue-600',
+};
+
 const Message = ({
   children,
   sucess = '',
@@ -9,14 +17,6 @@ const Message = ({
   ...props
   
 }) => {
-  const baseStyle = 'text-center';
-
-  const variants = {
-    sucess: 'text-green-600',
-    error: 'text-red-600',
-    loading: 'text-blue-600',
-  };
-
   return (
     <>
       {sucess && (

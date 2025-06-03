@@ -3,16 +3,16 @@ import { apiLogout } from '../api';
 
 export const useLogout = () => {
   const { navLogout, navWelcome } = useNav();
-  const { session, setSession } = useAuth();
+  const { auth, setAuth } = useAuth();
 
-  const clearSession = () => {
+  const clearAuth = () => {
     localStorage.clear();
-    setSession({ username: "", isAuthenticated: null });
+    setAuth({ username: "", isAuthenticated: null });
   }
 
   const logout = async () => {
-    if (!session.isAuthenticated) {
-      clearSession();
+    if (!auth.isAuthenticated) {
+      clearAuth();
       navWelcome();
       return;
     }
@@ -22,7 +22,7 @@ export const useLogout = () => {
         console.error('Error logging out:', error);
       })
       .finally(() => {
-        clearSession();
+        clearAuth();
         navLogout();
       });
   }

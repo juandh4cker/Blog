@@ -3,6 +3,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { forwardRef, useEffect, useImperativeHandle } from 'react';
 import clsx from 'clsx';
 
+const baseStyle = 'flex flex-col w-full';
+
 const Form = forwardRef(({
   schema,
   defaultValues,
@@ -10,6 +12,7 @@ const Form = forwardRef(({
   children,
   className = '',
   isSubmitting,
+  confirmExit = true,
   ...props
 
 }, ref) => {
@@ -28,7 +31,21 @@ const Form = forwardRef(({
     }
   }, [methods.formState.isSubmitting, isSubmitting]);
 
-  const baseStyle = 'flex flex-col w-full';
+  useEffect(() => {
+    if (!confirmExit) return;
+
+    const handleBeforeUnload = e => {
+      if (methods.formState.isDirty) {
+        e.preventDefault();
+        e.returnValue = '';
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [confirmExit, methods.formState.isDirty]);
 
   return (
     <FormProvider {...methods}>
