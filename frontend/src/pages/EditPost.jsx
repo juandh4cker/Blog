@@ -55,25 +55,23 @@ const EditPost = () => {
   };
 
   return (
-    <>
-      <Container className='max-w-lg'>
-        <Text variant='title'>Editar Post</Text>
-        <Text variant='subtitle'>Edita los detalles del post</Text>
-        <Form
-          defaultValues={post} ref={formRef}
-          schema={postSchema} onSubmit={onSubmit} isSubmitting={setLoading}
-        >
-          <Input name="name" placeholder='Nombre del post'/>
-          <Input name="location" placeholder='Ubicación'/>
-          <Input name="imageUrl" placeholder='URL de la imagen del post'/>
-          <Input name="review" variant='textarea' placeholder='Reseña'/>
-          <Input name="rating" variant='rating' placeholder='Calificación (0-10)'/>
-          <Button type='submit' disabled={loading}>{'Editar post'}</Button>
-          <Button variant='secondary' onClick={() => navPost(ID)} disabled={loading}>{'Cancelar'}</Button>
-        </Form>
-        {error && <Message error={error} />}
-      </Container>
-    </>
+    <Container className='max-w-lg'>
+      <Text variant='title'>Editar Post</Text>
+      <Text variant='subtitle'>Edita los detalles del post</Text>
+      <Form
+        defaultValues={post} ref={formRef}
+        schema={postSchema} onSubmit={onSubmit} isSubmitting={setLoading}
+      >
+        <Input name="name" placeholder='Nombre del post'/>
+        <Input name="location" placeholder='Ubicación'/>
+        <Input name="imageUrl" placeholder='URL de la imagen del post'/>
+        <Input name="review" variant='textarea' placeholder='Reseña'/>
+        <Input name="rating" variant='rating' placeholder='Calificación (0-10)'/>
+        <Button type='submit' disabled={loading}>{'Editar post'}</Button>
+        <Button variant='secondary' onClick={() => navPost(ID)} disabled={loading}>{'Cancelar'}</Button>
+      </Form>
+      {error && <Message error={error} />}
+    </Container>
   );
 };
 

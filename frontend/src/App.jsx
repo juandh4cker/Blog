@@ -22,8 +22,7 @@ const App = () => {
   );
 };
 
-{"super input, tags y ui, si el prop se da no se pone y  todo eso"}
-{"Metodos de api protegidos por auth"}
+{"Metodos de api protegidos por auth / react query"}
 {"Cambiar nombres"}
 {"Hook de mensajes flotantes (para errores o mensajes)"}
 {"ponerle aria"}

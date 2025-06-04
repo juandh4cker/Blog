@@ -10,10 +10,10 @@ const variants = {
 
 const Message = ({
   children,
-  sucess = '',
-  error = '',
-  loading = false,
-  className = '',
+  error,
+  loading,
+  sucess,
+  className,
   ...props
   
 }) => {

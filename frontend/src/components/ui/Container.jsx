@@ -4,7 +4,7 @@ const baseStyle = 'relative z-[1] mx-auto flex flex-col items-center p-8 rounded
 
 const Container = ({
   children,
-  className = '',
+  className,
   ...props
 
 }) => {

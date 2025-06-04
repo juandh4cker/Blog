@@ -5,7 +5,7 @@ import Blog from '../pages/Blog';
 import PrivateRoute from './PrivateRoute';
 import Dashboard from '../pages/Dashboard';
 import Post from '../pages/Post'
-import Perfil from '../pages/Perfil';
+import User from '../pages/User';
 import EditPost from '../pages/EditPost';
 import ErrorPage from '../pages/ErrorPage';
 
@@ -19,7 +19,7 @@ const AppRoutes = () => {
       <Route element={<PrivateRoute />}>
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/post/:ID' element={<Post />} />
-        <Route path='/user/:username' element={<Perfil />} />
+        <Route path='/user/:username' element={<User />} />
         <Route path='/post/:ID/edit' element={<EditPost />} />
       </Route>
 

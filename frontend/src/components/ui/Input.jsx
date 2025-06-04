@@ -8,32 +8,42 @@ import Message from './Message';
 
 const baseStyle = 'bg-white my-2 py-3 px-4 text-base rounded-[5px] border border-[#ccc] transition-transform transform hover:scale-[1.02] focus:border-[#3498db] focus:outline-none'
 
-const Textarea = forwardRef(({ 
-  className, 
-  required, 
-  ...commonProps 
-
-}, ref) => {
-  return (
-    <textarea
-      ref={ref}
-      className={className}
-      required={required}
-      {...commonProps}
-    />
-  );
-});
+const variants = {
+  base: {
+    type: 'text',
+  },
+  textarea: {
+    tag: 'textarea',
+  },
+  password: {
+    placeholder: 'Contraseña'
+  },
+  confirmPassword: {
+    placeholder: 'Confirmar contraseña'
+  },
+  rating: {
+    props: {
+      min: '1', 
+      max: '10', 
+      step: '0.1',
+    },
+    type: 'number'
+  },
+  email: { 
+    placeholder: 'Correo electrónico', 
+    type: 'email' 
+  } 
+}
 
 const PasswordField = forwardRef(({
   className,
   required,
-  variant,
-  ...commonProps
+  placeholder,
+  ...props
 
 }, ref) => {
 
   const [showPassword, setShowPassword] = useState(false)
-  const placeholder = variant === 'confirmPassword' ? 'Confirmar contraseña' : 'Contraseña'
 
   return (
     <div className='relative w-full max-w-full box-border'>
@@ -43,7 +53,7 @@ const PasswordField = forwardRef(({
         type={showPassword ? 'text' : 'password'}
         placeholder={placeholder}
         required={required}
-        {...commonProps}
+        {...props}
       />
       <button
         type='button'
@@ -56,75 +66,42 @@ const PasswordField = forwardRef(({
   )
 })
 
-const BaseInput = forwardRef(({
-  className,
-  required,
-  variant,
-  type,
-  ...commonProps
-
-}, ref) => {
-  const variantProps = (
-    variant === 'rating' ? 
-      { min: '1', max: '10', step: '0.1' } 
-
-    : variant === 'email' ? 
-      { placeholder: 'Correo electrónico', type: 'email' } 
-      
-    : 
-      {}
-  )
-
-  return (
-    <input
-      ref={ref}
-      className={clsx(baseStyle, className)}
-      type={variant === 'rating' ? 'number' : type}
-      required={required}
-      {...variantProps}
-      {...commonProps}
-    />
-  )
-}
-)
-
 const VariantManager = ({
-  className = '',
-  type = 'text',
+  className,
+  type,
   required = true,
   variant = 'base',
+  placeholder,
   commonProps
 
 }) => {
+  const variantConfig = variants[variant] || variants.base;
 
-  if (variant === 'textarea') {
-    return (
-      <Textarea
-        className={className}
-        required={required}
-        {...commonProps}
-      />
-    )
-  }
+  const VariantPlaceholder = placeholder || variantConfig['placeholder'];
+  const allProps = {...commonProps, ...variantProps}
 
   if (variant === 'password' || variant === 'confirmPassword') {
     return (
       <PasswordField 
-        className={className}
-        required={required}
-        variant={variant}
-        {...commonProps}
+      className={className}
+      required={required}
+      placeholder={VariantPlaceholder}
+      {...allProps}
       />
     )
   }
   
+  const VariantTag = variantConfig['tag'] || 'input';
+  const VariantType = type || variantConfig['type'] || 'text';
+  const variantProps = variantConfig['props'] || {}
+  
   return (
-    <BaseInput
+    <VariantTag
       className={className}
-      type={type}
-      variant={variant}
+      type={VariantType}
       required={required}
-      {...commonProps}
+      placeholder={VariantPlaceholder}
+      {...allProps}
     />
   )
 }
@@ -135,6 +112,7 @@ const Input = ({
   required = true,
   variant = 'base',
   name,
+  placeholder,
   ...props
 
 }) => {
@@ -150,7 +128,7 @@ const Input = ({
         type={type}
         required={required}
         variant={variant}
-        name={name}
+        placeholder={placeholder}
         commonProps={commonProps}
       />
       {error && <Message error={error.message} />}

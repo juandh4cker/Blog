@@ -1,6 +1,6 @@
+import { forwardRef, useEffect, useImperativeHandle } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { forwardRef, useEffect, useImperativeHandle } from 'react';
 import clsx from 'clsx';
 
 const baseStyle = 'flex flex-col w-full';
@@ -42,6 +42,7 @@ const Form = forwardRef(({
     };
 
     window.addEventListener('beforeunload', handleBeforeUnload);
+    
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };

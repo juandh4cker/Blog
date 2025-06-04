@@ -10,7 +10,7 @@ import PostsList from '../components/PostsList';
 
 import { Button, ButtonContainer, Container, Text, Message } from '../components/ui';
 
-const Perfil = () => {
+const User = () => {
   const { username } = useParams();
   const { navBack } = useNav();
 
@@ -26,34 +26,34 @@ const Perfil = () => {
 
   const loadUser = async () => {
     fetchUser(username)
-    .then((userData) => {
-      setUser(userData);
-      setPostsLength(userData.posts.length);
-      setTitle(userData.username)
+      .then((userData) => {
+        setUser(userData);
+        setPostsLength(userData.posts.length);
+        setTitle(userData.username)
 
-      if (userData.hasOwnProperty('isFollowing')) {
-        setIsSelf(false)
-        setIsFollowing(userData.isFollowing);
+        if (userData.hasOwnProperty('isFollowing')) {
+          setIsSelf(false)
+          setIsFollowing(userData.isFollowing);
 
-      } else {
-        setIsSelf(true)
-      }
-    })
-    .catch((error) => {
-      if (error.message === 'Unauthorized') {
-        setError('Unauthorized')
+        } else {
+          setIsSelf(true)
+        }
+      })
+      .catch((error) => {
+        if (error.message === 'Unauthorized') {
+          setError('Unauthorized')
 
-      } else if (error.message === 'Not found') {
-        setError('Not found')
+        } else if (error.message === 'Not found') {
+          setError('Not found')
 
-      } else {
-        setError(`Error al cargar el perfil: ${error.message || error}`);
-        setTitle('Error')
-      }
-    })
-    .finally(() => {
-      setLoading(false);
-    })
+        } else {
+          setError(`Error al cargar el perfil: ${error.message || error}`);
+          setTitle('Error')
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      })
   };
 
   const handleFollow = () => {
@@ -106,4 +106,4 @@ const Perfil = () => {
   );
 };
 
-export default Perfil;
+export default User;
