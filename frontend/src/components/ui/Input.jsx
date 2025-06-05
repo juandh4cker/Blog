@@ -14,6 +14,7 @@ const variants = {
   },
   textarea: {
     tag: 'textarea',
+    placeholder: 'Reseña',
   },
   password: {
     placeholder: 'Contraseña'
@@ -27,7 +28,8 @@ const variants = {
       max: '10', 
       step: '0.1',
     },
-    type: 'number'
+    type: 'number',
+    placeholder: 'Calificación (0-10)',
   },
   email: { 
     placeholder: 'Correo electrónico', 
@@ -78,6 +80,7 @@ const VariantManager = ({
   const variantConfig = variants[variant] || variants.base;
 
   const VariantPlaceholder = placeholder || variantConfig['placeholder'];
+  const variantProps = variantConfig['props'] || {}
   const allProps = {...commonProps, ...variantProps}
 
   if (variant === 'password' || variant === 'confirmPassword') {
@@ -93,7 +96,6 @@ const VariantManager = ({
   
   const VariantTag = variantConfig['tag'] || 'input';
   const VariantType = type || variantConfig['type'] || 'text';
-  const variantProps = variantConfig['props'] || {}
   
   return (
     <VariantTag

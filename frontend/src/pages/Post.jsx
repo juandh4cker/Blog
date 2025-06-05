@@ -1,159 +1,136 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { useNav, useTitle } from '../hooks';
-
 import { commentSchema } from '../schema';
-
 import { fetchPost, deletePost, addComment } from '../api';
-
-import ErrorPage from './ErrorPage';
-
 import { tiempoDesde } from '../utils/tiempoDesde';
-
-import CommentsList from '../components/CommentsList';
-
 import { Button, ButtonContainer, Container, Form, Input, Message, Text } from '../components/ui';
+import ErrorPage from './ErrorPage';
+import CommentsList from '../components/CommentsList';
 
 const Post = () => {
   const { navBack, navBlog, navUser, navPost } = useNav();
   const { ID } = useParams();
-
   const formRef = useRef();
-
-  const [post, setPost] = useState(null);
-  const [isCreator, setIsCreator] = useState(false);
-
-  const [loading, setLoading] = useState(true);
-  const [uploadingComment, setUploadingComment] = useState(false);
-  const [error, setError] = useState('');
-
+  const queryClient = useQueryClient();
   const { setTitle, setDescription } = useTitle(null, 'Aquí se ve un post');
 
-  const loadPost = async () => {
-    fetchPost(ID)
-      .then((postData) => {
-        setPost(postData);
-        setIsCreator(postData.editable);
+  const {
+    data: post,
+    isLoading,
+    isError,
+    error
+  } = useQuery({
+    queryKey: ['post', ID],
+    queryFn: () => fetchPost(ID),
+    onSuccess: (postData) => {
+      setTitle(postData.name);
+      setDescription(postData.review);
+    },
+    onError: (error) => {
+      setTitle('Error');
+      setDescription(error.message || error)
+    },
+    retry: 1,
+    refetchOnWindowFocus: false,
+  });
 
-        setTitle(postData.name);
-        setDescription(postData.review);
-      })
-      .catch((error) => {
-        if (error.message === 'Unauthorized') {
-          setError('Unauthorized');
+  const deleteMutation = useMutation({
+    mutationFn: () => deletePost(ID),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['posts']);
+      navBlog();
+    }
+  });
 
-        } else if (error.message === 'Not found') {
-          setError('Not found');
+  const commentMutation = useMutation({
+    mutationFn: (commentData) => addComment(ID, commentData),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['post', ID]);
+      if (formRef.current) {
+        formRef.current.reset({ content: '', rating: '' });
+      }
+    }
+  });
 
-        } else {
-          setError(`Error al cargar el post: ${error.message || error}`);
-          setTitle('Error');
-        }
-      })
-      .finally(() => {
-        setLoading(false);
-      })
-  };
-
-  const handleDeletePost = async () => {
+  const handleDeletePost = () => {
     if (window.confirm('¿Estás seguro de que quieres eliminar este post?')) {
-      deletePost(ID)
-        .then(() => {
-          navBlog();
-        })
-        .catch((error) => {
-          setError(`Error al eliminar el post: ${error.message || error}`);
-        })
+      deleteMutation.mutate();
     }
   };
 
-  const submitComment = async (data) => {
-    addComment(ID, data)
-      .then(() => {
-        loadPost();
-        if (formRef.current) {
-          formRef.current.reset({ content: '', rating: '' });
-        }
-      })
-      .catch((error) => {
-        setError(`Error al subir el comentario: ${error.message || error}`);
-      })
-  };
-
-  useEffect(() => {
-    loadPost();
-  }, [ID]);
-
-  if (loading) {
-    return <Message loading={loading} />;
-  }
-
-  if (error === 'Unauthorized' || error === 'Not found') {
-    return <ErrorPage type={error} />;
-  }
-
-  if (error) {
-    return <Message error={error}/>;
-  }
-
-  if (!post) {
-    return <ErrorPage type='Not found' />;
-  }
-
   const handleGoogleMaps = () => {
+    if (!post) return;
     const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
       post.name + ', ' + post.location
-
     )}`;
     window.open(url, '_blank');
-
   };
 
+  if (isLoading) return <Message loading />;
+
+  if (isError) {
+    if (error.message === 'Unauthorized' || error.message === 'Not found') {
+      return <ErrorPage type={error.message} />;
+    }
+    return <Message error={`Error al cargar el post: ${error.message || error}`} />;
+  }
+
+  if (!post) return <ErrorPage type='Not found' />;
 
   return (
-    <>
-      <Container className='max-w-xl'>
-        <img src={post.imageUrl} alt={post.name} className='w-full h-auto mb-6 rounded-[10px]' />
-        <Text variant='title'>{post.name}</Text>
-        <Text>
-          <b>Calificación: </b>{post.rating}/10
-        </Text>
-        <Text>
-          <b>Ubicación: </b>{post.location}
-        </Text>
-        <Text>
-          <b>Reseña: </b>{post.review}
-        </Text>
-        <Text className='base-text' onClick={() => navUser(post.creator)}>
-          <b>Agregado por: </b>
-          <Text variant='hipertext'>{post.creator}</Text>
-        </Text>
-        <Text variant='subtitle'>Subido hace: {tiempoDesde(post.createdAt)}</Text>
+    <Container className='max-w-xl'>
+      <img src={post.imageUrl} alt={post.name} className='w-full h-auto mb-6 rounded-[10px] object-cover max-h-[400px]' />
+
+      <Text variant='title'>{post.name}</Text>
+      <Text><b>{'Calificación: '}</b>{post.rating}/10</Text>
+      <Text><b>{'Ubicación: '}</b>{post.location}</Text>
+      <Text><b>{'Reseña: '}</b>{post.review}</Text>
+      <Text className='base-text' onClick={() => navUser(post.creator)}>
+        <b>{'Agregado por: '}</b> <Text variant='hipertext'>{post.creator}</Text>
+      </Text>
+      <Text variant='subtitle'>{`Subido hace: ${tiempoDesde(post.createdAt)}`}</Text>
+
+      <ButtonContainer>
+        <Button variant='small' onClick={handleGoogleMaps}>{'Ver en Google Maps'}</Button>
+        <Button variant='small' onClick={navBack}>{'Regresar'}</Button>
+      </ButtonContainer>
+
+      {post.editable && (
         <ButtonContainer>
-          <Button variant='small' onClick={handleGoogleMaps}>Ver en Google Maps</Button>
-          <Button variant='small' onClick={navBack}>Regresar</Button>
+          <Button variant='small' onClick={() => navPost(ID, true)}>Editar Post</Button>
+          <Button variant='small' onClick={handleDeletePost}disabled={deleteMutation.isPending}>
+            {deleteMutation.isPending ? 'Eliminando...' : 'Eliminar Post'}
+          </Button>
         </ButtonContainer>
-        {isCreator && (
-          <ButtonContainer>
-            <Button variant='small' onClick={() => navPost(ID, true)}>Editar Post</Button>
-            <Button variant='small' onClick={handleDeletePost}>Eliminar Post</Button>
-          </ButtonContainer>
+      )}
+
+      <div className='w-4/5 flex items-center justify-center flex-col mt-8'>
+        <Text variant='title'>Comentarios</Text>
+        <CommentsList comments={post.comments} postID={ID} queryClient={queryClient} />
+
+        <Form
+          defaultValues={{ content: '', rating: '' }} ref={formRef} className='w-[90%] mt-4'
+          schema={commentSchema} onSubmit={commentMutation.mutate} isSubmitting={commentMutation.isPending}
+        >
+          <Input name='content' variant='textarea' placeholder='Escribe tu comentario aquí' />
+          <Input name='rating' variant='rating' placeholder='Calificación (0-10)' />
+          <Button type='submit' variant='small' disabled={commentMutation.isPending}>
+            {commentMutation.isPending ? 'Enviando...' : 'Enviar comentario'}
+          </Button>
+        </Form>
+
+        {commentMutation.isError && (
+          <Message error={`Error al subir el comentario: ${commentMutation.error.message}`} className='mt-4'/>
         )}
-        <div className='w-4/5 flex items-center justify-center flex-col'>
-          <Text variant='title'>Comentarios</Text>
-          <CommentsList comments={post.comments} postID={ID} setError={setError} loadData={loadPost}/>
-          <Form 
-            defaultValues={{ content: '', rating: '' }} ref={formRef} className='w-[90%]'
-            schema={commentSchema} onSubmit={submitComment} isSubmitting={setUploadingComment}
-          >
-            <Input name='content' variant='textarea' placeholder='Escribe tu comentario aquí' />
-            <Input name='rating' variant='rating' placeholder='Calificación (0-10)' />
-            <Button type='submit' variant='small' disabled={uploadingComment}>{uploadingComment ? 'Enviando...' : 'Enviar comentario'}</Button>
-          </Form>
-        </div>
-      </Container>
-    </>
+
+        {deleteMutation.isError && (
+          <Message error={`Error al eliminar el post: ${deleteMutation.error.message}`} className='mt-4'/>
+        )}
+      </div>
+    </Container>
   );
 };
 

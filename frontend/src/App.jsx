@@ -23,6 +23,7 @@ const App = () => {
 };
 
 {"Metodos de api protegidos por auth / react query"}
+{"Titulo cambie automaticamente"}
 {"Cambiar nombres"}
 {"Hook de mensajes flotantes (para errores o mensajes)"}
 {"ponerle aria"}

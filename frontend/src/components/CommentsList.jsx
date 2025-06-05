@@ -1,14 +1,12 @@
 import { useState } from 'react';
-
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNav } from '../hooks';
-
-import { deleteComment }  from '../api';
-
+import { deleteComment } from '../api';
 import { tiempoDesde } from '../utils/tiempoDesde';
-
 import { Button, Text, Message } from './ui';
 
-const CommentsList = ({ postID, comments, loadData, setError }) => {
+const CommentsList = ({ postID, comments }) => {
+  const queryClient = useQueryClient();
   const [expandedIndex, setExpandedIndex] = useState(null);
   
   if (!comments?.length) {
@@ -23,31 +21,38 @@ const CommentsList = ({ postID, comments, loadData, setError }) => {
           index={index}
           postID={postID}
           comment={comment}
-          loadData={loadData}
           expanded={expandedIndex === index}
           toggleExpand={() => setExpandedIndex((prev) => (prev === index ? null : index))}
-          setError={setError} 
+          queryClient={queryClient}
         />
       ))}
     </div>
   );
 };
 
-const Comment = ({ index, postID, comment, loadData, expanded, toggleExpand, setError }) => {
+const Comment = ({ index, postID, comment, expanded, toggleExpand, queryClient }) => {
   const { navUser } = useNav();
 
-  const handleDelete = async (e) => {
+  const deleteMutation = useMutation({
+    mutationFn: () => deleteComment(postID, comment.ID),
+    onSuccess: () => {
+      queryClient.setQueryData(['post', postID], (oldData) => {
+        if (!oldData) return oldData;
+        
+        return {
+          ...oldData,
+          comments: oldData.comments.filter(c => c.ID !== comment.ID)
+        };
+      });
+    }
+  });
+
+  const handleDelete = (e) => {
     e.stopPropagation();
 
     if (window.confirm('¿Estás seguro de que quieres eliminar este comentario?')) {
-      deleteComment(postID, comment.ID)
-        .then(() => {
-          loadData();
-        })
-        .catch((error) => {
-          setError(`Error al eliminar el comentario: ${error.message || error}`);
-        });
-    };
+      deleteMutation.mutate();
+    }
   };
 
   const handleNavigate = (e) => {
@@ -57,7 +62,7 @@ const Comment = ({ index, postID, comment, loadData, expanded, toggleExpand, set
 
   return (
     <div
-      key={index} onClick={toggleExpand}
+      onClick={toggleExpand}
       className="
         w-[90%] p-4 mb-4 rounded-lg cursor-pointer
         bg-white border border-solid border-[#ddd]
@@ -73,13 +78,22 @@ const Comment = ({ index, postID, comment, loadData, expanded, toggleExpand, set
         <b>{'Calificación: '}</b>
         {`${comment.rating}/10`}
       </Text>
+      
       {expanded && (
-        <>
+        <div className='mt-3'>
           {comment.editable && (
-            <Button variant='small' onClick={handleDelete}>{'Borrar'}</Button>
+            <Button variant='small' onClick={handleDelete}disabled={deleteMutation.isPending} >
+              {deleteMutation.isPending ? 'Eliminando...' : 'Borrar'}
+            </Button>
           )}
-          <Text variant='subtitle'>{`Subido hace: ${tiempoDesde(comment.createdAt)}`}</Text>
-        </>
+          <Text variant='subtitle' className='mt-2'>
+            {`Subido hace: ${tiempoDesde(comment.createdAt)}`}
+          </Text>
+        </div>
+      )}
+      
+      {deleteMutation.isError && (
+        <Message error={`Error al eliminar el comentario: ${deleteMutation.error.message}`} className='mt-2' />
       )}
     </div>
   );

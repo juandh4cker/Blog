@@ -1,90 +1,98 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
 
 import { useAuth, useNav, useTitle } from '../hooks';
-
 import { apiLogin, apiRegister } from '../api';
-
 import { registerSchema } from '../schema'
-
 import { Button, Container, Form, Input, Message, Text } from '../components/ui';
 
 const Welcome = ({ inRegister = false }) => {
   useTitle('Inicio', 'Inicia sesión o registrate');
-
   const { setAuth } = useAuth();
   const { from, navBlog, navFrom } = useNav();
+  const [inLogin, setInLogin] = useState(!inRegister);
 
-  const [ inLogin, setInlogin ] = useState(!inRegister);
-  const [ loading, setLoading ] = useState(false);
+  const onSuccess = (response) => {
+    setAuth({ username: response, isAuthenticated: true });
+    navFrom(() => navBlog());
+  }
 
-  const [ error, setError ] = useState('');
+  const loginMutation = useMutation({
+    mutationFn: ({ usernameOrEmail, password }) => apiLogin(usernameOrEmail, password),
+    onSuccess: onSuccess
+  });
 
-  const handleSubmit = async (apiFn, args) => {
-  setError('');
+  const registerMutation = useMutation({
+    mutationFn: ({ username, email, password }) => apiRegister(username, email, password),
+    onSuccess: onSuccess
+  });
 
-  return apiFn(...args)
-    .then((response) => {
-      setAuth({ username: response, isAuthenticated: true });
-      navFrom(() => navBlog());
-    })
-    .catch((error) => {
-      setError(error.message || error);
-    });
-  };
-
-  useEffect(() => {
-    setError('');
-  }, [inLogin]);
+  const error = loginMutation.error || registerMutation.error;
+  const isLoading = loginMutation.isPending || registerMutation.isPending;
 
   return (
     <Container className='max-w-md'>
       <Text variant='title'>{'Bienvenido a WorldBlog'}</Text>
       <Text variant='subtitle'>
-        {from ?
-            'Necesitas iniciar sesión para ver este contenido'
-          :
-            'Descubre los mejores destinos alrededor del mundo'
+        {from
+          ? 'Necesitas iniciar sesión para ver este contenido'
+          : 'Descubre los mejores destinos alrededor del mundo'
         }
       </Text>
-      {inLogin ?
-        <Login handleSubmit={handleSubmit} setInLogin={setInlogin} loading={loading} setLoading={setLoading} />
-        :
-        <Register handleSubmit={handleSubmit} setInLogin={setInlogin} loading={loading} setLoading={setLoading} />
-      }
-      <Button variant='secondary' className='w-full' onClick={navBlog} disabled={loading}>{'Entrar como invitado'}</Button>
+
+      {inLogin ? (
+        <Login mutation={loginMutation} setInLogin={setInLogin} />
+      ) : (
+        <Register mutation={registerMutation} setInLogin={setInLogin} />
+      )}
+
+      <Button variant='secondary' className='w-full' onClick={navBlog} disabled={isLoading} >
+        {'Entrar como invitado'}
+      </Button>
+
       {error && <Message error={error} />}
     </Container>
   );
 };
 
-const Login = ({ handleSubmit, setInLogin, loading, setLoading }) => {
+const Login = ({ mutation, setInLogin }) => {
   return (
     <Form
-      defaultValues={{ usernameOrEmail: '', password: '' }}
-      onSubmit={(data) => handleSubmit(apiLogin, [data.usernameOrEmail, data.password])}
-      isSubmitting={setLoading} confirmExit={false}
+      defaultValues={{ usernameOrEmail: '', password: '' }} onSubmit={mutation.mutate}
+      isSubmitting={mutation.isPending} confirmExit={false}
     >
-      <Input name='usernameOrEmail' placeholder='Nombre de usuario' />
-      <Input name='password' variant='password' />
-      <Button type='submit' disabled={loading}>{loading ? 'Iniciando...' : 'Iniciar Sesión'}</Button>
-      <Button variant='secondary' onClick={() => setInLogin(false)} disabled={loading}>{'No tengo una cuenta'}</Button>
+      <Input name='usernameOrEmail' placeholder='Nombre de usuario o email' />
+      <Input name='password' variant='password' placeholder='Contraseña' />
+
+      <Button type='submit' disabled={mutation.isPending}>
+        {mutation.isPending ? 'Iniciando...' : 'Iniciar Sesión'}
+      </Button>
+
+      <Button variant='secondary' onClick={() => setInLogin(false)} disabled={mutation.isPending} >
+        {'No tengo una cuenta'}
+      </Button>
     </Form>
   );
 };
 
-const Register = ({ handleSubmit, setInLogin, loading, setLoading }) => {
+const Register = ({ mutation, setInLogin }) => {
   return (
     <Form
-      defaultValues={{ username: '', email: '', password: '', confirmPassword: '' }}
-      onSubmit={(data) => handleSubmit(apiRegister, [data.username, data.email, data.password])}
-      isSubmitting={setLoading} schema={registerSchema} confirmExit={false}
+      defaultValues={{ username: '', email: '', password: '', confirmPassword: '' }} schema={registerSchema}
+      onSubmit={mutation.mutate} isSubmitting={mutation.isPending} confirmExit={false}
     >
       <Input name='username' placeholder='Nombre de usuario'/>
-      <Input name='email' variant='email'/>
-      <Input name='password' variant='password'/>
-      <Input name='confirmPassword' variant='confirmPassword'/>
-      <Button type='submit' disabled={loading}>{loading ? 'Registrando...' : 'Registarme'}</Button>
-      <Button variant='secondary' onClick={() => setInLogin(true)} disabled={loading}>{'Ya tengo una cuenta'}</Button>
+      <Input name='email' variant='email' placeholder='Correo electrónico'/>
+      <Input name='password' variant='password' placeholder='Contraseña'/>
+      <Input name='confirmPassword' variant='confirmPassword' placeholder='Confirmar contraseña'/>
+
+      <Button type='submit' disabled={mutation.isPending}>
+        {mutation.isPending ? 'Registrando...' : 'Registarme'}
+      </Button>
+
+      <Button variant='secondary' onClick={() => setInLogin(true)} disabled={mutation.isPending} >
+        {'Ya tengo una cuenta'}
+      </Button>
     </Form>
   );
 };
