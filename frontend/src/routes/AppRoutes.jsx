@@ -1,4 +1,4 @@
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import Welcome from '../pages/Welcome';
 import Blog from '../pages/Blog';
@@ -14,7 +14,7 @@ const AppRoutes = () => {
     <Routes>
       <Route path='/welcome' element={<Welcome />} />
       <Route path='/welcome/register' element={<Welcome inRegister={true} />} />
-      <Route path='/blog' element={<Blog />} />
+      <Route path='/' element={<Blog />} />
 
       <Route element={<PrivateRoute />}>
         <Route path='/dashboard' element={<Dashboard />} />
@@ -23,7 +23,6 @@ const AppRoutes = () => {
         <Route path='/post/:ID/edit' element={<EditPost />} />
       </Route>
 
-      <Route path='/' element={<Navigate to='/blog' />} />
       <Route path='*' element={<ErrorPage type='Not Found' />} />
     </Routes>
   );

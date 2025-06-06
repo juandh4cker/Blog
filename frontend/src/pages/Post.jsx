@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -5,17 +6,17 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNav, useTitle } from '../hooks';
 import { commentSchema } from '../schema';
 import { fetchPost, deletePost, addComment } from '../api';
-import { tiempoDesde } from '../utils/tiempoDesde';
-import { Button, ButtonContainer, Container, Form, Input, Message, Text } from '../components/ui';
+import { timeSince } from '../utils/timeSince';
+import { Button, ButtonsContainer, Container, Form, FormField, Message, Text } from '../components/ui';
 import ErrorPage from './ErrorPage';
 import CommentsList from '../components/CommentsList';
 
 const Post = () => {
+  const { setTitle, setDescription } = useTitle(null, 'Aquí se ve un post');
   const { navBack, navBlog, navUser, navPost } = useNav();
   const { ID } = useParams();
   const formRef = useRef();
   const queryClient = useQueryClient();
-  const { setTitle, setDescription } = useTitle(null, 'Aquí se ve un post');
 
   const {
     data: post,
@@ -25,17 +26,24 @@ const Post = () => {
   } = useQuery({
     queryKey: ['post', ID],
     queryFn: () => fetchPost(ID),
-    onSuccess: (postData) => {
-      setTitle(postData.name);
-      setDescription(postData.review);
-    },
     onError: (error) => {
-      setTitle('Error');
-      setDescription(error.message || error)
+      
     },
     retry: 1,
     refetchOnWindowFocus: false,
   });
+
+  useEffect(() => {
+      if (post) {
+        setTitle(post.name);
+        setDescription(post.review);
+      }
+
+      if (isError) {
+        setTitle('Error');
+        setDescription(error.message || error)
+      }
+    }, [post, setTitle]);
 
   const deleteMutation = useMutation({
     mutationFn: () => deletePost(ID),
@@ -91,20 +99,20 @@ const Post = () => {
       <Text className='base-text' onClick={() => navUser(post.creator)}>
         <b>{'Agregado por: '}</b> <Text variant='hipertext'>{post.creator}</Text>
       </Text>
-      <Text variant='subtitle'>{`Subido hace: ${tiempoDesde(post.createdAt)}`}</Text>
+      <Text variant='subtitle'>{`Subido hace: ${timeSince(post.createdAt)}`}</Text>
 
-      <ButtonContainer>
+      <ButtonsContainer>
         <Button variant='small' onClick={handleGoogleMaps}>{'Ver en Google Maps'}</Button>
         <Button variant='small' onClick={navBack}>{'Regresar'}</Button>
-      </ButtonContainer>
+      </ButtonsContainer>
 
       {post.editable && (
-        <ButtonContainer>
+        <ButtonsContainer>
           <Button variant='small' onClick={() => navPost(ID, true)}>Editar Post</Button>
           <Button variant='small' onClick={handleDeletePost}disabled={deleteMutation.isPending}>
             {deleteMutation.isPending ? 'Eliminando...' : 'Eliminar Post'}
           </Button>
-        </ButtonContainer>
+        </ButtonsContainer>
       )}
 
       <div className='w-4/5 flex items-center justify-center flex-col mt-8'>
@@ -115,8 +123,8 @@ const Post = () => {
           defaultValues={{ content: '', rating: '' }} ref={formRef} className='w-[90%] mt-4'
           schema={commentSchema} onSubmit={commentMutation.mutate} isSubmitting={commentMutation.isPending}
         >
-          <Input name='content' variant='textarea' placeholder='Escribe tu comentario aquí' />
-          <Input name='rating' variant='rating' placeholder='Calificación (0-10)' />
+          <FormField name='content' variant='textarea' placeholder='Escribe tu comentario aquí' />
+          <FormField name='rating' variant='rating' placeholder='Calificación (0-10)' />
           <Button type='submit' variant='small' disabled={commentMutation.isPending}>
             {commentMutation.isPending ? 'Enviando...' : 'Enviar comentario'}
           </Button>

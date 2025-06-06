@@ -6,7 +6,12 @@ import clsx from 'clsx';
 
 import Message from './Message';
 
-const baseStyle = 'bg-white my-2 py-3 px-4 text-base rounded-[5px] border border-[#ccc] transition-transform transform hover:scale-[1.02] focus:border-[#3498db] focus:outline-none'
+const baseStyle = `
+  bg-white my-2 py-3 px-4 text-base
+  rounded-[5px] border border-[#ccc]
+  transition-transform transform hover:scale-[1.02]
+  focus:border-[#3498db] focus:outline-none
+`.trim();
 
 const variants = {
   base: {
@@ -24,18 +29,18 @@ const variants = {
   },
   rating: {
     props: {
-      min: '1', 
-      max: '10', 
+      min: '1',
+      max: '10',
       step: '0.1',
     },
     type: 'number',
     placeholder: 'Calificación (0-10)',
   },
-  email: { 
-    placeholder: 'Correo electrónico', 
-    type: 'email' 
-  } 
-}
+  email: {
+    placeholder: 'Correo electrónico',
+    type: 'email'
+  }
+};
 
 const PasswordField = forwardRef(({
   className,
@@ -85,18 +90,18 @@ const VariantManager = ({
 
   if (variant === 'password' || variant === 'confirmPassword') {
     return (
-      <PasswordField 
+      <PasswordField
       className={className}
       required={required}
       placeholder={VariantPlaceholder}
       {...allProps}
       />
     )
-  }
-  
+  };
+
   const VariantTag = variantConfig['tag'] || 'input';
   const VariantType = type || variantConfig['type'] || 'text';
-  
+
   return (
     <VariantTag
       className={className}
@@ -106,9 +111,9 @@ const VariantManager = ({
       {...allProps}
     />
   )
-}
+};
 
-const Input = ({
+const FormField = ({
   className = '',
   type = 'text',
   required = true,
@@ -125,7 +130,7 @@ const Input = ({
 
   return (
     <>
-      <VariantManager 
+      <VariantManager
         className={baseClassName}
         type={type}
         required={required}
@@ -136,7 +141,6 @@ const Input = ({
       {error && <Message error={error.message} />}
     </>
   )
-  
-}
+};
 
-export default Input;
+export default FormField;

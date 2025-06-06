@@ -1,5 +1,5 @@
 import { createContext, useState } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 export const TitleContext = createContext();
 
@@ -8,12 +8,14 @@ export const TitleProvider = ({ children }) => {
   const [description, setDescription] = useState('Esto es WorldBlog, un blog de destinos turísticos');
 
   return (
-    <TitleContext.Provider value={{ setTitle, setDescription }}>
-      <Helmet>
-        <title>{title.trim() ? `${title} - WorldBlog` : 'WorldBlog'}</title>
-        <meta name='description' content={description} />
-      </Helmet>
-      {children}
-    </TitleContext.Provider>
+    <HelmetProvider>
+      <TitleContext.Provider value={{ setTitle, setDescription }}>
+        <Helmet>
+          <title>{title.trim() ? `${title} - WorldBlog` : 'WorldBlog'}</title>
+          <meta name="description" content={description} />
+        </Helmet>
+        {children}
+      </TitleContext.Provider>
+    </HelmetProvider>
   );
 };

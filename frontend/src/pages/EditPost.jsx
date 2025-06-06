@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
@@ -6,7 +7,7 @@ import { useNav, useTitle } from '../hooks';
 import { editPost, fetchPost } from '../api';
 import { postSchema } from '../schema';
 
-import { Button, Container, Form, Input, Message, Text } from '../components/ui';
+import { Button, Container, Form, FormField, Message, Text } from '../components/ui';
 
 const EditPost = () => {
   const { setTitle, setDescription } = useTitle(null, 'Aquí se edita un post');
@@ -25,17 +26,22 @@ const EditPost = () => {
   } = useQuery({
     queryKey: ['post', ID],
     queryFn: () => fetchPost(ID),
-    onSuccess: (postData) => {
-      if (!postData.editable) navPost(ID);
-      setTitle(postData.name);
-      setDescription(postData.review);
-      if (formRef.current) formRef.current.reset(postData);
-    },
-    onError: (error) => {
+  });
+
+  useEffect(() => {
+    if (!post?.editable) navPost(ID);
+    if (formRef.current) formRef.current.reset(post);
+
+    if (post) {
+      setTitle(post.name);
+      setDescription(post.review);
+    }
+
+    if (isError) {
       setTitle('Error');
       setDescription(error.message || error)
     }
-  });
+  }, [post, setTitle]);
 
   const mutation = useMutation({
     mutationFn: (data) => editPost(ID, data),
@@ -64,11 +70,11 @@ const EditPost = () => {
         defaultValues={post} ref={formRef}
         schema={postSchema} onSubmit={mutation.mutate} isSubmitting={mutation.isPending}
         >
-          <Input name='name' placeholder='Nombre del post'/>
-          <Input name='location' placeholder='Ubicación'/>
-          <Input name='imageUrl' placeholder='URL de la imagen del post'/>
-          <Input name='review' variant='textarea' placeholder='Reseña'/>
-          <Input name='rating' variant='rating' placeholder='Calificación (0-10)'/>
+          <FormField name='name' placeholder='Nombre del post'/>
+          <FormField name='location' placeholder='Ubicación'/>
+          <FormField name='imageUrl' placeholder='URL de la imagen del post'/>
+          <FormField name='review' variant='textarea' placeholder='Reseña'/>
+          <FormField name='rating' variant='rating' placeholder='Calificación (0-10)'/>
 
           <Button type='submit' disabled={mutation.isPending}>{'Editar post'}</Button>
           <Button variant='secondary' onClick={() => navPost(ID)} disabled={mutation.isPending}>{'Cancelar'}</Button>

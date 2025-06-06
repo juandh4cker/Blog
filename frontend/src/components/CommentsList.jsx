@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNav } from '../hooks';
 import { deleteComment } from '../api';
-import { tiempoDesde } from '../utils/tiempoDesde';
+import { timeSince } from '../utils/timeSince';
 import { Button, Text, Message } from './ui';
 
 const CommentsList = ({ postID, comments }) => {
@@ -87,7 +87,7 @@ const Comment = ({ index, postID, comment, expanded, toggleExpand, queryClient }
             </Button>
           )}
           <Text variant='subtitle' className='mt-2'>
-            {`Subido hace: ${tiempoDesde(comment.createdAt)}`}
+            {`Subido hace: ${timeSince(comment.createdAt)}`}
           </Text>
         </div>
       )}

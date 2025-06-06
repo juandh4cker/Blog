@@ -2,7 +2,7 @@ import clsx from 'clsx';
 
 const baseStyle = 'flex justify-between gap-4 items-center';
 
-const ButtonContainer = ({
+const ButtonsContainer = ({
   children,
   className,
   ...props
@@ -15,4 +15,4 @@ const ButtonContainer = ({
   )
 };
 
-export default ButtonContainer;
+export default ButtonsContainer;

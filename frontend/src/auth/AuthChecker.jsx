@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { useAuth, useLogout } from '../hooks';
 import { apiCheckToken } from '../api';
 
-import { UserMenu, GuestMenu } from '../components/Menu';
+import { UserMenu, GuestMenu } from '../components/globals/Menu';
 
 const AuthChecker = ({ children }) => {
   const location = useLocation();

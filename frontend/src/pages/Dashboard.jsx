@@ -3,7 +3,7 @@ import { useQueryClient, useMutation } from '@tanstack/react-query';
 import { useNav, useTitle } from '../hooks';
 import { addPost } from '../api';
 import { postSchema } from '../schema';
-import { Button, Container, Form, Input, Message, Text } from '../components/ui';
+import { Button, Container, Form, FormField, Message, Text } from '../components/ui';
 
 const Dashboard = () => {
   useTitle('Dashboard', 'Aquí agregas posts.');
@@ -31,11 +31,11 @@ const Dashboard = () => {
         defaultValues={{ name: '', location: '', imageUrl: '', review: '', rating: ''}}
         schema={postSchema} onSubmit={mutation.mutate} isSubmitting={mutation.isPending}
       >
-        <Input name='name' placeholder='Nombre del post'/>
-        <Input name='location' placeholder='Ubicación'/>
-        <Input name='imageUrl' placeholder='URL de la imagen del post'/>
-        <Input name='review' variant='textarea' />
-        <Input name='rating' variant='rating'/>
+        <FormField name='name' placeholder='Nombre del post'/>
+        <FormField name='location' placeholder='Ubicación'/>
+        <FormField name='imageUrl' placeholder='URL de la imagen del post'/>
+        <FormField name='review' variant='textarea' />
+        <FormField name='rating' variant='rating'/>
 
         <Button type='submit' disabled={mutation.isPending}>{'Agregar post'}</Button>
         <Button variant='secondary' onClick={navBack} disabled={mutation.isPending}>{'Cancelar'}</Button>

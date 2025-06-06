@@ -1,6 +1,6 @@
 import { useNav, useTitle } from '../hooks';
 
-import { Button, ButtonContainer, Container, Text} from '../components/ui';
+import { Button, ButtonsContainer, Container, Text} from '../components/ui';
 
 const ErrorPage = ({ type = 'Not Found' }) => {
   const { navBack, navBlog } = useNav();
@@ -16,10 +16,10 @@ const ErrorPage = ({ type = 'Not Found' }) => {
       <Container>
         <Text variant='title'>{title}</Text>
         <Text variant='subtitle'>{message}</Text>
-        <ButtonContainer>
+        <ButtonsContainer>
           <Button onClick={navBlog}>{'Ir al Blog'}</Button>
           <Button variant='secondary' onClick={navBack}>{'Volver'}</Button>
-        </ButtonContainer>
+        </ButtonsContainer>
       </Container>
     </>
   );

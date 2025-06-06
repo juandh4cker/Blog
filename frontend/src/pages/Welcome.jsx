@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useAuth, useNav, useTitle } from '../hooks';
 import { apiLogin, apiRegister } from '../api';
 import { registerSchema } from '../schema'
-import { Button, Container, Form, Input, Message, Text } from '../components/ui';
+import { Button, Container, Form, FormField, Message, Text } from '../components/ui';
 
 const Welcome = ({ inRegister = false }) => {
   useTitle('Inicio', 'Inicia sesión o registrate');
@@ -61,8 +61,8 @@ const Login = ({ mutation, setInLogin }) => {
       defaultValues={{ usernameOrEmail: '', password: '' }} onSubmit={mutation.mutate}
       isSubmitting={mutation.isPending} confirmExit={false}
     >
-      <Input name='usernameOrEmail' placeholder='Nombre de usuario o email' />
-      <Input name='password' variant='password' placeholder='Contraseña' />
+      <FormField name='usernameOrEmail' placeholder='Nombre de usuario o email' />
+      <FormField name='password' variant='password' placeholder='Contraseña' />
 
       <Button type='submit' disabled={mutation.isPending}>
         {mutation.isPending ? 'Iniciando...' : 'Iniciar Sesión'}
@@ -81,10 +81,10 @@ const Register = ({ mutation, setInLogin }) => {
       defaultValues={{ username: '', email: '', password: '', confirmPassword: '' }} schema={registerSchema}
       onSubmit={mutation.mutate} isSubmitting={mutation.isPending} confirmExit={false}
     >
-      <Input name='username' placeholder='Nombre de usuario'/>
-      <Input name='email' variant='email' placeholder='Correo electrónico'/>
-      <Input name='password' variant='password' placeholder='Contraseña'/>
-      <Input name='confirmPassword' variant='confirmPassword' placeholder='Confirmar contraseña'/>
+      <FormField name='username' placeholder='Nombre de usuario'/>
+      <FormField name='email' variant='email' placeholder='Correo electrónico'/>
+      <FormField name='password' variant='password' placeholder='Contraseña'/>
+      <FormField name='confirmPassword' variant='confirmPassword' placeholder='Confirmar contraseña'/>
 
       <Button type='submit' disabled={mutation.isPending}>
         {mutation.isPending ? 'Registrando...' : 'Registarme'}

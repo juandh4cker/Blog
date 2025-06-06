@@ -5,28 +5,27 @@ import { AppContext } from './context/AppContext';
 import AppRoutes from './routes/AppRoutes';
 import AuthChecker from './auth/AuthChecker';
 
-import Fondo from './components/Fondo';
+import Background from './components/globals/Background';
 
 import './App.css';
 
 const App = () => {
   return (
     <AppContext>
-      <Router basename="/Blog">
+      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true, }} basename="/Blog">
         <AuthChecker>
           <AppRoutes />
         </AuthChecker>
-        <Fondo />
+        <Background />
       </Router>
     </AppContext>
   );
 };
 
-{"Metodos de api protegidos por auth / react query"}
 {"Titulo cambie automaticamente"}
 {"Cambiar nombres"}
 {"Hook de mensajes flotantes (para errores o mensajes)"}
-{"ponerle aria"}
+{"ponerle aria y MUI"}
 {"Configurar formatter con prettier"}
 
 export default App;

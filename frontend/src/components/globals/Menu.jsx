@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNav, useLogout } from '../hooks';
+import { useNav, useLogout } from '../../hooks';
 
 const menuStyle = 'fixed top-5 right-5 z-[1000]'
 const menuButtonStyle ='px-5 py-2 bg-blue-500 text-white rounded-[10px] text-base transition-transform duration-200 hover:scale-[1.02]'

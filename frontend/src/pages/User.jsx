@@ -1,9 +1,10 @@
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { useNav, useTitle } from '../hooks';
 import { fetchUser, followOrUnfollowUser } from '../api/users';
-import { Button, ButtonContainer, Container, Text, Message } from '../components/ui';
+import { Button, ButtonsContainer, Container, Text, Message } from '../components/ui';
 import ErrorPage from './ErrorPage';
 import PostsList from '../components/PostsList';
 
@@ -21,12 +22,20 @@ const User = () => {
   } = useQuery({
     queryKey: ['user', username],
     queryFn: () => fetchUser(username),
-    onSuccess: (userData) => {
-      setTitle(userData.username);
-    },
     retry: 1,
     refetchOnWindowFocus: false,
   });
+
+  useEffect(() => {
+    if (user) {
+      setTitle(user.username);
+    }
+
+    if (isError) {
+      setTitle('Error');
+      setDescription(error.message || error)
+    }
+  }, [user, setTitle]);
 
   const followMutation = useMutation({
     mutationFn: () => followOrUnfollowUser(username),
@@ -65,7 +74,7 @@ const User = () => {
           <b>{'Posts publicados: '}</b>{postsLength}
         </Text>
 
-        <ButtonContainer>
+        <ButtonsContainer>
           {isSelf && (
             <Button variant='small' onClick={handleFollow}disabled={followMutation.isPending} >
               {followMutation.isPending ? 'Procesando...' : isFollowing ? 'Siguiendo' : 'Seguir'}
@@ -73,7 +82,7 @@ const User = () => {
           )}
 
           <Button variant='small' onClick={navBack}>{'Regresar'}</Button>
-        </ButtonContainer>
+        </ButtonsContainer>
 
         {followMutation.isError && (
           <Message error={`Error al seguir: ${followMutation.error.message}`} className='mt-2' />
