@@ -1,13 +1,13 @@
 import { Route, Routes } from 'react-router-dom';
 
-import Welcome from '../pages/Welcome';
-import Blog from '../pages/Blog';
+import Welcome from '@/pages/Welcome';
+import Blog from '@/pages/Blog';
 import PrivateRoute from './PrivateRoute';
-import Dashboard from '../pages/Dashboard';
-import Post from '../pages/Post'
-import User from '../pages/User';
-import EditPost from '../pages/EditPost';
-import ErrorPage from '../pages/ErrorPage';
+import Dashboard from '@/pages/Dashboard';
+import Post from '@/pages/Post'
+import User from '@/pages/User';
+import EditPost from '@/pages/EditPost';
+import ErrorPage from '@/pages/ErrorPage';
 
 const AppRoutes = () => {
   return (

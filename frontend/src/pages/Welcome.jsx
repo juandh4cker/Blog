@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 
-import { useAuth, useNav, useTitle } from '../hooks';
-import { apiLogin, apiRegister } from '../api';
-import { registerSchema } from '../schema'
-import { Button, Container, Form, FormField, Message, Text } from '../components/ui';
+import { useAuth, useNav, useTitle } from '@/hooks';
+import { apiLogin, apiRegister } from '@/api';
+import { registerSchema } from '@/schema'
+import { Button, Container, Form, FormField, Message, Text } from '@/components/ui';
 
 const Welcome = ({ inRegister = false }) => {
   useTitle('Inicio', 'Inicia sesión o registrate');

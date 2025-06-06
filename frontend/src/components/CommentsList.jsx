@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNav } from '../hooks';
-import { deleteComment } from '../api';
-import { timeSince } from '../utils/timeSince';
+import { useNav } from '@/hooks';
+import { deleteComment } from '@/api';
+import { timeSince } from '@/utils/timeSince';
 import { Button, Text, Message } from './ui';
 
 const CommentsList = ({ postID, comments }) => {

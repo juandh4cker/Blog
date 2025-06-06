@@ -1,5 +1,5 @@
 import { useAuth, useNav } from '.';
-import { apiLogout } from '../api';
+import { apiLogout } from '@/api';
 
 export const useLogout = () => {
   const { navLogout, navWelcome } = useNav();

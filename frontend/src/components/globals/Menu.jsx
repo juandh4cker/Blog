@@ -1,13 +1,18 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNav, useLogout } from '../../hooks';
+import { useNav, useLogout } from '@/hooks';
 
 const menuStyle = 'fixed top-5 right-5 z-[1000]'
-const menuButtonStyle ='px-5 py-2 bg-blue-500 text-white rounded-[10px] text-base transition-transform duration-200 hover:scale-[1.02]'
+const menuButtonStyle = `
+  px-5 py-2 bg-blue-500 text-white rounded-[10px] 
+  text-base transition-transform duration-200 hover:scale-[1.02]
+`.trim();
 
 const MenuItem = ({ children, onClick }) => (
   <button
     onClick={onClick}
-    className='block w-full px-5 py-2 text-left text-sm border-b border-gray-200 transition-transform hover:bg-gray-100 hover:scale-[1.02]'
+    className='block w-full px-5 py-2 text-left text-sm 
+      border-b border-gray-200 transition-transform 
+      hover:bg-gray-100 hover:scale-[1.02]'
   >
     {children}
   </button>

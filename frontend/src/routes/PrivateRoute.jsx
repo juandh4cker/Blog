@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { useAuth, useLogout } from '../hooks';
+import { useAuth, useLogout } from '@/hooks';
 
-import { Message } from '../components/ui';
+import { Message } from '@/components/ui';
 
 const PrivateRoute = () => {
   const { auth } = useAuth();

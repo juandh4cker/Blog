@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useNav } from '../hooks';
+import { useNav } from '@/hooks';
 
 import { Message, Text } from './ui';
 

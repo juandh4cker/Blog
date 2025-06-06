@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { useNav, useTitle } from '../hooks';
-import { fetchUser, followOrUnfollowUser } from '../api/users';
-import { Button, ButtonsContainer, Container, Text, Message } from '../components/ui';
+import { useNav, useTitle } from '@/hooks';
+import { fetchUser, followOrUnfollowUser } from '@/api/users';
+import { Button, ButtonsContainer, Container, Text, Message } from '@/components/ui';
 import ErrorPage from './ErrorPage';
-import PostsList from '../components/PostsList';
+import PostsList from '@/components/PostsList';
 
 const User = () => {
   const { username } = useParams();

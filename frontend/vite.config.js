@@ -9,7 +9,6 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  base: "/Blog/",
   server: {
     host: '0.0.0.0',
     port: 5173,

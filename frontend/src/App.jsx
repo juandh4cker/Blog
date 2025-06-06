@@ -12,7 +12,7 @@ import './App.css';
 const App = () => {
   return (
     <AppContext>
-      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true, }} basename="/Blog">
+      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true, }}>
         <AuthChecker>
           <AppRoutes />
         </AuthChecker>
@@ -23,7 +23,6 @@ const App = () => {
 };
 
 {"Titulo cambie automaticamente"}
-{"Cambiar nombres"}
 {"Hook de mensajes flotantes (para errores o mensajes)"}
 {"ponerle aria y MUI"}
 {"Configurar formatter con prettier"}

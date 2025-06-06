@@ -3,13 +3,13 @@ import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { useNav, useTitle } from '../hooks';
-import { commentSchema } from '../schema';
-import { fetchPost, deletePost, addComment } from '../api';
-import { timeSince } from '../utils/timeSince';
-import { Button, ButtonsContainer, Container, Form, FormField, Message, Text } from '../components/ui';
+import { useNav, useTitle } from '@/hooks';
+import { commentSchema } from '@/schema';
+import { fetchPost, deletePost, addComment } from '@/api';
+import { timeSince } from '@/utils/timeSince';
+import { Button, ButtonsContainer, Container, Form, FormField, Message, Text } from '@/components/ui';
 import ErrorPage from './ErrorPage';
-import CommentsList from '../components/CommentsList';
+import CommentsList from '@/components/CommentsList';
 
 const Post = () => {
   const { setTitle, setDescription } = useTitle(null, 'Aquí se ve un post');

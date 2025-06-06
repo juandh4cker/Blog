@@ -1,25 +1,24 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 
-import { useAuth, useLogout } from '../hooks';
-import { apiCheckToken } from '../api';
+import { useAuth, useLogout, useNav } from '@/hooks';
+import { apiCheckToken } from '@/api';
 
-import { UserMenu, GuestMenu } from '../components/globals/Menu';
+import { UserMenu, GuestMenu } from '@/components/globals/Menu';
 
 const AuthChecker = ({ children }) => {
-  const location = useLocation();
+  const { pathname } = useNav();
   const logout = useLogout();
 
   const { auth, setAuth } = useAuth();
 
   const publicRoutes = ['/welcome'];
   const isPublicRoute = publicRoutes.some(route =>
-    location.pathname.toLowerCase().startsWith(route)
+    pathname.toLowerCase().startsWith(route)
   );
 
   const sharedRoutes = ['/blog'];
   const isSharedRoute = sharedRoutes.some(route =>
-    location.pathname.toLowerCase().startsWith(route)
+    pathname.toLowerCase().startsWith(route)
   );
 
   useEffect(() => {
@@ -40,7 +39,7 @@ const AuthChecker = ({ children }) => {
       .catch(() => {
         logout();
       });
-  }, [location.pathname, isPublicRoute]);
+  }, [pathname, isPublicRoute]);
 
   return (
     <>

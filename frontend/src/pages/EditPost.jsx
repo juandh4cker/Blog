@@ -3,11 +3,11 @@ import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 
-import { useNav, useTitle } from '../hooks';
-import { editPost, fetchPost } from '../api';
-import { postSchema } from '../schema';
+import { useNav, useTitle } from '@/hooks';
+import { editPost, fetchPost } from '@/api';
+import { postSchema } from '@/schema';
 
-import { Button, Container, Form, FormField, Message, Text } from '../components/ui';
+import { Button, Container, Form, FormField, Message, Text } from '@/components/ui';
 
 const EditPost = () => {
   const { setTitle, setDescription } = useTitle(null, 'Aquí se edita un post');

@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { useTitle } from '../hooks';
-import { fetchPosts } from '../api';
-import { Container, Text, Message } from '../components/ui';
-import PostsList from '../components/PostsList';
+import { useTitle } from '@/hooks';
+import { fetchPosts } from '@/api';
+import { Container, Text, Message } from '@/components/ui';
+import PostsList from '@/components/PostsList';
 
 const Blog = () => {
   useTitle('', 'Aquí se ven todos los posts.');
