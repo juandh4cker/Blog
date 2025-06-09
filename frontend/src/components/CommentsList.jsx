@@ -1,22 +1,21 @@
 import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNav } from '@/hooks';
-import { deleteComment } from '@/api';
+import { useApi, useNav } from '@/hooks';
 import { timeSince } from '@/utils/timeSince';
 import { Button, Text, Message } from './ui';
 
 const CommentsList = ({ postID, comments }) => {
   const queryClient = useQueryClient();
   const [expandedIndex, setExpandedIndex] = useState(null);
-  
+
   if (!comments?.length) {
     return <Message className='my-2'>{'No hay comentarios agregados'}</Message>;
   }
 
   return (
-    <div className='my-2 flex flex-wrap gap-1 justify-center'>
+    <div className='w-full my-2 flex flex-wrap gap-1 justify-center'>
       {comments.map((comment, index) => (
-        <Comment 
+        <Comment
           key={comment.ID}
           index={index}
           postID={postID}
@@ -30,15 +29,16 @@ const CommentsList = ({ postID, comments }) => {
   );
 };
 
-const Comment = ({ index, postID, comment, expanded, toggleExpand, queryClient }) => {
+const Comment = ({ postID, comment, expanded, toggleExpand, queryClient }) => {
   const { navUser } = useNav();
+  const { deleteComment } = useApi();
 
   const deleteMutation = useMutation({
     mutationFn: () => deleteComment(postID, comment.ID),
     onSuccess: () => {
       queryClient.setQueryData(['post', postID], (oldData) => {
         if (!oldData) return oldData;
-        
+
         return {
           ...oldData,
           comments: oldData.comments.filter(c => c.ID !== comment.ID)
@@ -63,12 +63,12 @@ const Comment = ({ index, postID, comment, expanded, toggleExpand, queryClient }
   return (
     <div
       onClick={toggleExpand}
-      className="
+      className='
         w-[90%] p-4 mb-4 rounded-lg cursor-pointer
         bg-white border border-solid border-[#ddd]
         shadow-[0_2px_6px_rgba(0,0,0,0.05)]
         transition-transform duration-200 ease-in-out
-        hover:bg-gray-200 hover:scale-105"
+        hover:bg-gray-200 hover:scale-105'
     >
       <Text>
         <Text variant='hipertext' tag='b' onClick={handleNavigate}>{comment.creator}</Text>
@@ -78,7 +78,7 @@ const Comment = ({ index, postID, comment, expanded, toggleExpand, queryClient }
         <b>{'Calificación: '}</b>
         {`${comment.rating}/10`}
       </Text>
-      
+
       {expanded && (
         <div className='mt-3'>
           {comment.editable && (
@@ -91,7 +91,7 @@ const Comment = ({ index, postID, comment, expanded, toggleExpand, queryClient }
           </Text>
         </div>
       )}
-      
+
       {deleteMutation.isError && (
         <Message error={`Error al eliminar el comentario: ${deleteMutation.error.message}`} className='mt-2' />
       )}

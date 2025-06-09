@@ -19,10 +19,10 @@ const Form = forwardRef(({
 
   const methods = useForm({ resolver: schema && zodResolver(schema), defaultValues });
 
-  useImperativeHandle(ref, () => ({ 
-    reset: methods.reset, 
-    setValue: methods.setValue, 
-    getValues: methods.getValues 
+  useImperativeHandle(ref, () => ({
+    reset: methods.reset,
+    setValue: methods.setValue,
+    getValues: methods.getValues
   }));
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const Form = forwardRef(({
     };
 
     window.addEventListener('beforeunload', handleBeforeUnload);
-    
+
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };

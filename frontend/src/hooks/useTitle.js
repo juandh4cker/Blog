@@ -8,7 +8,7 @@ export const useTitle = (newTitle, newDescription) => {
     if (typeof newTitle === 'string') {
       setTitle(newTitle);
     }
-    
+
     if (typeof newDescription === 'string') {
       setDescription(newDescription);
     }

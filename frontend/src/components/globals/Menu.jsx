@@ -1,17 +1,17 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNav, useLogout } from '@/hooks';
+import { useNav, useAuth } from '@/hooks';
 
 const menuStyle = 'fixed top-5 right-5 z-[1000]'
 const menuButtonStyle = `
-  px-5 py-2 bg-blue-500 text-white rounded-[10px] 
+  px-5 py-2 bg-blue-500 text-white rounded-[10px]
   text-base transition-transform duration-200 hover:scale-[1.02]
 `.trim();
 
 const MenuItem = ({ children, onClick }) => (
   <button
     onClick={onClick}
-    className='block w-full px-5 py-2 text-left text-sm 
-      border-b border-gray-200 transition-transform 
+    className='block w-full px-5 py-2 text-left text-sm
+      border-b border-gray-200 transition-transform
       hover:bg-gray-100 hover:scale-[1.02]'
   >
     {children}
@@ -25,7 +25,7 @@ export const GuestMenu = () => {
     <button
       onClick={navWelcome}
       className={`${menuStyle} ${menuButtonStyle}`}
-      aria-label="Iniciar sesión"
+      aria-label='Iniciar sesión'
     >
       {'Iniciar sesión'}
     </button>
@@ -36,7 +36,7 @@ export const UserMenu = ({ username }) => {
   const menuRef = useRef(null);
   const { navBlog, navUser, navDashboard } = useNav();
 
-  const logout = useLogout();
+  const { logout } = useAuth();
 
   const [menuOpen, setMenuOpen] = useState(false);
 

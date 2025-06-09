@@ -12,7 +12,7 @@ export const TitleProvider = ({ children }) => {
       <TitleContext.Provider value={{ setTitle, setDescription }}>
         <Helmet>
           <title>{title.trim() ? `${title} - WorldBlog` : 'WorldBlog'}</title>
-          <meta name="description" content={description} />
+          <meta name='description' content={description} />
         </Helmet>
         {children}
       </TitleContext.Provider>

@@ -15,7 +15,7 @@ const Message = ({
   sucess,
   className,
   ...props
-  
+
 }) => {
   return (
     <>

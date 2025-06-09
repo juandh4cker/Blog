@@ -1,4 +1,4 @@
-import slides from "@/assets/background";
+import slides from '@/assets/background';
 
 const Background = () => {
   return (

@@ -2,7 +2,7 @@ import { QueryProvider } from './QueryContext';
 import { AuthProvider } from './AuthContext';
 import { TitleProvider } from './TitleContext';
 
-export const AppContext = ({ children }) => {
+const AppContext = ({ children }) => {
   const providers = [
     [QueryProvider, {}],
     [AuthProvider, {}],
@@ -14,3 +14,5 @@ export const AppContext = ({ children }) => {
     children
   );
 };
+
+export default AppContext;

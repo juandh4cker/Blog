@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { useAuth, useLogout } from '@/hooks';
+import { useAuth } from '@/hooks';
 
 import { Message } from '@/components/ui';
 
 const PrivateRoute = () => {
-  const { auth } = useAuth();
-  const logout = useLogout();
-
+  const { auth, logout } = useAuth();
   const [loggingOut, setLoggingOut] = useState(false);
 
   useEffect(() => {
@@ -21,7 +19,7 @@ const PrivateRoute = () => {
   if (auth.isAuthenticated === null || loggingOut) {
     return <Message loading={true} />;
   }
-  
+
   if (!auth.isAuthenticated) {
    return null;
   }

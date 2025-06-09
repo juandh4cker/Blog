@@ -3,8 +3,7 @@ import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 
-import { useNav, useTitle } from '@/hooks';
-import { editPost, fetchPost } from '@/api';
+import { useApi, useNav, useTitle } from '@/hooks';
 import { postSchema } from '@/schema';
 
 import { Button, Container, Form, FormField, Message, Text } from '@/components/ui';
@@ -15,7 +14,7 @@ const EditPost = () => {
   const { navPost } = useNav();
   const { ID } = useParams();
   const formRef = useRef();
-
+  const { editPost, fetchPost } = useApi();
   const queryClient = useQueryClient();
 
   const {

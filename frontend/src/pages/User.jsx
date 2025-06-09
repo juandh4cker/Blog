@@ -2,17 +2,17 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { useNav, useTitle } from '@/hooks';
-import { fetchUser, followOrUnfollowUser } from '@/api/users';
+import { useApi, useNav, useTitle } from '@/hooks';
 import { Button, ButtonsContainer, Container, Text, Message } from '@/components/ui';
 import ErrorPage from './ErrorPage';
 import PostsList from '@/components/PostsList';
 
 const User = () => {
+  const { setTitle } = useTitle(null, 'Aquí se ve un perfil');
   const { username } = useParams();
+  const { fetchUser, followOrUnfollowUser } = useApi();
   const { navBack } = useNav();
   const queryClient = useQueryClient();
-  const { setTitle } = useTitle(null, 'Aquí se ve un perfil');
 
   const {
     data: user,

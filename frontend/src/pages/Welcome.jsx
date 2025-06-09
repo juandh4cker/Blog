@@ -1,30 +1,32 @@
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 
-import { useAuth, useNav, useTitle } from '@/hooks';
-import { apiLogin, apiRegister } from '@/api';
+import { useApi, useAuth, useNav, useTitle } from '@/hooks';
 import { registerSchema } from '@/schema'
 import { Button, Container, Form, FormField, Message, Text } from '@/components/ui';
 
 const Welcome = ({ inRegister = false }) => {
   useTitle('Inicio', 'Inicia sesión o registrate');
+
+  const { apiLogin, apiRegister } = useApi();
   const { setAuth } = useAuth();
   const { from, navBlog, navFrom } = useNav();
-  const [inLogin, setInLogin] = useState(!inRegister);
+
+  const [ inLogin, setInLogin ] = useState(!inRegister);
 
   const onSuccess = (response) => {
     setAuth({ username: response, isAuthenticated: true });
-    navFrom(() => navBlog());
-  }
+    navFrom(navBlog);
+  };
 
   const loginMutation = useMutation({
     mutationFn: ({ usernameOrEmail, password }) => apiLogin(usernameOrEmail, password),
-    onSuccess: onSuccess
+    onSuccess: (response) => onSuccess(response)
   });
 
   const registerMutation = useMutation({
     mutationFn: ({ username, email, password }) => apiRegister(username, email, password),
-    onSuccess: onSuccess
+    onSuccess: (response) => onSuccess(response)
   });
 
   const error = loginMutation.error || registerMutation.error;
@@ -40,11 +42,10 @@ const Welcome = ({ inRegister = false }) => {
         }
       </Text>
 
-      {inLogin ? (
-        <Login mutation={loginMutation} setInLogin={setInLogin} />
-      ) : (
-        <Register mutation={registerMutation} setInLogin={setInLogin} />
-      )}
+      {inLogin
+        ? <Login mutation={loginMutation} setInLogin={setInLogin} />
+        : <Register mutation={registerMutation} setInLogin={setInLogin} />
+      }
 
       <Button variant='secondary' className='w-full' onClick={navBlog} disabled={isLoading} >
         {'Entrar como invitado'}
@@ -67,7 +68,6 @@ const Login = ({ mutation, setInLogin }) => {
       <Button type='submit' disabled={mutation.isPending}>
         {mutation.isPending ? 'Iniciando...' : 'Iniciar Sesión'}
       </Button>
-
       <Button variant='secondary' onClick={() => setInLogin(false)} disabled={mutation.isPending} >
         {'No tengo una cuenta'}
       </Button>
@@ -89,7 +89,6 @@ const Register = ({ mutation, setInLogin }) => {
       <Button type='submit' disabled={mutation.isPending}>
         {mutation.isPending ? 'Registrando...' : 'Registarme'}
       </Button>
-
       <Button variant='secondary' onClick={() => setInLogin(true)} disabled={mutation.isPending} >
         {'Ya tengo una cuenta'}
       </Button>

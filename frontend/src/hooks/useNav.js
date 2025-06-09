@@ -7,6 +7,23 @@ export const useNav = () => {
   const pathname = location.pathname;
   const from = location.state?.from;
 
+  const navFrom = (alternative) => {
+    if (from) {
+      navigate(from);
+      return;
+    }
+    
+    if (alternative) {
+      if (typeof alternative === 'function') {
+        alternative();
+      } else {
+        navigate(alternative);
+      }
+    } else {
+      navigate('/');
+    }
+  };
+
   return {
     pathname,
     from,
@@ -23,8 +40,8 @@ export const useNav = () => {
     navUser: (user) => navigate(`/user/${user}`),
     navPost: (postID, edit=false) => navigate(`/post/${postID}${edit ? '/edit' : ''}`),
 
-    navFrom: (alternative = () => navigate('/')) => from ? navigate(from) : alternative(),
-    
+    navFrom,
+
     navLogout: () => navigate('/welcome', { replace: true }),
   };
 };
