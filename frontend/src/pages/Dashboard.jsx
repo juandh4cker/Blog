@@ -1,12 +1,10 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 
-import { useApi, useNav, useTitle } from '@/hooks';
+import { useApi, useNav } from '@/hooks';
 import { postSchema } from '@/schema';
 import { Button, Container, Form, FormField, Message, Text } from '@/components/ui';
 
 const Dashboard = () => {
-  useTitle('Dashboard', 'Aquí agregas posts.');
-
   const { navBack, navPost } = useNav();
   const { addPost } = useApi();
   const queryClient = useQueryClient();

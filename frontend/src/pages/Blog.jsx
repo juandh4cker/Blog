@@ -1,11 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { useApi, useTitle } from '@/hooks';
+import { useApi } from '@/hooks';
 import { Container, Text, Message } from '@/components/ui';
 import PostsList from '@/components/PostsList';
 
 const Blog = () => {
-  useTitle('', 'Aquí se ven todos los posts.');
   const { fetchPosts } = useApi();
 
   const {

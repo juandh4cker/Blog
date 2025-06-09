@@ -23,10 +23,8 @@ const App = () => {
   );
 };
 
-{'mejorar react query en user y post (quitar use effect) (de pronto es algo con las keys)'}
-{'react query en authcontext y authchecker y luego useApi'}
+{'react query en authchecker'}
 {'mejorar definicion de funciones'}
-{'Titulo cambie automaticamente'}
 {'Hook de mensajes flotantes (para errores o mensajes)'}
 {'ponerle aria y MUI'}
 {'Configurar formatter con prettier'}

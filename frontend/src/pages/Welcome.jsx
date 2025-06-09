@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 
-import { useApi, useAuth, useNav, useTitle } from '@/hooks';
+import { useApi, useAuth, useNav } from '@/hooks';
 import { registerSchema } from '@/schema'
 import { Button, Container, Form, FormField, Message, Text } from '@/components/ui';
 
 const Welcome = ({ inRegister = false }) => {
-  useTitle('Inicio', 'Inicia sesión o registrate');
-
   const { apiLogin, apiRegister } = useApi();
   const { setAuth } = useAuth();
   const { from, navBlog, navFrom } = useNav();

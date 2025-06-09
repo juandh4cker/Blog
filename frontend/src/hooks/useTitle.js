@@ -1,18 +1,60 @@
-import { useContext, useEffect } from 'react';
-import { TitleContext } from '@/context/TitleContext';
+import { useEffect } from 'react';
+import { useTitleContext } from '@/context/TitleContext';
 
-export const useTitle = (newTitle, newDescription) => {
-  const { title, setTitle, setDescription } = useContext(TitleContext);
+export const useTitle = (customTitle, customDescription, options = {}) => {
+  const {
+    title,
+    description,
+    setTitle,
+    setDescription,
+    resetToRouteDefault
+  } = useTitleContext();
+  
+  const {
+    resetOnUnmount = true,
+    enableRouteDefaults = true
+  } = options;
 
   useEffect(() => {
-    if (typeof newTitle === 'string') {
-      setTitle(newTitle);
+    if (enableRouteDefaults) {
+      resetToRouteDefault();
     }
+    
+    return () => {
+      if (resetOnUnmount && enableRouteDefaults) {
+        resetToRouteDefault();
+      }
+    };
+  }, [enableRouteDefaults, resetOnUnmount, resetToRouteDefault]);
 
-    if (typeof newDescription === 'string') {
-      setDescription(newDescription);
-    }
-  }, [newTitle, newDescription, setTitle, setDescription]);
+  useEffect(() => {
+    let isActive = true;
+    
+    const updateTitle = () => {
+      if (!isActive) return;
+      
+      if (typeof customTitle === 'string') {
+        setTitle(customTitle);
+      }
+      
+      if (typeof customDescription === 'string') {
+        setDescription(customDescription);
+      }
+    };
+    
+    const timer = setTimeout(updateTitle, 10);
+    
+    return () => {
+      isActive = false;
+      clearTimeout(timer);
+    };
+  }, [customTitle, customDescription, setTitle, setDescription]);
 
-  return { title, setTitle, setDescription };
+  return {
+    title,
+    setTitle,
+    description,
+    setDescription,
+    resetToRouteDefault
+  };
 };
