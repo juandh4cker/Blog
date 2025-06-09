@@ -9,7 +9,7 @@ export const useTitle = (customTitle, customDescription, options = {}) => {
     setDescription,
     resetToRouteDefault
   } = useTitleContext();
-  
+
   const {
     resetOnUnmount = true,
     enableRouteDefaults = true
@@ -19,7 +19,7 @@ export const useTitle = (customTitle, customDescription, options = {}) => {
     if (enableRouteDefaults) {
       resetToRouteDefault();
     }
-    
+
     return () => {
       if (resetOnUnmount && enableRouteDefaults) {
         resetToRouteDefault();
@@ -29,21 +29,21 @@ export const useTitle = (customTitle, customDescription, options = {}) => {
 
   useEffect(() => {
     let isActive = true;
-    
+
     const updateTitle = () => {
       if (!isActive) return;
-      
+
       if (typeof customTitle === 'string') {
         setTitle(customTitle);
       }
-      
+
       if (typeof customDescription === 'string') {
         setDescription(customDescription);
       }
     };
-    
+
     const timer = setTimeout(updateTitle, 10);
-    
+
     return () => {
       isActive = false;
       clearTimeout(timer);

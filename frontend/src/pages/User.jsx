@@ -8,7 +8,7 @@ import ErrorPage from './ErrorPage';
 import PostsList from '@/components/PostsList';
 
 const User = () => {
-  const { setTitle } = useTitle(null, 'Aquí se ve un perfil');
+  const { setTitle, setDescription } = useTitle(null, 'Aquí se ve un perfil');
   const { username } = useParams();
   const { fetchUser, followOrUnfollowUser } = useApi();
   const { navBack } = useNav();
@@ -50,14 +50,9 @@ const User = () => {
 
   if (isLoading) return <Message loading />;
 
-  if (isError) {
-    if (error.message === 'Unauthorized' || error.message === 'Not found') {
-      return <ErrorPage type={error.message} />;
-    }
-    return <Message error={`Error al cargar el perfil: ${error.message || error}`} />;
-  }
+  if (isError) return <ErrorPage error={error.message || error} message={'cargar el perfil'}/>
 
-  if (!user) return <ErrorPage type='Not found' />;
+  if (!user) return <ErrorPage error='Not found' />;
 
   const handleFollow = () => {
     followMutation.mutate();

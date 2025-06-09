@@ -12,7 +12,7 @@ export const useNav = () => {
       navigate(from);
       return;
     }
-    
+
     if (alternative) {
       if (typeof alternative === 'function') {
         alternative();

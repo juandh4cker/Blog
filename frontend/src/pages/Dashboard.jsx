@@ -14,9 +14,6 @@ const Dashboard = () => {
     onSuccess: (postID) => {
       queryClient.invalidateQueries(['posts']);
       navPost(postID);
-    },
-    onError: (error) => {
-      console.error(`Error al agregar el post: ${error}`);
     }
   });
 

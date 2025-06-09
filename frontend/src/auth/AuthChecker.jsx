@@ -21,7 +21,7 @@ const AuthChecker = ({ children }) => {
 
   useEffect(() => {
     if (isPublicRoute) return;
-    
+
     apiCheckToken()
       .then(isValid => {
         if (!isValid) {
@@ -35,6 +35,7 @@ const AuthChecker = ({ children }) => {
         }
       })
       .catch(() => {
+        setAuth({ username: '', isAuthenticated: false });
         logout();
       });
   }, [pathname, isPublicRoute]);

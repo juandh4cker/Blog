@@ -17,7 +17,7 @@ export const useApi = () => {
   return {
     apiLogin: api.apiLogin,
     apiRegister: api.apiRegister,
-    
+
     fetchUser: callWithAuth(api.fetchUser),
     followOrUnfollowUser: callWithAuth(api.followOrUnfollowUser),
 

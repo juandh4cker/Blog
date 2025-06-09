@@ -76,14 +76,9 @@ const Post = () => {
 
   if (isLoading) return <Message loading />;
 
-  if (isError) {
-    if (error.message === 'Unauthorized' || error.message === 'Not found') {
-      return <ErrorPage type={error.message} />;
-    }
-    return <Message error={`Error al cargar el post: ${error.message || error}`} />;
-  }
+  if (isError) return <ErrorPage error={error.message || error} message={'cargar el post'}/>
 
-  if (!post) return <ErrorPage type='Not found' />;
+  if (!post) return <ErrorPage error='Not found' />;
 
   return (
     <Container className='max-w-xl'>

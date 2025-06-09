@@ -30,14 +30,14 @@ export const TitleProvider = ({ children }) => {
 
   const findRouteConfig = (path) => {
     if (ROUTE_CONFIG[path]) return ROUTE_CONFIG[path];
-    
+
     const pathSegments = path.split('/').filter(Boolean);
-    
+
     for (let i = pathSegments.length; i > 0; i--) {
       const testPath = `/${pathSegments.slice(0, i).join('/')}/*`;
       if (ROUTE_CONFIG[testPath]) return ROUTE_CONFIG[testPath];
     }
-    
+
     return { title: DEFAULT_TITLE, description: DEFAULT_DESCRIPTION };
   };
 

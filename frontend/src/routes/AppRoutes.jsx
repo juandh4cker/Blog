@@ -23,7 +23,7 @@ const AppRoutes = () => {
         <Route path='/post/:ID/edit' element={<EditPost />} />
       </Route>
 
-      <Route path='*' element={<ErrorPage type='Not Found' />} />
+      <Route path='*' element={<ErrorPage error='Not found' />} />
     </Routes>
   );
 };

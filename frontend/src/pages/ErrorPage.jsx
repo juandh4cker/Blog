@@ -1,28 +1,33 @@
-import { useNav, useTitle } from '@/hooks';
+import { useNav } from '@/hooks';
 
-import { Button, ButtonsContainer, Container, Text} from '@/components/ui';
+import { Button, ButtonsContainer, Container, Message, Text } from '@/components/ui';
 
-const ErrorPage = ({ type = 'Not Found' }) => {
+const ErrorPage = ({ error, message, type }) => {
   const { navBack, navBlog } = useNav();
-  const { title } = useTitle(type === 'Unauthorized' ? 'No autorizado' : 'Página no encontrada', 'Error');
 
-  const message =
-    type === 'Unauthorized'
-      ? 'No tienes permiso para acceder a esta página.'
-      : 'La página que buscas no existe.';
+  const title = type === 'Unauthorized'
+    ? 'No autorizado'
+    : 'No encontrado';
 
-  return (
-    <>
+  const subtitle =
+    type  === 'Unauthorized'
+      ? 'No tienes permiso para acceder a este lugar.'
+      : 'Lo que buscas no existe.';
+
+      if (error === 'Unauthorized' || error === 'Not found') {
+    return (
       <Container>
         <Text variant='title'>{title}</Text>
-        <Text variant='subtitle'>{message}</Text>
+        <Text variant='subtitle'>{subtitle}</Text>
         <ButtonsContainer>
           <Button onClick={navBlog}>{'Ir al Blog'}</Button>
           <Button variant='secondary' onClick={navBack}>{'Volver'}</Button>
         </ButtonsContainer>
       </Container>
-    </>
-  );
+    );
+  }
+
+  return <Message error={`Error${message ? ` al ${message}` : ''}: ${error}`} />;
 };
 
 export default ErrorPage;

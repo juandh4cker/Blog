@@ -23,10 +23,15 @@ const App = () => {
   );
 };
 
-{'react query en authchecker'}
 {'mejorar definicion de funciones'}
-{'Hook de mensajes flotantes (para errores o mensajes)'}
-{'ponerle aria y MUI'}
+{'agregar likes, guardar y compartir perfil/comentario/post'}
+{'agregar modo oscuro'}
+{'codigo de strings'}
+{'agregar español e ingles'}
+{'session context (idioma, preferencias, tema, etc)'}
+{'pasar users a sql?'}
+{'codigo de errores'}
+{'animaciones, estilos, todo eso de css'}
 {'Configurar formatter con prettier'}
 
 export default App;
