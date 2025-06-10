@@ -12,11 +12,12 @@ import CommentsList from '@/components/CommentsList';
 
 const Post = () => {
   const { setTitle, setDescription } = useTitle(null, 'Aquí se ve un post');
-  const { navBack, navBlog, navUser, navPost } = useNav();
+
   const { fetchPost, deletePost, addComment } = useApi();
+  const { navBack, navBlog, navUser, navPost } = useNav();
   const { ID } = useParams();
-  const formRef = useRef();
   const queryClient = useQueryClient();
+  const formRef = useRef();
 
   const {
     data: post,
@@ -66,19 +67,16 @@ const Post = () => {
     }
   };
 
+  if (isLoading) return <Message loading />;
+  if (isError) return <ErrorPage error={error.message || error} message={'cargar el post'}/>
+  if (!post) return <ErrorPage error='Not found' />;
+
   const handleGoogleMaps = () => {
-    if (!post) return;
     const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
       post.name + ', ' + post.location
     )}`;
     window.open(url, '_blank');
   };
-
-  if (isLoading) return <Message loading />;
-
-  if (isError) return <ErrorPage error={error.message || error} message={'cargar el post'}/>
-
-  if (!post) return <ErrorPage error='Not found' />;
 
   return (
     <Container className='max-w-xl'>
@@ -100,7 +98,7 @@ const Post = () => {
 
       {post.editable && (
         <ButtonsContainer>
-          <Button variant='small' onClick={() => navPost(ID, true)}>Editar Post</Button>
+          <Button variant='small' onClick={() => navPost(ID, true)}>{'Editar Post'}</Button>
           <Button variant='small' onClick={handleDeletePost}disabled={deleteMutation.isPending}>
             {deleteMutation.isPending ? 'Eliminando...' : 'Eliminar Post'}
           </Button>

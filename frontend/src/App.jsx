@@ -23,15 +23,13 @@ const App = () => {
   );
 };
 
-{'mejorar definicion de funciones'}
 {'agregar likes, guardar y compartir perfil/comentario/post'}
-{'agregar modo oscuro'}
 {'codigo de strings'}
 {'agregar español e ingles'}
 {'session context (idioma, preferencias, tema, etc)'}
 {'pasar users a sql?'}
-{'codigo de errores'}
-{'animaciones, estilos, todo eso de css'}
+{'codigo de errores, useError'}
+{'animaciones, estilos, modo oscuro, todo eso de css'}
 {'Configurar formatter con prettier'}
 
 export default App;

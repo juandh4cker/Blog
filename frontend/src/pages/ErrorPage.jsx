@@ -2,19 +2,19 @@ import { useNav } from '@/hooks';
 
 import { Button, ButtonsContainer, Container, Message, Text } from '@/components/ui';
 
-const ErrorPage = ({ error, message, type }) => {
+const ErrorPage = ({ error, message }) => {
   const { navBack, navBlog } = useNav();
 
-  const title = type === 'Unauthorized'
+  const title = error === 'Unauthorized'
     ? 'No autorizado'
     : 'No encontrado';
 
   const subtitle =
-    type  === 'Unauthorized'
+    error  === 'Unauthorized'
       ? 'No tienes permiso para acceder a este lugar.'
       : 'Lo que buscas no existe.';
 
-      if (error === 'Unauthorized' || error === 'Not found') {
+  if (error === 'Unauthorized' || error === 'Not found') {
     return (
       <Container>
         <Text variant='title'>{title}</Text>

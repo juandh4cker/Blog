@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { useApi } from '@/hooks';
 import { Container, Text, Message } from '@/components/ui';
+
 import PostsList from '@/components/PostsList';
 
 const Blog = () => {
@@ -23,11 +24,10 @@ const Blog = () => {
       <Text variant='title'>{'Blog'}</Text>
       <Text variant='subtitle'>{'Ver todos los posts agregados'}</Text>
 
-      {(isLoading || isError) ? (
-        <Message error={error} loading={isLoading} />
-      ) : (
-        <PostsList posts={posts} />
-      )}
+      {(isLoading || isError)
+        ? <Message loading={isLoading} error={error} />
+        : <PostsList posts={posts} />
+      }
     </Container>
   );
 };

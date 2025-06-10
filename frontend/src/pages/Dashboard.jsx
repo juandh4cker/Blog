@@ -5,12 +5,12 @@ import { postSchema } from '@/schema';
 import { Button, Container, Form, FormField, Message, Text } from '@/components/ui';
 
 const Dashboard = () => {
-  const { navBack, navPost } = useNav();
   const { addPost } = useApi();
+  const { navBack, navPost } = useNav();
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: addPost,
+    mutationFn: (postData) => addPost(postData),
     onSuccess: (postID) => {
       queryClient.invalidateQueries(['posts']);
       navPost(postID);
@@ -32,8 +32,12 @@ const Dashboard = () => {
         <FormField name='review' variant='textarea' />
         <FormField name='rating' variant='rating'/>
 
-        <Button type='submit' disabled={mutation.isPending}>{'Agregar post'}</Button>
-        <Button variant='secondary' onClick={navBack} disabled={mutation.isPending}>{'Cancelar'}</Button>
+        <Button type='submit' disabled={mutation.isPending}>
+          {mutation.isPending ? 'Agregar post' : 'Agregando post...'}
+        </Button>
+        <Button variant='secondary' onClick={navBack} disabled={mutation.isPending}>
+          {'Cancelar'}
+        </Button>
       </Form>
 
       {mutation.isError && <Message error={mutation.error} />}

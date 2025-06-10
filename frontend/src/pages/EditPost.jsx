@@ -1,24 +1,27 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 
 import { useApi, useNav, useTitle } from '@/hooks';
 import { postSchema } from '@/schema';
-
 import { Button, Container, Form, FormField, Message, Text } from '@/components/ui';
+
+import ErrorPage from './ErrorPage';
 
 const EditPost = () => {
   const { setTitle, setDescription } = useTitle(null, 'Aquí se edita un post');
 
+  const { editPost, fetchPost } = useApi();
   const { navPost } = useNav();
   const { ID } = useParams();
-  const formRef = useRef();
-  const { editPost, fetchPost } = useApi();
   const queryClient = useQueryClient();
+  const formRef = useRef();
+
+  const [editable, setEditable] = useState(false);
 
   const {
-    data: post,
+    data: post = { name: '', location: '', imageUrl: '', review: '', rating: '', editable: null},
     isLoading: isLoading,
     isError: isError,
     error: error
@@ -28,8 +31,11 @@ const EditPost = () => {
   });
 
   useEffect(() => {
-    if (!post?.editable) navPost(ID);
-    if (formRef.current) formRef.current.reset(post);
+    if (post?.editable === false) {
+      navPost(ID);
+    } else if (post?.editable === true) {
+      setEditable(true);
+    };
 
     if (post) {
       setTitle(post.name);
@@ -38,47 +44,59 @@ const EditPost = () => {
 
     if (isError) {
       setTitle('Error');
-      setDescription(error.message || error)
+      setDescription(error.message || error);
     }
-  }, [post, setTitle]);
+  }, [post, setTitle, setDescription, navPost, ID, isError, error]);
 
   const mutation = useMutation({
     mutationFn: (data) => editPost(ID, data),
     onSuccess: () => {
-      queryClient.setQueryData(['post', ID], (oldData) => {
-        return {...oldData, ...mutation.variables};
-      });
-
       queryClient.invalidateQueries(['post', ID]);
       queryClient.invalidateQueries(['posts']);
-
       navPost(ID);
     }
   });
+
+  const handleSubmit = (formData) => {
+    const fieldsToCompare = ['name', 'location', 'imageUrl', 'review', 'rating'];
+
+    const hasChanges = fieldsToCompare.some(
+      field => formData[field] !== post[field]
+    );
+
+    if (hasChanges) {
+      mutation.mutate(formData);
+    } else {
+      navPost(ID);
+    }
+  };
+
+  if (isLoading) return <Message loading />;
+  if (isError) return <ErrorPage error={error.message || error} message={'cargar el post'} />;
+  if (!editable) return null;
 
   return (
     <Container className='max-w-lg'>
       <Text variant='title'>{'Editar Post'}</Text>
       <Text variant='subtitle'>{'Edita los detalles del post'}</Text>
 
-      {isLoading && <Message loading={isLoading} />}
-      {isError && <Message error={error} />}
-
-      {post && (
-        <Form
+      <Form
         defaultValues={post} ref={formRef}
-        schema={postSchema} onSubmit={mutation.mutate} isSubmitting={mutation.isPending}
-        >
-          <FormField name='name' placeholder='Nombre del post'/>
-          <FormField name='location' placeholder='Ubicación'/>
-          <FormField name='imageUrl' placeholder='URL de la imagen del post'/>
-          <FormField name='review' variant='textarea' placeholder='Reseña'/>
-          <FormField name='rating' variant='rating' placeholder='Calificación (0-10)'/>
+        schema={postSchema} onSubmit={handleSubmit} isSubmitting={mutation.isPending}
+      >
+        <FormField name='name' placeholder='Nombre del post'/>
+        <FormField name='location' placeholder='Ubicación'/>
+        <FormField name='imageUrl' placeholder='URL de la imagen del post'/>
+        <FormField name='review' variant='textarea' placeholder='Reseña'/>
+        <FormField name='rating' variant='rating' placeholder='Calificación (0-10)'/>
 
-          <Button type='submit' disabled={mutation.isPending}>{'Editar post'}</Button>
-          <Button variant='secondary' onClick={() => navPost(ID)} disabled={mutation.isPending}>{'Cancelar'}</Button>
-        </Form>
-      )}
+        <Button type='submit' disabled={mutation.isPending}>
+          {mutation.isPending ? 'Editando post...' : 'Editar post'}
+        </Button>
+        <Button variant='secondary' onClick={() => navPost(ID)} disabled={mutation.isPending}>
+          {'Cancelar'}
+        </Button>
+      </Form>
 
       {mutation.isError && <Message error={mutation.error} />}
     </Container>

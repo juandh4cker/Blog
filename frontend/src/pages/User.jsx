@@ -9,9 +9,10 @@ import PostsList from '@/components/PostsList';
 
 const User = () => {
   const { setTitle, setDescription } = useTitle(null, 'Aquí se ve un perfil');
-  const { username } = useParams();
+
   const { fetchUser, followOrUnfollowUser } = useApi();
   const { navBack } = useNav();
+  const { username } = useParams();
   const queryClient = useQueryClient();
 
   const {
@@ -49,9 +50,7 @@ const User = () => {
   const postsLength = user?.posts?.length || 0;
 
   if (isLoading) return <Message loading />;
-
   if (isError) return <ErrorPage error={error.message || error} message={'cargar el perfil'}/>
-
   if (!user) return <ErrorPage error='Not found' />;
 
   const handleFollow = () => {
@@ -60,7 +59,10 @@ const User = () => {
 
   return (
     <Container className='max-w-3xl'>
-      <div className='flex flex-col items-center bg-[rgba(255,255,255,0.75)] shadow-[0_4px_20px_rgba(0,0,0,0.1)] border w-full gap-4 mb-5 p-3 rounded-[5px] border-solid border-[#ccc]'>
+      <div className='flex flex-col items-center
+        bg-[rgba(255,255,255,0.75)] shadow-[0_4px_20px_rgba(0,0,0,0.1)]
+        border w-full gap-4 mb-5 p-3 rounded-[5px] border-solid border-[#ccc]'
+      >
         <Text variant='title'>{user.username}</Text>
         <Text variant='subtitle' className='!my-0'>
           <b>{'Seguidores: '}</b>{user.followers}
@@ -84,14 +86,8 @@ const User = () => {
         )}
       </div>
 
-      {postsLength > 0 ? (
-        <>
-          <Text variant='title' className='mt-6'>{'Posts del usuario'}</Text>
-          <PostsList posts={user.posts} />
-        </>
-      ) : (
-        <Message className='mt-6'>{' '}</Message>
-      )}
+      <Text variant='title' className='mt-6'>{'Posts del usuario'}</Text>
+      <PostsList posts={user.posts} />
     </Container>
   );
 };

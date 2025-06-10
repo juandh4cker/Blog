@@ -8,7 +8,7 @@ export const useApi = () => {
     return (...args) => {
       if (!auth.isAuthenticated) {
         logout();
-        return Promise.reject(new Error("Unauthorized"));
+        return Promise.reject(new Error('Unauthorized'));
       }
       return apiFn(...args);
     };
