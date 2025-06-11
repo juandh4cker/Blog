@@ -198,7 +198,46 @@ class App:
                 error=e, 
                 log=f"{following.ID} follownt by {follower.ID}"
             ) from e
+    
+    # Saves
+
+    @staticmethod
+    def likent(post_id: str, request_user: Dict[str, Any]) -> bool:      
+        try:
+            user: User_lite = User_lite(request_user)
+            post: Post = Posts.get_post(post_id)
+            
+            if post:
+                if user.ID not in post.likes:
+                    if Posts.like(user, post):
+                        Log.info(f"Post {post.ID} liked by {user.ID}")
+                        return True
+                    
+                    raise GeneralError(
+                        data="Error al guardar el post", 
+                        log=f"{post.ID} to {user.ID}"
+                    )
+
+                else:
+                    if Posts.unlike(user, post):
+                        Log.info(f"User {post.ID} unliked by {user.ID}")
+                        return True
+                    
+                    raise GeneralError(
+                        data="Error al dejar de likear al post", 
+                        log=f"{post.ID} to {user.ID}"
+                    )
+            
+            raise NotFound("post")
         
+        except Exception as e:
+            raise GeneralError(
+                data="Error al likear o no", 
+                error=e, 
+                log=f"{post.ID} likent by {user.ID}"
+            ) from e
+
+            
     #Posts
 
     @staticmethod

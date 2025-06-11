@@ -32,6 +32,7 @@ class Comment:
                 self.content: str = str(data["content"])
                 self.rating: float = float(data["rating"])
                 self.creator: User_lite = User_lite(data["creator"])
+                self.likes: List[ObjectId] = data.get("saved", [])
                 self.createdAt: str = str(data.get("createdAt", creation_date()))
         
         except Exception as e:
@@ -130,6 +131,7 @@ class Post:
                 self.imageUrl: str = str(data["imageUrl"])
                 self.creator: User_lite = User_lite(data["creator"])
                 self.comments: List[Dict[str, Any]] = data.get("comments", [])
+                self.likes: List[ObjectId] = data.get("likes", [])
                 self.createdAt: str = str(data.get("createdAt", creation_date()))
         
         except Exception as e:
@@ -193,6 +195,8 @@ class Post:
             returned_post["creator"] = self.creator.username
             returned_post["editable"] = request_user == self.creator
             returned_post["comments"] = [Comment(comment).filter(request_user) for comment in returned_post["comments"]]
+            returned_post["likes"] = len(self.likes)
+            returned_post["isLiking"] = True if request_user.ID in self.likes else False
             return returned_post
 
         except Exception as e:
@@ -498,3 +502,45 @@ class Posts:
         
         except Exception as e:
             raise RuntimeError(f"Error deleting the comment: {e}") from e
+        
+    @classmethod
+    def like(self, user: User_lite, post: Post) -> bool:
+        """
+        Make a follow.
+
+        Args:
+            user (User_lite): User that wants to like.
+            post (Post): Post that will be liked.
+
+        Raises:
+            RuntimeError: Error liking.
+
+        Returns:
+            bool: True if the operation was successfull.
+        """
+        try:
+            return db.like(user.ID, post.ID)
+        
+        except Exception as e:
+            raise RuntimeError(f"Error liking: {e}") from e
+        
+    @classmethod
+    def unlike(self, user: User_lite, post: Post) -> bool:
+        """
+        Make a follow.
+
+        Args:
+            user (User_lite): User that wants to unlike.
+            post (Post): that wants to unlike.
+
+        Raises:
+            RuntimeError: Error unliking.
+
+        Returns:
+            bool: True if the operation was successfull.
+        """
+        try:
+            return db.unlike(user.ID, post.ID) 
+        
+        except Exception as e:
+            raise RuntimeError(f"Error unliking: {e}") from e

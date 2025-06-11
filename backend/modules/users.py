@@ -113,6 +113,7 @@ class User(User_lite):
                 - posts (List[ObjectId], optional): User'posts.
                 - followers (List[ObjectId], optional): User's followers.
                 - following (List[ObjectId], optional): User's following.
+                - likes (List[ObjectId], optional): User's likes.
                 - createdAt (str, optional): Creation date, if isn't given create a new one.
         
         Raises:
@@ -132,6 +133,7 @@ class User(User_lite):
                 self.posts: List[ObjectId] = data.get("posts", [])
                 self.followers: List[ObjectId] = data.get("followers", [])
                 self.following: List[ObjectId] = data.get("following", [])
+                self.likes: List[ObjectId] = data.get("likes", [])
                 self.createdAt: str = str(data.get("createdAt", creation_date()))
         
         except Exception as e:
@@ -156,6 +158,7 @@ class User(User_lite):
                 "posts": self.posts,
                 "followers": self.followers,
                 "following": self.following,
+                "likes": self.likes,
                 "createdAt": self.createdAt
             }
         
@@ -189,6 +192,7 @@ class User(User_lite):
                 "username": self.username,
                 "posts": Posts.get_user_posts(self.posts),
                 "followers": len(self.followers),
+                "likes": Posts.get_user_posts(self.likes)
             }
             
             following: bool | None = None if request_user == self else request_user.ID in self.followers

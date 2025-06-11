@@ -373,6 +373,24 @@ def delete_post(post_id: str) -> Tuple[Response, Any]:
     except Exception as e:
         return excepty(e)
 
+@api.route("/api/post/<string:post_id>/likent", methods=["PUT"])
+@verify_token
+def like_post(post_id: str) -> Tuple[Response, Any]:
+    """
+    Like a post.
+
+    Args:
+        post_id (str): Post's ID.
+
+    Returns:
+        Tuple[Response, Any]: Like data.
+    """    
+    try:
+        result: bool = App.likent(post_id, request.user)  # type: ignore
+        return returny(result)
+    
+    except Exception as e:
+        return excepty(e)
 #Comments
 
 @api.route("/api/post/<string:post_id>/comment", methods=["PUT"])

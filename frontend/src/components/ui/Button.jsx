@@ -1,5 +1,8 @@
 import clsx from 'clsx';
 
+import { useNav } from '@/hooks/useNav'
+import { handleCopy } from '@/utils/handleCopy';
+
 const baseStyle = 'rounded-[5px] font-base cursor-pointer my-1 transition duration-300 transform';
 
 const variants = {
@@ -14,6 +17,19 @@ const variants = {
   },
 };
 
+const ShareButton = () => {
+  const { currentUrl } = useNav();
+
+  const handleShare = () => {
+    handleCopy(currentUrl)
+      .then(alert('¡Copiado al portapapeles!'));
+  }
+
+  return (
+    <Button variant='small' onClick={handleShare}>{'Compartir'}</Button>
+  )
+};
+
 const Button = ({
   children,
   className,
@@ -22,6 +38,10 @@ const Button = ({
   ...props
 
 }) => {
+  if (variant === 'share') {
+    return <ShareButton />
+  }
+
   const variantConfig = variants[variant] || variants.principal;
 
   const variantStyle = variantConfig['style'];

@@ -23,7 +23,6 @@ const App = () => {
   );
 };
 
-{'agregar likes, guardar y compartir perfil/comentario/post'}
 {'codigo de strings'}
 {'agregar español e ingles'}
 {'session context (idioma, preferencias, tema, etc)'}

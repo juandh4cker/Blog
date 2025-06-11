@@ -5,7 +5,7 @@ from pymongo import MongoClient
 from pymongo.collection import Collection
 from pymongo.database import Database
 from pymongo.results import InsertOneResult, UpdateResult, DeleteResult
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 load_dotenv()
 
@@ -302,6 +302,60 @@ class DB:
 
         except Exception as e:
             raise RuntimeError(f"Error unfollowing: {e}") from e
+
+    #Likes
+    
+    @classmethod
+    def like(cls, user_id: ObjectId, post_id: ObjectId):
+        """
+        Add a Like.
+
+        Args:
+            user_id (ObjectId): User who want to like something.
+            post_id (ObjectId): Post ID to be liked.
+
+        Raises:
+            RuntimeError: If the operation was bad.
+
+        Returns:
+            bool: True if the operation was successful.
+        """            
+        try:
+            result_1: UpdateResult = cls.__users_collection.update_one({"_id": user_id}, {"$addToSet": {"likes": post_id}})
+            result_2: UpdateResult = cls.__posts_collection.update_one({"_id": post_id}, {"$addToSet": {"likes": user_id}})
+
+            if result_1.modified_count > 0 and result_2.modified_count > 0:
+                return True
+            raise Exception("Unknown error")
+    
+        except Exception as e:
+            raise RuntimeError(f"Error liking: {e}") from e
+    
+    @classmethod      
+    def unlike(cls, user_id: ObjectId, post_id: ObjectId):
+        """
+        Delete a like.
+
+        Args:
+            user_id (ObjectId): User to who want to delete a like.
+            post_id (ObjectId): Post ID to be unliked.
+
+        Raises:
+            RuntimeError: If the operation was bad.
+
+        Returns:
+            bool: True if the operation was successful.
+        """    
+        try:
+            result_1: UpdateResult = cls.__users_collection.update_one({"_id": user_id}, {"$pull": {"likes": post_id}})
+            result_2: UpdateResult = cls.__posts_collection.update_one({"_id": post_id}, {"$pull": {"likes": user_id}})
+
+            if result_1.modified_count > 0 and result_2.modified_count > 0:
+                return True
+            raise Exception("Unknown error")
+    
+        except Exception as e:
+            raise RuntimeError(f"Error unliking: {e}") from e
 
     #Posts
 

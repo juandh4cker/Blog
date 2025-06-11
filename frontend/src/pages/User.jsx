@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -10,6 +10,7 @@ import PostsList from '@/components/PostsList';
 const User = () => {
   const { setTitle, setDescription } = useTitle(null, 'Aquí se ve un perfil');
 
+  const [ inPosts, setInPosts ] = useState(true);
   const { fetchUser, followOrUnfollowUser } = useApi();
   const { navBack } = useNav();
   const { username } = useParams();
@@ -42,6 +43,9 @@ const User = () => {
     mutationFn: () => followOrUnfollowUser(username),
     onSuccess: () => {
       queryClient.invalidateQueries(['user', username]);
+    },
+    onError: (error) => {
+      console.error(error)
     }
   });
 
@@ -73,11 +77,13 @@ const User = () => {
 
         <ButtonsContainer>
           {isSelf && (
-            <Button variant='small' onClick={handleFollow}disabled={followMutation.isPending} >
-              {followMutation.isPending ? 'Procesando...' : isFollowing ? 'Siguiendo' : 'Seguir'}
+            <Button variant='small' onClick={handleFollow} disabled={followMutation.isPending} >
+              {followMutation.isPending ? '...' : isFollowing ? 'Siguiendo' : 'Seguir'}
             </Button>
           )}
 
+          <Button variant='share' />
+          <Button variant='small' onClick={() => setInPosts(!inPosts)}>{`Ver ${inPosts? 'likes' : 'posts'}`}</Button>
           <Button variant='small' onClick={navBack}>{'Regresar'}</Button>
         </ButtonsContainer>
 
@@ -86,8 +92,11 @@ const User = () => {
         )}
       </div>
 
-      <Text variant='title' className='mt-6'>{'Posts del usuario'}</Text>
-      <PostsList posts={user.posts} />
+      <Text variant='title' className='mt-6'>{`${inPosts? 'Posts' : 'Likes'} del usuario`}</Text>
+      {inPosts
+        ? <PostsList posts={user.posts} />
+        : <PostsList posts={user.likes} />
+      }
     </Container>
   );
 };

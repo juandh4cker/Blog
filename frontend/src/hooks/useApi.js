@@ -26,6 +26,7 @@ export const useApi = () => {
     addPost: callWithAuth(api.addPost),
     editPost: callWithAuth(api.editPost),
     deletePost: callWithAuth(api.deletePost),
+    likePost: callWithAuth(api.likePost),
 
     addComment: callWithAuth(api.addComment),
     deleteComment: callWithAuth(api.deleteComment),

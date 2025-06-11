@@ -13,7 +13,7 @@ import CommentsList from '@/components/CommentsList';
 const Post = () => {
   const { setTitle, setDescription } = useTitle(null, 'Aquí se ve un post');
 
-  const { fetchPost, deletePost, addComment } = useApi();
+  const { fetchPost, deletePost, addComment, likePost } = useApi();
   const { navBack, navBlog, navUser, navPost } = useNav();
   const { ID } = useParams();
   const queryClient = useQueryClient();
@@ -61,11 +61,24 @@ const Post = () => {
     }
   });
 
+  const likeMutation = useMutation({
+    mutationFn: () => likePost(ID),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['post', ID]);
+    },
+    onError: (error) => {
+      console.error(error)
+    }
+  });
+
   const handleDeletePost = () => {
     if (window.confirm('¿Estás seguro de que quieres eliminar este post?')) {
       deleteMutation.mutate();
     }
   };
+
+  const isLiking = post?.isLiking || false;
+  const likes = post?.likes || 0;
 
   if (isLoading) return <Message loading />;
   if (isError) return <ErrorPage error={error.message || error} message={'cargar el post'}/>
@@ -76,6 +89,10 @@ const Post = () => {
       post.name + ', ' + post.location
     )}`;
     window.open(url, '_blank');
+  };
+
+  const handleLike = () => {
+    likeMutation.mutate();
   };
 
   return (
@@ -89,9 +106,16 @@ const Post = () => {
       <Text className='base-text' onClick={() => navUser(post.creator)}>
         <b>{'Agregado por: '}</b> <Text variant='hipertext'>{post.creator}</Text>
       </Text>
+      <Text variant='subtitle' className='!my-0'>
+        <b>{'Likes: '}</b>{likes}
+      </Text>
       <Text variant='subtitle'>{`Subido hace: ${timeSince(post.createdAt)}`}</Text>
 
       <ButtonsContainer>
+        <Button variant='small' onClick={handleLike} disabled={likeMutation.isPending} >
+          {likeMutation.isPending ? '...' : isLiking ? 'Dislike' : 'Like'}
+        </Button>
+        <Button variant='share' />
         <Button variant='small' onClick={handleGoogleMaps}>{'Ver en Google Maps'}</Button>
         <Button variant='small' onClick={navBack}>{'Regresar'}</Button>
       </ButtonsContainer>

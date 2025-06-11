@@ -7,6 +7,9 @@ export const useNav = () => {
   const pathname = location.pathname;
   const from = location.state?.from;
 
+  const currentUrl = window.location.origin + location.pathname + location.search + location.hash;
+
+
   const navFrom = (alternative) => {
     if (from) {
       navigate(from);
@@ -27,6 +30,7 @@ export const useNav = () => {
   return {
     pathname,
     from,
+    currentUrl,
     nav: (route) => navigate(route),
 
     navBack: () => navigate(-1),
