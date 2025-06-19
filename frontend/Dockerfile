@@ -7,10 +7,11 @@ WORKDIR /app
 
 COPY package.json package-lock.json ./
 
-RUN npm ci && npm install -g nodemon
+RUN npm ci  # Elimina la instalación global de nodemon
 
 COPY . .
 
 EXPOSE 5173
 
-CMD ["nodemon", "--watch", ".", "--ext", "js,jsx,ts,tsx,css,json", "--exec", "npm run dev -- --host"]
+# Ejecuta Vite directamente
+CMD ["npm", "run", "dev", "--", "--host"]

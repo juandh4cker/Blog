@@ -34,7 +34,7 @@ export const GuestMenu = () => {
 
 export const UserMenu = ({ username }) => {
   const menuRef = useRef(null);
-  const { navBlog, navUser, navDashboard } = useNav();
+  const { navBlog, navUser, navDashboard, navConfig } = useNav();
 
   const { logout } = useAuth();
 
@@ -71,6 +71,7 @@ export const UserMenu = ({ username }) => {
           <MenuItem onClick={() => handleNav(navBlog)}>{'Blog'}</MenuItem>
           <MenuItem onClick={() => handleNav(() => navUser(username))}>{'Perfil'}</MenuItem>
           <MenuItem onClick={() => handleNav(navDashboard)}>{'Dashboard'}</MenuItem>
+          <MenuItem onClick={() => handleNav(navConfig)}>{'Configuracion'}</MenuItem>
           <MenuItem onClick={() => handleNav(logout)}>{'Cerrar sesión'}</MenuItem>
         </div>
       )}

@@ -43,6 +43,7 @@ export const useNav = () => {
     navDashboard: () => navigate('/dashboard'),
     navUser: (user) => navigate(`/user/${user}`),
     navPost: (postID, edit=false) => navigate(`/post/${postID}${edit ? '/edit' : ''}`),
+    navConfig: () => navigate('/config'),
 
     navFrom,
 

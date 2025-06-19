@@ -23,12 +23,29 @@ const App = () => {
   );
 };
 
+{'Frontend'}
+{'useStyle o algo asi'}
+{'animaciones, estilos, modo oscuro, todo eso de css'}
+
 {'codigo de strings'}
 {'agregar español e ingles'}
-{'session context (idioma, preferencias, tema, etc)'}
+
+{'Backend'}
+{'Redis en cache'}
 {'pasar users a sql?'}
+
+{'Ambos'}
+{'Roles de usurario (admin, moderador, normal, baneado, suspendido)'}
+
+{'Poner varias fotos o videos en el post y guardarlas localmente'}
+{'Ocultar comentarios en posts, configuacion de posts'}
+
+{'Configuracion funcional'}
+{'session context (idioma, preferencias, tema, etc)'}
+
 {'codigo de errores, useError'}
-{'animaciones, estilos, modo oscuro, todo eso de css'}
+
 {'Configurar formatter con prettier'}
+{'Configuracion de empaquetado docker, base de datos con datos previos'}
 
 export default App;
