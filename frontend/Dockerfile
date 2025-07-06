@@ -13,5 +13,4 @@ COPY . .
 
 EXPOSE 5173
 
-# Ejecuta Vite directamente
-CMD ["npm", "run", "dev", "--", "--host"]
+CMD ["npm", "run", "build", "--", "--host"]
