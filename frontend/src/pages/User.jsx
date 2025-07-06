@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { useApi, useNav, useTitle } from '@/hooks';
-import { Button, ButtonsContainer, Container, Text, Message } from '@/components/ui';
+import { Button, Container, Text, Message } from '@/components/ui';
 import ErrorPage from './ErrorPage';
 import PostsList from '@/components/PostsList';
 
@@ -65,7 +65,7 @@ const User = () => {
     <Container className='max-w-3xl'>
       <div className='flex flex-col items-center
         bg-[rgba(255,255,255,0.75)] shadow-[0_4px_20px_rgba(0,0,0,0.1)]
-        border w-full gap-4 mb-5 p-3 rounded-[5px] border-solid border-[#ccc]'
+        border w-full gap-4 mb-5 p-3 rounded-md border-solid border-gray-300'
       >
         <Text variant='title'>{user.username}</Text>
         <Text variant='subtitle' className='!my-0'>
@@ -75,7 +75,7 @@ const User = () => {
           <b>{'Posts publicados: '}</b>{postsLength}
         </Text>
 
-        <ButtonsContainer>
+        <Container variant='button'>
           {isSelf && (
             <Button variant='small' onClick={handleFollow} disabled={followMutation.isPending} >
               {followMutation.isPending ? '...' : isFollowing ? 'Siguiendo' : 'Seguir'}
@@ -85,7 +85,7 @@ const User = () => {
           <Button variant='share' />
           <Button variant='small' onClick={() => setInPosts(!inPosts)}>{`Ver ${inPosts? 'likes' : 'posts'}`}</Button>
           <Button variant='small' onClick={navBack}>{'Regresar'}</Button>
-        </ButtonsContainer>
+        </Container>
 
         {followMutation.isError && (
           <Message error={`Error al seguir: ${followMutation.error.message}`} className='mt-2' />

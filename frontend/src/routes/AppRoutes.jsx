@@ -7,7 +7,7 @@ import Dashboard from '@/pages/Dashboard';
 import Post from '@/pages/Post'
 import User from '@/pages/User';
 import EditPost from '@/pages/EditPost';
-import ConfigPage from '../pages/ConfigPage';
+import ConfigPage from '@/pages/ConfigPage';
 import ErrorPage from '@/pages/ErrorPage';
 
 const AppRoutes = () => {

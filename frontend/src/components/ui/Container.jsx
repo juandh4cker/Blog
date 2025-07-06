@@ -1,19 +1,21 @@
 import clsx from 'clsx';
 
-const baseStyle = `
-  relative z-[1] mx-auto flex flex-col
-  items-center p-8 rounded-[10px]
-  bg-white/75 shadow-[0_4px_20px_rgba(0,0,0,0.1)]
-`.trim();
+const variants = {
+  default: 
+    'relative z-10 mx-auto flex flex-col items-center p-8 rounded-2xl bg-white/60 backdrop-blur-xs shadow-xl ring-4 ring-blue-100/30',
+  button: 
+    'flex justify-between gap-4 items-center',
+}
 
 const Container = ({
   children,
+  variant,
   className,
   ...props
 
 }) => {
   return (
-    <div className={clsx(baseStyle, className)} {...props} >
+    <div className={clsx(variants[variant] || variants['default'], className)} {...props} >
       {children}
     </div>
   );

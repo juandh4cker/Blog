@@ -6,7 +6,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useApi, useNav, useTitle } from '@/hooks';
 import { commentSchema } from '@/schema';
 import { timeSince } from '@/utils/timeSince';
-import { Button, ButtonsContainer, Container, Form, FormField, Message, Text } from '@/components/ui';
+import { Button, Container, Form, FormField, Message, Text } from '@/components/ui';
 import ErrorPage from './ErrorPage';
 import CommentsList from '@/components/CommentsList';
 
@@ -97,7 +97,7 @@ const Post = () => {
 
   return (
     <Container className='max-w-xl'>
-      <img src={post.imageUrl} alt={post.name} className='w-full h-auto mb-6 rounded-[10px] object-cover max-h-[400px]' />
+      <img src={post.imageUrl} alt={post.name} className='w-full h-auto mb-6 rounded-xl object-cover max-h-96' />
 
       <Text variant='title'>{post.name}</Text>
       <Text><b>{'Calificación: '}</b>{post.rating}/10</Text>
@@ -111,22 +111,22 @@ const Post = () => {
       </Text>
       <Text variant='subtitle'>{`Subido hace: ${timeSince(post.createdAt)}`}</Text>
 
-      <ButtonsContainer>
+      <Container variant='button'>
         <Button variant='small' onClick={handleLike} disabled={likeMutation.isPending} >
           {likeMutation.isPending ? '...' : isLiking ? 'Dislike' : 'Like'}
         </Button>
         <Button variant='share' />
         <Button variant='small' onClick={handleGoogleMaps}>{'Ver en Google Maps'}</Button>
         <Button variant='small' onClick={navBack}>{'Regresar'}</Button>
-      </ButtonsContainer>
+      </Container>
 
       {post.editable && (
-        <ButtonsContainer>
+        <Container variant='button'>
           <Button variant='small' onClick={() => navPost(ID, true)}>{'Editar Post'}</Button>
           <Button variant='small' onClick={handleDeletePost}disabled={deleteMutation.isPending}>
             {deleteMutation.isPending ? 'Eliminando...' : 'Eliminar Post'}
           </Button>
-        </ButtonsContainer>
+        </Container>
       )}
 
       <div className='w-4/5 flex items-center justify-center flex-col mt-8'>
@@ -134,7 +134,7 @@ const Post = () => {
         <CommentsList comments={post.comments} postID={ID} queryClient={queryClient} />
 
         <Form
-          defaultValues={{ content: '', rating: '' }} ref={formRef} className='w-[90%] mt-4'
+          defaultValues={{ content: '', rating: '' }} ref={formRef} className='w-11/12 mt-4'
           schema={commentSchema} onSubmit={commentMutation.mutate} isSubmitting={commentMutation.isPending}
         >
           <FormField name='content' variant='textarea' placeholder='Escribe tu comentario aquí' />

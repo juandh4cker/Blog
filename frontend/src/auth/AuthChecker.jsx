@@ -9,7 +9,7 @@ const AuthChecker = ({ children }) => {
   const { pathname } = useNav();
   const { auth, setAuth, logout } = useAuth();
 
-  const publicRoutes = ['/welcome'];
+  const publicRoutes = ['/welcome', '/xd']; //OJO
   const isPublicRoute = publicRoutes.some(route =>
     pathname.toLowerCase().startsWith(route)
   );

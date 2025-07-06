@@ -1,23 +1,22 @@
 import clsx from 'clsx';
 
-import { useNav } from '@/hooks'
+import { useConfig, useNav } from '@/hooks'
 import { handleCopy } from '@/utils/handleCopy';
 
 const baseStyle = 'rounded-md font-base cursor-pointer my-1 transition duration-300 transform';
 
-const variants = {
-  principal: {
-    style: 'bg-blue-500 text-white border border-blue-700 py-3 px-4 text-base hover:bg-blue-600 hover:scale-105',
-  },
-  secondary: {
-    style: 'bg-gray-100 text-black border border-gray-300 py-3 px-4 text-base hover:bg-gray-200 hover:scale-105',
-  },
-  small: {
-    style: 'bg-blue-500 text-white border border-blue-700 py-2 px-3 text-sm hover:bg-blue-600 hover:scale-105',
-  },
-  alert: {
-    style: 'bg-red-500 text-white border border-red-700 py-2 px-3 text-sm hover:bg-red-600 hover:scale-105',
-  },
+const variants = (th) => {
+  return {
+    principal: {
+      style: `bg-${th.oneNormal} text-${th.normalColor} border-${th.oneDark} py-3 px-4 text-base hover:bg-${th.oneShade} hover:scale-105`,
+    },
+    secondary: {
+      style: `bg-${th.secNormal} text-${th.secondColor} border border-${th.secDark} py-3 px-4 text-base hover:bg-${th.secShade} hover:scale-105`,
+    },
+    small: {
+      style: `bg-${th.oneNormal} text-${th.normalColor} border-${th.oneDark} py-2 px-3 text-sm hover:bg-${th.oneShade} hover:scale-105`,
+    }
+  };
 };
 
 const ShareButton = () => {
@@ -45,9 +44,13 @@ const Button = ({
     return <ShareButton />
   }
 
-  const variantConfig = variants[variant] || variants.principal;
+  const { theme } = useConfig();
+
+  const themeVariant = variants(theme);
+  const variantConfig = themeVariant[variant] || themeVariant.principal;
 
   const variantStyle = variantConfig['style'];
+  console.log(variantStyle )
 
   return (
     <button type={type} className={clsx(baseStyle, variantStyle, className)} {...props}>

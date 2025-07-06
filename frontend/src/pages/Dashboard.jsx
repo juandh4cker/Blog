@@ -33,7 +33,7 @@ const Dashboard = () => {
         <FormField name='rating' variant='rating'/>
 
         <Button type='submit' disabled={mutation.isPending}>
-          {mutation.isPending ? 'Agregar post' : 'Agregando post...'}
+          {mutation.isPending ? 'Agregando post...' : 'Agregar post'}
         </Button>
         <Button variant='secondary' onClick={navBack} disabled={mutation.isPending}>
           {'Cancelar'}

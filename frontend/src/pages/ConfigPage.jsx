@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Button, Container, Text, Toggle } from '@/components/ui'
+import { useConfig } from '@/hooks/useConfig';
+import { Button, Container, Select, Text, Toggle } from '@/components/ui'
 
 // Items
 const PageItem = ({ title, description, children }) => {
@@ -19,15 +20,21 @@ const PageItem = ({ title, description, children }) => {
 //Pages
 
 const General = () => {
-  const [ darkMode, setDarkMode ] = useState(true)
+  const { language, setLanguage, theme, setTheme } = useConfig();
+
+  const languageOptions = {
+  es: 'Español',
+  en: 'English',
+  fr: 'Français',
+};
 
   return (
     <>
-      <PageItem title='Idioma' description='Selecciona el idioma de la aplicación'>
-        Panel de seleccion
+      <PageItem title='Modo oscuro' description={`${theme === 'dark' ? 'Desactivar' : 'Activar'} el modo oscuro`}>
+        <Toggle enabled={theme === 'dark'} onChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')} />
       </PageItem>
-      <PageItem title='Modo oscuro' description={`${darkMode ? 'Desactivar' : 'Activar'} el modo oscuro`}>
-        <Toggle enabled={darkMode} onChange={() => setDarkMode(!darkMode)} />
+      <PageItem title='Idioma' description='Selecciona el idioma de la aplicación'>
+        <Select value={language} set={setLanguage} options={languageOptions} />
       </PageItem>
     </>
   )
@@ -48,7 +55,7 @@ const Cuenta = () => {
         <Button variant='small' onClick={() => alert("No implementado")}>Cambiar</Button>
       </PageItem>
       <PageItem title='Eliminar perfil' description='Elimina tu perfil'>
-        <Button variant='small' onClick={() => alert("No implementado")}>Eliminar</Button>
+        <Button variant='alert' onClick={() => alert("No implementado")}>Eliminar</Button>
       </PageItem>
     </>
   )
@@ -65,6 +72,8 @@ const ConfigPage = () => {
   
   return (
     <Container className='max-w-3xl'>
+      <Text variant='title'>{'Configuración'}</Text>
+
       <div className='flex flex-row justify-start w-full'>
         <nav className="space-y-1 m-2 w-1/4">
           {pages.map((p) => (
@@ -84,7 +93,7 @@ const ConfigPage = () => {
         </nav>
         <div className="w-full md:w-3/4">
           <div className="bg-[rgba(255,255,255,0.75)] shadow-[0_4px_20px_rgba(0,0,0,0.1)]
-                        border w-full gap-4 mb-5 rounded-[5px] border-solid
+                        border w-full gap-4 mb-5 rounded-md border-solid
                         border-gray-200 p-6">
             <h2 className="text-xl font-semibold text-gray-800 flex items-center pb-4 border-b border-gray-200">
               <span className="mr-2">{pages.find(p => p.id === page)?.icon}</span>

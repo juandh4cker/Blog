@@ -4,19 +4,19 @@ const baseStyle = 'text-center';
 
 const variants = {
   title: {
-    style: 'text-[2rem] text-[#2C3E50] my-2 font-bold bg-white/75 shadow-[0_4px_20px_rgba(0,0,0,0.1)] border border-[#ccc] p-3 rounded-[5px] w-fit',
+    style: 'text-4xl my-2 font-bold bg-white/75 shadow-[0_4px_20px_rgba(0,0,0,0.1)] border border-gray-300 p-5 rounded-md w-fit',
     tag: 'h1'
   },
   subtitle: {
-    style: 'text-base text-[#7F8C8D] my-2',
+    style: 'text-base text-gray-600 my-2',
     tag: 'h2'
   },
   text: {
-    style: 'text-[1.1rem] text-black my-2',
+    style: 'text-lg text-black my-2',
     tag: 'p'
   },
   hipertext: {
-    style: 'text-[1.1rem] text-[#2980B9] my-2 cursor-pointer',
+    style: 'text-lg text-blue-400 my-2 cursor-pointer',
     tag: 'span'
   },
 };

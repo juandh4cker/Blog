@@ -6,12 +6,7 @@ import clsx from 'clsx';
 
 import Message from './Message';
 
-const baseStyle = `
-  bg-white my-2 py-3 px-4 text-base
-  rounded-[5px] border border-[#ccc]
-  transition-transform transform hover:scale-[1.02]
-  focus:border-[#3498db] focus:outline-none
-`.trim();
+const baseStyle = 'bg-white my-2 py-3 px-4 text-base rounded-md border border-gray-200 transition-transform transform hover:scale-105 focus:border-blue-500 focus:outline-none'
 
 const variants = {
   base: {

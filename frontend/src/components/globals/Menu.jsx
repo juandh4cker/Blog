@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNav, useAuth } from '@/hooks';
 
-const menuStyle = 'fixed top-5 right-5 z-[1000]'
+const menuStyle = 'fixed top-5 right-5 z-50'
 const menuButtonStyle = `
-  px-5 py-2 bg-blue-500 text-white rounded-[10px]
-  text-base transition-transform duration-200 hover:scale-[1.02]
+  px-5 py-2 bg-blue-500 text-white rounded-xl
+  text-base transition-transform duration-200 hover:scale-105
 `.trim();
 
 const MenuItem = ({ children, onClick }) => (
@@ -12,7 +12,7 @@ const MenuItem = ({ children, onClick }) => (
     onClick={onClick}
     className='block w-full px-5 py-2 text-left text-sm
       border-b border-gray-200 transition-transform
-      hover:bg-gray-100 hover:scale-[1.02]'
+      hover:bg-gray-100 hover:scale-105'
   >
     {children}
   </button>
@@ -67,7 +67,7 @@ export const UserMenu = ({ username }) => {
         {'☰ Menú'}
       </button>
       {menuOpen && (
-        <div className='absolute top-full right-0 bg-white/90 shadow-md rounded w-[140px] mt-2 overflow-hidden animate-fade-in'>
+        <div className='absolute top-full right-0 bg-white/90 shadow-md rounded w-36 mt-2 overflow-hidden animate-fade-in'>
           <MenuItem onClick={() => handleNav(navBlog)}>{'Blog'}</MenuItem>
           <MenuItem onClick={() => handleNav(() => navUser(username))}>{'Perfil'}</MenuItem>
           <MenuItem onClick={() => handleNav(navDashboard)}>{'Dashboard'}</MenuItem>

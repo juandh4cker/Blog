@@ -1,6 +1,6 @@
 import { useNav } from '@/hooks';
 
-import { Button, ButtonsContainer, Container, Message, Text } from '@/components/ui';
+import { Button, Container, Message, Text } from '@/components/ui';
 
 const ErrorPage = ({ error, message }) => {
   const { navBack, navBlog } = useNav();
@@ -19,10 +19,10 @@ const ErrorPage = ({ error, message }) => {
       <Container>
         <Text variant='title'>{title}</Text>
         <Text variant='subtitle'>{subtitle}</Text>
-        <ButtonsContainer>
+        <Container variant='button'>
           <Button onClick={navBlog}>{'Ir al Blog'}</Button>
           <Button variant='secondary' onClick={navBack}>{'Volver'}</Button>
-        </ButtonsContainer>
+        </Container>
       </Container>
     );
   }

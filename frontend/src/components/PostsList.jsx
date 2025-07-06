@@ -27,11 +27,11 @@ const PostCard = ({ post }) => {
       onClick={() => navPost(post.ID)}
       className='
         mt-2 flex flex-col items-center
-        flex-grow flex-shrink basis-1/4 max-w-1/4 min-w-[200px]
+        flex-grow flex-shrink basis-1/4 max-w-1/4 min-w-48
         p-2.5 border border-gray-300 rounded-lg shadow-md
         bg-white text-current no-underline overflow-hidden
         transition-transform duration-200
-        hover:-translate-y-1.5 hover:bg-gray-100'
+        hover:-translate-y-1.5 hover:bg-gray-200'
     >
       {!imageLoaded && (
         <div className='w-full h-48 bg-gray-200 flex items-center justify-center text-gray-400 text-sm'>

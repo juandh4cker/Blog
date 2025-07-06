@@ -36,6 +36,7 @@ const App = () => {
 
 {'Ambos'}
 {'Roles de usurario (admin, moderador, normal, baneado, suspendido)'}
+{'Buscar post'}
 
 {'Poner varias fotos o videos en el post y guardarlas localmente'}
 {'Ocultar comentarios en posts, configuacion de posts'}

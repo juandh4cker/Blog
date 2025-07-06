@@ -5,7 +5,7 @@ const Toggle = ({ enabled, onChange }) => {
     <button
       onClick={onChange}
       className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${
-        enabled ? 'bg-[#3498DB]' : 'bg-[#f0f0f0]'
+        enabled ? 'bg-blue-500' : 'bg-gray-100'
       }`}
     >
       <span

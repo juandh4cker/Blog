@@ -64,8 +64,8 @@ const Comment = ({ postID, comment, expanded, toggleExpand, queryClient }) => {
     <div
       onClick={toggleExpand}
       className='
-        w-[90%] p-4 mb-4 rounded-lg cursor-pointer
-        bg-white border border-solid border-[#ddd]
+        w-11/12 p-4 mb-4 rounded-lg cursor-pointer
+        bg-white border border-solid border-gray-300
         shadow-[0_2px_6px_rgba(0,0,0,0.05)]
         transition-transform duration-200 ease-in-out
         hover:bg-gray-200 hover:scale-105'
