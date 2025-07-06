@@ -25,6 +25,7 @@ const App = () => {
 
 {'Frontend'}
 {'useStyle o algo asi'}
+{"hero UI"}
 {'animaciones, estilos, modo oscuro, todo eso de css'}
 
 {'codigo de strings'}
