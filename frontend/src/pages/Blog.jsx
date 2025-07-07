@@ -5,6 +5,8 @@ import { Container, Text, Message } from '@/components/ui';
 
 import PostsList from '@/components/PostsList';
 
+import {Button} from "@heroui/react";
+
 const Blog = () => {
   const { fetchPosts } = useApi();
 
@@ -23,6 +25,7 @@ const Blog = () => {
     <Container className='max-w-3xl'>
       <Text variant='title'>{'Blog'}</Text>
       <Text variant='subtitle'>{'Ver todos los posts agregados'}</Text>
+      <Button color="primary" onClick={() => console.log('XD')}>XD</Button>;
 
       {(isLoading || isError)
         ? <Message loading={isLoading} error={error} />
