@@ -25,7 +25,6 @@ const Blog = () => {
     <Container className='max-w-3xl'>
       <Text variant='title'>{'Blog'}</Text>
       <Text variant='subtitle'>{'Ver todos los posts agregados'}</Text>
-      <Button color="primary" onClick={() => console.log('XD')}>XD</Button>;
 
       {(isLoading || isError)
         ? <Message loading={isLoading} error={error} />

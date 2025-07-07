@@ -2,9 +2,11 @@ import { AuthProvider } from './AuthContext';
 import { ConfigProvider } from './ConfigContext';
 import { QueryProvider } from './QueryContext';
 import { TitleProvider } from './TitleContext';
+import { HeroUIProvider } from './UIContext';
 
 const AppContext = ({ children }) => {
   const providers = [
+    [HeroUIProvider, {}],
     [QueryProvider, {}],
     [ConfigProvider, {}],
     [AuthProvider, {}],
