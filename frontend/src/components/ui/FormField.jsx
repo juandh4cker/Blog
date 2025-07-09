@@ -1,140 +1,136 @@
-import { useState, forwardRef } from 'react';
+import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import {Input as HeroInput, Textarea as HeroTextarea} from "@heroui/react";
 
-import clsx from 'clsx';
-
-import Message from './Message';
-
-const baseStyle = 'bg-white my-2 py-3 px-4 text-base rounded-md border border-gray-200 transition-transform transform hover:scale-105 focus:border-blue-500 focus:outline-none'
+const baseProps = {
+  size: 'sm'
+}
 
 const variants = {
-  base: {
-    type: 'text',
-  },
-  textarea: {
-    tag: 'textarea',
-    placeholder: 'Reseña',
-  },
-  password: {
-    placeholder: 'Contraseña'
-  },
-  confirmPassword: {
-    placeholder: 'Confirmar contraseña'
-  },
   rating: {
-    props: {
-      min: '1',
-      max: '10',
-      step: '0.1',
-    },
     type: 'number',
-    placeholder: 'Calificación (0-10)',
+    label: 'Calificación (0-10)',
+    min: '1',
+    max: '10',
+    step: '0.1',
   },
   email: {
-    placeholder: 'Correo electrónico',
-    type: 'email'
+    type: 'email',
+    label: 'Correo electrónico',
   }
-};
+}
 
-const PasswordField = forwardRef(({
+const Textarea = ({
+  label='Reseña',
+  isRequired,
+  isInvalid,
+  errorMessage,
   className,
-  required,
-  placeholder,
   ...props
 
-}, ref) => {
-
-  const [showPassword, setShowPassword] = useState(false)
-
-  return (
-    <div className='relative w-full max-w-full box-border'>
-      <input
-        ref={ref}
-        className={clsx(className, 'pr-10 w-full box-border')}
-        type={showPassword ? 'text' : 'password'}
-        placeholder={placeholder}
-        required={required}
-        {...props}
-      />
-      <button
-        type='button'
-        onClick={() => setShowPassword(prev => !prev)}
-        className='absolute right-2 inset-y-0 my-auto bg-transparent opacity-50 hover:opacity-80 border-none p-0 m-0 flex items-center justify-center'
-      >
-        {showPassword ? <FaEyeSlash /> : <FaEye />}
-      </button>
-    </div>
-  )
-})
-
-const VariantManager = ({
-  className,
-  type,
-  required = true,
-  variant = 'base',
-  placeholder,
-  commonProps
-
 }) => {
-  const variantConfig = variants[variant] || variants.base;
-
-  const VariantPlaceholder = placeholder || variantConfig['placeholder'];
-  const variantProps = variantConfig['props'] || {}
-  const allProps = {...commonProps, ...variantProps}
-
-  if (variant === 'password' || variant === 'confirmPassword') {
-    return (
-      <PasswordField
-      className={className}
-      required={required}
-      placeholder={VariantPlaceholder}
-      {...allProps}
-      />
-    )
-  };
-
-  const VariantTag = variantConfig['tag'] || 'input';
-  const VariantType = type || variantConfig['type'] || 'text';
-
   return (
-    <VariantTag
+    <HeroTextarea 
+      label={label}
+      isRequired={isRequired}
+      isInvalid={isInvalid}
+      errorMessage={errorMessage}
       className={className}
-      type={VariantType}
-      required={required}
-      placeholder={VariantPlaceholder}
-      {...allProps}
+      {...props}
     />
   )
-};
+}
+
+const PasswordInput = ({
+  label,
+  confirm=false,
+  isRequired,
+  isInvalid,
+  errorMessage,
+  className,
+  ...props
+
+}) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  return (
+    <HeroInput
+      label={label ? label : (confirm ? 'Confirmar contraseña':"Contraseña")}
+      type={showPassword ? "text" : "password"}
+      isRequired={isRequired}
+      isInvalid={isInvalid}
+      errorMessage={errorMessage}
+      className={className}
+      endContent={
+        <button
+          aria-label="toggle password visibility"
+          className="text-lg absolute right-2 inset-y-0 my-auto bg-transparent opacity-50 hover:opacity-80 focus:outline-none border-none p-0 m-0 flex items-center justify-center"
+          type="button"
+          onClick={() => setShowPassword(prev => !prev)}
+        >
+          {showPassword ? <FaEyeSlash  /> : <FaEye />}
+        </button>
+      }
+      {...props}
+    />
+  )
+}
 
 const FormField = ({
-  className = '',
-  type = 'text',
-  required = true,
-  variant = 'base',
   name,
-  placeholder,
+  variant = 'base',
+  heroVariant,
+  isRequired = true,
+  isInvalid,
+  errorMessage,
+  className,
   ...props
 
 }) => {
   const { register, formState: { errors } } = useFormContext()
   const commonProps = {...register(name), ...props}
   const error = errors[name]
-  const baseClassName = clsx(baseStyle, className)
+
+  const variantProps = variants[variant] || {};
+  const allProps = {...commonProps, ...baseProps, ...variantProps, ...props}
+
+  if (variant === 'password' || variant === 'confirmPassword') {
+    return (
+      <PasswordInput
+        confirm={variant === 'confirmPassword' ? true : false}
+        variant={heroVariant}
+        isRequired={isRequired}
+        isInvalid={error ? true : false}
+        errorMessage={error?.message}
+        className={className}
+        {...allProps}
+      />
+    )
+  };
+  
+  if (variant === 'textarea') {
+    return (
+      <Textarea
+        variant={heroVariant}
+        isRequired={isRequired}
+        isInvalid={error ? true : false}
+        errorMessage={error?.message}
+        className={className}
+        {...allProps}
+      />
+    )
+  };
 
   return (
-    <>
-      <VariantManager
-        className={baseClassName}
-        type={type}
-        required={required}
-        variant={variant}
-        placeholder={placeholder}
-        commonProps={commonProps}
-      />
-      {error && <Message error={error.message} />}
-    </>
+    <HeroInput
+      variant={heroVariant}
+      isRequired={isRequired}
+      errorMessage={error?.message}
+      isInvalid={error ? true : false}
+      className={className}
+      {...allProps}
+    />
   )
 };
 

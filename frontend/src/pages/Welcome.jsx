@@ -9,8 +9,30 @@ const Welcome = ({ inRegister = false }) => {
   const { apiLogin, apiRegister } = useApi();
   const { setAuth } = useAuth();
   const { from, navBlog, navFrom } = useNav();
-
+  
   const [ inLogin, setInLogin ] = useState(!inRegister);
+
+  const [ usernameOrEmailInput, setUsernameOrEmailInput ] = useState('');
+  const [ emailInput, setEmailInput ] = useState('');
+
+  const changePage = () => {
+    if (inLogin) {
+      if (usernameOrEmailInput && usernameOrEmailInput.includes('@')) {
+        setEmailInput(usernameOrEmailInput);
+        setUsernameOrEmailInput('');
+      }
+
+    } else {
+      if (!usernameOrEmailInput && emailInput) {
+        setUsernameOrEmailInput(emailInput);
+        setEmailInput('');
+      }
+    }
+
+    setTimeout(() => {
+      setInLogin(!inLogin);
+    }, 0);
+  }
 
   const onSuccess = (response) => {
     setAuth({ username: response, isAuthenticated: true });
@@ -27,9 +49,10 @@ const Welcome = ({ inRegister = false }) => {
     onSuccess: (response) => onSuccess(response)
   });
 
-  const error = loginMutation.error || registerMutation.error;
-  const isLoading = loginMutation.isPending || registerMutation.isPending;
-
+  const mutation = inLogin ? loginMutation : registerMutation;
+  const error = mutation.error;
+  const isLoading = mutation.isPending;
+  
   return (
     <Container className='max-w-md'>
       <Text variant='title'>{'Bienvenido a WorldBlog'}</Text>
@@ -40,57 +63,49 @@ const Welcome = ({ inRegister = false }) => {
         }
       </Text>
 
-      {inLogin
-        ? <Login mutation={loginMutation} setInLogin={setInLogin} />
-        : <Register mutation={registerMutation} setInLogin={setInLogin} />
-      }
+      <Form
+        onSubmit={mutation.mutate} isSubmitting={isLoading}
+        schema={inLogin ? null : registerSchema} confirmExit={false}
+      >
+        <FormField
+          name={inLogin ? 'usernameOrEmail' : 'username'} 
+          label={inLogin ? 'Nombre de usuario o email' : 'Nombre de usuario'} 
+          value={usernameOrEmailInput} onValueChange={setUsernameOrEmailInput}
+        />
 
-      <Button variant='secondary' className='w-full' onClick={navBlog} disabled={isLoading} >
-        {'Entrar como invitado'}
-      </Button>
+        {!inLogin && (
+          <FormField 
+            name='email' variant='email'
+            value={emailInput} onValueChange={setEmailInput}
+          />
+        )}
+        
+        <FormField name='password' variant='password' />
+
+        {!inLogin && <FormField name='confirmPassword' variant='confirmPassword' />}
+
+        <Button 
+          type='submit' isLoading={isLoading}
+          variant='submitForm' loadingText={inLogin ? 'Iniciando...' : 'Registrando...'}
+        >
+          {inLogin ? 'Iniciar Sesión': 'Registarme'}
+        </Button>
+        <Button 
+          onClick={() => changePage()} isDisabled={isLoading}
+          variant='secondForm'
+        >
+          {inLogin ? 'No tengo una cuenta' : 'Ya tengo una cuenta'}
+        </Button>
+        <Button
+          onClick={navBlog} isDisabled={isLoading} 
+          variant='secondForm'
+        >
+          {'Entrar como invitado'}
+        </Button>
+      </Form>
 
       {error && <Message error={error} />}
     </Container>
-  );
-};
-
-const Login = ({ mutation, setInLogin }) => {
-  return (
-    <Form
-      defaultValues={{ usernameOrEmail: '', password: '' }} onSubmit={mutation.mutate}
-      isSubmitting={mutation.isPending} confirmExit={false}
-    >
-      <FormField name='usernameOrEmail' placeholder='Nombre de usuario o email' />
-      <FormField name='password' variant='password' placeholder='Contraseña' />
-
-      <Button type='submit' disabled={mutation.isPending}>
-        {mutation.isPending ? 'Iniciando...' : 'Iniciar Sesión'}
-      </Button>
-      <Button variant='secondary' onClick={() => setInLogin(false)} disabled={mutation.isPending} >
-        {'No tengo una cuenta'}
-      </Button>
-    </Form>
-  );
-};
-
-const Register = ({ mutation, setInLogin }) => {
-  return (
-    <Form
-      defaultValues={{ username: '', email: '', password: '', confirmPassword: '' }} schema={registerSchema}
-      onSubmit={mutation.mutate} isSubmitting={mutation.isPending} confirmExit={false}
-    >
-      <FormField name='username' placeholder='Nombre de usuario'/>
-      <FormField name='email' variant='email' placeholder='Correo electrónico'/>
-      <FormField name='password' variant='password' placeholder='Contraseña'/>
-      <FormField name='confirmPassword' variant='confirmPassword' placeholder='Confirmar contraseña'/>
-
-      <Button type='submit' disabled={mutation.isPending}>
-        {mutation.isPending ? 'Registrando...' : 'Registarme'}
-      </Button>
-      <Button variant='secondary' onClick={() => setInLogin(true)} disabled={mutation.isPending} >
-        {'Ya tengo una cuenta'}
-      </Button>
-    </Form>
   );
 };
 

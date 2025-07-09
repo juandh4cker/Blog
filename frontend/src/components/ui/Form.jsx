@@ -3,6 +3,9 @@ import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import clsx from 'clsx';
 
+import {Form as HeroForm} from "@heroui/react";
+
+
 const baseStyle = 'flex flex-col w-full';
 
 const Form = forwardRef(({
@@ -50,13 +53,13 @@ const Form = forwardRef(({
 
   return (
     <FormProvider {...methods}>
-      <form
+      <HeroForm
         onSubmit={methods.handleSubmit(onSubmit)}
         className={clsx(baseStyle, className)}
         {...props}
       >
         {children}
-      </form>
+      </HeroForm>
     </FormProvider>
   );
 });

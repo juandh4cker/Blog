@@ -1,58 +1,70 @@
-import clsx from 'clsx';
+import { Button as HeroButton} from '@heroui/react';
 
 import { useNav } from '@/hooks'
 import { handleCopy } from '@/utils/handleCopy';
 
-const baseStyle = 'rounded-md font-base cursor-pointer my-1 transition duration-300 transform';
+const baseProps = {
+  spinnerPlacement: 'end'
+}
 
 const variants = {
-  principal: {
-    style: 'bg-blue-500 text-white border border-blue-700 py-3 px-4 text-base hover:bg-blue-600 hover:scale-105',
+  base: {
+    color: 'primary',
+    variant: 'solid',
+    size: 'sm'
   },
-  secondary: {
-    style: 'bg-gray-100 text-black border border-gray-300 py-3 px-4 text-base hover:bg-gray-200 hover:scale-105',
+  submitForm: {
+    color: 'primary',
+    variant: 'solid',
+    size: 'md',
+    fullWidth: true
   },
-  small: {
-    style: 'bg-blue-500 text-white border border-blue-700 py-2 px-3 text-sm hover:bg-blue-600 hover:scale-105',
-  },
-  alert: {
-    style: 'bg-red-500 text-white border border-red-700 py-2 px-3 text-sm hover:bg-red-600 hover:scale-105',
-  },
-};
+  secondForm: {
+    color: 'primary',
+    variant: 'faded',
+    size: 'md',
+    fullWidth: true
+  }
+}
 
-const ShareButton = () => {
+const ShareButton = ({ ...props }) => {
   const { currentUrl } = useNav();
 
   const handleShare = () => {
     handleCopy(currentUrl)
-      .then(alert('¡Copiado al portapapeles!'));
+      .then(
+        alert('¡Copiado al portapapeles!')
+      )
+      .catch((error) =>
+        console.error(`Error al copiar: ${error}`)
+      );
   }
 
-  return (
-    <Button variant='small' onClick={handleShare}>{'Compartir'}</Button>
-  )
+  return <Button onClick={handleShare} {...props}>{'Compartir'}</Button>
 };
 
 const Button = ({
   children,
+  variant='base',
+  heroVariant,
+  onClick,
+  isLoading,
+  loadingText,
   className,
-  variant,
-  type = 'button',
   ...props
 
 }) => {
+  const variantProps = variants[variant] || {};
+  const allProps = {...baseProps, ...variantProps, ...props};
+
   if (variant === 'share') {
-    return <ShareButton />
+    return <ShareButton className={className} {...allProps} />
   }
 
-  const variantConfig = variants[variant] || variants.principal;
-
-  const variantStyle = variantConfig['style'];
-
   return (
-    <button type={type} className={clsx(baseStyle, variantStyle, className)} {...props}>
-      {children}
-    </button>
+    <HeroButton onPress={onClick} isLoading={isLoading} className={className} variant={heroVariant} {...allProps}>
+      {isLoading ? (loadingText ? loadingText : children) : children}
+    </HeroButton>
   );
 };
 
