@@ -1,3 +1,4 @@
+import { ButtonGroup } from "@heroui/button";
 import clsx from 'clsx';
 
 const variants = {
@@ -14,6 +15,12 @@ const Container = ({
   ...props
 
 }) => {
+  if (variant === 'button') {
+    return (
+      <ButtonGroup className={className}>{children}</ButtonGroup>
+    )
+  }
+  
   return (
     <div className={clsx(variants[variant] || variants['default'], className)} {...props} >
       {children}

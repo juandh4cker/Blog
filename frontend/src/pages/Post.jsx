@@ -112,35 +112,34 @@ const Post = () => {
       <Text variant='subtitle'>{`Subido hace: ${timeSince(post.createdAt)}`}</Text>
 
       <Container variant='button'>
-        <Button variant='small' onClick={handleLike} disabled={likeMutation.isPending} >
+        <Button onClick={handleLike} disabled={likeMutation.isPending} >
           {likeMutation.isPending ? '...' : isLiking ? 'Dislike' : 'Like'}
         </Button>
         <Button variant='share' />
-        <Button variant='small' onClick={handleGoogleMaps}>{'Ver en Google Maps'}</Button>
-        <Button variant='small' onClick={navBack}>{'Regresar'}</Button>
+        <Button onClick={handleGoogleMaps}>{'Ver en Google Maps'}</Button>
+        {post.editable && (
+          <>
+            <Button onClick={() => navPost(ID, true)}>{'Editar Post'}</Button>
+            <Button onClick={handleDeletePost}disabled={deleteMutation.isPending}>
+              {deleteMutation.isPending ? 'Eliminando...' : 'Eliminar Post'}
+            </Button>
+          </>
+        )}
       </Container>
 
-      {post.editable && (
-        <Container variant='button'>
-          <Button variant='small' onClick={() => navPost(ID, true)}>{'Editar Post'}</Button>
-          <Button variant='small' onClick={handleDeletePost}disabled={deleteMutation.isPending}>
-            {deleteMutation.isPending ? 'Eliminando...' : 'Eliminar Post'}
-          </Button>
-        </Container>
-      )}
 
       <div className='w-4/5 flex items-center justify-center flex-col mt-8'>
         <Text variant='title'>Comentarios</Text>
         <CommentsList comments={post.comments} postID={ID} queryClient={queryClient} />
 
         <Form
-          defaultValues={{ content: '', rating: '' }} ref={formRef} className='w-11/12 mt-4'
+          defaultValues={{ content: '', rating: '' }} ref={formRef}
           schema={commentSchema} onSubmit={commentMutation.mutate} isSubmitting={commentMutation.isPending}
         >
-          <FormField name='content' variant='textarea' placeholder='Escribe tu comentario aquí' />
-          <FormField name='rating' variant='rating' placeholder='Calificación (0-10)' />
-          <Button type='submit' variant='small' disabled={commentMutation.isPending}>
-            {commentMutation.isPending ? 'Enviando...' : 'Enviar comentario'}
+          <FormField name='content' variant='textarea' label='Escribe tu comentario aquí' />
+          <FormField name='rating' variant='rating' label='Calificación (0-10)' />
+          <Button type='submit' variant='submitForm' isLoading={commentMutation.isPending} loadingText={'Enviando...'}>
+            {'Enviar comentario'}
           </Button>
         </Form>
 

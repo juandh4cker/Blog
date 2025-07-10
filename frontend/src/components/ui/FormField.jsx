@@ -4,7 +4,8 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import {Input as HeroInput, Textarea as HeroTextarea} from "@heroui/react";
 
 const baseProps = {
-  size: 'sm'
+  size: 'sm',
+  isRequired: true
 }
 
 const variants = {

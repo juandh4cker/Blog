@@ -21,7 +21,7 @@ const ErrorPage = ({ error, message }) => {
         <Text variant='subtitle'>{subtitle}</Text>
         <Container variant='button'>
           <Button onClick={navBlog}>{'Ir al Blog'}</Button>
-          <Button variant='secondary' onClick={navBack}>{'Volver'}</Button>
+          <Button onClick={navBack}>{'Volver'}</Button>
         </Container>
       </Container>
     );

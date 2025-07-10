@@ -23,19 +23,18 @@ const Dashboard = () => {
       <Text variant='subtitle'>{'Rellena los datos para agregarlos'}</Text>
 
       <Form
-        defaultValues={{ name: '', location: '', imageUrl: '', review: '', rating: ''}}
         schema={postSchema} onSubmit={mutation.mutate} isSubmitting={mutation.isPending}
       >
-        <FormField name='name' placeholder='Nombre del post'/>
-        <FormField name='location' placeholder='Ubicación'/>
-        <FormField name='imageUrl' placeholder='URL de la imagen del post'/>
+        <FormField name='name' label='Nombre del post'/>
+        <FormField name='location' label='Ubicación'/>
+        <FormField name='imageUrl' label='URL de la imagen del post'/>
         <FormField name='review' variant='textarea' />
         <FormField name='rating' variant='rating'/>
 
-        <Button type='submit' disabled={mutation.isPending}>
-          {mutation.isPending ? 'Agregando post...' : 'Agregar post'}
+        <Button type='submit' isLoading={mutation.isPending} loadingText={'Agregando post...'} variant='submitForm'>
+          {'Agregar post'}
         </Button>
-        <Button variant='secondary' onClick={navBack} disabled={mutation.isPending}>
+        <Button variant='secondForm' onClick={navBack} disabled={mutation.isPending}>
           {'Cancelar'}
         </Button>
       </Form>

@@ -77,14 +77,13 @@ const User = () => {
 
         <Container variant='button'>
           {isSelf && (
-            <Button variant='small' onClick={handleFollow} disabled={followMutation.isPending} >
-              {followMutation.isPending ? '...' : isFollowing ? 'Siguiendo' : 'Seguir'}
+            <Button onClick={handleFollow} isLoading={followMutation.isPending} loadingText='Cargando...'>
+              {isFollowing ? 'Siguiendo' : 'Seguir'}
             </Button>
           )}
 
+          <Button onClick={() => setInPosts(!inPosts)}>{`Ver ${inPosts? 'likes' : 'posts'}`}</Button>
           <Button variant='share' />
-          <Button variant='small' onClick={() => setInPosts(!inPosts)}>{`Ver ${inPosts? 'likes' : 'posts'}`}</Button>
-          <Button variant='small' onClick={navBack}>{'Regresar'}</Button>
         </Container>
 
         {followMutation.isError && (

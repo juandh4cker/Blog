@@ -84,16 +84,16 @@ const EditPost = () => {
         defaultValues={post} ref={formRef}
         schema={postSchema} onSubmit={handleSubmit} isSubmitting={mutation.isPending}
       >
-        <FormField name='name' placeholder='Nombre del post'/>
-        <FormField name='location' placeholder='Ubicación'/>
-        <FormField name='imageUrl' placeholder='URL de la imagen del post'/>
-        <FormField name='review' variant='textarea' placeholder='Reseña'/>
-        <FormField name='rating' variant='rating' placeholder='Calificación (0-10)'/>
+        <FormField name='name' label='Nombre del post'/>
+        <FormField name='location' label='Ubicación'/>
+        <FormField name='imageUrl' label='URL de la imagen del post'/>
+        <FormField name='review' variant='textarea'/>
+        <FormField name='rating' variant='rating' label='Calificación (0-10)'/>
 
-        <Button type='submit' disabled={mutation.isPending}>
-          {mutation.isPending ? 'Editando post...' : 'Editar post'}
+        <Button type='submit' isLoading={mutation.isPending} loadingText={'Editando post...'} variant='submitForm'>
+          {'Editar post'}
         </Button>
-        <Button variant='secondary' onClick={() => navPost(ID)} disabled={mutation.isPending}>
+        <Button variant='secondForm' onClick={() => navPost(ID)} disabled={mutation.isPending}>
           {'Cancelar'}
         </Button>
       </Form>
