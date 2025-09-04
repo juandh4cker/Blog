@@ -1,80 +1,48 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
+
 import { useNav, useAuth } from '@/hooks';
+import { Button, Modal } from '@/components/ui';
+import { WelcomeForm } from '@/pages/Welcome';
 
-const menuStyle = 'fixed top-5 right-5 z-50'
-const menuButtonStyle = `
-  px-5 py-2 bg-blue-500 text-white rounded-xl
-  text-base transition-transform duration-200 hover:scale-105
-`.trim();
-
-const MenuItem = ({ children, onClick }) => (
-  <button
-    onClick={onClick}
-    className='block w-full px-5 py-2 text-left text-sm
-      border-b border-gray-200 transition-transform
-      hover:bg-gray-100 hover:scale-105'
-  >
-    {children}
-  </button>
-);
+const menuStyle = 'fixed top-5 right-5 z-50';
 
 export const GuestMenu = () => {
-  const { navWelcome } = useNav();
+  const [ onOpen, setOnOpen ] = useState(false);
 
   return (
-    <button
-      onClick={navWelcome}
-      className={`${menuStyle} ${menuButtonStyle}`}
-      aria-label='Iniciar sesión'
-    >
-      {'Iniciar sesión'}
-    </button>
+    <div className={menuStyle}>
+      <Button size='md' onClick={onOpen} className={menuStyle}>
+        {'Acceder'}
+      </Button>
+
+      <Modal setOnOpen={setOnOpen}>
+        <Modal.Header>Acceder</Modal.Header>
+        <WelcomeForm />
+      </Modal> 
+    </div>
   );
 };
 
 export const UserMenu = ({ username }) => {
-  const menuRef = useRef(null);
+  const { logout } = useAuth();
   const { navBlog, navUser, navDashboard, navConfig } = useNav();
 
-  const { logout } = useAuth();
-
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setMenuOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
-  const handleNav = (navigate) => {
-    setMenuOpen(false);
-    navigate();
-  };
+  const menuItems = [
+    {onClick: navBlog, key:"blog", text: 'Blog', props: {}},
+    {onClick: () => navUser(username), key:"profile", text: 'Perfil', props: {}},
+    {onClick: navDashboard, key:"dashboard", text: 'Dashboard', props: {}},
+    {onClick: navConfig, key:"configuration", text: 'Configuracion', props: {}},
+    {onClick: logout, key:"logout", text: 'Cerrar sesión', props: {className: 'text-danger', color:'danger'}}, 
+  ]
 
   return (
-    <div className={menuStyle} ref={menuRef}>
-      <button
-        onClick={() => setMenuOpen(prev => !prev)}
-        className={menuButtonStyle}
-        aria-expanded={menuOpen}
-        aria-label='Menú de usuario'
-      >
-        {'☰ Menú'}
-      </button>
-      {menuOpen && (
-        <div className='absolute top-full right-0 bg-white/90 shadow-md rounded w-36 mt-2 overflow-hidden animate-fade-in'>
-          <MenuItem onClick={() => handleNav(navBlog)}>{'Blog'}</MenuItem>
-          <MenuItem onClick={() => handleNav(() => navUser(username))}>{'Perfil'}</MenuItem>
-          <MenuItem onClick={() => handleNav(navDashboard)}>{'Dashboard'}</MenuItem>
-          <MenuItem onClick={() => handleNav(navConfig)}>{'Configuracion'}</MenuItem>
-          <MenuItem onClick={() => handleNav(logout)}>{'Cerrar sesión'}</MenuItem>
-        </div>
-      )}
+    <div className={menuStyle}>
+      <Button variant="dropdown"  
+        backdrop="blur"
+        triggerProps={{size:'md', color:'primary', variant:'solid'}}
+        triggerContent={'☰ Menú'}
+        items={menuItems}
+      />
     </div>
   );
 };

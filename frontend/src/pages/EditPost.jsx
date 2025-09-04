@@ -76,7 +76,7 @@ const EditPost = () => {
   if (!editable) return null;
 
   return (
-    <Container className='max-w-lg'>
+    <Container variant='background' className='max-w-lg'>
       <Text variant='title'>{'Editar Post'}</Text>
       <Text variant='subtitle'>{'Edita los detalles del post'}</Text>
 

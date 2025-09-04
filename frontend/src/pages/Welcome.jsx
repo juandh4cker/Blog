@@ -6,9 +6,28 @@ import { registerSchema } from '@/schema'
 import { Button, Container, Form, FormField, Message, Text } from '@/components/ui';
 
 const Welcome = ({ inRegister = false }) => {
+  const { from } = useNav();
+   
+  return (
+    <Container variant='background' className='max-w-md'>
+      <Text variant='title'>{'Bienvenido a WorldBlog'}</Text>
+      <Text variant='subtitle'>
+        {from
+          ? 'Necesitas iniciar sesión para ver este contenido'
+          : 'Descubre los mejores destinos alrededor del mundo'
+        }
+      </Text>
+
+      <WelcomeForm inRegister={inRegister}/>
+
+    </Container>
+  );
+};
+
+export const WelcomeForm = ({ inRegister }) => {
   const { apiLogin, apiRegister } = useApi();
   const { setAuth } = useAuth();
-  const { from, navBlog, navFrom } = useNav();
+  const { navBlog, navFrom } = useNav();
   
   const [ inLogin, setInLogin ] = useState(!inRegister);
 
@@ -52,17 +71,9 @@ const Welcome = ({ inRegister = false }) => {
   const mutation = inLogin ? loginMutation : registerMutation;
   const error = mutation.error;
   const isLoading = mutation.isPending;
-  
-  return (
-    <Container className='max-w-md'>
-      <Text variant='title'>{'Bienvenido a WorldBlog'}</Text>
-      <Text variant='subtitle'>
-        {from
-          ? 'Necesitas iniciar sesión para ver este contenido'
-          : 'Descubre los mejores destinos alrededor del mundo'
-        }
-      </Text>
 
+  return (
+    <>
       <Form
         onSubmit={mutation.mutate} isSubmitting={isLoading}
         schema={inLogin ? null : registerSchema} confirmExit={false}
@@ -103,10 +114,10 @@ const Welcome = ({ inRegister = false }) => {
           {'Entrar como invitado'}
         </Button>
       </Form>
-
+      
       {error && <Message error={error} />}
-    </Container>
-  );
+    </>
+  )
 };
 
 export default Welcome;

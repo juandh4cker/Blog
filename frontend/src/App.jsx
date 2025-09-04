@@ -27,6 +27,7 @@ const App = () => {
 {'useStyle o algo asi'}
 {"hero UI"}
 {'animaciones, estilos, modo oscuro, todo eso de css'}
+{'https://million.dev/'}
 
 {'codigo de strings'}
 {'agregar español e ingles'}

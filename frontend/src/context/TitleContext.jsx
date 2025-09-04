@@ -18,6 +18,10 @@ const ROUTE_CONFIG = {
     title: 'Dashboard',
     description: 'Agrega un post'
   },
+  '/user/*': {
+    title: '', // Dejar vacío para que el componente lo llene
+    description: 'Perfil de usuario'
+  },
 };
 
 export const TitleContext = createContext();
@@ -38,7 +42,8 @@ export const TitleProvider = ({ children }) => {
       if (ROUTE_CONFIG[testPath]) return ROUTE_CONFIG[testPath];
     }
 
-    return { title: DEFAULT_TITLE, description: DEFAULT_DESCRIPTION };
+    // Modificado: devolver título vacío en lugar de DEFAULT_TITLE
+    return { title: '', description: DEFAULT_DESCRIPTION };
   };
 
   useEffect(() => {
@@ -72,7 +77,7 @@ export const TitleProvider = ({ children }) => {
     <HelmetProvider>
       <TitleContext.Provider value={value}>
         <Helmet>
-          <title>{title.trim() ? `${title} - WorldBlog` : 'WorldBlog'}</title>
+          <title>{title ? `${title} - ${DEFAULT_TITLE}` : DEFAULT_TITLE}</title>
           <meta name='description' content={description} />
         </Helmet>
         {children}

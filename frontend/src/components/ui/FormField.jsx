@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import {Input as HeroInput, Textarea as HeroTextarea} from "@heroui/react";
+import {Input as HeroInput, Textarea as HeroTextarea, Autocomplete as HeroAutocomplete, AutocompleteItem} from "@heroui/react";
 
 const baseProps = {
   size: 'sm',
-  isRequired: true
 }
 
 const variants = {
@@ -35,6 +34,7 @@ const Textarea = ({
     <HeroTextarea 
       label={label}
       isRequired={isRequired}
+      isClearable
       isInvalid={isInvalid}
       errorMessage={errorMessage}
       className={className}
@@ -64,17 +64,29 @@ const PasswordInput = ({
       errorMessage={errorMessage}
       className={className}
       endContent={
-        <button
-          aria-label="toggle password visibility"
-          className="text-lg absolute right-2 inset-y-0 my-auto bg-transparent opacity-50 hover:opacity-80 focus:outline-none border-none p-0 m-0 flex items-center justify-center"
-          type="button"
-          onClick={() => setShowPassword(prev => !prev)}
-        >
-          {showPassword ? <FaEyeSlash  /> : <FaEye />}
-        </button>
+        <div className='absolute right-2 inset-y-0 my-auto flex items-center justify-center'>
+          <button
+            aria-label="toggle password visibility"
+            className="text-lg bg-transparent opacity-50 hover:opacity-80 focus:outline-none border-none p-0 m-0"
+            type="button"
+            onClick={() => setShowPassword(prev => !prev)}
+          >
+            {showPassword ? <FaEyeSlash  /> : <FaEye />}
+          </button>
+        </div>
       }
       {...props}
     />
+  )
+}
+
+const Autocomplete = ({ items, itemProps, ...props}) => {
+  return (
+   <HeroAutocomplete {...props}>
+    {items.map((item, i) => (
+      <AutocompleteItem key={i} {...itemProps}>{item.label}</AutocompleteItem>
+    ))}
+  </HeroAutocomplete>
   )
 }
 
@@ -86,12 +98,22 @@ const FormField = ({
   isInvalid,
   errorMessage,
   className,
+  outForm = false,
+  items, itemProps,
   ...props
 
 }) => {
-  const { register, formState: { errors } } = useFormContext()
-  const commonProps = {...register(name), ...props}
-  const error = errors[name]
+  let register = () => ({});
+  let errors = {};
+
+  if (!outForm) {
+    const formContext = useFormContext();
+    register = formContext.register;
+    errors = formContext.formState.errors;
+  }
+
+  const commonProps = !outForm ? { ...register(name), ...props } : { ...props };
+  const error = !outForm ? errors[name] : null;
 
   const variantProps = variants[variant] || {};
   const allProps = {...commonProps, ...baseProps, ...variantProps, ...props}
@@ -113,6 +135,21 @@ const FormField = ({
   if (variant === 'textarea') {
     return (
       <Textarea
+        variant={heroVariant}
+        isRequired={isRequired}
+        isInvalid={error ? true : false}
+        errorMessage={error?.message}
+        className={className}
+        {...allProps}
+      />
+    )
+  };
+
+  if (variant === 'autocomplete') {
+    return (
+      <Autocomplete
+        items={items}
+        itemProps={itemProps}
         variant={heroVariant}
         isRequired={isRequired}
         isInvalid={error ? true : false}

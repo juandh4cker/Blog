@@ -18,7 +18,7 @@ const Dashboard = () => {
   });
 
   return (
-    <Container className='max-w-lg'>
+    <Container variant='background' className='w-lg'>
       <Text variant='title'>{'Agregar un post'}</Text>
       <Text variant='subtitle'>{'Rellena los datos para agregarlos'}</Text>
 

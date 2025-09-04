@@ -3,8 +3,6 @@ import { useTitleContext } from '@/context/TitleContext';
 
 export const useTitle = (customTitle, customDescription, options = {}) => {
   const {
-    title,
-    description,
     setTitle,
     setDescription,
     resetToRouteDefault
@@ -27,33 +25,19 @@ export const useTitle = (customTitle, customDescription, options = {}) => {
     };
   }, [enableRouteDefaults, resetOnUnmount, resetToRouteDefault]);
 
+  // Actualización directa sin timeout
   useEffect(() => {
-    let isActive = true;
+    if (typeof customTitle === 'string') {
+      setTitle(customTitle);
+    }
 
-    const updateTitle = () => {
-      if (!isActive) return;
-
-      if (typeof customTitle === 'string') {
-        setTitle(customTitle);
-      }
-
-      if (typeof customDescription === 'string') {
-        setDescription(customDescription);
-      }
-    };
-
-    const timer = setTimeout(updateTitle, 10);
-
-    return () => {
-      isActive = false;
-      clearTimeout(timer);
-    };
+    if (typeof customDescription === 'string') {
+      setDescription(customDescription);
+    }
   }, [customTitle, customDescription, setTitle, setDescription]);
 
   return {
-    title,
     setTitle,
-    description,
     setDescription,
     resetToRouteDefault
   };

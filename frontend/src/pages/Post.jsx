@@ -1,23 +1,28 @@
-import { useEffect } from 'react';
-import { useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { useApi, useNav, useTitle } from '@/hooks';
-import { commentSchema } from '@/schema';
-import { timeSince } from '@/utils/timeSince';
-import { Button, Container, Form, FormField, Message, Text } from '@/components/ui';
+import { useApi, useNav, useTitle, useToast } from '@/hooks';
+import { Button, Container, Message, Text, UserCard, ImageModal, Image } from '@/components/ui';
+import ShareModal from '@/components/ShareModal';
+import Comments from '@/components/Comments';
+import { timeSince, compactNumber, ratingStars } from '@/utils';
+
 import ErrorPage from './ErrorPage';
-import CommentsList from '@/components/CommentsList';
 
 const Post = () => {
   const { setTitle, setDescription } = useTitle(null, 'Aquí se ve un post');
-
-  const { fetchPost, deletePost, addComment, likePost } = useApi();
-  const { navBack, navBlog, navUser, navPost } = useNav();
+  
+  const { fetchPost, deletePost, likePost } = useApi();
+  const { navBlog, navPost, currentUrl } = useNav();
   const { ID } = useParams();
+  const { toastError } = useToast();
   const queryClient = useQueryClient();
-  const formRef = useRef();
+
+  const [ onOpenComments, setOnOpenComments ] = useState();
+  const [ onOpenShare, setOnOpenShare ] = useState();
+  const [ onOpenImage, setOnOpenImage ] = useState();
 
   const {
     data: post,
@@ -32,33 +37,26 @@ const Post = () => {
   });
 
   useEffect(() => {
-      if (post) {
-        setTitle(post.name);
-        setDescription(post.review);
-      }
+    if (post) {
+      setTitle(post.name);
+      setDescription(post.review);
+    }
 
-      if (isError) {
-        setTitle('Error');
-        setDescription(error.message || error)
-      }
-    }, [post, setTitle]);
+    if (isError) {
+      setTitle('Error');
+      setDescription(error.message || error)
+    }
+  }, [post, setTitle]);
 
-  const deleteMutation = useMutation({
+  const deletePostMutation = useMutation({
     mutationFn: () => deletePost(ID),
     onSuccess: () => {
       queryClient.invalidateQueries(['posts']);
       navBlog();
-    }
-  });
-
-  const commentMutation = useMutation({
-    mutationFn: (commentData) => addComment(ID, commentData),
-    onSuccess: () => {
-      queryClient.invalidateQueries(['post', ID]);
-      if (formRef.current) {
-        formRef.current.reset({ content: '', rating: '' });
-      }
-    }
+    },
+    onError: (error) => {
+      toastError("Error al eliminar el post", error.message);
+    },
   });
 
   const likeMutation = useMutation({
@@ -67,13 +65,13 @@ const Post = () => {
       queryClient.invalidateQueries(['post', ID]);
     },
     onError: (error) => {
-      console.error(error)
-    }
+      toastError("Error al dar like", error.message);
+    },
   });
 
   const handleDeletePost = () => {
     if (window.confirm('¿Estás seguro de que quieres eliminar este post?')) {
-      deleteMutation.mutate();
+      deletePostMutation.mutate();
     }
   };
 
@@ -91,68 +89,62 @@ const Post = () => {
     window.open(url, '_blank');
   };
 
-  const handleLike = () => {
-    likeMutation.mutate();
-  };
+  const dropdownItems = [
+    {onClick: handleGoogleMaps, key:"maps", text: 'Ver en maps'},
+    {onClick: onOpenShare, key:"share", text: 'Compartir'},
+    {onClick: () => navPost(ID, true), key:"edit", text: 'Editar post', condition: post.editable},
+    {onClick: handleDeletePost, key:"delete", condition: post.editable, text: deletePostMutation.isPending ? 'Eliminando...' : 'Eliminar Post', props: {className: 'text-danger', color:'danger', disabled: deletePostMutation.isPending}}, 
+  ]
+
+  "Version 3 - Card Container h"
 
   return (
-    <Container className='max-w-xl'>
-      <img src={post.imageUrl} alt={post.name} className='w-full h-auto mb-6 rounded-xl object-cover max-h-96' />
+    <Container variant='background' className='max-w-4xl flex flex-row h-[90vh]'>
+      <div className="w-2/3 h-full flex justify-center items-center col-span-12 sm:col-span-7" onClick={onOpenImage}>
+        <Image
+          removeWrapper
+          alt={post.name}
+          src={post.imageUrl}
+          className="w-full h-full object-contain"
+        />
+      </div>
 
-      <Text variant='title'>{post.name}</Text>
-      <Text><b>{'Calificación: '}</b>{post.rating}/10</Text>
-      <Text><b>{'Ubicación: '}</b>{post.location}</Text>
-      <Text><b>{'Reseña: '}</b>{post.review}</Text>
-      <Text className='base-text' onClick={() => navUser(post.creator)}>
-        <b>{'Agregado por: '}</b> <Text variant='hipertext'>{post.creator}</Text>
-      </Text>
-      <Text variant='subtitle' className='!my-0'>
-        <b>{'Likes: '}</b>{likes}
-      </Text>
-      <Text variant='subtitle'>{`Subido hace: ${timeSince(post.createdAt)}`}</Text>
+      <Container isDivided className='w-1/3 h-full flex flex-col items-center justify-between'>
+        <Container.Header className='flex flex-row items-center justify-between'>
+          <div className='items-start justify-between flex flex-col'>
+            <h4 className="font-bold text-2xl">{post.name}</h4>
+            <p className="font-medium">{post.location}</p>
+            <p className="text-sm text-yellow-300">{ratingStars(post.rating)}</p>
+          </div>
+          <Button variant="dropdown"  
+            backdrop='opaque'
+            triggerProps={{isIconOnly:true, color:'primary', variant:'light'}}
+            triggerContent={'☰'}
+            items={dropdownItems}
+          />
+        </Container.Header>
+        
+        <Container.Body className='h-full'>
+          <Text className="whitespace-pre-wrap break-words text-left overflow-y-auto">{post.review}</Text>
+        </Container.Body>
 
-      <Container variant='button'>
-        <Button onClick={handleLike} disabled={likeMutation.isPending} >
-          {likeMutation.isPending ? '...' : isLiking ? 'Dislike' : 'Like'}
-        </Button>
-        <Button variant='share' />
-        <Button onClick={handleGoogleMaps}>{'Ver en Google Maps'}</Button>
-        {post.editable && (
-          <>
-            <Button onClick={() => navPost(ID, true)}>{'Editar Post'}</Button>
-            <Button onClick={handleDeletePost}disabled={deleteMutation.isPending}>
-              {deleteMutation.isPending ? 'Eliminando...' : 'Eliminar Post'}
-            </Button>
-          </>
-        )}
+        <Container.Footer className='flex flex-row justify-between items-center'>
+          <UserCard user={post.creator} description={`Hace ${timeSince(post.createdAt)}`}/>
+          <Button heroVariant='light' tooltip={`${compactNumber(likes)} like${likes === 1 ? '' : 's'}`} variant='icon' color='primary' onClick={() => likeMutation.mutate()} disabled={likeMutation.isPending}>
+            {likeMutation.isPending ? '💙' : isLiking ? '♥️' : '🤍'} 
+          </Button>
+          <Button color='primary' onClick={onOpenComments} heroVariant='light' variant='icon'>
+            💬
+          </Button>
+        </Container.Footer>
       </Container>
 
+      <Comments comments={post.comments} postID={ID} setOnOpen={setOnOpenComments}/>
+      <ShareModal setOnOpen={setOnOpenShare} shareUrl={currentUrl} />
+      <ImageModal post={post} setOnOpen={setOnOpenImage}/>
 
-      <div className='w-4/5 flex items-center justify-center flex-col mt-8'>
-        <Text variant='title'>Comentarios</Text>
-        <CommentsList comments={post.comments} postID={ID} queryClient={queryClient} />
-
-        <Form
-          defaultValues={{ content: '', rating: '' }} ref={formRef}
-          schema={commentSchema} onSubmit={commentMutation.mutate} isSubmitting={commentMutation.isPending}
-        >
-          <FormField name='content' variant='textarea' label='Escribe tu comentario aquí' />
-          <FormField name='rating' variant='rating' label='Calificación (0-10)' />
-          <Button type='submit' variant='submitForm' isLoading={commentMutation.isPending} loadingText={'Enviando...'}>
-            {'Enviar comentario'}
-          </Button>
-        </Form>
-
-        {commentMutation.isError && (
-          <Message error={`Error al subir el comentario: ${commentMutation.error.message}`} className='mt-4'/>
-        )}
-
-        {deleteMutation.isError && (
-          <Message error={`Error al eliminar el post: ${deleteMutation.error.message}`} className='mt-4'/>
-        )}
-      </div>
     </Container>
-  );
+  )
 };
 
 export default Post;

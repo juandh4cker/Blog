@@ -14,3 +14,8 @@
   0%   { transform: translateX(0); }
   100% { transform: translateX(-300vw); }
 }
+
+.gallery {
+  column-count: 3;
+  column-gap: 1rem;
+}

@@ -1,4 +1,5 @@
 import slides from '@/assets/background';
+import { Image } from "@/components/ui";
 
 const Background = () => {
   return (
@@ -8,14 +9,11 @@ const Background = () => {
       style={{ width: `${slides.length * 100}vw` }}
     >
       {slides.map((src, index) => (
-        <div
+        <Image
           key={index}
-          className='flex-none w-screen h-screen opacity-60'
-          style={{
-            backgroundImage: `url(${src})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
-          }}
+          src={src}
+          className='w-screen h-screen opacity-60'
+          radius='none'
         />
       ))}
     </div>
