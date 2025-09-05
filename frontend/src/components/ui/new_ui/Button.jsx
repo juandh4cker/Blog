@@ -1,7 +1,9 @@
 import {
   Button as HeroButton,
+  ButtonGroup as HeroButtonGroup,
   Snippet as HeroSnippet,
-  Tooltip as HeroTooltip
+  Tooltip as HeroTooltip,
+  Switch as HeroSwitch,
 } from "@heroui/react";
 
 import KindsManager from './KindsManager';
@@ -19,12 +21,20 @@ const kingdoms = {
       spinnerPlacement: 'end'
     },
   },
+  group: {
+    component: (props) => <HeroButtonGroup {...props}>{props.children}</HeroButtonGroup>,
+    kingdomProps: {},
+  },
   snippet: {
     component: (props) => <HeroSnippet {...props}>{props.children}</HeroSnippet>,
     kingdomProps: {},
   },
   tooltip: {
     component: (props) => <HeroTooltip {...props}>{props.children}</HeroTooltip>,
+    kingdomProps: {},
+  },
+  switch: {
+    component: (props) => <HeroSwitch {...props}>{props.children}</HeroSwitch>,
     kingdomProps: {},
   },
 };
@@ -41,6 +51,10 @@ const kinds = {
       variant: 'solid',
       size: 'sm'
     },
+  },
+  group: {
+    kingdom: 'group',
+    props: {},
   },
   primary: {
     kingdom: 'button',
@@ -84,6 +98,16 @@ const kinds = {
       },
     },
   },
+  switch: {
+    kingdom: 'switch',
+    props: {},
+  },
+  tooltip: {
+    kingdom: 'tooltip',
+    props: {
+      className: 'bg-current',
+    },
+  },
 };
 
 const defaultKind = 'button';
@@ -111,30 +135,18 @@ const Button = ({
 
 export default Button;
 
-const tooltipKinds = {
-  tooltip: {
-    kingdom: 'tooltip',
-    props: {
-      className: 'bg-current',
-    },
-  },
-};
-
-const tooltipDefaultKind = 'tooltip';
-
-Button.Tooltip = ({ children, kind, ...props }) => {
-  const allProps = {
-    ...props
-  }
-  
-  return <KindsManager
+const createSub = (defaultKingdom) => ({ children, kind, ...props }) => (
+  <KindsManager
     baseProps={baseProps}
-    kingdom={kingdoms[tooltipDefaultKind]}
-    kinds={tooltipKinds}
+    kingdom={kingdoms[defaultKingdom]}
+    kinds={kinds}
     kind={kind}
-    defaultKind={tooltipDefaultKind}
-    {...allProps}
+    defaultKind={defaultKingdom}
+    {...props}
   >
     {children}
   </KindsManager>
-};
+);
+
+Button.Group = createSub('group');
+Button.Tooltip = createSub('tooltip');

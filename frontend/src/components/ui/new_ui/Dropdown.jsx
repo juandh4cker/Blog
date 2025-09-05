@@ -11,8 +11,12 @@ import KindsManager from './KindsManager';
 const baseProps = {};
 
 const kingdoms = {
-  dropdown: {
+  default: {
     component: (props) => <HeroDropdown {...props}>{props.children}</HeroDropdown>,
+    kingdomProps: {},
+  },
+  dropdown: {
+    component: (props) => <BaseDropdown {...props}>{props.children}</BaseDropdown>,
     kingdomProps: {},
   },
   trigger: {
@@ -34,6 +38,10 @@ const kingdoms = {
 };
 
 const kinds = {
+  default: {
+    kingdom: 'default',
+    props: {},
+  },
   dropdown: {
     kingdom: 'dropdown',
     props: {},
@@ -53,6 +61,34 @@ const kinds = {
 };
 
 const defaultKind = 'dropdown';
+
+const isTrigger = (child) =>
+  child?.type === kingdoms.trigger.component || child?.type === Dropdown.Trigger
+
+const isMenu = (child) =>
+  child?.type === kingdoms.menu.component || child?.type === Dropdown.Menu
+
+const BaseDropdown = ({ children, ...props }) => {
+  const childArray = Array.isArray(children) ? children : [children]
+
+  const trigger = childArray.find(isTrigger)
+  const hasManualMenu = childArray.some(isMenu)
+
+  const menuContent = childArray.filter(
+    (child) => !isTrigger(child) && !isMenu(child)
+  );
+
+  return (
+    <HeroDropdown  {...props}>
+      {trigger}
+
+      {!hasManualMenu && <HeroDropdownMenu>{menuContent}</HeroDropdownMenu>}
+      {childArray.map(
+        (child, i) => (isMenu(child) ? React.cloneElement(child, { key: i }) : null)
+      )}
+    </HeroDropdown>
+  )
+};
 
 const Dropdown = ({
   kind,
@@ -77,62 +113,22 @@ const Dropdown = ({
 
 export default Dropdown;
 
-Dropdown.Trigger = ({ children, kind, ...props }) => {
-  const defaultKingdom = 'trigger'
-
-  const allProps = {
-    ...props
-  }
-  
-  return <KindsManager
+const createSub = (defaultKingdom) => ({ children, kind, ...props }) => (
+  <KindsManager
     baseProps={baseProps}
     kingdom={kingdoms[defaultKingdom]}
-    kinds={tooltipKinds}
+    kinds={kinds}
     kind={kind}
     defaultKind={defaultKingdom}
-    {...allProps}
+    {...props}
   >
     {children}
   </KindsManager>
-};
+);
 
-Dropdown.Menu = ({ children, kind, ...props }) => {
-  const defaultKingdom = 'menu'
-
-  const allProps = {
-    ...props
-  }
-  
-  return <KindsManager
-    baseProps={baseProps}
-    kingdom={kingdoms[defaultKingdom]}
-    kinds={tooltipKinds}
-    kind={kind}
-    defaultKind={defaultKingdom}
-    {...allProps}
-  >
-    {children}
-  </KindsManager>
-};
-
-Dropdown.Section = ({ children, kind, ...props }) => {
-  const defaultKingdom = 'section'
-
-  const allProps = {
-    ...props
-  }
-  
-  return <KindsManager
-    baseProps={baseProps}
-    kingdom={kingdoms[defaultKingdom]}
-    kinds={tooltipKinds}
-    kind={kind}
-    defaultKind={defaultKingdom}
-    {...allProps}
-  >
-    {children}
-  </KindsManager>
-};
+Dropdown.Trigger = createSub("trigger");
+Dropdown.Menu = createSub("menu");
+Dropdown.Section = createSub("section");
 
 const DropdownItemKinds = {
   item: {
