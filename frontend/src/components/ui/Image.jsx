@@ -3,7 +3,7 @@ import {
   Image as HeroImage
 } from "@heroui/react";
 
-import { Modal } from "@/componentes";
+import { Modal } from "@/components";
 import KindsManager from '../KindsManager';
 
 const baseProps = {};

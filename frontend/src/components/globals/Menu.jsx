@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { useNav, useAuth } from '@/hooks';
-import { Button, Modal, Dropdown } from '@/componentes';
+import { Button, Modal, Dropdown } from '@/components';
 import { WelcomeForm } from '@/pages/Welcome';
 
 const menuStyle = 'fixed top-5 right-5 z-50';

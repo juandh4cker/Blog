@@ -4,7 +4,7 @@ import { useApi } from '@/hooks';
 import { 
   Container, Text,
   Posts
-} from '@/componentes';
+} from '@/components';
 
 const Blog = () => {
   const { fetchPosts } = useApi();

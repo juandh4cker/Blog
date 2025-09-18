@@ -4,7 +4,7 @@ import AppContext from './context/AppContext';
 import AppRoutes from './routes/AppRoutes';
 import AuthChecker from './auth/AuthChecker';
 
-import { Background } from './componentes';
+import { Background } from './components';
 
 import './App.css';
 

@@ -1,5 +1,5 @@
 import slides from '@/assets/background';
-import { Image } from "@/components/ui";
+import { Image } from "@/components";
 
 const Background = () => {
   return (
@@ -18,6 +18,6 @@ const Background = () => {
       ))}
     </div>
   );
-}
+};
 
 export default Background;

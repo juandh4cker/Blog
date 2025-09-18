@@ -5,7 +5,7 @@ import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 
 import { useApi, useNav, useTitle, useToast } from '@/hooks';
 import { postSchema } from '@/schema';
-import { Button, Container, Error, Form, Input, Text } from '@/componentes';
+import { Button, Container, Error, Form, Input, Text } from '@/components';
 
 const EditPost = () => {
   const { setTitle, setDescription } = useTitle(null, 'Aquí se edita un post');

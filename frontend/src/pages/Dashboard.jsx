@@ -2,7 +2,7 @@ import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import { useApi, useNav, useToast } from '@/hooks';
 import { postSchema } from '@/schema';
-import { Button, Container, Form, Input, Text } from '@/componentes';
+import { Button, Container, Form, Input, Text } from '@/components';
 
 const Dashboard = () => {
   const { addPost } = useApi();

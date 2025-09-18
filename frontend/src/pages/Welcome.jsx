@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { useApi, useAuth, useNav, useToast } from '@/hooks';
 import { registerSchema } from '@/schema';
-import { Button, Container, Form, Input, Text} from '@/componentes';
+import { Button, Container, Form, Input, Text} from '@/components';
 
 const Welcome = ({ inRegister = false }) => (
   <Container kind='background' className='max-w-md'>

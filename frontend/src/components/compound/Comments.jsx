@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useApi, useNav, useToast } from '@/hooks';
 import { commentSchema } from '@/schema';
 import { ratingStars, timeSince } from '@/utils';
-import { Button, Container, Divider, Dropdown, Form, Input, Modal, Text, UserCard } from "@/componentes";
+import { Button, Container, Divider, Dropdown, Form, Input, Modal, Text, UserCard } from "@/components";
 
 const Comments = ({ comments, postID, setOnOpen }) => {
   const { addComment } = useApi();

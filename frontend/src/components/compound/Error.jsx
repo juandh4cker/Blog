@@ -1,20 +1,22 @@
 import { useNav } from '@/hooks';
 
-import { Button, Container, Text } from '@/componentes';
+import { Button, Container, Text } from '@/components';
 
-const Error = ({ children }) => {
+const Error = ({ children, page }) => {
   const { navBack, navBlog } = useNav();
 
   const defaultError = 'Lo que buscas no existe o ha sido eliminado';
 
+const props = page ? { kind: "background" } : {};
+
   return (
-    <Container>
+    <Container {...props} className='max-w-xl'>
       <Text kind='title'>{'Error'}</Text>
       <Text>{children ? children : defaultError}</Text>
-      <Container kind='button'>
+      <Button.Group>
         <Button onClick={navBlog}>{'Ir al Blog'}</Button>
         <Button onClick={navBack}>{'Volver'}</Button>
-      </Container>
+      </Button.Group>
     </Container>
   );
 };

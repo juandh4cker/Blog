@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { useAuth } from '@/hooks';
-import { Loading } from '@/componentes';
+import { Loading } from '@/components';
 
 const PrivateRoute = () => {
   const { auth, logout } = useAuth();

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { useApi, useNav, useTitle, useToast } from '@/hooks';
-import { Button, Container, Dropdown, Error, Image, Loading, Share, Text, UserCard, Comments } from '@/componentes';
+import { Button, Container, Dropdown, Error, Image, Loading, Share, Text, UserCard, Comments } from '@/components';
 
 import { timeSince, compactNumber, ratingStars } from '@/utils';
 

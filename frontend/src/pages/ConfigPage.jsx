@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useConfig } from '@/hooks/useConfig';
-import { Button, Container, Text, Tabs, Input } from '@/componentes'
+import { Button, Container, Text, Tabs, Input } from '@/components'
 
 import { FaMoon, FaSun } from "react-icons/fa";
 

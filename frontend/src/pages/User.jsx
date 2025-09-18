@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { useApi, useNav, useTitle, useToast } from '@/hooks';
-import { Button, Container, Divider, Error, Loading, Posts, Share, Tabs, Text, UserCard } from '@/componentes';
+import { Button, Container, Divider, Error, Loading, Posts, Share, Tabs, Text, UserCard } from '@/components';
 
 const User = () => {
   const { fetchUser, followOrUnfollowUser } = useApi();

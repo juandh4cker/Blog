@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Button, Modal } from "@/componentes";
+import { Button, Modal } from "@/components";
 
 import * as icons from '@/assets/icons';
 import { QR } from '@/utils';

@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useAuth, useNav } from '@/hooks';
 import { apiCheckToken } from '@/api';
 
-import { UserMenu, GuestMenu } from '@/componentes';
+import { UserMenu, GuestMenu } from '@/components';
 
 const AuthChecker = ({ children }) => {
   const { pathname } = useNav();
