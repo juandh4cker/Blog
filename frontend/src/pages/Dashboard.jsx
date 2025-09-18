@@ -1,12 +1,13 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 
-import { useApi, useNav } from '@/hooks';
+import { useApi, useNav, useToast } from '@/hooks';
 import { postSchema } from '@/schema';
-import { Button, Container, Form, FormField, Message, Text } from '@/components/ui';
+import { Button, Container, Form, Input, Text } from '@/componentes';
 
 const Dashboard = () => {
   const { addPost } = useApi();
   const { navBack, navPost } = useNav();
+  const { toastError } = useToast();
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -14,32 +15,31 @@ const Dashboard = () => {
     onSuccess: (postID) => {
       queryClient.invalidateQueries(['posts']);
       navPost(postID);
-    }
+    },
+    onError: (error) => toastError("Error al crear el post", error.message),
   });
 
   return (
-    <Container variant='background' className='w-lg'>
-      <Text variant='title'>{'Agregar un post'}</Text>
-      <Text variant='subtitle'>{'Rellena los datos para agregarlos'}</Text>
+    <Container kind='background' className='w-lg'>
+      <Text kind='title'>{'Agregar un post'}</Text>
+      <Text>{'Rellena los datos para agregarlos'}</Text>
 
       <Form
         schema={postSchema} onSubmit={mutation.mutate} isSubmitting={mutation.isPending}
       >
-        <FormField name='name' label='Nombre del post'/>
-        <FormField name='location' label='Ubicación'/>
-        <FormField name='imageUrl' label='URL de la imagen del post'/>
-        <FormField name='review' variant='textarea' />
-        <FormField name='rating' variant='rating'/>
+        <Input name='name' label='Nombre del post'/>
+        <Input name='location' label='Ubicación'/>
+        <Input name='imageUrl' label='URL de la imagen del post'/>
+        <Input name='review' kind='textarea' />
+        <Input name='rating' kind='rating'/>
 
-        <Button type='submit' isLoading={mutation.isPending} loadingText={'Agregando post...'} variant='submitForm'>
+        <Button kind='primary' type='submit' isLoading={mutation.isPending}>
           {'Agregar post'}
         </Button>
-        <Button variant='secondForm' onClick={navBack} disabled={mutation.isPending}>
+        <Button kind='secondary' onClick={navBack} isDisabled={mutation.isPending}>
           {'Cancelar'}
         </Button>
       </Form>
-
-      {mutation.isError && <Message error={mutation.error} />}
     </Container>
   );
 };

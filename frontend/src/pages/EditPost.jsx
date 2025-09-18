@@ -3,11 +3,9 @@ import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 
-import { useApi, useNav, useTitle } from '@/hooks';
+import { useApi, useNav, useTitle, useToast } from '@/hooks';
 import { postSchema } from '@/schema';
-import { Button, Container, Form, FormField, Message, Text } from '@/components/ui';
-
-import ErrorPage from './ErrorPage';
+import { Button, Container, Error, Form, Input, Text } from '@/componentes';
 
 const EditPost = () => {
   const { setTitle, setDescription } = useTitle(null, 'Aquí se edita un post');
@@ -15,6 +13,7 @@ const EditPost = () => {
   const { editPost, fetchPost } = useApi();
   const { navPost } = useNav();
   const { ID } = useParams();
+  const { toastError } = useToast();
   const queryClient = useQueryClient();
   const formRef = useRef();
 
@@ -54,7 +53,8 @@ const EditPost = () => {
       queryClient.invalidateQueries(['post', ID]);
       queryClient.invalidateQueries(['posts']);
       navPost(ID);
-    }
+    },
+    onError: (error) => toastError("Error al editar el post", error.message),
   });
 
   const handleSubmit = (formData) => {
@@ -72,33 +72,31 @@ const EditPost = () => {
   };
 
   if (isLoading) return <Message loading />;
-  if (isError) return <ErrorPage error={error.message || error} message={'cargar el post'} />;
+  if (isError) return <Error>{error}</Error>;;
   if (!editable) return null;
 
   return (
-    <Container variant='background' className='max-w-lg'>
-      <Text variant='title'>{'Editar Post'}</Text>
-      <Text variant='subtitle'>{'Edita los detalles del post'}</Text>
+    <Container kind='background' className='max-w-lg'>
+      <Text kind='title'>{'Editar Post'}</Text>
+      <Text kind='subtitle'>{'Edita los detalles del post'}</Text>
 
       <Form
         defaultValues={post} ref={formRef}
         schema={postSchema} onSubmit={handleSubmit} isSubmitting={mutation.isPending}
       >
-        <FormField name='name' label='Nombre del post'/>
-        <FormField name='location' label='Ubicación'/>
-        <FormField name='imageUrl' label='URL de la imagen del post'/>
-        <FormField name='review' variant='textarea'/>
-        <FormField name='rating' variant='rating' label='Calificación (0-10)'/>
+        <Input name='name' label='Nombre del post'/>
+        <Input name='location' label='Ubicación'/>
+        <Input name='imageUrl' label='URL de la imagen del post'/>
+        <Input name='review' kind='textarea'/>
+        <Input name='rating' kind='rating' label='Calificación (0-10)'/>
 
-        <Button type='submit' isLoading={mutation.isPending} loadingText={'Editando post...'} variant='submitForm'>
+        <Button kind='primary' type='submit' isLoading={mutation.isPending}>
           {'Editar post'}
         </Button>
-        <Button variant='secondForm' onClick={() => navPost(ID)} disabled={mutation.isPending}>
+        <Button kind='secondary' onClick={() => navPost(ID)} disabled={mutation.isPending}>
           {'Cancelar'}
         </Button>
       </Form>
-
-      {mutation.isError && <Message error={mutation.error} />}
     </Container>
   );
 };

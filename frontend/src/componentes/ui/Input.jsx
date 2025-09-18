@@ -9,7 +9,7 @@ import {
   AutocompleteItem as HeroAutocompleteItem,
 } from "@heroui/react";
 
-import KindsManager from './KindsManager';
+import KindsManager from '../KindsManager';
 
 const baseProps = {
   isRequired: true,
@@ -135,8 +135,9 @@ const PasswordInput = ({ ...props}) => {
 const Input = ({
   name,
   kind,
+  children,
   isInvalid,
-  outForm = false,
+  outForm = false, //??
   ...props
 }) => {
   let register = () => ({});
@@ -165,7 +166,9 @@ const Input = ({
     kind={kind}
     defaultKind={defaultKind}
     {...allProps}
-  />
+  >
+    {children}
+  </KindsManager>
 };
 
 export default Input;
@@ -187,7 +190,9 @@ const autocompleteItemKinds = {
 
 const autocompleteItemDefaultKind = 'autocompleteItem';
 
-Input.Item = ({ children, kind, ...props }) => {
+Input.Item = HeroAutocompleteItem;
+
+Input.Item2 = ({ children, kind, ...props }) => {
   const allProps = {
     ...props
   }

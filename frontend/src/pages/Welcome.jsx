@@ -1,36 +1,26 @@
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 
-import { useApi, useAuth, useNav } from '@/hooks';
-import { registerSchema } from '@/schema'
-import { Button, Container, Form, FormField, Message, Text } from '@/components/ui';
+import { useApi, useAuth, useNav, useToast } from '@/hooks';
+import { registerSchema } from '@/schema';
+import { Button, Container, Form, Input, Text} from '@/componentes';
 
-const Welcome = ({ inRegister = false }) => {
-  const { from } = useNav();
-   
-  return (
-    <Container variant='background' className='max-w-md'>
-      <Text variant='title'>{'Bienvenido a WorldBlog'}</Text>
-      <Text variant='subtitle'>
-        {from
-          ? 'Necesitas iniciar sesión para ver este contenido'
-          : 'Descubre los mejores destinos alrededor del mundo'
-        }
-      </Text>
+const Welcome = ({ inRegister = false }) => (
+  <Container kind='background' className='max-w-md'>
+    <Text kind='title'>{'Bienvenido a WorldBlog'}</Text>
+    <Text>{'Descubre los mejores destinos alrededor del mundo'}</Text>
 
-      <WelcomeForm inRegister={inRegister}/>
-
-    </Container>
-  );
-};
+    <WelcomeForm inRegister={inRegister}/>
+  </Container>
+);
 
 export const WelcomeForm = ({ inRegister }) => {
-  const { apiLogin, apiRegister } = useApi();
   const { setAuth } = useAuth();
-  const { navBlog, navFrom } = useNav();
-  
-  const [ inLogin, setInLogin ] = useState(!inRegister);
+  const { apiLogin, apiRegister } = useApi();
+  const { navBlog } = useNav();
+  const { toastError } = useToast();
 
+  const [ inLogin, setInLogin ] = useState(!inRegister);
   const [ usernameOrEmailInput, setUsernameOrEmailInput ] = useState('');
   const [ emailInput, setEmailInput ] = useState('');
 
@@ -39,85 +29,71 @@ export const WelcomeForm = ({ inRegister }) => {
       if (usernameOrEmailInput && usernameOrEmailInput.includes('@')) {
         setEmailInput(usernameOrEmailInput);
         setUsernameOrEmailInput('');
-      }
+      };
 
     } else {
       if (!usernameOrEmailInput && emailInput) {
         setUsernameOrEmailInput(emailInput);
         setEmailInput('');
-      }
+      };
     }
 
     setTimeout(() => {
       setInLogin(!inLogin);
     }, 0);
-  }
+  };
 
   const onSuccess = (response) => {
     setAuth({ username: response, isAuthenticated: true });
-    navFrom(navBlog);
+    navBlog();
   };
 
   const loginMutation = useMutation({
     mutationFn: ({ usernameOrEmail, password }) => apiLogin(usernameOrEmail, password),
-    onSuccess: (response) => onSuccess(response)
+    onSuccess: (response) => onSuccess(response),
+    onError: (error) => toastError("Error al iniciar sesion", error.message),
   });
 
   const registerMutation = useMutation({
     mutationFn: ({ username, email, password }) => apiRegister(username, email, password),
-    onSuccess: (response) => onSuccess(response)
+    onSuccess: (response) => onSuccess(response),
+    onError: (error) => toastError("Error al registrarte", error.message),
   });
 
   const mutation = inLogin ? loginMutation : registerMutation;
-  const error = mutation.error;
-  const isLoading = mutation.isPending;
 
   return (
-    <>
-      <Form
-        onSubmit={mutation.mutate} isSubmitting={isLoading}
-        schema={inLogin ? null : registerSchema} confirmExit={false}
-      >
-        <FormField
-          name={inLogin ? 'usernameOrEmail' : 'username'} 
-          label={inLogin ? 'Nombre de usuario o email' : 'Nombre de usuario'} 
-          value={usernameOrEmailInput} onValueChange={setUsernameOrEmailInput}
-        />
+    <Form
+      onSubmit={mutation.mutate} isSubmitting={mutation.isPending}
+      schema={inLogin ? null : registerSchema} confirmExit={false}
+    >
+      <Input
+        name={inLogin ? 'usernameOrEmail' : 'username'}
+        label={inLogin ? 'Nombre de usuario o email' : 'Nombre de usuario'}
+        value={usernameOrEmailInput} onValueChange={setUsernameOrEmailInput}
+      />
 
-        {!inLogin && (
-          <FormField 
-            name='email' variant='email'
-            value={emailInput} onValueChange={setEmailInput}
-          />
-        )}
-        
-        <FormField name='password' variant='password' />
+      {!inLogin && (
+        <Input name='email' kind='email' value={emailInput} onValueChange={setEmailInput} />
+      )}
 
-        {!inLogin && <FormField name='confirmPassword' variant='confirmPassword' />}
+      <Input name='password' kind='password' />
 
-        <Button 
-          type='submit' isLoading={isLoading}
-          variant='submitForm' loadingText={inLogin ? 'Iniciando...' : 'Registrando...'}
-        >
-          {inLogin ? 'Iniciar Sesión': 'Registarme'}
-        </Button>
-        <Button 
-          onClick={() => changePage()} isDisabled={isLoading}
-          variant='secondForm'
-        >
-          {inLogin ? 'No tengo una cuenta' : 'Ya tengo una cuenta'}
-        </Button>
-        <Button
-          onClick={navBlog} isDisabled={isLoading} 
-          variant='secondForm'
-        >
-          {'Entrar como invitado'}
-        </Button>
-      </Form>
-      
-      {error && <Message error={error} />}
-    </>
-  )
+      {!inLogin && <Input name='confirmPassword' kind='confirmPassword' />}
+
+      <Button kind='primary' type='submit' isLoading={mutation.isPending}>
+        {inLogin ? 'Iniciar Sesión': 'Registarme'}
+      </Button>
+
+      <Button kind='secondary' onClick={() => changePage()} isDisabled={mutation.isPending}>
+        {inLogin ? 'No tengo una cuenta' : 'Ya tengo una cuenta'}
+      </Button>
+
+      <Button kind='secondary' onClick={navBlog} isDisabled={mutation.isPending}>
+        {'Seguir sin cuenta'}
+      </Button>
+    </Form>
+  );
 };
 
 export default Welcome;

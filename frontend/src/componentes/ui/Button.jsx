@@ -6,7 +6,7 @@ import {
   Switch as HeroSwitch,
 } from "@heroui/react";
 
-import KindsManager from './KindsManager';
+import KindsManager from '../KindsManager';
 
 const baseProps = {};
 
@@ -19,6 +19,12 @@ const kingdoms = {
     component: (props) => <HeroButton {...props}>{props.children}</HeroButton>,
     kingdomProps: {
       spinnerPlacement: 'end'
+    },
+  },
+  icon: {
+    component: (props) => <HeroButton {...props}>{props.children}</HeroButton>,
+    kingdomProps: {
+      isIconOnly: true,
     },
   },
   group: {
@@ -52,10 +58,6 @@ const kinds = {
       size: 'sm'
     },
   },
-  group: {
-    kingdom: 'group',
-    props: {},
-  },
   primary: {
     kingdom: 'button',
     props: {
@@ -82,6 +84,14 @@ const kinds = {
       size: 'sm',
       fullWidth: true
     },
+  },
+  icon: {
+    kingdom: 'icon',
+    props: {},
+  },
+  group: {
+    kingdom: 'group',
+    props: {},
   },
   snippet: {
     kingdom: 'snippet',

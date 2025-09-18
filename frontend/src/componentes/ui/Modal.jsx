@@ -11,7 +11,7 @@ import {
 } from "@heroui/react";
 
 import Button from "./Button";
-import KindsManager from './KindsManager';
+import KindsManager from '../KindsManager';
 
 const baseProps = {};
 
@@ -143,7 +143,7 @@ const BaseModal = ({ children, isDivided, disableBody, setOnOpen, className, ...
               {header}
               {isDivided && header && <HeroDivider />}
 
-              {!hasManualBody && !disableBody && <ModalBody>{bodyContent}</ModalBody>}
+              {!hasManualBody && !disableBody && <HeroModalBody>{bodyContent}</HeroModalBody>}
               {disableBody && bodyContent}
 
               {childArray.map((child, i) =>

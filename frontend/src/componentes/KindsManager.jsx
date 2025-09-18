@@ -1,3 +1,5 @@
+import clsx from 'clsx';
+
 const KindsManager = ({
   baseProps,
   kingdoms,
@@ -19,7 +21,13 @@ const KindsManager = ({
     ...baseProps,
     ...kingdomProps,
     ...kindProps,
-    ...props
+    ...props,
+    className: clsx(
+      !props.disableBaseClassName && baseProps?.className,
+      !props.disableKingdomClassName && kingdomProps?.className,
+      !props.disableKindClassName && kindProps?.className,
+      props.className
+    ),
   }
 
   return <Renderer {...allProps}>{children}</Renderer>;

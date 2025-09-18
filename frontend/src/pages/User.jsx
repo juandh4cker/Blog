@@ -3,21 +3,15 @@ import { useParams } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { useApi, useNav, useTitle, useToast } from '@/hooks';
-import { Button, Container, Message, Tab, Avatar, Divider } from '@/components/ui';
-import ErrorPage from './ErrorPage';
-
-import PostsList from '@/components/PostsList';
-import ShareModal from '@/components/ShareModal';
+import { Button, Container, Divider, Error, Loading, Posts, Share, Tabs, Text, UserCard } from '@/componentes';
 
 const User = () => {
   const { fetchUser, followOrUnfollowUser } = useApi();
-  const { toastError } = useToast();
-  const { username } = useParams();
   const { currentUrl } = useNav();
-
-  const [ onOpenShare, setOnOpenShare ] = useState();
-
+  const { username } = useParams();
   const queryClient = useQueryClient();
+  const [ onOpenShare, setOnOpenShare ] = useState();
+  const { toastError } = useToast();
   
   const {
     data: user,
@@ -39,72 +33,67 @@ const User = () => {
 
   const followMutation = useMutation({
     mutationFn: () => followOrUnfollowUser(username),
-    onSuccess: () => {
-      queryClient.invalidateQueries(['user', username]);
-    },
-    onError: (error) => {
-      toastError("Error al seguir", error.message);
-    },
+    onSuccess: () => queryClient.invalidateQueries(['user', username]),
+    onError: (error) => toastError("Error al seguir", error.message),
   });
 
   const isSelf = user?.hasOwnProperty('isFollowing') === false;
   const isFollowing = user?.isFollowing || false;
   const postsLength = user?.posts?.length || 0;
 
-  if (isLoading) return <Message loading />;
-  if (isError || !user) return <ErrorPage />;
+  if (isLoading) return <Loading />;
+  if (isError || !user) return <Error>{error}</Error>;
 
-  const tabs = [
+  const items = [
     {
-      key: 'Posts',
+      key: 'posts',
+      title: 'Posts',
       data: user?.posts,
     },
     {
-      key: 'Likes',
+      key: 'likes',
+      title: 'Likes',
       data: user?.likes,
     },
   ];
 
   return (
-    <Container variant='background' className='max-w-3xl'>
+    <Container kind='background' className='max-w-3xl'>
       <Container className='w-full'>
         <Container.Body className='flex flex-row justify-around items-center h-38 p-6'>
-          <Avatar
-            isBordered 
-            showFallback 
-            src="https://www.svgrepo.com/show/452030/avatar-default.svg"
-            name={user.username}
-            className='w-26 h-26 text-large'
-          />
+          <UserCard kind='bigAvatar' name={user.username} {...(user.profilePicture ? { src: user.profilePicture } : {})}/>
 
-          <Divider orientation="vertical" />
+          <Divider vertical />
 
           <div className='flex flex-col items-center justify-around w-7/12 h-full'>
             <div className='flex flex-col w-full justify-between items-center md:flex-row gap-2'>
               <h2 className='font-medium text-3xl'>{user.username}</h2>
-              <Container variant='button'>
+              <Button.Group>
                 {!isSelf && (
                   <Button onClick={() => followMutation.mutate()} isLoading={followMutation.isPending}>
                     {isFollowing ? 'Siguiendo' : 'Seguir'}
                   </Button>
                 )}
                 <Button onClick={onOpenShare}>{'Compartir'}</Button>
-              </Container>
+              </Button.Group>
             </div>
 
-            <p className='w-full text-center'>
+            <Text>
               {`${user.followers} seguidor${user.followers === 1 ? '' : 'es'} • ${postsLength} post${postsLength === 1 ? '' : 's'}`}
-            </p>
+            </Text>
           </div>
         </Container.Body>
       </Container>
       
-      <Tab 
-        items={tabs} 
-        render={(item) => <PostsList posts={item.data} />} 
-      />
+      <Tabs items={items}>
+        {(item) => (
+          <Tabs.Tab key={item.key} title={item.title}>
+            <Posts posts={item.data} />
+          </Tabs.Tab>
+        )}
+      </Tabs>
 
-      <ShareModal setOnOpen={setOnOpenShare} shareUrl={currentUrl} />
+      <Share shareUrl={currentUrl} setOnOpen={setOnOpenShare} />
     </Container>
   );
 };

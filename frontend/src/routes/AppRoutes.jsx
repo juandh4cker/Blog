@@ -8,7 +8,7 @@ import Post from '@/pages/Post'
 import User from '@/pages/User';
 import EditPost from '@/pages/EditPost';
 import ConfigPage from '@/pages/ConfigPage';
-import ErrorPage from '@/pages/ErrorPage';
+import {Error} from '@/componentes';
 
 const AppRoutes = () => {
   return (
@@ -25,7 +25,7 @@ const AppRoutes = () => {
         <Route path='/config' element={<ConfigPage />} />
       </Route>
 
-      <Route path='*' element={<ErrorPage error='Not found' />} />
+      <Route path='*' element={<Error />} />
     </Routes>
   );
 };

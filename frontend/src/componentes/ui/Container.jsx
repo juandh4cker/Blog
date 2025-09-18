@@ -7,9 +7,8 @@ import {
   CardFooter as HeroCardFooter,
   Divider as HeroDivider,
 } from "@heroui/react"
-import clsx from 'clsx';
 
-import KindsManager from './KindsManager';
+import KindsManager from '../KindsManager';
 
 const baseProps = {};
 
@@ -49,7 +48,7 @@ const kinds = {
       isBlurred: true,
       disableBody: true,
       shadow: "lg",
-      baseClassName: 'relative z-[1] mx-auto bg-white/60 backdrop-blur-xs shadow-xl ring-4 ring-blue-100/30 p-6 flex flex-col items-center justify-between gap-4'
+      className: 'relative z-[1] mx-auto bg-white/60 backdrop-blur-xs shadow-xl ring-4 ring-blue-100/30 p-6 flex flex-col items-center justify-between gap-4'
     },
   },
   card: {
@@ -81,7 +80,7 @@ const isBody = (child) =>
 const isFooter = (child) =>
   child?.type === kingdoms.footer.component || child?.type === Container.Footer
 
-const BaseCard = ({ children, isDivided, disableBody, baseClassName, className, ...props }) => {
+const BaseCard = ({ children, isDivided, disableBody, ...props }) => {
   const childArray = Array.isArray(children) ? children : [children]
 
   const header = childArray.find(isHeader)
@@ -93,7 +92,7 @@ const BaseCard = ({ children, isDivided, disableBody, baseClassName, className, 
   )
 
   return (
-    <HeroCard className={clsx(baseClassName, className)}{...props}>
+    <HeroCard {...props}>
       {header}
       {isDivided && header && <HeroDivider />}
 

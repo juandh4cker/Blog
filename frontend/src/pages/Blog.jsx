@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { useApi } from '@/hooks';
-import { Container, Text } from '@/components/ui';
-
-import PostsList from '@/components/PostsList';
+import { 
+  Container, Text,
+  Posts
+} from '@/componentes';
 
 const Blog = () => {
   const { fetchPosts } = useApi();
@@ -20,12 +21,11 @@ const Blog = () => {
   });
 
   return (
-    <Container variant='background' className='max-w-4xl'>
-      <Text variant='title'>{'Blog'}</Text>
-      <Text variant='subtitle'>{'Ver todos los posts agregados'}</Text>
+    <Container kind='background' className='max-w-4xl'>
+      <Text kind='title'>{'Blog'}</Text>
+      <Text>{'Ver todos los posts agregados'}</Text>
 
-      <PostsList posts={posts} isLoading={isLoading} error={isError ? error : null}/>
-
+      <Posts posts={posts} isLoading={isLoading} error={isError ? error : null}/>
     </Container>
   );
 };

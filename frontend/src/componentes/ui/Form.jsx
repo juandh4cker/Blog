@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form as HeroForm } from "@heroui/react";
 import clsx from 'clsx';
 
-import KindsManager from './KindsManager';
+import KindsManager from '../KindsManager';
 
 const baseProps = {
   className: 'flex flex-col w-full',
@@ -40,9 +40,9 @@ const Form = forwardRef(({
   defaultValues,
   onSubmit,
   children,
-  className = '',
+  className,
   isSubmitting,
-  confirmExit = true,
+  confirmExit = true, //??
   kind,
   ...props
 }, ref) => {

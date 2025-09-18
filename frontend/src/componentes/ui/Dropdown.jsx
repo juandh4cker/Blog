@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { 
   Dropdown as HeroDropdown,
   DropdownTrigger as HeroDropdownTrigger,
@@ -6,7 +8,7 @@ import {
   DropdownItem as HeroDropdownItem,
 } from '@heroui/react';
 
-import KindsManager from './KindsManager';
+import KindsManager from '../KindsManager';
 
 const baseProps = {};
 
@@ -146,7 +148,9 @@ const DropdownItemKinds = {
 
 const DropdownItemDefaultKind = 'item';
 
-Dropdown.Item = ({ children, kind, ...props }) => {
+Dropdown.Item = HeroDropdownItem;
+
+Dropdown.Item2 = ({ children, kind, ...props }) => {
   const allProps = {
     ...props
   };

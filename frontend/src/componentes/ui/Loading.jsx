@@ -2,6 +2,8 @@ import {
   Spinner as HeroSpinner,
 } from '@heroui/react';
 
+import KindsManager from '../KindsManager';
+
 const baseProps = {};
 
 const kingdoms = {

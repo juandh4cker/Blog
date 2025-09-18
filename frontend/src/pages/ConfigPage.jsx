@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useConfig } from '@/hooks/useConfig';
-import { Button, Container, Text, Tab, FormField } from '@/components/ui'
+import { Button, Container, Text, Tabs, Input } from '@/componentes'
 
 import { FaMoon, FaSun } from "react-icons/fa";
 
@@ -9,11 +9,11 @@ const PageItem = ({ title, description, children }) => {
   return (
     <Container isBlurred shadow="sm" className='w-full'>
       <Container.Body className="flex flex-row justify-between items-center w-full">
-        <div className="w-2/3 flex flex-col justify-center gap-2">
+        <div className="w-2/3 flex flex-col justify-center items-start gap-2">
           <Text>{title}</Text>
-          <Text variant='subtitle'>{description}</Text>
+          <Text kind='subtitle'>{description}</Text>
         </div>
-        <div className="w-1/3 flex justify-center">
+        <div className="w-1/3 flex justify-end">
           {children}
         </div>
       </Container.Body>
@@ -36,13 +36,15 @@ const General = () => {
   return (
     <>
       <PageItem title='Modo oscuro' description={'Activar el modo oscuro'}>
-        <Button variant='switch' defaultSelected={theme === 'dark'} onChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+        <Button kind='switch' defaultSelected={theme === 'dark'} onChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
           startContent={<FaSun size={15} />}
           endContent={<FaMoon size={15} />}
           size="lg"/>
       </PageItem>
       <PageItem title='Idioma' description='Selecciona el idioma de la aplicación'>
-        <FormField label="Select an language" variant='autocomplete' items={languageOptions} defaultSelectedKey={language} onSelectionChange={setLanguage} isRequired={false} outForm={true}/>
+        <Input label="Select an language" kind='autocomplete' items={languageOptions} defaultSelectedKey={language} onSelectionChange={setLanguage} isRequired={false} outForm={true} >
+          {(item) => <Input.Item key={item.key}>{item.label}</Input.Item>}
+        </Input>
       </PageItem>
     </>
   )
@@ -54,7 +56,7 @@ const Cuenta = () => {
   return (
     <>
       <PageItem title='Visibilidad de likes' description={`${likesPublic ? 'Oculta' : 'Muestra'} a los demas tus likes`}>
-        <Button variant='switch' defaultSelected={likesPublic} onChange={() => setLikesPublic(!likesPublic)} />
+        <Button kind='switch' defaultSelected={likesPublic} onChange={() => setLikesPublic(!likesPublic)} />
       </PageItem>
       <PageItem title='Editar perfil' description='Cambia la descripción o los datos de tu perfil'>
         <Button onClick={() => alert("No implementado")}>Editar</Button>
@@ -74,24 +76,26 @@ const ConfigPage = () => {
   const [ page, setPage ] = useState('General');
 
   const pages = [
-    { key: 'General', component: <General />},
-    { key: 'Cuenta', component: <Cuenta />}
+    { key: 'General', title: 'General', children: <General />},
+    { key: 'Cuenta', title: 'Cuenta', children: <Cuenta />}
   ];
   
   return (
-    <Container variant='background' className='max-w-3xl'>
-      <Text variant='title'>{page}</Text>
+    <Container kind='background' className='max-w-3xl'>
+      <Text kind='title'>{page}</Text>
 
       <div className='flex flex-col justify-between w-full'>
-        <Tab aria-label="Options" tabClassName='flex flex-col justify-between w-full' items={pages} selectedKey={page} onSelectionChange={setPage} isVertical size='lg'
-          render={(item) => (
-            <Container disableBody isBlurred className="flex flex-col justify-between w-full gap-4 p-6">
-                {item.component}
-            </Container>
+        <Tabs aria-label="Options"  items={pages} selectedKey={page} onSelectionChange={setPage} isVertical size='lg'>
+          {(item) => (
+            <Tabs.Tab title={item.title} className='flex flex-col justify-between w-full' key={item.key}>
+              <Container disableBody isBlurred className="flex flex-col justify-between w-full gap-4 p-6">
+                {item.children}
+              </Container>
+            </Tabs.Tab>
+            
           )}
-          
+        </Tabs>
 
-        />
       </div>
     </Container>
   )

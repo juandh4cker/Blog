@@ -3,7 +3,7 @@ import {
   Tab as HeroTab,
 } from '@heroui/react';
 
-import KindsManager from './KindsManager';
+import KindsManager from '../KindsManager';
 
 const baseProps = {};
 
@@ -13,7 +13,7 @@ const kingdoms = {
     kingdomProps: {},
   },
   tabs: {
-    component: (props) => <BaseTabs {...props}>{props.children}</BaseTabs>,
+    component: (props) => <HeroTabs {...props}>{props.children}</HeroTabs>,
     kingdomProps: {},
   },
   tab: {
@@ -78,4 +78,4 @@ const createSub = (defaultKingdom) => ({ children, kind, ...props }) => (
   </KindsManager>
 );
 
-Tabs.Tab = createSub("tab");
+Tabs.Tab = HeroTab;
