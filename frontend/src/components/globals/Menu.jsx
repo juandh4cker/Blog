@@ -18,7 +18,7 @@ export const GuestMenu = () => {
       <Modal setOnOpen={setOnOpen}>
         <Modal.Header>Acceder</Modal.Header>
         <WelcomeForm />
-      </Modal> 
+      </Modal>
     </div>
   );
 };
@@ -32,7 +32,7 @@ export const UserMenu = ({ username }) => {
     {key:"profile", children: 'Perfil', props: {onClick: () => navUser(username)}},
     {key:"dashboard", children: 'Dashboard', props: {onClick: navDashboard}},
     {key:"configuration", children: 'Configuracion', props: {onClick: navConfig}},
-    {key:"logout", children: 'Cerrar sesión', props: { className: 'text-danger', color:'danger', onClick: logout }}, 
+    {key:"logout", children: 'Cerrar sesión', props: { className: 'text-danger', color:'danger', onClick: logout }},
   ]
 
   return (

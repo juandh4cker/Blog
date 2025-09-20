@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { useNav } from '@/hooks';
-import { 
+import {
   Container, Image, Loading, Text,
   Error
 } from '@/components';
@@ -10,7 +10,7 @@ const Posts = ({ posts, isLoading, error }) => {
   if (!posts?.length && !isLoading) {
     return <Text>{'Aquí no hay nada'}</Text>;
   }
-  
+
   if (isLoading) {
     return <Loading />;
   }

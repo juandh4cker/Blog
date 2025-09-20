@@ -1,4 +1,4 @@
-import { 
+import {
   Spinner as HeroSpinner,
 } from '@heroui/react';
 
@@ -30,7 +30,7 @@ const Loading = ({
   const allProps = {
     ...props
   }
-  
+
   return <KindsManager
     baseProps={baseProps}
     kingdoms={kingdoms}

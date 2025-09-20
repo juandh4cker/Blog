@@ -100,9 +100,9 @@ const defaultKind = 'input';
 
 const BaseInput = ({ endContent, ...props }) => {
   return (
-    <HeroInput 
+    <HeroInput
       endContent={
-        <div className='absolute right-2 inset-y-0 my-auto flex items-center justify-center'>    
+        <div className='absolute right-2 inset-y-0 my-auto flex items-center justify-center'>
           {endContent}
         </div>
       }
@@ -158,7 +158,7 @@ const Input = ({
     errorMessage: error?.message,
     ...props
   }
-  
+
   return <KindsManager
     baseProps={baseProps}
     kingdoms={kingdoms}
@@ -196,7 +196,7 @@ Input.Item2 = ({ children, kind, ...props }) => {
   const allProps = {
     ...props
   }
-  
+
   return <KindsManager
     baseProps={baseProps}
     kingdom={kingdoms[autocompleteItemDefaultKind]}

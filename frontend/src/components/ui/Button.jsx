@@ -87,7 +87,10 @@ const kinds = {
   },
   icon: {
     kingdom: 'icon',
-    props: {},
+    props: {
+      color: 'primary',
+      variant: 'light'
+    },
   },
   group: {
     kingdom: 'group',
@@ -114,9 +117,7 @@ const kinds = {
   },
   tooltip: {
     kingdom: 'tooltip',
-    props: {
-      className: 'bg-current',
-    },
+    props: {},
   },
 };
 
@@ -130,7 +131,7 @@ const Button = ({
   const allProps = {
     ...props
   }
-  
+
   return <KindsManager
     baseProps={baseProps}
     kingdoms={kingdoms}

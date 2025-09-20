@@ -11,19 +11,19 @@ const shareOptions = [
   {
     name: 'WhatsApp',
     icon: icons.Whatsapp,
-    url: (shareUrl) => `https://wa.me/?text=${shareMessage}${shareUrl}`, 
+    url: (shareUrl) => `https://wa.me/?text=${shareMessage}${shareUrl}`,
     color: 'bg-[#25D366]'
   },
   {
     name: 'X',
     icon: icons.X,
-    url: (shareUrl) => `https://x.com/intent/post?url=${shareMessage}${shareUrl}`, 
-    color: 'bg-gray-300' 
+    url: (shareUrl) => `https://x.com/intent/post?url=${shareMessage}${shareUrl}`,
+    color: 'bg-gray-300'
   },
   {
     name: 'Telegram',
     icon: icons.Telegram,
-    url: (shareUrl) => `https://t.me/share/url?url=${shareMessage}${shareUrl}`, 
+    url: (shareUrl) => `https://t.me/share/url?url=${shareMessage}${shareUrl}`,
     color: 'bg-[#0088cc]'
   },
   {
@@ -35,13 +35,13 @@ const shareOptions = [
   {
     name: 'Facebook',
     icon: icons.Facebook,
-    url: (shareUrl) => `https://www.facebook.com`, 
+    url: (shareUrl) => `https://www.facebook.com`,
     color: 'bg-[#1877F2]'
   },
   {
     name: 'Instagram',
     icon: icons.Instagram,
-    url: (shareUrl) => `https://www.instagram.com`, 
+    url: (shareUrl) => `https://www.instagram.com`,
     color: 'bg-gradient-to-tr from-[#feda75] via-[#d62976] to-[#4f5bd5]'
   },
 ];
@@ -74,14 +74,14 @@ const Share = ({shareUrl, setOnOpen}) => {
       <Modal setOnOpen={setOnOpen} isDivided backdrop='blur'>
         <Modal.Header>{'Compartir'}</Modal.Header>
 
-        <Modal.Body className="flex flex-row justify-between"> 
-          {shareOptions.map(option => 
+        <Modal.Body className="flex flex-row justify-between">
+          {shareOptions.map(option =>
             <Button.Tooltip content={option.name} className={option.color} key={option.name}>
               <Button kind="icon" onClick={() => handleShare({ shareUrl, optionUrl: option.url })} className={option.color}>
                 <img src={option.icon} alt={option.name} width={24} height={24}/>
               </Button>
             </Button.Tooltip>
-          )}  
+          )}
         </Modal.Body>
 
         <Modal.Footer>

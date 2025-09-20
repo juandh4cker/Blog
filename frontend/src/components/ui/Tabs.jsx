@@ -1,4 +1,4 @@
-import { 
+import {
   Tabs as HeroTabs,
   Tab as HeroTab,
 } from '@heroui/react';
@@ -50,7 +50,7 @@ const Tabs = ({
   const allProps = {
     ...props
   }
-  
+
   return <KindsManager
     baseProps={baseProps}
     kingdoms={kingdoms}

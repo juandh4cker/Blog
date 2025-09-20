@@ -78,7 +78,7 @@ const Text = ({
   const allProps = {
     ...props
   }
-  
+
   return <KindsManager
     baseProps={baseProps}
     kingdoms={kingdoms}

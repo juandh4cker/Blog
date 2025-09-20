@@ -1,24 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
-
 import { useApi } from '@/hooks';
-import { 
-  Container, Text,
-  Posts
-} from '@/components';
+import { Container, Text, Posts } from '@/components';
 
 const Blog = () => {
   const { fetchPosts } = useApi();
-
-  const {
-    data: posts = [],
-    isLoading,
-    isError,
-    error
-  } = useQuery({
-    queryKey: ['posts'],
-    queryFn: () => fetchPosts(),
-    staleTime: 60000,
-  });
+  const { data: posts, isLoading, isError, error } = fetchPosts();
 
   return (
     <Container kind='background' className='max-w-4xl'>

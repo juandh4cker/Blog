@@ -1,9 +1,9 @@
 import React from "react";
 
 import {
-  Card as HeroCard, 
-  CardHeader as HeroCardHeader, 
-  CardBody as HeroCardBody, 
+  Card as HeroCard,
+  CardHeader as HeroCardHeader,
+  CardBody as HeroCardBody,
   CardFooter as HeroCardFooter,
   Divider as HeroDivider,
 } from "@heroui/react"
@@ -116,7 +116,7 @@ const Container = ({
   const allProps = {
     ...props
   }
-  
+
   return <KindsManager
     baseProps={baseProps}
     kingdoms={kingdoms}

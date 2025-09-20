@@ -1,50 +1,26 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { useApi, useNav, useTitle, useToast } from '@/hooks';
+import { useApi, useNav } from '@/hooks';
 import { Button, Container, Divider, Error, Loading, Posts, Share, Tabs, Text, UserCard } from '@/components';
 
 const User = () => {
   const { fetchUser, followOrUnfollowUser } = useApi();
-  const { currentUrl } = useNav();
+  const { currentUrl, navDashboard } = useNav();
   const { username } = useParams();
-  const queryClient = useQueryClient();
   const [ onOpenShare, setOnOpenShare ] = useState();
-  const { toastError } = useToast();
-  
-  const {
-    data: user,
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ['user', username],
-    queryFn: () => fetchUser(username),
-    retry: 1,
-    refetchOnWindowFocus: false,
-  });
 
-  const { setTitle } = useTitle(
-    user?.username,
-    'Perfil de usuario en WorldBlog',
-    { enableRouteDefaults: false }
-  );
+  const { data: user, isLoading, isError, error } = fetchUser(username);
+  const followOrUnfollow = followOrUnfollowUser();
 
-  const followMutation = useMutation({
-    mutationFn: () => followOrUnfollowUser(username),
-    onSuccess: () => queryClient.invalidateQueries(['user', username]),
-    onError: (error) => toastError("Error al seguir", error.message),
-  });
+  if (isLoading) return <Loading />;
+  if (isError || !user) return <Error>{error}</Error>;
 
   const isSelf = user?.hasOwnProperty('isFollowing') === false;
   const isFollowing = user?.isFollowing || false;
   const postsLength = user?.posts?.length || 0;
 
-  if (isLoading) return <Loading />;
-  if (isError || !user) return <Error>{error}</Error>;
-
-  const items = [
+  const tabItems = [
     {
       key: 'posts',
       title: 'Posts',
@@ -67,10 +43,12 @@ const User = () => {
 
           <div className='flex flex-col items-center justify-around w-7/12 h-full'>
             <div className='flex flex-col w-full justify-between items-center md:flex-row gap-2'>
-              <h2 className='font-medium text-3xl'>{user.username}</h2>
+              <Text className='font-medium text-3xl'>{user.username}</Text>
               <Button.Group>
-                {!isSelf && (
-                  <Button onClick={() => followMutation.mutate()} isLoading={followMutation.isPending}>
+                {isSelf ? (
+                  <Button onClick={navDashboard}>{'Nuevo post'}</Button>
+                ) : (
+                  <Button onClick={() => followOrUnfollow.mutate({username})} isLoading={followOrUnfollow.isPending}>
                     {isFollowing ? 'Siguiendo' : 'Seguir'}
                   </Button>
                 )}
@@ -84,8 +62,8 @@ const User = () => {
           </div>
         </Container.Body>
       </Container>
-      
-      <Tabs items={items}>
+
+      <Tabs items={tabItems}>
         {(item) => (
           <Tabs.Tab key={item.key} title={item.title}>
             <Posts posts={item.data} />

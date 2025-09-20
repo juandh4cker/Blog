@@ -13,19 +13,14 @@ const Comments = ({ comments, postID, setOnOpen }) => {
   const formRef = useRef();
   const queryClient = useQueryClient();
 
-  const addCommentMutation = useMutation({
-    mutationFn: (commentData) => addComment(postID, commentData),
+ const addCommentMutation = addComment({
     onSuccess: () => {
-      queryClient.invalidateQueries(['post', postID]);
       if (formRef.current) {
         formRef.current.reset({ content: '', rating: '' });
-      };
-    },
-    onError: (error) => {
-      toastError("Error al subir el comentario", error.message);
+      }
     },
   });
-  
+
   return (
     <Modal setOnOpen={setOnOpen} isDivided size='xl' scrollBehavior='inside' >
       <Modal.Header className="flex flex-col gap-1">{'Comentarios'}</Modal.Header>
@@ -48,7 +43,7 @@ const Comments = ({ comments, postID, setOnOpen }) => {
       <Modal.Footer>
         <Form
           ref={formRef} isSubmitting={addCommentMutation.isPending}
-          schema={commentSchema} onSubmit={addCommentMutation.mutate}
+          schema={commentSchema} onSubmit={(data) => addCommentMutation.mutate({ postID, commentData: data })}
         >
           <Input name='content' kind='textarea' placeholder='Escribe tu comentario aquí' label={null} minRows={1} />
             <div className='flex flex-row gap-2 w-full'>
@@ -68,33 +63,19 @@ const Comment = ({ postID, comment }) => {
   const { toastError } = useToast();
   const queryClient = useQueryClient();
 
-  const deleteCommentMutation = useMutation({
-    mutationFn: () => deleteComment(postID, comment.ID),
-    onSuccess: () => {
-      queryClient.setQueryData(['post', postID], (oldData) => {
-        if (!oldData) return oldData;
+  const deleteCommentMutation = deleteComment();
 
-        return {
-          ...oldData,
-          comments: oldData.comments.filter(c => c.ID !== comment.ID)
-        };
-      });
-    },
-    onError: (error) => {
-      toastError("Error al eliminar el comentario", error.message);
-    },
-  });
 
   const handleDelete = () => {
     if (window.confirm('¿Estás seguro de que quieres eliminar este comentario?')) {
-      deleteCommentMutation.mutate();
+      deleteCommentMutation.mutate({ postID, commentID: comment.ID });
     };
   };
 
   const items = [
     {key: "uploaded", children: `Subido hace ${timeSince(comment.createdAt)}`, props: { isDisabled: true }},
     {key: "profile", children: 'Ir al perfil', props: { onClick: () => navUser(comment.creator)} },
-    {key: "delete", children: deleteCommentMutation.isPending ? 'Eliminando...' : 'Borrar', props: { onClick: handleDelete, className: 'text-danger', color: 'danger', disabled: deleteCommentMutation.isPending }}, 
+    {key: "delete", children: deleteCommentMutation.isPending ? 'Eliminando...' : 'Borrar', props: { onClick: handleDelete, className: 'text-danger', color: 'danger', disabled: deleteCommentMutation.isPending }},
   ];
 
   return (

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
 
 import { useApi, useAuth, useNav, useToast } from '@/hooks';
 import { registerSchema } from '@/schema';
@@ -16,9 +15,8 @@ const Welcome = ({ inRegister = false }) => (
 
 export const WelcomeForm = ({ inRegister }) => {
   const { setAuth } = useAuth();
-  const { apiLogin, apiRegister } = useApi();
+  const { login, register } = useApi();
   const { navBlog } = useNav();
-  const { toastError } = useToast();
 
   const [ inLogin, setInLogin ] = useState(!inRegister);
   const [ usernameOrEmailInput, setUsernameOrEmailInput ] = useState('');
@@ -43,28 +41,22 @@ export const WelcomeForm = ({ inRegister }) => {
     }, 0);
   };
 
-  const onSuccess = (response) => {
-    setAuth({ username: response, isAuthenticated: true });
-    navBlog();
+  const mutation = inLogin ? login() : register();
+  const handleSubmit = (values) => {
+    mutation.mutate(
+      values,
+      {
+        onSuccess: (response) => {
+          setAuth({ username: response, isAuthenticated: true });
+          navBlog();
+        },
+      }
+    );
   };
-
-  const loginMutation = useMutation({
-    mutationFn: ({ usernameOrEmail, password }) => apiLogin(usernameOrEmail, password),
-    onSuccess: (response) => onSuccess(response),
-    onError: (error) => toastError("Error al iniciar sesion", error.message),
-  });
-
-  const registerMutation = useMutation({
-    mutationFn: ({ username, email, password }) => apiRegister(username, email, password),
-    onSuccess: (response) => onSuccess(response),
-    onError: (error) => toastError("Error al registrarte", error.message),
-  });
-
-  const mutation = inLogin ? loginMutation : registerMutation;
 
   return (
     <Form
-      onSubmit={mutation.mutate} isSubmitting={mutation.isPending}
+      onSubmit={handleSubmit} isSubmitting={mutation.isPending}
       schema={inLogin ? null : registerSchema} confirmExit={false}
     >
       <Input

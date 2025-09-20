@@ -141,8 +141,7 @@ const BaseImage = ({ className, withModal, withWrapper, title, src, alt, childre
         </div>
       )}
 
-      
-      {withModal 
+      {withModal
         ? (
           <Modal setOnOpen={setOnOpen} isDivided hideCloseButton>
             <Modal.Body className='flex items-center justify-center'>
@@ -157,7 +156,7 @@ const BaseImage = ({ className, withModal, withWrapper, title, src, alt, childre
                   }}
                 />
               ) : (
-                <HeroImage 
+                <HeroImage
                   className="w-[80vw] object-contain rounded-lg shadow-lg"
                   src={src}
                   alt={alt || title || ''}

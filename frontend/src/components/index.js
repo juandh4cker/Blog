@@ -1,5 +1,5 @@
 // Hero
-export { 
+export {
   Autocomplete,AutocompleteItem,
   Select, SelectSection, SelectItem,
 } from "@heroui/react";

@@ -1,12 +1,14 @@
 import React from 'react';
 
-import { 
+import {
   Dropdown as HeroDropdown,
   DropdownTrigger as HeroDropdownTrigger,
   DropdownMenu as HeroDropdownMenu,
   DropdownSection as HeroDropdownSection,
   DropdownItem as HeroDropdownItem,
 } from '@heroui/react';
+
+import {renderMap} from '@/utils'
 
 import KindsManager from '../KindsManager';
 
@@ -70,7 +72,7 @@ const isTrigger = (child) =>
 const isMenu = (child) =>
   child?.type === kingdoms.menu.component || child?.type === Dropdown.Menu
 
-const BaseDropdown = ({ children, ...props }) => {
+const BaseDropdown = ({ children, items, ...props }) => {
   const childArray = Array.isArray(children) ? children : [children]
 
   const trigger = childArray.find(isTrigger)
@@ -78,6 +80,13 @@ const BaseDropdown = ({ children, ...props }) => {
 
   const menuContent = childArray.filter(
     (child) => !isTrigger(child) && !isMenu(child)
+  );
+
+  if (items) return (
+  <HeroDropdown  {...props}>
+    <HeroDropdownTrigger>{children}</HeroDropdownTrigger>
+    <HeroDropdownMenu>{renderMap(items, HeroDropdownItem)}</HeroDropdownMenu>
+  </HeroDropdown>
   );
 
   return (
@@ -100,7 +109,7 @@ const Dropdown = ({
   const allProps = {
     ...props
   }
-  
+
   return <KindsManager
     baseProps={baseProps}
     kingdoms={kingdoms}
@@ -154,7 +163,7 @@ Dropdown.Item2 = ({ children, kind, ...props }) => {
   const allProps = {
     ...props
   };
-  
+
   return <KindsManager
     baseProps={baseProps}
     kingdom={kingdoms[DropdownItemDefaultKind]}

@@ -16,7 +16,7 @@ export const ConfigProvider = ({ children }) => {
     setThm(thm);
     setLocalstorage('theme', thm);
   }
-  
+
   useEffect(() => {
     const actualLang = getLocalstorage('lang');
     const browserLang = navigator.language.slice(0, 2);

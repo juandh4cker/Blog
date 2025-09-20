@@ -79,7 +79,7 @@ const ConfigPage = () => {
     { key: 'General', title: 'General', children: <General />},
     { key: 'Cuenta', title: 'Cuenta', children: <Cuenta />}
   ];
-  
+
   return (
     <Container kind='background' className='max-w-3xl'>
       <Text kind='title'>{page}</Text>
@@ -92,7 +92,6 @@ const ConfigPage = () => {
                 {item.children}
               </Container>
             </Tabs.Tab>
-            
           )}
         </Tabs>
 

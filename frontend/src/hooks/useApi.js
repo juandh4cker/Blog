@@ -1,34 +1,189 @@
-import { useAuth } from './';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useAuth, useToast } from './';
+
 import * as api from '@/api';
 
 export const useApi = () => {
   const { auth, logout } = useAuth();
+  const { toastError } = useToast();
+  const queryClient = useQueryClient();
 
-  const callWithAuth = (apiFn) => {
+  //Verify auth
+  const callWithAuth = (fn) => {
     return (...args) => {
       if (!auth.isAuthenticated) {
         logout();
         return Promise.reject(new Error('Unauthorized'));
       }
-      return apiFn(...args);
+      return fn(...args);
     };
   };
 
+  //Mutations
+  const createMutation = (
+    mutationFn,
+    { defaultOnSuccess, defaultOnError } = {}
+  ) => {
+    return ({
+      disableOnSuccess = false,
+      disableOnError = false,
+      ...options
+    } = {}) =>
+      useMutation({
+        mutationFn,
+        onSuccess: (data, variables, context) => {
+          if (!disableOnSuccess) {
+            defaultOnSuccess?.(data, variables, context);
+          }
+          options.onSuccess?.(data, variables, context);
+        },
+        onError: (error, variables, context) => {
+          if (!disableOnError) {
+            defaultOnError?.(error, variables, context);
+          }
+          options.onError?.(error, variables, context);
+        },
+      });
+  };
+
+
+  //Access
+  const login = createMutation(
+    ({ usernameOrEmail, password }) => api.apiLogin(usernameOrEmail, password),
+    { defaultOnError: (error) => toastError('Error al iniciar sesión', error.message) }
+  );
+
+  const register = createMutation(
+    ({ username, email, password }) => api.apiRegister(username, email, password),
+    { defaultOnError: (error) => toastError('Error al registrarte', error.message) }
+  );
+
+  // User
+  const fetchUser = (username) =>
+    useQuery({
+      queryKey: ['user', username],
+      queryFn: () => callWithAuth(api.fetchUser)(username),
+      retry: 1,
+      refetchOnWindowFocus: false,
+    });
+
+  const followOrUnfollowUser = createMutation(
+    ({ username }) => callWithAuth(api.followOrUnfollowUser)(username),
+    {
+      defaultOnSuccess: ({ username }) => queryClient.invalidateQueries(['user', username]),
+      defaultOnError: (error) => toastError("Error al seguir", error.message),
+    }
+  );
+
+  //Post
+  const fetchPosts = () =>
+    useQuery({
+      queryKey: ['post'],
+      queryFn: () => api.fetchPosts(),
+      retry: 1,
+      refetchOnWindowFocus: false,
+    })
+
+  const fetchPost = (ID) =>
+    useQuery({
+      queryKey: ['post', ID],
+      queryFn: () => callWithAuth(api.fetchPost)(ID),
+      retry: 1,
+      refetchOnWindowFocus: false,
+    })
+
+  const addPost = createMutation(
+    ( postData ) => callWithAuth(api.addPost)(postData),
+    {
+      defaultOnSuccess: () => queryClient.invalidateQueries(['posts']),
+      defaultOnError: (error) => toastError("Error al crear el post", error.message),
+    }
+  );
+
+  const editPost = createMutation(
+    ({ ID, data }) => callWithAuth(api.editPost)(ID, data),
+    {
+      defaultOnSuccess: (data, variables) => {
+        const id = variables?.ID ?? variables?.id;
+        if (id) {
+          queryClient.invalidateQueries(['post', id]);
+        }
+        queryClient.invalidateQueries(['posts']);
+      },
+      defaultOnError: (error) => toastError('Error al editar el post', error.message),
+    }
+  );
+
+  const deletePost = createMutation(
+    ( {ID} ) => callWithAuth(api.deletePost)(ID),
+    {
+      defaultOnSuccess: () => queryClient.invalidateQueries(['posts']),
+      defaultOnError: (error) => toastError('Error al eliminar el post', error.message),
+    }
+  );
+
+  const likePost = createMutation(
+    ({ ID }) => callWithAuth(api.likePost)(ID),
+    {
+      defaultOnSuccess: (data, variables) => {
+        const id = variables?.ID ?? variables?.id ?? data?.ID ?? data?.id;
+        if (id) {
+          queryClient.invalidateQueries(['post', id]);
+        }
+      },
+      defaultOnError: (error) => toastError('Error al dar like', error.message),
+    }
+  );
+
+  const addComment = createMutation(
+    ({ postID, commentData }) => callWithAuth(api.addComment)(postID, commentData),
+    {
+      defaultOnSuccess: (data, variables) => {
+        const id = variables?.postID;
+        if (id) queryClient.invalidateQueries(['post', id]);
+      },
+      defaultOnError: (error) =>
+        toastError('Error al subir el comentario', error.message),
+    }
+  );
+
+  const deleteComment = createMutation(
+    ({ postID, commentID }) => callWithAuth(api.deleteComment)(postID, commentID),
+    {
+      defaultOnSuccess: (data, variables) => {
+        const id = variables?.postID;
+        if (id) {
+          queryClient.setQueryData(['post', id], (oldData) => {
+            if (!oldData) return oldData;
+            return {
+              ...oldData,
+              comments: oldData.comments.filter(
+                (c) => c.ID !== variables.commentID
+              ),
+            };
+          });
+        }
+      },
+      defaultOnError: (error) =>
+        toastError('Error al eliminar el comentario', error.message),
+    }
+  );
+
   return {
-    apiLogin: api.apiLogin,
-    apiRegister: api.apiRegister,
+    login,
+    register,
 
-    fetchUser: callWithAuth(api.fetchUser),
-    followOrUnfollowUser: callWithAuth(api.followOrUnfollowUser),
+    fetchUser,
+    followOrUnfollowUser,
 
-    fetchPosts: api.fetchPosts,
-    fetchPost: callWithAuth(api.fetchPost),
-    addPost: callWithAuth(api.addPost),
-    editPost: callWithAuth(api.editPost),
-    deletePost: callWithAuth(api.deletePost),
-    likePost: callWithAuth(api.likePost),
+    fetchPosts,
+    fetchPost,
+    addPost,
+    editPost,
+    deletePost,
+    likePost,
 
-    addComment: callWithAuth(api.addComment),
-    deleteComment: callWithAuth(api.deleteComment),
+    addComment,
+    deleteComment,
   };
 };

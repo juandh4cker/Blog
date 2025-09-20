@@ -9,7 +9,7 @@ const AuthChecker = ({ children }) => {
   const { pathname } = useNav();
   const { auth, setAuth, logout } = useAuth();
 
-  const publicRoutes = ['/welcome', '/xd']; //OJO
+  const publicRoutes = ['/welcome'];
   const isPublicRoute = publicRoutes.some(route =>
     pathname.toLowerCase().startsWith(route)
   );
@@ -45,10 +45,7 @@ const AuthChecker = ({ children }) => {
       {children}
       {auth.isAuthenticated
         ? <UserMenu username={auth.username}/>
-        : (isSharedRoute
-          ? <GuestMenu />
-          : <></>
-        )
+        : <GuestMenu />
       }
     </>
   );

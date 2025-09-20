@@ -1,4 +1,4 @@
-import { 
+import {
   Divider as HeroDivider,
 } from '@heroui/react';
 
@@ -44,7 +44,7 @@ const Divider = ({
   const allProps = {
     ...props
   }
-  
+
   return <KindsManager
     baseProps={baseProps}
     kingdoms={kingdoms}
