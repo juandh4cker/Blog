@@ -12,9 +12,19 @@ const EditPost = () => {
   const { ID } = useParams();
   const formRef = useRef();
 
-  const [editable, setEditable] = useState(false);
+  const [editable, setEditable] = useState(null);
 
   const { data: post, isLoading, isError, error } = fetchPost(ID);
+
+   useEffect(() => {
+    if (post?.editable === false) {
+      setEditable(false);
+      navPost(ID);
+      
+    } else if (post?.editable === true) {
+      setEditable(true);
+    };
+  }, [post, navPost, ID]);
 
   const editPostMutation = editPost({
     onSuccess: () => navPost(ID)
@@ -37,7 +47,7 @@ const EditPost = () => {
 
   if (isLoading) return <Loading />;
   if (isError) return <Error>{error}</Error>;;
-  if (!editable) return null;
+  if (editable === false) return null;
 
   return (
     <Container kind='background' className='max-w-lg'>

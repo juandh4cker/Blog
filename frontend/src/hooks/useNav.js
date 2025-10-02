@@ -36,8 +36,8 @@ export const useNav = () => {
     navBack: () => navigate(-1),
     navBackSteps: (steps = 1) => navigate(-steps),
 
-    navWelcome: () => navigate('/welcome', { replace: true, state: { from: location.pathname } }),
-    navRegister: () => navigate('/welcome/register', { replace: true, state: { from: pathname } }),
+    navWelcome: () => navigate('/welcome', { replace: true }),
+    navRegister: () => navigate('/welcome/register', { replace: true }),
 
     navBlog: () => navigate('/'),
     navDashboard: () => navigate('/dashboard'),
@@ -46,8 +46,6 @@ export const useNav = () => {
     navConfig: () => navigate('/config'),
 
     navFrom,
-
-    navLogout: () => navigate('/welcome', { replace: true }),
   };
 };
  

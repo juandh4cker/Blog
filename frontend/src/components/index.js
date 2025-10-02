@@ -26,4 +26,4 @@ export { default as UserCard } from './compound/UserCard';
 
 //Globals
 export { default as Background } from './globals/Background';
-export { UserMenu, GuestMenu } from './globals/Menu';
+export { default as Menu } from './globals/Menu';

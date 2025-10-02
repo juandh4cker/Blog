@@ -4,15 +4,14 @@ import { useAuth, useToast } from './';
 import * as api from '@/api';
 
 export const useApi = () => {
-  const { auth, logout } = useAuth();
+  const { auth } = useAuth();
   const { toastError } = useToast();
   const queryClient = useQueryClient();
 
-  //Verify auth
   const callWithAuth = (fn) => {
     return (...args) => {
       if (!auth.isAuthenticated) {
-        logout();
+        toastError('Unauthorized', 'No esta autorizado para hacer eso');
         return Promise.reject(new Error('Unauthorized'));
       }
       return fn(...args);
@@ -22,11 +21,12 @@ export const useApi = () => {
   //Mutations
   const createMutation = (
     mutationFn,
-    { defaultOnSuccess, defaultOnError } = {}
+    { defaultOnSuccess, defaultOnError, defaultOnSettled } = {}
   ) => {
     return ({
       disableOnSuccess = false,
       disableOnError = false,
+      disableOnSettled = false,
       ...options
     } = {}) =>
       useMutation({
@@ -43,11 +43,17 @@ export const useApi = () => {
           }
           options.onError?.(error, variables, context);
         },
+        onSettled: (data, error, variables, context) => {
+          if (!disableOnSettled) {
+            defaultOnSettled?.(data, error, variables, context);
+          }
+          options.onSettled?.(data, error, variables, context);
+        },
       });
   };
 
 
-  //Access
+  //Auth
   const login = createMutation(
     ({ usernameOrEmail, password }) => api.apiLogin(usernameOrEmail, password),
     { defaultOnError: (error) => toastError('Error al iniciar sesión', error.message) }
@@ -172,7 +178,7 @@ export const useApi = () => {
   return {
     login,
     register,
-
+    
     fetchUser,
     followOrUnfollowUser,
 

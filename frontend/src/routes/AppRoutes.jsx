@@ -1,31 +1,53 @@
-import { Route, Routes } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
-import Welcome from '@/pages/Welcome';
-import Blog from '@/pages/Blog';
-import PrivateRoute from './PrivateRoute';
-import Dashboard from '@/pages/Dashboard';
-import Post from '@/pages/Post'
-import User from '@/pages/User';
-import EditPost from '@/pages/EditPost';
-import ConfigPage from '@/pages/ConfigPage';
-import {Error} from '@/components';
+import { useAuth } from '@/hooks';
+import { Background, Error, Loading } from '@/components';
+
+import { routes } from './routes';
 
 const AppRoutes = () => {
+  const { auth } = useAuth();
+
+  const canAccess = (routeAuth) => {
+    if (!routeAuth || routeAuth.includes("all")) return true;
+    if (routeAuth.includes("private")) return auth.isAuthenticated;
+    if (routeAuth.includes("guest")) return !auth.isAuthenticated;
+
+    return routeAuth.includes(auth.role);
+  };
+
+  const renderRoutes = (routesArray) =>
+    routesArray.map((route) => {
+      const { key, element, path, children, auth: routeAuth } = route;
+
+      if (!canAccess(routeAuth)) {
+        if (auth.isAuthenticated === null) {
+          return (
+            <Route key={key} path={path} element={<Loading />} />
+          );
+        };
+
+        return (
+          <Route
+            key={key}
+            path={path}
+            element={<Error page>{"No tienes permiso para estar aquí"}</Error>}
+          />
+        );
+      };
+
+      return (
+        <Route key={key} path={path} element={element}>
+          {children && renderRoutes(children)}
+        </Route>
+      );
+    });
+
   return (
     <Routes>
-      <Route path='/welcome' element={<Welcome />} />
-      <Route path='/welcome/register' element={<Welcome inRegister={true} />} />
-      <Route path='/' element={<Blog />} />
-
-      <Route element={<PrivateRoute />}>
-        <Route path='/dashboard' element={<Dashboard />} />
-        <Route path='/post/:ID' element={<Post />} />
-        <Route path='/user/:username' element={<User />} />
-        <Route path='/post/:ID/edit' element={<EditPost />} />
-        <Route path='/config' element={<ConfigPage />} />
+      <Route element={<Background />}>
+        {renderRoutes(routes)}
       </Route>
-
-      <Route path='*' element={<Error page />} />
     </Routes>
   );
 };

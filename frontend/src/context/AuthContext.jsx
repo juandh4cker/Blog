@@ -1,16 +1,20 @@
-import { useState, createContext, useCallback } from 'react';
+import { useState, useEffect, createContext } from 'react';
 import { useMutation } from '@tanstack/react-query';
 
-import { useNav } from '@/hooks/useNav';
-import { apiLogout } from '@/api';
+import { useNav } from '@/hooks';
+import { apiLogout, apiCheckToken } from '@/api';
 
-const defaultAuth = { username: '', isAuthenticated: null };
+const publicRoutes = ['/welcome'];
+const sharedRoutes = ['/'];
+
+const defaultAuth = { username: '', isAuthenticated: null, role: 'guest' };
+const loggedOutAuth = { username: '', isAuthenticated: false, role: 'guest' };
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState(defaultAuth);
-  const { navLogout, navWelcome } = useNav();
+  const [ auth, setAuth ] = useState(defaultAuth);
+  const { pathname, navWelcome } = useNav();
 
   const clearAuth = () => {
     localStorage.clear();
@@ -18,25 +22,54 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logoutMutation = useMutation({
-    mutationFn: apiLogout,
-    onSettled: () => {
-      clearAuth();
-      navLogout();
+    mutationFn: () => {
+      if (!auth.isAuthenticated) {
+        clearAuth();
+        navWelcome();
+        return null;
+      }
+      return apiLogout();
     },
     onError: (error) => {
-      console.error('Logout error:', error);
-    }
-  });
-
-  const logout = useCallback(() => {
-    if (!auth.isAuthenticated) {
+      console.error("Logout error:", error);
+    },
+    onSettled: () => {
       clearAuth();
       navWelcome();
-      return;
-    }
+    },
+  });
 
-    logoutMutation.mutate();
-  }, [auth.isAuthenticated, logoutMutation, navWelcome]);
+  const logout = logoutMutation.mutate;
+
+  const isPublicRoute = publicRoutes.some(route =>
+    pathname.toLowerCase().startsWith(route)
+  );
+
+  const isSharedRoute = sharedRoutes.some(route =>
+    route === '/'
+      ? pathname === '/'
+      : pathname.toLowerCase().startsWith(route)
+  );
+
+  useEffect(() => {
+    if (isPublicRoute) return;
+
+    apiCheckToken()
+      .then(isValid => {
+        if (!isValid) {
+          setAuth(loggedOutAuth);
+          if (!isSharedRoute) {
+            logout();
+          }
+        } else {
+          setAuth({ username: isValid, isAuthenticated: true, role: 'user' });
+        }
+      })
+      .catch(() => {
+        setAuth(loggedOutAuth);
+        logout();
+      });
+  }, [pathname, logout]);
 
   return (
     <AuthContext.Provider value={{ auth, setAuth, logout }}>

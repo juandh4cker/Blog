@@ -2,7 +2,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import AppContext from './context/AppContext';
 import AppRoutes from './routes/AppRoutes';
-import AuthChecker from './auth/AuthChecker';
 
 import { Background } from './components';
 
@@ -13,19 +12,19 @@ const App = () => {
     <>
       <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true, }}>
         <AppContext>
-          <AuthChecker>
             <AppRoutes />
-          </AuthChecker>
         </AppContext>
       </Router>
-      <Background />
     </>
   );
 };
 
+// Layout para titulo, subtitulo y contenido
+// Esqueleto a los loading y luego poner el container en background
+// POner SEO
+// Responsive en todo
+// factor a estilos
 {'Frontend'}
-{'useStyle o algo asi'}
-{"hero UI"}
 {'animaciones, estilos, modo oscuro, todo eso de css'}
 {'https://million.dev/'}
 
@@ -51,4 +50,18 @@ const App = () => {
 {'Configurar formatter con prettier'}
 {'Configuracion de empaquetado docker, base de datos con datos previos'}
 
+
+{/* 
+  
+  Layouts en rutas → definen layouts distintos (ejemplo: AdminLayout, PublicLayout) y los aplican en la definición de rutas.
+
+Lazy loading (code splitting) → usan React.lazy + Suspense para cargar páginas bajo demanda.
+
+Nested routes → usan Outlet para agrupar secciones.
+
+Permisos granulares → en lugar de solo roles, a veces definen scopes o permissions (['CAN_EDIT_POST', 'CAN_DELETE_USER']).
+
+Meta info → cada ruta suele tener título, icono, breadcrumb, etc., que el sistema usa para el menú, la barra superior o el SEO.
+  
+  */}
 export default App;
