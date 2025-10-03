@@ -37,7 +37,7 @@ const User = () => {
     <Container kind='background' className='max-w-3xl'>
       <Container className='w-full'>
         <Container.Body className='flex flex-row justify-around items-center h-38 p-6'>
-          <UserCard kind='bigAvatar' name={user.username} {...(user.profilePicture ? { src: user.profilePicture } : {})}/>
+          <UserCard kind='bigAvatar' src={user.profilePicture} />
 
           <Divider vertical />
 

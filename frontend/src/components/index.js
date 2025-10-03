@@ -1,7 +1,8 @@
 // Hero
 export {
-  Autocomplete,AutocompleteItem,
+  Autocomplete, AutocompleteItem,
   Select, SelectSection, SelectItem,
+  Skeleton
 } from "@heroui/react";
 
 //UI

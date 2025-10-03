@@ -60,11 +60,8 @@ const Comments = ({ comments, postID, setOnOpen }) => {
 const Comment = ({ postID, comment }) => {
   const { deleteComment } = useApi();
   const { navUser } = useNav();
-  const { toastError } = useToast();
-  const queryClient = useQueryClient();
 
   const deleteCommentMutation = deleteComment();
-
 
   const handleDelete = () => {
     if (window.confirm('¿Estás seguro de que quieres eliminar este comentario?')) {

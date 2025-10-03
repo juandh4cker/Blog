@@ -1,11 +1,12 @@
 import { BrowserRouter as Router } from 'react-router-dom';
+import { FC } from 'react';
 
 import AppContext from './context/AppContext';
 import AppRoutes from './routes/AppRoutes';
 
 import './App.css';
 
-const App = () => {
+const App: FC = () => {
   return (
     <Router
       future={{ v7_startTransition: true, v7_relativeSplatPath: true }}

@@ -61,6 +61,6 @@ export const routes = [
         element: <Error page />,
         auth: ['all'],
       },
-    ]
+    ],
   },
 ];

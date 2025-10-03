@@ -178,7 +178,7 @@ export const useApi = () => {
   return {
     login,
     register,
-    
+
     fetchUser,
     followOrUnfollowUser,
 
