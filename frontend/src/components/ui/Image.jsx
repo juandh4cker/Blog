@@ -1,9 +1,7 @@
-import { useState, useRef, useEffect, useCallback } from "react";
-import {
-  Image as HeroImage
-} from "@heroui/react";
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { Image as HeroImage } from '@heroui/react';
 
-import { Modal } from "@/components";
+import { Modal } from '@/components';
 import KindsManager from '../KindsManager';
 
 const baseProps = {};
@@ -112,13 +110,13 @@ function ResponsiveImageBox({ src, alt }) {
 }
 
 const BaseImage = ({ className, withModal, withWrapper, title, src, alt, children, ...props }) => {
-  const [ onOpen, setOnOpen ] = useState();
+  const [onOpen, setOnOpen] = useState();
 
   const imageProps = {
     src,
     alt,
     className,
-    ...props
+    ...props,
   };
 
   return (
@@ -141,55 +139,51 @@ const BaseImage = ({ className, withModal, withWrapper, title, src, alt, childre
         </div>
       )}
 
-      {withModal
-        ? (
-          <Modal setOnOpen={setOnOpen} isDivided hideCloseButton>
-            <Modal.Body className='flex items-center justify-center'>
-              {withWrapper ? (
-                // dentro del modal también usamos el wrapper (imagen grande calculada)
-                <ResponsiveImageBox
-                  src={src}
-                  alt={alt || title || ''}
-                  herouiProps={{
-                    className: "w-[80vw] object-contain rounded-lg shadow-lg",
-                    ...props
-                  }}
-                />
-              ) : (
-                <HeroImage
-                  className="w-[80vw] object-contain rounded-lg shadow-lg"
-                  src={src}
-                  alt={alt || title || ''}
-                  {...props}
-                />
-              )}
-            </Modal.Body>
-          </Modal>
-        ) : null
-      }
+      {withModal ? (
+        <Modal setOnOpen={setOnOpen} isDivided hideCloseButton>
+          <Modal.Body className="flex items-center justify-center">
+            {withWrapper ? (
+              // dentro del modal también usamos el wrapper (imagen grande calculada)
+              <ResponsiveImageBox
+                src={src}
+                alt={alt || title || ''}
+                herouiProps={{
+                  className: 'w-[80vw] object-contain rounded-lg shadow-lg',
+                  ...props,
+                }}
+              />
+            ) : (
+              <HeroImage
+                className="w-[80vw] object-contain rounded-lg shadow-lg"
+                src={src}
+                alt={alt || title || ''}
+                {...props}
+              />
+            )}
+          </Modal.Body>
+        </Modal>
+      ) : null}
     </>
   );
 };
 
-const Image = ({
-  kind,
-  children,
-  ...props
-}) => {
+const Image = ({ kind, children, ...props }) => {
   const allProps = {
-    ...props
-  }
+    ...props,
+  };
 
-  return <KindsManager
-    baseProps={baseProps}
-    kingdoms={kingdoms}
-    kinds={kinds}
-    kind={kind}
-    defaultKind={defaultKind}
-    {...allProps}
-  >
-    {children}
-  </KindsManager>
+  return (
+    <KindsManager
+      baseProps={baseProps}
+      kingdoms={kingdoms}
+      kinds={kinds}
+      kind={kind}
+      defaultKind={defaultKind}
+      {...allProps}
+    >
+      {children}
+    </KindsManager>
+  );
 };
 
 export default Image;

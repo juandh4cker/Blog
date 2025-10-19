@@ -8,19 +8,19 @@ const DEFAULT_DESCRIPTION = 'Esto es WorldBlog, un blog de destinos turísticos'
 const ROUTE_CONFIG = {
   '/': {
     title: 'Blog',
-    description: 'Descubre los mejores destinos turísticos del mundo'
+    description: 'Descubre los mejores destinos turísticos del mundo',
   },
   '/welcome': {
     title: 'Inicio',
-    description: 'Inicia sesión o registrate'
+    description: 'Inicia sesión o registrate',
   },
   '/dashboard': {
     title: 'Dashboard',
-    description: 'Agrega un post'
+    description: 'Agrega un post',
   },
   '/user/*': {
     title: '', // Dejar vacío para que el componente lo llene
-    description: 'Perfil de usuario'
+    description: 'Perfil de usuario',
   },
 };
 
@@ -70,7 +70,7 @@ export const TitleProvider = ({ children }) => {
       setTitle(routeConfig.title);
       setDescription(routeConfig.description);
       setCustomOverride(false);
-    }
+    },
   };
 
   return (
@@ -78,7 +78,7 @@ export const TitleProvider = ({ children }) => {
       <TitleContext.Provider value={value}>
         <Helmet>
           <title>{title ? `${title} - ${DEFAULT_TITLE}` : DEFAULT_TITLE}</title>
-          <meta name='description' content={description} />
+          <meta name="description" content={description} />
         </Helmet>
         {children}
       </TitleContext.Provider>

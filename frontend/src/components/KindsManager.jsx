@@ -26,9 +26,9 @@ const KindsManager = ({
       !props.disableBaseClassName && baseProps?.className,
       !props.disableKingdomClassName && kingdomProps?.className,
       !props.disableKindClassName && kindProps?.className,
-      props.className
+      props.className,
     ),
-  }
+  };
 
   return <Renderer {...allProps}>{children}</Renderer>;
 };

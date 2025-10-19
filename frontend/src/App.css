@@ -11,8 +11,12 @@
 }
 
 @keyframes slideshow {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-300vw); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-300vw);
+  }
 }
 
 .gallery {

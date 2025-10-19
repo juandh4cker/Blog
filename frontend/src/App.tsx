@@ -8,9 +8,7 @@ import './App.css';
 
 const App: FC = () => {
   return (
-    <Router
-      future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
-    >
+    <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <AppContext>
         <AppRoutes />
       </AppContext>
@@ -20,42 +18,75 @@ const App: FC = () => {
 
 export default App;
 
-
-
-
 // Layout para titulo, subtitulo y contenido
 // Esqueleto a los loading y luego poner el container en background
 // POner SEO
 // Responsive en todo
 // factor a estilos
-{'Frontend'}
-{'animaciones, estilos, modo oscuro, todo eso de css'}
-{'https://million.dev/'}
+{
+  ('Frontend');
+}
+{
+  ('animaciones, estilos, modo oscuro, todo eso de css');
+}
+{
+  ('https://million.dev/');
+}
 
-{'codigo de strings'}
-{'agregar español e ingles'}
+{
+  ('codigo de strings');
+}
+{
+  ('agregar español e ingles');
+}
 
-{'Backend'}
-{'Redis en cache'}
-{'pasar users a sql?'}
+{
+  ('Backend');
+}
+{
+  ('Redis en cache');
+}
+{
+  ('pasar users a sql?');
+}
 
-{'Ambos'}
-{'Roles de usurario (admin, moderador, normal, baneado, suspendido)'}
-{'Buscar post'}
+{
+  ('Ambos');
+}
+{
+  ('Roles de usurario (admin, moderador, normal, baneado, suspendido)');
+}
+{
+  ('Buscar post');
+}
 
-{'Poner varias fotos o videos en el post y guardarlas localmente'}
-{'Ocultar comentarios en posts, configuacion de posts'}
+{
+  ('Poner varias fotos o videos en el post y guardarlas localmente');
+}
+{
+  ('Ocultar comentarios en posts, configuacion de posts');
+}
 
-{'Configuracion funcional'}
-{'session context (idioma, preferencias, tema, etc)'}
+{
+  ('Configuracion funcional');
+}
+{
+  ('session context (idioma, preferencias, tema, etc)');
+}
 
-{'codigo de errores, useError'}
+{
+  ('codigo de errores, useError');
+}
 
-{'Configurar formatter con prettier'}
-{'Configuracion de empaquetado docker, base de datos con datos previos'}
+{
+  ('Configurar formatter con prettier');
+}
+{
+  ('Configuracion de empaquetado docker, base de datos con datos previos');
+}
 
-
-{/*
+{
+  /*
 Layouts en rutas → definen layouts distintos (ejemplo: AdminLayout, PublicLayout) y los aplican en la definición de rutas.
 
 Lazy loading (code splitting) → usan React.lazy + Suspense para cargar páginas bajo demanda.
@@ -66,4 +97,5 @@ Permisos granulares → en lugar de solo roles, a veces definen scopes o permiss
 
 Meta info → cada ruta suele tener título, icono, breadcrumb, etc., que el sistema usa para el menú, la barra superior o el SEO.
 
-  */}
+  */
+}

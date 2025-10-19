@@ -20,21 +20,18 @@ export const apiRequest = async (endpoint, method = 'get', body = null) => {
       data: body,
     });
 
-    return response.data.data !== undefined
-      ? response.data.data
-      : response.data;
-
+    return response.data.data !== undefined ? response.data.data : response.data;
   } catch (error) {
     if (error.response) {
       //console.error('API Response Error ←', { status: error.response.status, data: error.response.data, });
 
       throw {
         message: error.response.data.error || error.response.statusText,
-        status:  error.response.status,
-        data:    error.response.data,
+        status: error.response.status,
+        data: error.response.data,
       };
-    };
+    }
 
     throw error;
-  };
+  }
 };

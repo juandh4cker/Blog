@@ -8,6 +8,6 @@ export const useConfig = () => {
     language,
     setLanguage,
     theme,
-    setTheme
+    setTheme,
   };
 };

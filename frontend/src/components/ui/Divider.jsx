@@ -1,6 +1,4 @@
-import {
-  Divider as HeroDivider,
-} from '@heroui/react';
+import { Divider as HeroDivider } from '@heroui/react';
 
 import KindsManager from '../KindsManager';
 
@@ -34,27 +32,25 @@ const defaultKind = 'divider';
 
 const BaseDivider = ({ vertical, ...props }) => (
   <HeroDivider orientation={vertical ? 'vertical' : 'horizontal'} {...props} />
-)
+);
 
-const Divider = ({
-  kind,
-  children,
-  ...props
-}) => {
+const Divider = ({ kind, children, ...props }) => {
   const allProps = {
-    ...props
-  }
+    ...props,
+  };
 
-  return <KindsManager
-    baseProps={baseProps}
-    kingdoms={kingdoms}
-    kinds={kinds}
-    kind={kind}
-    defaultKind={defaultKind}
-    {...allProps}
-  >
-    {children}
-  </KindsManager>
+  return (
+    <KindsManager
+      baseProps={baseProps}
+      kingdoms={kingdoms}
+      kinds={kinds}
+      kind={kind}
+      defaultKind={defaultKind}
+      {...allProps}
+    >
+      {children}
+    </KindsManager>
+  );
 };
 
 export default Divider;

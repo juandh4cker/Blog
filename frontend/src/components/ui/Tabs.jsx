@@ -1,7 +1,4 @@
-import {
-  Tabs as HeroTabs,
-  Tab as HeroTab,
-} from '@heroui/react';
+import { Tabs as HeroTabs, Tab as HeroTab } from '@heroui/react';
 
 import KindsManager from '../KindsManager';
 
@@ -42,40 +39,40 @@ const kinds = {
 
 const defaultKind = 'tabs';
 
-const Tabs = ({
-  kind,
-  children,
-  ...props
-}) => {
+const Tabs = ({ kind, children, ...props }) => {
   const allProps = {
-    ...props
-  }
+    ...props,
+  };
 
-  return <KindsManager
-    baseProps={baseProps}
-    kingdoms={kingdoms}
-    kinds={kinds}
-    kind={kind}
-    defaultKind={defaultKind}
-    {...allProps}
-  >
-    {children}
-  </KindsManager>
+  return (
+    <KindsManager
+      baseProps={baseProps}
+      kingdoms={kingdoms}
+      kinds={kinds}
+      kind={kind}
+      defaultKind={defaultKind}
+      {...allProps}
+    >
+      {children}
+    </KindsManager>
+  );
 };
 
 export default Tabs;
 
-const createSub = (defaultKingdom) => ({ children, kind, ...props }) => (
-  <KindsManager
-    baseProps={baseProps}
-    kingdom={kingdoms[defaultKingdom]}
-    kinds={kinds}
-    kind={kind}
-    defaultKind={defaultKingdom}
-    {...props}
-  >
-    {children}
-  </KindsManager>
-);
+const createSub =
+  (defaultKingdom) =>
+  ({ children, kind, ...props }) => (
+    <KindsManager
+      baseProps={baseProps}
+      kingdom={kingdoms[defaultKingdom]}
+      kinds={kinds}
+      kind={kind}
+      defaultKind={defaultKingdom}
+      {...props}
+    >
+      {children}
+    </KindsManager>
+  );
 
 Tabs.Tab = HeroTab;

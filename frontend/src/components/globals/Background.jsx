@@ -1,7 +1,7 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom';
 
 import slides from '@/assets/background';
-import { Image } from "@/components";
+import { Image } from '@/components';
 
 //<div className="relative min-h-screen flex items-center justify-center"></div>
 

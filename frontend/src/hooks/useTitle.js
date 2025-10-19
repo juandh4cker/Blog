@@ -2,16 +2,9 @@ import { useEffect } from 'react';
 import { useTitleContext } from '@/context/TitleContext';
 
 export const useTitle = (customTitle, customDescription, options = {}) => {
-  const {
-    setTitle,
-    setDescription,
-    resetToRouteDefault
-  } = useTitleContext();
+  const { setTitle, setDescription, resetToRouteDefault } = useTitleContext();
 
-  const {
-    resetOnUnmount = true,
-    enableRouteDefaults = true
-  } = options;
+  const { resetOnUnmount = true, enableRouteDefaults = true } = options;
 
   useEffect(() => {
     if (enableRouteDefaults) {
@@ -39,6 +32,6 @@ export const useTitle = (customTitle, customDescription, options = {}) => {
   return {
     setTitle,
     setDescription,
-    resetToRouteDefault
+    resetToRouteDefault,
   };
 };

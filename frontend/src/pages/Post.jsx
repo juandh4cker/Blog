@@ -2,7 +2,18 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useApi, useNav } from '@/hooks';
-import { Button, Container, Dropdown, Error, Image, Loading, Share, Text, UserCard, Comments } from '@/components';
+import {
+  Button,
+  Container,
+  Dropdown,
+  Error,
+  Image,
+  Loading,
+  Share,
+  Text,
+  UserCard,
+  Comments,
+} from '@/components';
 import { timeSince, compactNumber, ratingStars, handleGoogleMaps } from '@/utils';
 
 const Post = () => {
@@ -16,12 +27,12 @@ const Post = () => {
   const { data: post, isLoading, isError, error } = fetchPost(ID);
   const likePostMutation = likePost();
   const deletePostMutation = deletePost({
-    onSuccess: () => navBlog()
+    onSuccess: () => navBlog(),
   });
 
   const handleDeletePost = (ID) => {
     if (window.confirm('¿Estás seguro de que quieres eliminar este post?')) {
-      deletePostMutation.mutate({ID});
+      deletePostMutation.mutate({ ID });
     }
   };
 
@@ -37,22 +48,22 @@ const Post = () => {
       children: 'Ver en maps',
       props: {
         onAction: () => handleGoogleMaps(post.name, post.location),
-      }
+      },
     },
     {
       key: 'share',
       children: 'Compartir',
       props: {
-        onAction: onOpenShare
-      }
+        onAction: onOpenShare,
+      },
     },
     {
       key: 'edit',
       children: 'Editar post',
       condition: post.editable,
       props: {
-        onAction: () => navPost(ID, true)
-      }
+        onAction: () => navPost(ID, true),
+      },
     },
     {
       key: 'delete',
@@ -62,7 +73,7 @@ const Post = () => {
         onAction: () => handleDeletePost(ID),
         disabled: deletePostMutation.isPending,
         className: 'text-danger',
-        color: 'danger'
+        color: 'danger',
       },
     },
   ];
@@ -72,7 +83,7 @@ const Post = () => {
       <Container.Body className="grid grid-cols-[minmax(320px,1fr)_minmax(260px,320px)] gap-6 items-stretch">
         <Image src={post.imageUrl} alt={post.name} withWrapper withModal />
 
-        <Container isDivided className="h-full flex flex-col justify-between" >
+        <Container isDivided className="h-full flex flex-col justify-between">
           <Container.Header className="flex flex-row items-center justify-between">
             <div className="items-start justify-between flex flex-col">
               <h4 className="font-bold text-2xl">{post.name}</h4>
@@ -92,13 +103,22 @@ const Post = () => {
           <Container.Footer className="flex flex-row justify-between items-center">
             <UserCard name={post.creator} description={`Hace ${timeSince(post.createdAt)}`} />
             <div className="flex items-center gap-2">
-              <Button.Tooltip content={`${compactNumber(likes)} like${likes === 1 ? '' : 's'}`} color='danger'>
-                <Button kind="icon" onClick={() => likePostMutation.mutate({ID})} isLoading={likePostMutation.isPending}>
+              <Button.Tooltip
+                content={`${compactNumber(likes)} like${likes === 1 ? '' : 's'}`}
+                color="danger"
+              >
+                <Button
+                  kind="icon"
+                  onClick={() => likePostMutation.mutate({ ID })}
+                  isLoading={likePostMutation.isPending}
+                >
                   {isLiking ? '♥️' : '🤍'}
                 </Button>
               </Button.Tooltip>
 
-              <Button kind="icon" onClick={onOpenComments}>💬</Button>
+              <Button kind="icon" onClick={onOpenComments}>
+                💬
+              </Button>
             </div>
           </Container.Footer>
         </Container>

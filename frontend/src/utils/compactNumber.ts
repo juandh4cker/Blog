@@ -1,7 +1,7 @@
-export const compactNumber = (num) => {
+export const compactNumber = (num: number): string => {
   if (num < 1000) return num.toString();
 
-  const units = ["k", "M", "B", "T"];
+  const units = ['k', 'M', 'B', 'T'] as const;
   let unitIndex = -1;
   let compactNum = num;
 

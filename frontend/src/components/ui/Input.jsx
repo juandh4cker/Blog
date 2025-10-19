@@ -7,7 +7,7 @@ import {
   Textarea as HeroTextarea,
   Autocomplete as HeroAutocomplete,
   AutocompleteItem as HeroAutocompleteItem,
-} from "@heroui/react";
+} from '@heroui/react';
 
 import KindsManager from '../KindsManager';
 
@@ -78,21 +78,21 @@ const kinds = {
   },
   password: {
     kingdom: 'password',
-    props: {}
+    props: {},
   },
   confirmPassword: {
     kingdom: 'password',
     props: {
-      label: 'Confirmar contraseña'
-    }
+      label: 'Confirmar contraseña',
+    },
   },
   textarea: {
     kingdom: 'textarea',
-    props: {}
+    props: {},
   },
   autocomplete: {
     kingdom: 'autocomplete',
-    props: {}
+    props: {},
   },
 };
 
@@ -102,34 +102,34 @@ const BaseInput = ({ endContent, ...props }) => {
   return (
     <HeroInput
       endContent={
-        <div className='absolute right-2 inset-y-0 my-auto flex items-center justify-center'>
+        <div className="absolute right-2 inset-y-0 my-auto flex items-center justify-center">
           {endContent}
         </div>
       }
       {...props}
     />
-  )
+  );
 };
 
-const PasswordInput = ({ ...props}) => {
+const PasswordInput = ({ ...props }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <BaseInput
-      type={showPassword ? "text" : "password"}
+      type={showPassword ? 'text' : 'password'}
       endContent={
         <button
-          aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+          aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
           className="text-lg bg-transparent opacity-50 hover:opacity-80 focus:outline-none border-none p-0 m-0"
           type="button"
-          onClick={() => setShowPassword(prev => !prev)}
+          onClick={() => setShowPassword((prev) => !prev)}
         >
-          {showPassword ? <FaEyeSlash  /> : <FaEye />}
+          {showPassword ? <FaEyeSlash /> : <FaEye />}
         </button>
       }
       {...props}
     />
-  )
+  );
 };
 
 const Input = ({
@@ -156,35 +156,36 @@ const Input = ({
     ...formProps,
     isInvalid: !!error || isInvalid,
     errorMessage: error?.message,
-    ...props
-  }
+    ...props,
+  };
 
-  return <KindsManager
-    baseProps={baseProps}
-    kingdoms={kingdoms}
-    kinds={kinds}
-    kind={kind}
-    defaultKind={defaultKind}
-    {...allProps}
-  >
-    {children}
-  </KindsManager>
+  return (
+    <KindsManager
+      baseProps={baseProps}
+      kingdoms={kingdoms}
+      kinds={kinds}
+      kind={kind}
+      defaultKind={defaultKind}
+      {...allProps}
+    >
+      {children}
+    </KindsManager>
+  );
 };
 
 export default Input;
 
-
 const autocompleteItemKinds = {
   autocompleteItem: {
     kingdom: 'autocompleteItem',
-    props: {}
+    props: {},
   },
   danger: {
     kingdom: 'autocompleteItem',
     props: {
       color: 'danger',
-      className: 'text-danger'
-    }
+      className: 'text-danger',
+    },
   },
 };
 
@@ -194,17 +195,19 @@ Input.Item = HeroAutocompleteItem;
 
 Input.Item2 = ({ children, kind, ...props }) => {
   const allProps = {
-    ...props
-  }
+    ...props,
+  };
 
-  return <KindsManager
-    baseProps={baseProps}
-    kingdom={kingdoms[autocompleteItemDefaultKind]}
-    kinds={autocompleteItemKinds}
-    kind={kind}
-    defaultKind={autocompleteItemDefaultKind}
-    {...allProps}
-  >
-    {children}
-  </KindsManager>
+  return (
+    <KindsManager
+      baseProps={baseProps}
+      kingdom={kingdoms[autocompleteItemDefaultKind]}
+      kinds={autocompleteItemKinds}
+      kind={kind}
+      defaultKind={autocompleteItemDefaultKind}
+      {...allProps}
+    >
+      {children}
+    </KindsManager>
+  );
 };

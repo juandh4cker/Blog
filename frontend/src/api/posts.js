@@ -21,5 +21,5 @@ export const deletePost = (postID) => {
 };
 
 export const likePost = (postID) => {
-  return apiRequest(`post/${postID}/likent`, 'PUT')
-}
+  return apiRequest(`post/${postID}/likent`, 'PUT');
+};

@@ -9,7 +9,6 @@ export const useNav = () => {
 
   const currentUrl = window.location.origin + location.pathname + location.search + location.hash;
 
-
   const navFrom = (alternative) => {
     if (from) {
       navigate(from);
@@ -42,10 +41,9 @@ export const useNav = () => {
     navBlog: () => navigate('/'),
     navDashboard: () => navigate('/dashboard'),
     navUser: (user) => navigate(`/user/${user}`),
-    navPost: (postID, edit=false) => navigate(`/post/${postID}${edit ? '/edit' : ''}`),
+    navPost: (postID, edit = false) => navigate(`/post/${postID}${edit ? '/edit' : ''}`),
     navConfig: () => navigate('/config'),
 
     navFrom,
   };
 };
- 

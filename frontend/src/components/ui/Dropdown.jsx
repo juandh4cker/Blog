@@ -8,7 +8,7 @@ import {
   DropdownItem as HeroDropdownItem,
 } from '@heroui/react';
 
-import {renderMap} from '@/utils'
+import { renderMap } from '@/utils';
 
 import KindsManager from '../KindsManager';
 
@@ -67,79 +67,75 @@ const kinds = {
 const defaultKind = 'dropdown';
 
 const isTrigger = (child) =>
-  child?.type === kingdoms.trigger.component || child?.type === Dropdown.Trigger
+  child?.type === kingdoms.trigger.component || child?.type === Dropdown.Trigger;
 
-const isMenu = (child) =>
-  child?.type === kingdoms.menu.component || child?.type === Dropdown.Menu
+const isMenu = (child) => child?.type === kingdoms.menu.component || child?.type === Dropdown.Menu;
 
 const BaseDropdown = ({ children, items, ...props }) => {
-  const childArray = Array.isArray(children) ? children : [children]
+  const childArray = Array.isArray(children) ? children : [children];
 
-  const trigger = childArray.find(isTrigger)
-  const hasManualMenu = childArray.some(isMenu)
+  const trigger = childArray.find(isTrigger);
+  const hasManualMenu = childArray.some(isMenu);
 
-  const menuContent = childArray.filter(
-    (child) => !isTrigger(child) && !isMenu(child)
-  );
+  const menuContent = childArray.filter((child) => !isTrigger(child) && !isMenu(child));
 
-  if (items) return (
-  <HeroDropdown  {...props}>
-    <HeroDropdownTrigger>{children}</HeroDropdownTrigger>
-    <HeroDropdownMenu>{renderMap(items, HeroDropdownItem)}</HeroDropdownMenu>
-  </HeroDropdown>
-  );
+  if (items)
+    return (
+      <HeroDropdown {...props}>
+        <HeroDropdownTrigger>{children}</HeroDropdownTrigger>
+        <HeroDropdownMenu>{renderMap(items, HeroDropdownItem)}</HeroDropdownMenu>
+      </HeroDropdown>
+    );
 
   return (
-    <HeroDropdown  {...props}>
+    <HeroDropdown {...props}>
       {trigger}
 
       {!hasManualMenu && <HeroDropdownMenu>{menuContent}</HeroDropdownMenu>}
-      {childArray.map(
-        (child, i) => (isMenu(child) ? React.cloneElement(child, { key: i }) : null)
-      )}
+      {childArray.map((child, i) => (isMenu(child) ? React.cloneElement(child, { key: i }) : null))}
     </HeroDropdown>
-  )
+  );
 };
 
-const Dropdown = ({
-  kind,
-  children,
-  ...props
-}) => {
+const Dropdown = ({ kind, children, ...props }) => {
   const allProps = {
-    ...props
-  }
+    ...props,
+  };
 
-  return <KindsManager
-    baseProps={baseProps}
-    kingdoms={kingdoms}
-    kinds={kinds}
-    kind={kind}
-    defaultKind={defaultKind}
-    {...allProps}
-  >
-    {children}
-  </KindsManager>
+  return (
+    <KindsManager
+      baseProps={baseProps}
+      kingdoms={kingdoms}
+      kinds={kinds}
+      kind={kind}
+      defaultKind={defaultKind}
+      {...allProps}
+    >
+      {children}
+    </KindsManager>
+  );
 };
 
 export default Dropdown;
 
-const createSub = (defaultKingdom) => ({ children, kind, ...props }) => (
-  <KindsManager
-    baseProps={baseProps}
-    kingdom={kingdoms[defaultKingdom]}
-    kinds={kinds}
-    kind={kind}
-    defaultKind={defaultKingdom}
-    {...props}
-  >
-    {children}
-  </KindsManager>
-);
+const createSub =
+  (defaultKingdom) =>
+  ({ children, kind, ...props }) => (
+    <KindsManager
+      baseProps={baseProps}
+      kingdom={kingdoms[defaultKingdom]}
+      kinds={kinds}
+      kind={kind}
+      defaultKind={defaultKingdom}
+      {...props}
+    >
+      {children}
+    </KindsManager>
+  );
 
-Dropdown.Trigger = createSub("trigger");
-Dropdown.Menu = createSub("menu");
-Dropdown.Section = createSub("section");
+Dropdown.Trigger = createSub('trigger');
+Dropdown.Menu = createSub('menu');
+Dropdown.Section = createSub('section');
 
 const DropdownItemKinds = {
   item: {
@@ -161,17 +157,19 @@ Dropdown.Item = HeroDropdownItem;
 
 Dropdown.Item2 = ({ children, kind, ...props }) => {
   const allProps = {
-    ...props
+    ...props,
   };
 
-  return <KindsManager
-    baseProps={baseProps}
-    kingdom={kingdoms[DropdownItemDefaultKind]}
-    kinds={DropdownItemKinds}
-    kind={kind}
-    defaultKind={DropdownItemDefaultKind}
-    {...allProps}
-  >
-    {children}
-  </KindsManager>
+  return (
+    <KindsManager
+      baseProps={baseProps}
+      kingdom={kingdoms[DropdownItemDefaultKind]}
+      kinds={DropdownItemKinds}
+      kind={kind}
+      defaultKind={DropdownItemDefaultKind}
+      {...allProps}
+    >
+      {children}
+    </KindsManager>
+  );
 };

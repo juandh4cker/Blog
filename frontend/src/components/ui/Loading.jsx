@@ -1,6 +1,4 @@
-import {
-  Spinner as HeroSpinner,
-} from '@heroui/react';
+import { Spinner as HeroSpinner } from '@heroui/react';
 
 import KindsManager from '../KindsManager';
 
@@ -22,25 +20,23 @@ const kinds = {
 
 const defaultKind = 'spinner';
 
-const Loading = ({
-  kind,
-  children,
-  ...props
-}) => {
+const Loading = ({ kind, children, ...props }) => {
   const allProps = {
-    ...props
-  }
+    ...props,
+  };
 
-  return <KindsManager
-    baseProps={baseProps}
-    kingdoms={kingdoms}
-    kinds={kinds}
-    kind={kind}
-    defaultKind={defaultKind}
-    {...allProps}
-  >
-    {children}
-  </KindsManager>
+  return (
+    <KindsManager
+      baseProps={baseProps}
+      kingdoms={kingdoms}
+      kinds={kinds}
+      kind={kind}
+      defaultKind={defaultKind}
+      {...allProps}
+    >
+      {children}
+    </KindsManager>
+  );
 };
 
 export default Loading;

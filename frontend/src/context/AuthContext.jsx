@@ -13,7 +13,7 @@ const loggedOutAuth = { username: '', isAuthenticated: false, role: 'guest' };
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [ auth, setAuth ] = useState(defaultAuth);
+  const [auth, setAuth] = useState(defaultAuth);
   const { pathname, navWelcome } = useNav();
 
   const clearAuth = () => {
@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
       return apiLogout();
     },
     onError: (error) => {
-      console.error("Logout error:", error);
+      console.error('Logout error:', error);
     },
     onSettled: () => {
       clearAuth();
@@ -41,21 +41,17 @@ export const AuthProvider = ({ children }) => {
 
   const logout = logoutMutation.mutate;
 
-  const isPublicRoute = publicRoutes.some(route =>
-    pathname.toLowerCase().startsWith(route)
-  );
+  const isPublicRoute = publicRoutes.some((route) => pathname.toLowerCase().startsWith(route));
 
-  const isSharedRoute = sharedRoutes.some(route =>
-    route === '/'
-      ? pathname === '/'
-      : pathname.toLowerCase().startsWith(route)
+  const isSharedRoute = sharedRoutes.some((route) =>
+    route === '/' ? pathname === '/' : pathname.toLowerCase().startsWith(route),
   );
 
   useEffect(() => {
     if (isPublicRoute) return;
 
     apiCheckToken()
-      .then(isValid => {
+      .then((isValid) => {
         if (!isValid) {
           setAuth(loggedOutAuth);
           if (!isSharedRoute) {
@@ -71,9 +67,5 @@ export const AuthProvider = ({ children }) => {
       });
   }, [pathname, logout]);
 
-  return (
-    <AuthContext.Provider value={{ auth, setAuth, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ auth, setAuth, logout }}>{children}</AuthContext.Provider>;
 };

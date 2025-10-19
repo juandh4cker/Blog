@@ -9,9 +9,9 @@ const AppRoutes = () => {
   const { auth } = useAuth();
 
   const canAccess = (routeAuth) => {
-    if (!routeAuth || routeAuth.includes("all")) return true;
-    if (routeAuth.includes("private")) return auth.isAuthenticated;
-    if (routeAuth.includes("guest")) return !auth.isAuthenticated;
+    if (!routeAuth || routeAuth.includes('all')) return true;
+    if (routeAuth.includes('private')) return auth.isAuthenticated;
+    if (routeAuth.includes('guest')) return !auth.isAuthenticated;
 
     return routeAuth.includes(auth.role);
   };
@@ -22,19 +22,17 @@ const AppRoutes = () => {
 
       if (!canAccess(routeAuth)) {
         if (auth.isAuthenticated === null) {
-          return (
-            <Route key={key} path={path} element={<Loading />} />
-          );
-        };
+          return <Route key={key} path={path} element={<Loading />} />;
+        }
 
         return (
           <Route
             key={key}
             path={path}
-            element={<Error page>{"No tienes permiso para estar aquí"}</Error>}
+            element={<Error page>{'No tienes permiso para estar aquí'}</Error>}
           />
         );
-      };
+      }
 
       return (
         <Route key={key} path={path} element={element}>
@@ -45,9 +43,7 @@ const AppRoutes = () => {
 
   return (
     <Routes>
-      <Route element={<Background />}>
-        {renderRoutes(routes)}
-      </Route>
+      <Route element={<Background />}>{renderRoutes(routes)}</Route>
     </Routes>
   );
 };

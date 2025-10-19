@@ -4,7 +4,7 @@ import {
   Snippet as HeroSnippet,
   Tooltip as HeroTooltip,
   Switch as HeroSwitch,
-} from "@heroui/react";
+} from '@heroui/react';
 
 import KindsManager from '../KindsManager';
 
@@ -18,7 +18,7 @@ const kingdoms = {
   button: {
     component: (props) => <HeroButton {...props}>{props.children}</HeroButton>,
     kingdomProps: {
-      spinnerPlacement: 'end'
+      spinnerPlacement: 'end',
     },
   },
   icon: {
@@ -55,7 +55,7 @@ const kinds = {
     props: {
       color: 'primary',
       variant: 'solid',
-      size: 'sm'
+      size: 'sm',
     },
   },
   primary: {
@@ -64,7 +64,7 @@ const kinds = {
       color: 'primary',
       variant: 'solid',
       size: 'md',
-      fullWidth: true
+      fullWidth: true,
     },
   },
   secondary: {
@@ -73,7 +73,7 @@ const kinds = {
       color: 'primary',
       variant: 'faded',
       size: 'md',
-      fullWidth: true
+      fullWidth: true,
     },
   },
   danger: {
@@ -82,14 +82,14 @@ const kinds = {
       color: 'danger',
       variant: 'ghost',
       size: 'sm',
-      fullWidth: true
+      fullWidth: true,
     },
   },
   icon: {
     kingdom: 'icon',
     props: {
       color: 'primary',
-      variant: 'light'
+      variant: 'light',
     },
   },
   group: {
@@ -103,11 +103,11 @@ const kinds = {
   share: {
     kingdom: 'snippet',
     props: {
-      symbol: "🔗",
-      color: "primary",
-      variant: "bordered",
+      symbol: '🔗',
+      color: 'primary',
+      variant: 'bordered',
       classNames: {
-        pre: "text-tiny font-normal whitespace-nowrap font-sans p-0 leading-none",
+        pre: 'text-tiny font-normal whitespace-nowrap font-sans p-0 leading-none',
       },
     },
   },
@@ -123,41 +123,41 @@ const kinds = {
 
 const defaultKind = 'button';
 
-const Button = ({
-  kind,
-  children,
-  ...props
-}) => {
+const Button = ({ kind, children, ...props }) => {
   const allProps = {
-    ...props
-  }
+    ...props,
+  };
 
-  return <KindsManager
-    baseProps={baseProps}
-    kingdoms={kingdoms}
-    kinds={kinds}
-    kind={kind}
-    defaultKind={defaultKind}
-    {...allProps}
-  >
-    {children}
-  </KindsManager>
+  return (
+    <KindsManager
+      baseProps={baseProps}
+      kingdoms={kingdoms}
+      kinds={kinds}
+      kind={kind}
+      defaultKind={defaultKind}
+      {...allProps}
+    >
+      {children}
+    </KindsManager>
+  );
 };
 
 export default Button;
 
-const createSub = (defaultKingdom) => ({ children, kind, ...props }) => (
-  <KindsManager
-    baseProps={baseProps}
-    kingdom={kingdoms[defaultKingdom]}
-    kinds={kinds}
-    kind={kind}
-    defaultKind={defaultKingdom}
-    {...props}
-  >
-    {children}
-  </KindsManager>
-);
+const createSub =
+  (defaultKingdom) =>
+  ({ children, kind, ...props }) => (
+    <KindsManager
+      baseProps={baseProps}
+      kingdom={kingdoms[defaultKingdom]}
+      kinds={kinds}
+      kind={kind}
+      defaultKind={defaultKingdom}
+      {...props}
+    >
+      {children}
+    </KindsManager>
+  );
 
 Button.Group = createSub('group');
 Button.Tooltip = createSub('tooltip');

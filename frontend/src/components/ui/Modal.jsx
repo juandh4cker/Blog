@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect } from "react";
+import React, { createContext, useContext, useEffect } from 'react';
 
 import {
   Modal as HeroModal,
@@ -7,10 +7,10 @@ import {
   ModalBody as HeroModalBody,
   ModalFooter as HeroModalFooter,
   Divider as HeroDivider,
-  useDisclosure
-} from "@heroui/react";
+  useDisclosure,
+} from '@heroui/react';
 
-import Button from "./Button";
+import Button from './Button';
 import KindsManager from '../KindsManager';
 
 const baseProps = {};
@@ -23,7 +23,7 @@ const kingdoms = {
   modal: {
     component: (props) => <BaseModal {...props}>{props.children}</BaseModal>,
     kingdomProps: {
-      disableBody: false
+      disableBody: false,
     },
   },
   header: {
@@ -89,29 +89,28 @@ const CloseButton = ({ children, ...props }) => {
 const ModalContext = createContext({});
 
 const isHeader = (child) =>
-  child?.type === kingdoms.header.component || child?.type === Modal.Header
+  child?.type === kingdoms.header.component || child?.type === Modal.Header;
 
-const isBody = (child) =>
-  child?.type === kingdoms.body.component || child?.type === Modal.Body
+const isBody = (child) => child?.type === kingdoms.body.component || child?.type === Modal.Body;
 
 const isFooter = (child) =>
-  child?.type === kingdoms.footer.component || child?.type === Modal.Footer
+  child?.type === kingdoms.footer.component || child?.type === Modal.Footer;
 
 const isCloseButton = (child) =>
-  child?.type === kingdoms.closeButton.component || child?.type === Modal.CloseButton
+  child?.type === kingdoms.closeButton.component || child?.type === Modal.CloseButton;
 
 const BaseModal = ({ children, isDivided, disableBody, setOnOpen, className, ...props }) => {
-  const childArray = Array.isArray(children) ? children : [children]
+  const childArray = Array.isArray(children) ? children : [children];
 
-  const header = childArray.find(isHeader)
-  const hasManualBody = childArray.some(isBody)
-  const footer = childArray.find(isFooter)
+  const header = childArray.find(isHeader);
+  const hasManualBody = childArray.some(isBody);
+  const footer = childArray.find(isFooter);
 
   const bodyContent = childArray.filter(
-    (child) => !isHeader(child) && !isFooter(child) && !isBody(child) && !isCloseButton(child)
-  )
+    (child) => !isHeader(child) && !isFooter(child) && !isBody(child) && !isCloseButton(child),
+  );
 
-  const {isOpen, onOpen, onOpenChange} = useDisclosure();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   useEffect(() => {
     if (setOnOpen) setOnOpen(() => onOpen);
@@ -126,12 +125,12 @@ const BaseModal = ({ children, isDivided, disableBody, setOnOpen, className, ...
         animate: {
           y: 0,
           opacity: 1,
-          transition: { type: "spring", stiffness: 500, damping: 20 },
+          transition: { type: 'spring', stiffness: 500, damping: 20 },
         },
         exit: {
           y: -50,
           opacity: 0,
-          transition: { duration: 0.2, ease: "easeIn" },
+          transition: { duration: 0.2, ease: 'easeIn' },
         },
       }}
       {...props}
@@ -147,9 +146,7 @@ const BaseModal = ({ children, isDivided, disableBody, setOnOpen, className, ...
               {disableBody && bodyContent}
 
               {childArray.map((child, i) =>
-                isBody(child)
-                  ? React.cloneElement(child, { key: i })
-                  : null
+                isBody(child) ? React.cloneElement(child, { key: i }) : null,
               )}
 
               {isDivided && footer && <HeroDivider />}
@@ -159,46 +156,46 @@ const BaseModal = ({ children, isDivided, disableBody, setOnOpen, className, ...
         )}
       </HeroModalContent>
     </HeroModal>
-  )
+  );
 };
 
-const Modal = ({
-  kind,
-  children,
-  ...props
-}) => {
+const Modal = ({ kind, children, ...props }) => {
   const allProps = {
-    ...props
-  }
+    ...props,
+  };
 
-  return <KindsManager
-    baseProps={baseProps}
-    kingdoms={kingdoms}
-    kinds={kinds}
-    kind={kind}
-    defaultKind={defaultKind}
-    {...allProps}
-  >
-    {children}
-  </KindsManager>
+  return (
+    <KindsManager
+      baseProps={baseProps}
+      kingdoms={kingdoms}
+      kinds={kinds}
+      kind={kind}
+      defaultKind={defaultKind}
+      {...allProps}
+    >
+      {children}
+    </KindsManager>
+  );
 };
 
 export default Modal;
 
-const createSub = (defaultKingdom) => ({ children, kind, ...props }) => (
-  <KindsManager
-    baseProps={baseProps}
-    kingdom={kingdoms[defaultKingdom]}
-    kinds={kinds}
-    kind={kind}
-    defaultKind={defaultKingdom}
-    {...props}
-  >
-    {children}
-  </KindsManager>
-);
+const createSub =
+  (defaultKingdom) =>
+  ({ children, kind, ...props }) => (
+    <KindsManager
+      baseProps={baseProps}
+      kingdom={kingdoms[defaultKingdom]}
+      kinds={kinds}
+      kind={kind}
+      defaultKind={defaultKingdom}
+      {...props}
+    >
+      {children}
+    </KindsManager>
+  );
 
-Modal.Header = createSub("header");
-Modal.Body = createSub("body");
-Modal.Footer = createSub("footer");
-Modal.CloseButton = createSub("closeButton");
+Modal.Header = createSub('header');
+Modal.Body = createSub('body');
+Modal.Footer = createSub('footer');
+Modal.CloseButton = createSub('closeButton');

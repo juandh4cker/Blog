@@ -21,7 +21,7 @@ export const useApi = () => {
   //Mutations
   const createMutation = (
     mutationFn,
-    { defaultOnSuccess, defaultOnError, defaultOnSettled } = {}
+    { defaultOnSuccess, defaultOnError, defaultOnSettled } = {},
   ) => {
     return ({
       disableOnSuccess = false,
@@ -52,16 +52,15 @@ export const useApi = () => {
       });
   };
 
-
   //Auth
   const login = createMutation(
     ({ usernameOrEmail, password }) => api.apiLogin(usernameOrEmail, password),
-    { defaultOnError: (error) => toastError('Error al iniciar sesión', error.message) }
+    { defaultOnError: (error) => toastError('Error al iniciar sesión', error.message) },
   );
 
   const register = createMutation(
     ({ username, email, password }) => api.apiRegister(username, email, password),
-    { defaultOnError: (error) => toastError('Error al registrarte', error.message) }
+    { defaultOnError: (error) => toastError('Error al registrarte', error.message) },
   );
 
   // User
@@ -77,8 +76,8 @@ export const useApi = () => {
     ({ username }) => callWithAuth(api.followOrUnfollowUser)(username),
     {
       defaultOnSuccess: ({ username }) => queryClient.invalidateQueries(['user', username]),
-      defaultOnError: (error) => toastError("Error al seguir", error.message),
-    }
+      defaultOnError: (error) => toastError('Error al seguir', error.message),
+    },
   );
 
   //Post
@@ -88,7 +87,7 @@ export const useApi = () => {
       queryFn: () => api.fetchPosts(),
       retry: 1,
       refetchOnWindowFocus: false,
-    })
+    });
 
   const fetchPost = (ID) =>
     useQuery({
@@ -96,50 +95,38 @@ export const useApi = () => {
       queryFn: () => callWithAuth(api.fetchPost)(ID),
       retry: 1,
       refetchOnWindowFocus: false,
-    })
+    });
 
-  const addPost = createMutation(
-    ( postData ) => callWithAuth(api.addPost)(postData),
-    {
-      defaultOnSuccess: () => queryClient.invalidateQueries(['posts']),
-      defaultOnError: (error) => toastError("Error al crear el post", error.message),
-    }
-  );
+  const addPost = createMutation((postData) => callWithAuth(api.addPost)(postData), {
+    defaultOnSuccess: () => queryClient.invalidateQueries(['posts']),
+    defaultOnError: (error) => toastError('Error al crear el post', error.message),
+  });
 
-  const editPost = createMutation(
-    ({ ID, data }) => callWithAuth(api.editPost)(ID, data),
-    {
-      defaultOnSuccess: (data, variables) => {
-        const id = variables?.ID ?? variables?.id;
-        if (id) {
-          queryClient.invalidateQueries(['post', id]);
-        }
-        queryClient.invalidateQueries(['posts']);
-      },
-      defaultOnError: (error) => toastError('Error al editar el post', error.message),
-    }
-  );
+  const editPost = createMutation(({ ID, data }) => callWithAuth(api.editPost)(ID, data), {
+    defaultOnSuccess: (data, variables) => {
+      const id = variables?.ID ?? variables?.id;
+      if (id) {
+        queryClient.invalidateQueries(['post', id]);
+      }
+      queryClient.invalidateQueries(['posts']);
+    },
+    defaultOnError: (error) => toastError('Error al editar el post', error.message),
+  });
 
-  const deletePost = createMutation(
-    ( {ID} ) => callWithAuth(api.deletePost)(ID),
-    {
-      defaultOnSuccess: () => queryClient.invalidateQueries(['posts']),
-      defaultOnError: (error) => toastError('Error al eliminar el post', error.message),
-    }
-  );
+  const deletePost = createMutation(({ ID }) => callWithAuth(api.deletePost)(ID), {
+    defaultOnSuccess: () => queryClient.invalidateQueries(['posts']),
+    defaultOnError: (error) => toastError('Error al eliminar el post', error.message),
+  });
 
-  const likePost = createMutation(
-    ({ ID }) => callWithAuth(api.likePost)(ID),
-    {
-      defaultOnSuccess: (data, variables) => {
-        const id = variables?.ID ?? variables?.id ?? data?.ID ?? data?.id;
-        if (id) {
-          queryClient.invalidateQueries(['post', id]);
-        }
-      },
-      defaultOnError: (error) => toastError('Error al dar like', error.message),
-    }
-  );
+  const likePost = createMutation(({ ID }) => callWithAuth(api.likePost)(ID), {
+    defaultOnSuccess: (data, variables) => {
+      const id = variables?.ID ?? variables?.id ?? data?.ID ?? data?.id;
+      if (id) {
+        queryClient.invalidateQueries(['post', id]);
+      }
+    },
+    defaultOnError: (error) => toastError('Error al dar like', error.message),
+  });
 
   const addComment = createMutation(
     ({ postID, commentData }) => callWithAuth(api.addComment)(postID, commentData),
@@ -148,9 +135,8 @@ export const useApi = () => {
         const id = variables?.postID;
         if (id) queryClient.invalidateQueries(['post', id]);
       },
-      defaultOnError: (error) =>
-        toastError('Error al subir el comentario', error.message),
-    }
+      defaultOnError: (error) => toastError('Error al subir el comentario', error.message),
+    },
   );
 
   const deleteComment = createMutation(
@@ -163,16 +149,13 @@ export const useApi = () => {
             if (!oldData) return oldData;
             return {
               ...oldData,
-              comments: oldData.comments.filter(
-                (c) => c.ID !== variables.commentID
-              ),
+              comments: oldData.comments.filter((c) => c.ID !== variables.commentID),
             };
           });
         }
       },
-      defaultOnError: (error) =>
-        toastError('Error al eliminar el comentario', error.message),
-    }
+      defaultOnError: (error) => toastError('Error al eliminar el comentario', error.message),
+    },
   );
 
   return {

@@ -1,10 +1,7 @@
-import {
-  User as HeroUser,
-  Avatar as HeroAvatar
-} from "@heroui/react";
+import { User as HeroUser, Avatar as HeroAvatar } from '@heroui/react';
 import { useNav } from '@/hooks';
 
-import KindsManager from '../KindsManager'
+import KindsManager from '../KindsManager';
 
 const baseProps = {};
 
@@ -18,8 +15,8 @@ const kingdoms = {
     kingdomProps: {
       classNames: {
         base: 'hover:bg-primary/20 cursor-pointer p-1',
-        wrapper: 'items-center p-1'
-      }
+        wrapper: 'items-center p-1',
+      },
     },
   },
   avatar: {
@@ -27,7 +24,7 @@ const kingdoms = {
     kingdomProps: {
       isBordered: true,
       showFallback: true,
-      src: "https://www.svgrepo.com/show/452030/avatar-default.svg",
+      src: 'https://www.svgrepo.com/show/452030/avatar-default.svg',
     },
   },
 };
@@ -40,13 +37,13 @@ const kinds = {
   user: {
     kingdom: 'user',
     props: {
-      descriptionClassName: 'text-[0.6rem]'
+      descriptionClassName: 'text-[0.6rem]',
     },
   },
   comment: {
     kingdom: 'user',
     props: {
-      descriptionClassName: 'text-yellow-300'
+      descriptionClassName: 'text-yellow-300',
     },
   },
   avatar: {
@@ -63,7 +60,7 @@ const kinds = {
 
 const defaultKind = 'user';
 
-const BaseUser = ({ src, avatarProps, classNames, descriptionClassName, ...props}) => {
+const BaseUser = ({ src, user, avatarProps, classNames, descriptionClassName, ...props }) => {
   const { navUser } = useNav();
 
   return (
@@ -71,11 +68,11 @@ const BaseUser = ({ src, avatarProps, classNames, descriptionClassName, ...props
       <HeroUser
         classNames={{
           description: descriptionClassName,
-          ...classNames
+          ...classNames,
         }}
         avatarProps={{
           src: src,
-          ...avatarProps
+          ...avatarProps,
         }}
         {...props}
       />
@@ -83,25 +80,23 @@ const BaseUser = ({ src, avatarProps, classNames, descriptionClassName, ...props
   );
 };
 
-const UserCard = ({
-  kind,
-  children,
-  ...props
-}) => {
+const UserCard = ({ kind, children, ...props }) => {
   const allProps = {
-    ...props
-  }
+    ...props,
+  };
 
-  return <KindsManager
-    baseProps={baseProps}
-    kingdoms={kingdoms}
-    kinds={kinds}
-    kind={kind}
-    defaultKind={defaultKind}
-    {...allProps}
-  >
-    {children}
-  </KindsManager>
+  return (
+    <KindsManager
+      baseProps={baseProps}
+      kingdoms={kingdoms}
+      kinds={kinds}
+      kind={kind}
+      defaultKind={defaultKind}
+      {...allProps}
+    >
+      {children}
+    </KindsManager>
+  );
 };
 
 export default UserCard;

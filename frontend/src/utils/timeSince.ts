@@ -1,7 +1,7 @@
-export const timeSince = (date) => {
+export const timeSince = (date: string): string => {
   const now = new Date();
   const dateCreation = new Date(date);
-  const seconds = Math.floor((now - dateCreation) / 1000);
+  const seconds = Math.floor((now.getTime() - dateCreation.getTime()) / 1000);
 
   if (seconds < 60) return `${seconds} segundo${seconds !== 1 ? 's' : ''}`;
 

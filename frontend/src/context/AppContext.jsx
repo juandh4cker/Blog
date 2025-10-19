@@ -15,7 +15,7 @@ const AppContext = ({ children }) => {
 
   return providers.reduceRight(
     (acc, [Provider, props]) => <Provider {...props}>{acc}</Provider>,
-    children
+    children,
   );
 };
 
