@@ -1,8 +1,12 @@
 # frontend/.dockerignore
 node_modules/
+dist/
+build/
+.vite/
 .env
 .git
 .DS_Store
-dist/
-build/
 *.log
+.eslintcache
+.prettierignore
+.eslintignore

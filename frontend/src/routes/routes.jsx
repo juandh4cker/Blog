@@ -1,5 +1,5 @@
 import { Blog, ConfigPage, Dashboard, EditPost, Post, User, Welcome } from '@/pages';
-import { Menu } from '@/components';
+import { Menu, Error } from '@/components';
 
 export const routes = [
   {

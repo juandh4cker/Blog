@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
-import { getLocalstorage, setLocalstorage } from '@/utils/localStorage';
+import { getLocalstorage, setLocalstorage } from '@/utils/localstorage';
 
 export const ConfigContext = createContext();
 
